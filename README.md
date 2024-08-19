@@ -1,2 +1,0 @@
-# AssistWeb
-Proyecto Assist Web
