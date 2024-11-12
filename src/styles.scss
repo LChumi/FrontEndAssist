@@ -6,7 +6,7 @@
 $gutter: 1rem; //for primeflex grid system
 
 /* Layout */
-@import "public/layout/styles/layout/layout.scss";
+@import "../public/layout/styles/layout/layout.scss";
 
 /* PrimeNG */
 @import "../node_modules/primeng/resources/primeng.min.css";
@@ -18,6 +18,6 @@ $gutter: 1rem; //for primeflex grid system
 @import "../node_modules/quill/dist/quill.snow.css";
 
 /* Demos */
-@import "public/demo/styles/flags/flags.css";
-@import "public/demo/styles/badges.scss";
-@import "public/demo/styles/code.scss";
+@import "../public/styles/flags/flags.css";
+@import "../public/styles/badges.scss";
+@import "../public/styles/code.scss";
