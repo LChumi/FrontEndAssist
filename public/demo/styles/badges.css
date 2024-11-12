@@ -1,0 +1,93 @@
+.product-badge {
+  border-radius: var(--border-radius);
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+.product-badge.status-instock {
+  background: var(--green-200);
+  color: var(--green-800);
+}
+.product-badge.status-outofstock {
+  background: var(--pink-200);
+  color: var(--pink-800);
+}
+.product-badge.status-lowstock {
+  background: var(--yellow-200);
+  color: var(--yellow-800);
+}
+
+.product-badge-text {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+.product-badge-text.status-instock {
+  color: var(--green-500);
+}
+.product-badge-text.status-outofstock {
+  color: var(--pink-500);
+}
+.product-badge-text.status-lowstock {
+  color: var(--yellow-500);
+}
+
+.customer-badge {
+  border-radius: var(--border-radius);
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+.customer-badge.status-qualified {
+  background: var(--green-200);
+  color: var(--green-800);
+}
+.customer-badge.status-unqualified {
+  background: var(--pink-200);
+  color: var(--pink-800);
+}
+.customer-badge.status-negotiation {
+  background: var(--yellow-200);
+  color: var(--yellow-800);
+}
+.customer-badge.status-new {
+  background: var(--blue-200);
+  color: var(--blue-800);
+}
+.customer-badge.status-renewal {
+  background: var(--purple-200);
+  color: var(--purple-800);
+}
+.customer-badge.status-proposal {
+  background: var(--orange-200);
+  color: var(--orange-800);
+}
+
+.order-badge {
+  border-radius: var(--border-radius);
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+.order-badge.order-delivered {
+  background: #C8E6C9;
+  color: #256029;
+}
+.order-badge.order-cancelled {
+  background: #FFCDD2;
+  color: #C63737;
+}
+.order-badge.order-pending {
+  background: #FEEDAF;
+  color: #8A5340;
+}
+.order-badge.order-returned {
+  background: #ECCFFF;
+  color: #694382;
+}
