@@ -2,13 +2,15 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {LayoutService} from "../../service/layout.service";
 import {RouterLink} from "@angular/router";
 import {AppMenuComponent} from "../app-menu/app-menu.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
     RouterLink,
-    AppMenuComponent
+    AppMenuComponent,
+    NgOptimizedImage
   ],
   templateUrl: './sidebar.component.html',
   styles: ``
