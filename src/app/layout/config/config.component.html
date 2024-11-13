@@ -3,7 +3,7 @@
 </button>
 
 <p-sidebar [(visible)]="visible" position="right" [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'" styleClass="layout-config-sidebar w-18rem">
-  <h5>Themes</h5>
+  <h5>Temas</h5>
   <div class="flex flex-wrap row-gap-3">
     <div class="w-3" *ngFor="let theme of componentThemes">
       <button type="button"
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <h5>Scale</h5>
+  <h5>Tamaño</h5>
   <div class="flex align-items-center">
     <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" [disabled]="scale === scales[0]"></button>
     <div class="flex gap-2 align-items-center">
@@ -23,31 +23,31 @@
   </div>
 
   <ng-container *ngIf="!minimal">
-    <h5>Menu Type</h5>
+    <h5>Tipo Menu</h5>
     <div class="flex flex-wrap row-gap-3">
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="static" [(ngModel)]="menuMode" inputId="mode1"></p-radioButton>
-        <label for="mode1">Static</label>
+        <label for="mode1">Estatico</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="overlay" [(ngModel)]="menuMode" inputId="mode2"></p-radioButton>
-        <label for="mode2">Overlay</label>
+        <label for="mode2">Cubierto</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="slim" [(ngModel)]="menuMode" inputId="mode3"></p-radioButton>
-        <label for="mode3">Slim</label>
+        <label for="mode3">Iconos</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="slim-plus" [(ngModel)]="menuMode" inputId="mode4"></p-radioButton>
-        <label for="mode3">Slim +</label>
+        <label for="mode3">Iconos +</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="reveal" [(ngModel)]="menuMode" inputId="mode6"></p-radioButton>
-        <label for="mode5">Reveal</label>
+        <label for="mode5">Revelar</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="drawer" [(ngModel)]="menuMode" inputId="mode7"></p-radioButton>
-        <label for="mode6">Drawer</label>
+        <label for="mode6">Cajon</label>
       </div>
       <div class="flex align-items-center gap-2 w-6">
         <p-radioButton name="menuMode" value="horizontal" [(ngModel)]="menuMode" inputId="mode5"></p-radioButton>
@@ -55,49 +55,49 @@
       </div>
     </div>
 
-    <h5>Menu Theme</h5>
+    <h5>Tema del menú</h5>
     <div class="field-radiobutton">
       <p-radioButton name="menuTheme" value="colorScheme" [(ngModel)]="menuTheme" inputId="menutheme-colorscheme"></p-radioButton>
-      <label for="menutheme-colorscheme">Color Scheme</label>
+      <label for="menutheme-colorscheme">Combinación de colores </label>
     </div>
     <div class="field-radiobutton">
       <p-radioButton name="menuTheme" value="primaryColor" [(ngModel)]="menuTheme" inputId="menutheme-primarycolor"></p-radioButton>
-      <label for="menutheme-primarycolor">Primary Color</label>
+      <label for="menutheme-primarycolor">Color primario</label>
     </div>
     <div class="field-radiobutton">
       <p-radioButton name="menuTheme" value="transparent" [(ngModel)]="menuTheme" inputId="menutheme-transparent"></p-radioButton>
-      <label for="menutheme-transparent">Transparent</label>
+      <label for="menutheme-transparent">Transparente</label>
     </div>
   </ng-container>
 
-  <h5>Color Scheme</h5>
+  <h5>Esquema de colores</h5>
   <div class="field-radiobutton">
     <p-radioButton name="colorScheme" value="light" [(ngModel)]="colorScheme" inputId="mode-light"></p-radioButton>
-    <label for="mode-light">Light</label>
+    <label for="mode-light">Claro</label>
   </div>
   <div class="field-radiobutton">
     <p-radioButton name="colorScheme" value="dim" [(ngModel)]="colorScheme" inputId="mode-dim"></p-radioButton>
-    <label for="mode-dim">Dim</label>
+    <label for="mode-dim">Tenue</label>
   </div>
   <div class="field-radiobutton">
     <p-radioButton name="colorScheme" value="dark" [(ngModel)]="colorScheme" inputId="mode-dark"></p-radioButton>
-    <label for="mode-dark">Dark</label>
+    <label for="mode-dark">Oscuro</label>
   </div>
 
   <ng-container *ngIf="!minimal">
-    <h5>Input Style</h5>
+    <h5>Estilo de entrada</h5>
     <div class="flex">
       <div class="field-radiobutton flex-1">
         <p-radioButton name="inputStyle" value="outlined" [(ngModel)]="inputStyle" inputId="outlined_input"></p-radioButton>
-        <label for="outlined_input">Outlined</label>
+        <label for="outlined_input">Delineado</label>
       </div>
       <div class="field-radiobutton flex-1">
         <p-radioButton name="inputStyle" value="filled" [(ngModel)]="inputStyle" inputId="filled_input"></p-radioButton>
-        <label for="filled_input">Filled</label>
+        <label for="filled_input">Relleno</label>
       </div>
     </div>
 
-    <h5>Ripple Effect</h5>
+    <h5>Efecto dominó</h5>
     <p-inputSwitch [(ngModel)]="ripple"></p-inputSwitch>
   </ng-container>
 </p-sidebar>
