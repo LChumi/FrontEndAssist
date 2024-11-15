@@ -1,0 +1,19 @@
+<div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <div class="sidebar-header">
+    <a [routerLink]="['/']" class="app-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" class="app-logo-normal">
+        <!-- Imagen -->
+        <image href="/images/logo_assist.svg" x="0" y="0" height="75" width="75"/>
+        <!-- Texto ASSIST -->
+        <text x="65" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="var(--logo-color)">ASSIST</text>
+      </svg>
+      <img ngSrc="/images/logoAssist.svg" class="app-logo-small" alt="Logo" height="34" width="32">
+    </a>
+    <button class="layout-sidebar-anchor p-link z-2 mb-2" type="button" (click)="anchor()"></button>
+  </div>
+
+
+  <div #menuContainer class="layout-menu-container">
+    <app-menu></app-menu>
+  </div>
+</div>
