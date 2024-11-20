@@ -1,7 +1,7 @@
 import {effect, Injectable, signal} from '@angular/core';
-import {AppConfig} from "./interfaces/app-config";
 import {Subject} from "rxjs";
-import {LayoutState} from "./interfaces/layout-state";
+import {AppConfig} from "@layout/service/interfaces/app-config";
+import {LayoutState} from "@layout/service/interfaces/layout-state";
 
 @Injectable({
   providedIn: 'root'

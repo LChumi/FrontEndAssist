@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LayoutService} from "../service/layout.service";
-import {MenuService} from "../service/menu.service";
-import {MenuMode} from "../service/interfaces/menu-mode";
-import {ColorScheme} from "../service/interfaces/color-scheme";
-import {MenuColorScheme} from "../service/interfaces/menu-color-scheme";
 import {SidebarModule} from "primeng/sidebar";
 import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {FormsModule} from "@angular/forms";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {ButtonDirective} from "primeng/button";
+import {LayoutService} from "@layout/service/layout.service";
+import {MenuService} from "@layout/service/menu.service";
+import {MenuMode} from "@layout/service/interfaces/menu-mode";
+import {ColorScheme} from "@layout/service/interfaces/color-scheme";
+import {MenuColorScheme} from "@layout/service/interfaces/menu-color-scheme";
 
 @Component({
   selector: 'app-config',

@@ -1,8 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {LayoutService} from "../../service/layout.service";
-import {BreadcrumbComponent} from "../breadcrumb/breadcrumb.component";
 import {ChipsModule} from "primeng/chips";
 import {ButtonDirective} from "primeng/button";
+import {BreadcrumbComponent} from "@layout/components/breadcrumb/breadcrumb.component";
+import {LayoutService} from "@layout/service/layout.service";
 
 @Component({
   selector: 'app-topbar',

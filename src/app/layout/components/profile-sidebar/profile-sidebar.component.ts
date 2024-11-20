@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {LayoutService} from "../../service/layout.service";
 import {SidebarModule} from "primeng/sidebar";
 import {BadgeModule} from "primeng/badge";
+import {LayoutService} from "@layout/service/layout.service";
 
 @Component({
   selector: 'app-profilemenu',
