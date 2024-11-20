@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {BehaviorSubject, filter} from "rxjs";
-import {Breadcrumb} from "./breadcrumb";
 import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {AsyncPipe, NgForOf} from "@angular/common";
+import {Breadcrumb} from "@layout/components/breadcrumb/breadcrumb";
 
 @Component({
   selector: 'app-breadcrumb',

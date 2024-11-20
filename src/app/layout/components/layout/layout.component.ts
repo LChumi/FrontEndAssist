@@ -1,14 +1,14 @@
 import {Component, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {filter, Subscription} from "rxjs";
 import {NavigationEnd, Router, RouterOutlet} from "@angular/router";
-import {MenuService} from "../../service/menu.service";
-import {LayoutService} from "../../service/layout.service";
-import {SidebarComponent} from "../sidebar/sidebar.component";
-import {TopbarComponent} from "../topbar/topbar.component";
-import {BreadcrumbComponent} from "../breadcrumb/breadcrumb.component";
 import {NgClass} from "@angular/common";
-import {ProfileSidebarComponent} from "../profile-sidebar/profile-sidebar.component";
-import {ConfigComponent} from "../../config/config.component";
+import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
+import {TopbarComponent} from "@layout/components/topbar/topbar.component";
+import {BreadcrumbComponent} from "@layout/components/breadcrumb/breadcrumb.component";
+import {ProfileSidebarComponent} from "@layout/components/profile-sidebar/profile-sidebar.component";
+import {ConfigComponent} from "@layout/config/config.component";
+import {MenuService} from "@layout/service/menu.service";
+import {LayoutService} from "@layout/service/layout.service";
 
 @Component({
   selector: 'app-layout',
