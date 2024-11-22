@@ -19,7 +19,7 @@ export class AppMenuComponent implements OnInit {
 
   ngOnInit() {
     console.log("ingreso a menus")
-    this.menuService.getMenus(1,2).subscribe(
+    this.menuService.getMenus(10009349,2).subscribe(
       menus => {
         console.log(menus)
         this.model = menus;
