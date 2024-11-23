@@ -14,10 +14,11 @@ export const routes: Routes = [
         path:'inicio', component: LayoutComponent,
         children:[
         ]
-      }
+      },
+      {path: 'deuna/:id', loadComponent: () => import('./features/deuna/deuna.component')},
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
   {path: '', redirectTo: '/assis/auth', pathMatch: "full"},
-  {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
+  {path: '**', redirectTo: 'notFound', pathMatch: 'full'},
 ];
