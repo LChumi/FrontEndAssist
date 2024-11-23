@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
+import {NotFoundComponent} from "./features/error/not-found/not-found.component";
 
 export const routes: Routes = [
   {
@@ -12,9 +13,11 @@ export const routes: Routes = [
       {
         path:'inicio', component: LayoutComponent,
         children:[
-
         ]
       }
     ]
-  }
+  },
+  {path: 'notFound', component: NotFoundComponent},
+  {path: '', redirectTo: '/assis/auth', pathMatch: "full"},
+  {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];
