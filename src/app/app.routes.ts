@@ -15,7 +15,7 @@ export const routes: Routes = [
         children:[
         ]
       },
-      {path: 'deuna/:id', loadComponent: () => import('./features/deuna/deuna.component')},
+      {path: 'deuna/:id/:empresa', loadComponent: () => import('./features/deuna/deuna.component')},
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
