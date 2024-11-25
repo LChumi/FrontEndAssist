@@ -11,6 +11,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/auth/login/login.component')
       },
       {
+        path:'forgotpassword',
+        loadComponent: () => import('./features/auth/forgotpassword/forgotpassword.component')
+      },
+      {
         path:'inicio', component: LayoutComponent,
         children:[
         ]
