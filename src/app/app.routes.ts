@@ -23,6 +23,6 @@ export const routes: Routes = [
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
-  {path: '', redirectTo: '/assis/auth', pathMatch: "full"},
+  {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'},
 ];
