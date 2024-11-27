@@ -1,4 +1,4 @@
-import {MenuItems} from "@models/menu-items";
+import {MenuItems} from "@models/dto/menu-items";
 
 export interface MenuPrincipal {
   label:      string;
