@@ -3,6 +3,7 @@ import {ChipsModule} from "primeng/chips";
 import {ButtonDirective} from "primeng/button";
 import {BreadcrumbComponent} from "@layout/components/breadcrumb/breadcrumb.component";
 import {LayoutService} from "@layout/service/layout.service";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-topbar',
@@ -10,7 +11,8 @@ import {LayoutService} from "@layout/service/layout.service";
   imports: [
     BreadcrumbComponent,
     ChipsModule,
-    ButtonDirective
+    ButtonDirective,
+    NgOptimizedImage
   ],
   templateUrl: './topbar.component.html',
   styles: ``

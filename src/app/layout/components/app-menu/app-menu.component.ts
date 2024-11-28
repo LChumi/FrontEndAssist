@@ -15,15 +15,30 @@ export class AppMenuComponent implements OnInit {
 
   menuService = inject(MenusService)
 
+  usrId: number | null = 0
+
   model: any[] = [];
 
+  constructor() {
+    this.convertirStringNumber()
+  }
+
   ngOnInit() {
-    console.log("ingreso a menus")
-    this.menuService.getMenus(1,2).subscribe(
-      menus => {
-        console.log(menus)
-        this.model = menus;
-      }
-    )
+    this.convertirStringNumber()
+    if (this.usrId){
+      this.menuService.getMenus(this.usrId,2).subscribe(
+        menus => {
+          console.log(menus)
+          this.model = menus;
+        }
+      )
+    }
+  }
+
+  convertirStringNumber(){
+    const id=sessionStorage.getItem('usrid')
+    if (id){
+      this.usrId= parseInt(id)
+    }
   }
 }
