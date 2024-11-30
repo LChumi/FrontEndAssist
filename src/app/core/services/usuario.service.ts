@@ -17,7 +17,7 @@ export class UsuarioService {
   constructor() { }
 
   temporalLogin(request: AuthenticationRequest): Observable<UserResponse>{
-    return this.http.post<UserResponse>(`${this.baseUrl}/login`, request,)
+    return this.http.post<UserResponse>(`${this.baseUrl}/login`, request)
   }
 
   recoveryPassword(userId: string): Observable<ServiceResponse>{
