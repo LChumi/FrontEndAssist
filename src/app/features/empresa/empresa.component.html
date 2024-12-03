@@ -1,1 +1,37 @@
-<p>empresa works!</p>
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="app-logo-normal">
+      <!-- Imagen -->
+      <image href="/images/logo_assist.png" x="38%" y="10" height="75" width="75"/>
+      <!-- Texto ASSIST -->
+      <text x="50%" y="90" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="var(--primary-color)" text-anchor="middle">ASSIST</text>
+      <!-- Texto SOFTWARE -->
+      <text x="50%" y="95" font-family="Arial, sans-serif" font-size="5" font-weight="400" fill="var(--primary-color)" text-anchor="middle">SOFTWARE</text>
+    </svg>
+
+    <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(0, 102, 255, 0) 30%);">
+      <div class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center" style="border-radius:53px">
+        <div class="grid flex flex-column align-items-center">
+          <div class="flex justify-content-center align-items-center border-circle" style="width:3.2rem; height:3.2rem;background: var(--primary-color)">
+            <i class="text-50 pi pi-fw pi-building text-2xl"></i>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 40" class="app-logo-normal">
+            <text x="50%" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="var(--primary-color)" text-anchor="middle">Empresas</text>
+          </svg>
+          <span class="mb-5" style="color:var(--primary-color); font-weight: bold">Seleccione la empresa </span>
+
+          <div class="grid flex flex-column">
+            @for(empresa of listasEmpresa; track $index){
+              <button pButton pRipple class="flex-auto p-button-outlined" (click)="empresaSelected(empresa)">{{empresa.nombrecorto}}</button>
+            }
+          </div>
+
+          </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<app-config [minimal]="true"></app-config>
