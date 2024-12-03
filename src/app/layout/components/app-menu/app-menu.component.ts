@@ -16,29 +16,22 @@ export class AppMenuComponent implements OnInit {
   menuService = inject(MenusService)
 
   usrId: number | null = 0
+  empresaId:number | null=0
 
   model: any[] = [];
 
-  constructor() {
-    this.convertirStringNumber()
-  }
-
   ngOnInit() {
-    this.convertirStringNumber()
-    if (this.usrId){
-      this.menuService.getMenus(this.usrId,2).subscribe(
+    const usrIdStr =sessionStorage.getItem('usrid')
+    const empresaStr = sessionStorage.getItem('empresa')
+    if (usrIdStr && empresaStr){
+      const usrId = Number(usrIdStr)
+      const empresa = Number(empresaStr)
+      this.menuService.getMenus(usrId,empresa).subscribe(
         menus => {
-          console.log(menus)
-          this.model = menus;
+          this.model= menus
         }
       )
     }
   }
 
-  convertirStringNumber(){
-    const id=sessionStorage.getItem('usrid')
-    if (id){
-      this.usrId= parseInt(id)
-    }
-  }
 }
