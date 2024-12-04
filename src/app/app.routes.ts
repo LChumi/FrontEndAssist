@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
 import {NotFoundComponent} from "./features/error/not-found/not-found.component";
+import DeunaComponent from "./features/deuna/deuna.component";
 
 export const routes: Routes = [
   {
@@ -8,25 +9,51 @@ export const routes: Routes = [
     children: [
       {
         path:'auth',
-        loadComponent: () => import('./features/auth/login/login.component')
-      },
-      {
-        path:'forgotpassword',
-        loadComponent: () => import('./features/auth/forgotpassword/forgotpassword.component')
-      },
-      {
-        path:'empresas',
-        loadComponent: () => import('./features/empresa/empresa.component')
+        children:[
+          {
+            path:'login',
+            loadComponent: () => import('./features/auth/login/login.component')
+          },
+          {
+            path:'forgotpassword',
+            loadComponent: () => import('./features/auth/forgotpassword/forgotpassword.component')
+          },
+          {
+            path:'empresas',
+            loadComponent: () => import('./features/empresa/empresa.component')
+          },
+          {path: '', redirectTo: 'login', pathMatch: "full"}
+        ]
       },
       {
         path:'inicio', component: LayoutComponent,
         children:[
+          {path: 'importaciones',
+            data: {breadcrumb: 'Importacion'},
+            children:[
+              {
+                path:'carga-solicitud',
+                loadComponent: () => import('./features/importacion/procesos/carga-solicitud/carga-solicitud.component'),
+                data: {breadcrumb: 'Carga solicitud '}
+              },
+            ]
+          },
+          {path: 'contabilidad',
+            data: {breadcrumb: 'Contabilidad'},
+            children:[
+              {
+                path: 'carga-documentos',
+                loadComponent: () => import('./features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
+                data: {breadcrumb: 'Carga Documentos '},
+              }
+            ]
+          }
         ]
       },
-      {path: 'deuna/:id/:empresa', loadComponent: () => import('./features/deuna/deuna.component')},
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
   {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'},
+  {path:'deuna:/id/:empresa', component: DeunaComponent}
 ];
