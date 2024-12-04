@@ -20,10 +20,10 @@
           </svg>
           <span class="mb-5" style="color:var(--primary-color); font-weight: bold">Seleccione la empresa </span>
 
-          <div class="grid flex flex-column">
-            @for(empresa of listasEmpresa; track $index){
-              <button pButton pRipple class="flex-auto p-button-outlined" (click)="empresaSelected(empresa)">{{empresa.nombrecorto}}</button>
-            }
+          <div class="grid flex flex-column gap-3">
+              @for(empresa of listasEmpresa; track $index){
+                <button pButton pRipple class="p-button-outlined" type="button" (click)="empresaSelected(empresa)">{{empresa.nombrecorto}}</button>
+              }
           </div>
 
           </div>

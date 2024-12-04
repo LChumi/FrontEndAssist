@@ -77,7 +77,7 @@ export default class LoginComponent implements OnInit{
   }
 
   goToDashboard(){
-    this.router.navigate(['/assist', 'empresas'])
+    this.router.navigate(['/assist','auth', 'empresas'])
   }
 
 }
