@@ -27,7 +27,7 @@ export default class ForgotpasswordComponent implements OnInit{
   resendForm!: FormGroup
 
   response= true;
-  submitted = false;
+  loading = false;
   serviceResponse: ServiceResponse={} as ServiceResponse
 
   usuarioService = inject(UsuarioService)
@@ -40,7 +40,7 @@ export default class ForgotpasswordComponent implements OnInit{
   }
 
   onSubmit(){
-    this.submitted= true;
+    this.loading= true;
     if (this.resendForm.invalid){
       return
     }
@@ -49,6 +49,9 @@ export default class ForgotpasswordComponent implements OnInit{
       data=>{
         this.response=false
         this.serviceResponse = data
+        this.loading=false;
+      }, error => {
+        this.loading = false
       }
     )
   }
