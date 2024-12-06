@@ -1,1 +1,52 @@
-<p>carga-solicitud works!</p>
+<div class="card">
+  <div class="grid grid-nogutter">
+    <div class="col-12 px-4 mt-4 md:mt-6 md:px-6">
+      <span class="text-900 block font-bold text-xl">Carga de archivo solicitud de Importacion</span>
+    </div>
+    <div class="col-12 lg:col-6 h-full px-4 md:px-6">
+      <ul class="flex list-none flex-wrap p-0 mb-6">
+        <li class="flex align-items-center text-primary mr-2">Carga Solicitud <i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
+        <li class="flex align-items-center text-500 mr-2">Informacion<i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
+        <li class="flex align-items-center text-500 mr-2">Lista productos <i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
+        <li class="flex align-items-center text-500 mr-2">Solicitud Orden</li>
+      </ul>
+
+      <div class="grid formgrid">
+        <div class="col-12 field mb-6">
+          <span class="text-900 text-2xl block font-medium mb-5">Carga de Archivo</span>
+        </div>
+
+        <div class="card flex justify-content-center">
+          <p-fileUpload
+            name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            (onUpload)="onUpload($event)"
+            [multiple]="false"
+            accept=".xlsx"
+            maxFileSize="1048576">
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadFiles.length">
+                <li *ngFor="let file of uploadFiles">
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-12 lg:col-6 px-4 md:px-6">
+      <div class="pb-3 surface-border">
+        <span class="text-900 font-medium text-xl">Lista de Productos</span>
+      </div>
+
+      <div class="py-2 mt-3">
+
+      </div>
+    </div>
+  </div>
+</div>
