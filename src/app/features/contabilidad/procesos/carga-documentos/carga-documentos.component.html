@@ -8,6 +8,7 @@
           <h4>Cargar archivo</h4>
           <p-fileUpload
             name="doc[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
             (onUpload)="uploadFilesDirectly($event)"
             (onSelect)="onFilesSelected($event)"
             [multiple]="true"
@@ -37,7 +38,7 @@
                     pInputTextarea
                     class="w-full p-inputtext"
                     style="resize:none; overflow-y:auto"></textarea>
-          <button pButton pRipple label="Enviar Texto" type="button" (click)="uploadString(textContent)"></button>
+          <button pButton pRipple label="Enviar Texto" [loading]="loading" icon ="pi pi-send" (click)="uploadString(textContent)"></button>
         </div>
       </div>
     </div>

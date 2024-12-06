@@ -28,7 +28,7 @@ export default class CargaDocumentosComponent implements OnInit{
   router = inject(Router)
 
   emailEmpresa = ''; // Email empresarial
-  isSending = false; // Estado de envío
+  loading = false; // Estado de envío
   haveEmail = false
 
   id_usuario: any;
@@ -55,7 +55,7 @@ export default class CargaDocumentosComponent implements OnInit{
       return;
     }
 
-    this.isSending = true;
+    this.loading = true;
     let successCount = 0;
     let errorCount = 0;
 
@@ -80,7 +80,7 @@ export default class CargaDocumentosComponent implements OnInit{
 
   checkBatchCompletion(successCount: number, errorCount: number, totalFiles: number) {
     if (successCount + errorCount === totalFiles) {
-      this.isSending = false;
+      this.loading = false;
 
       const summary = `${successCount} archivo(s) enviado(s) exitosamente, ${errorCount} error(es).`;
       this.messageService.add({
@@ -102,7 +102,7 @@ export default class CargaDocumentosComponent implements OnInit{
       return;
     }
 
-    this.isSending = true;
+    this.loading = true;
     this.contabilidadService.sendString(data, this.emailEmpresa).subscribe(
       success => {
         this.messageService.add({
@@ -110,13 +110,13 @@ export default class CargaDocumentosComponent implements OnInit{
           summary: success ? 'Éxito' : 'Error',
           detail: success ? 'Texto enviado correctamente' : 'Error al enviar el texto'
         });
-        this.isSending = false;
+        this.loading = false;
         this.textContent = ''; // Limpiar textarea tras el envío
       },
       error => {
         console.error('Error al enviar el texto', error);
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error al enviar el texto'});
-        this.isSending = false;
+        this.loading = false;
       }
     );
   }

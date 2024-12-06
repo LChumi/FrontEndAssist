@@ -20,7 +20,7 @@ export class ContabilidadService {
 
   sendString(data: string, email: string): Observable<boolean> {
     const params = new HttpParams().set('email', email);
-    return this.http.post<boolean>(`${this.baseUrl}/recp/string`, data, { params })
+    return this.http.post<boolean>(`${this.baseUrl}recp/string`, data, { params })
       .pipe(
         catchError(error => {
           console.error('Error sending string:', error);
@@ -33,7 +33,7 @@ export class ContabilidadService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('email', email);
-    return this.http.post<boolean>(`${this.baseUrl}/recp/file`, formData)
+    return this.http.post<boolean>(`${this.baseUrl}recp/file`, formData)
       .pipe(
         catchError(error => {
           console.error('Error sending file:', error);
