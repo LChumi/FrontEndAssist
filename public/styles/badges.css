@@ -34,6 +34,30 @@
   color: var(--yellow-500);
 }
 
+.item-badge {
+  border-radius: var(--border-radius);
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.item-badge.status-nuevo {
+  background: var(--green-200);
+  color: var(--green-800);
+}
+
+.item-badge.status-reposicion {
+  background: var(--yellow-200);
+  color: var(--yellow-800);
+}
+
+.item-badge.status-proceso {
+  background: var(--orange-200);
+  color: var(--orange-800);
+}
+
 .customer-badge {
   border-radius: var(--border-radius);
   padding: 0.25em 0.5rem;
