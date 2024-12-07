@@ -22,7 +22,7 @@
 
           <div class="grid flex flex-column gap-3">
               @for(empresa of listasEmpresa; track $index){
-                <button pButton pRipple class="p-button-outlined" type="button" (click)="empresaSelected(empresa)">{{empresa.nombrecorto}}</button>
+                <button pButton pRipple class="p-button-outlined" type="button" (click)="empresaSelected(empresa)">{{empresa.nombre}}</button>
               }
           </div>
 
