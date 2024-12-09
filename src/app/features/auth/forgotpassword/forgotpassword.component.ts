@@ -5,7 +5,7 @@ import {Ripple} from "primeng/ripple";
 import {RouterLink} from "@angular/router";
 import {ConfigComponent} from "@layout/config/config.component";
 import {ServiceResponse} from "@models/record/service-response";
-import {UsuarioService} from "@services/usuario.service";
+import {UsuarioService} from "@services/api/usuario.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 @Component({

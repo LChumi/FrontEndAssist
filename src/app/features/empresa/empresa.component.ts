@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Empresa} from "@models/entities/empresa";
-import {MenusService} from "@services/menus.service";
+import {MenusService} from "@services/api/menus.service";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
@@ -38,6 +38,7 @@ export default class EmpresaComponent implements OnInit{
   empresaSelected(empresa:Empresa){
     if (empresa){
       sessionStorage.setItem('empresa', String(empresa.id))
+      sessionStorage.setItem('nombreEmpresa', empresa.nombre)
       this.goToInicio()
     }
   }

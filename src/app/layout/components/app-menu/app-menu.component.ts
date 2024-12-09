@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MenuitemComponent} from "@layout/components/menu-item/menuitem.component";
-import {MenusService} from "@services/menus.service";
+import {MenusService} from "@services/api/menus.service";
 
 @Component({
   selector: 'app-menu',
