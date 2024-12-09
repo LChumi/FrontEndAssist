@@ -1,11 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService, PrimeTemplate} from "primeng/api";
-import {FileService} from "@services/file.service";
+import {FileService} from "@services/api/file.service";
 import {Items} from "@models/record/items";
 import {OrderListModule} from "primeng/orderlist";
 import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
+import {ModalclienteComponent} from "../../../shared/component/modalcliente/modalcliente.component";
 
 @Component({
   standalone: true,
@@ -14,7 +15,8 @@ import {Ripple} from "primeng/ripple";
     PrimeTemplate,
     OrderListModule,
     TableModule,
-    Ripple
+    Ripple,
+    ModalclienteComponent
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``

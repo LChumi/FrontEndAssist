@@ -8,7 +8,7 @@ import {Ripple} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {ConfigComponent} from "@layout/config/config.component";
 import {PasswordModule} from "primeng/password";
-import {UsuarioService} from "@services/usuario.service";
+import {UsuarioService} from "@services/api/usuario.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
 
 @Component({

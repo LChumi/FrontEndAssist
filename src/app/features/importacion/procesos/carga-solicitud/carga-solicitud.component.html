@@ -1,6 +1,9 @@
 <div class="card">
   <div class="grid grid-nogutter">
     <div class="col-12">
+
+    </div>
+    <div class="col-12">
       <span class="text-900 block font-bold text-xl">Carga de archivo solicitud de Importacion</span>
     </div>
     <div class="col-12">
@@ -13,7 +16,7 @@
 
       <div class="col-12">
         <div class="pb-3 surface-border">
-          <span class="text-900 font-medium text-xl">Lista de Productos</span>
+          <app-modalcliente></app-modalcliente>
         </div>
 
         <div class="py-2 mt-3">
@@ -30,7 +33,6 @@
                   <th pSortableColumn="fob">FOB</th>
                   <th pSortableColumn="proveedor">Proveedor</th>
                   <th pSortableColumn="status">Status</th>
-                  <th>Image</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-item let-expanded="expanded">
