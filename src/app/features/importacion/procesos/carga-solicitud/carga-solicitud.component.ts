@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService, PrimeTemplate} from "primeng/api";
 import {FileService} from "@services/api/file.service";
@@ -21,7 +21,18 @@ import {ModalclienteComponent} from "../../../shared/component/modalcliente/moda
   templateUrl: './carga-solicitud.component.html',
   styles: ``
 })
-export default class CargaSolicitudComponent implements OnInit{
+export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
+
+  ngAfterViewInit() {
+    this.modalcliente.onBtnClick.subscribe(visible => {
+      this.modalVisible = visible
+    })
+    this.modalcliente.onChangeProv.subscribe(prov => {
+      this.proveedor= prov
+    })
+  }
 
   uploadFiles: any[] = []; // Archivos seleccionados
 
@@ -29,6 +40,9 @@ export default class CargaSolicitudComponent implements OnInit{
   fileService = inject(FileService)
 
   listItems : Items[] =[]
+  tipocliente='Proveedor'
+  proveedor=''
+  modalVisible = false;
 
   loading= false
   idEmpresa : any
@@ -41,6 +55,7 @@ export default class CargaSolicitudComponent implements OnInit{
   }
 
   onUpload(event : any) {
+    this.loading= true
     const files = event.files
     if (files.length === 0){
       this.messageService.add({
@@ -50,8 +65,6 @@ export default class CargaSolicitudComponent implements OnInit{
         });
       return
     }
-
-    this.loading= true
     let successCount =0;
     let errorCount =0;
 
@@ -83,6 +96,18 @@ export default class CargaSolicitudComponent implements OnInit{
         summary: 'Envío completado',
         detail: summary
       });
+    }
+  }
+
+  abrirModal(){
+    this.modalVisible = !this.modalVisible;
+  }
+
+  getButtonLabel(): string {
+    if (this.proveedor == ''){
+      return 'Seleccionar Proveedor'
+    } else {
+      return this.proveedor
     }
   }
 

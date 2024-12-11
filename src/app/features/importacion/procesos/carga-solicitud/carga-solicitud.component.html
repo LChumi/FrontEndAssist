@@ -16,7 +16,42 @@
 
       <div class="col-12">
         <div class="pb-3 surface-border">
-          <app-modalcliente></app-modalcliente>
+          <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-success mr-2" (click)="abrirModal()"></button>
+          <app-modalcliente [tipoCliente]="tipocliente" [visible]="modalVisible"></app-modalcliente>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card justify-content-center">
+            <span class="text-900 text-2xl block font-medium mb-5">Carga de Archivo</span>
+            @if (loading){
+              <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #70aeff"></i>
+            }@else{
+              <p-fileUpload
+                name="solicitud[]"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                (onUpload)="onUpload($event)"
+                [multiple]="false"
+                accept=".xlsx"
+                chooseLabel="Seleccionar"
+                uploadLabel="Subir"
+                cancelLabel="Cancelar"
+                [maxFileSize]="20971520"> <!--20MB-->
+                <ng-template  pTemplate="content">
+                  @if (uploadFiles.length){
+                    <ul>
+                      @for (file of uploadFiles; track $index){
+                        <li>
+                          {{ file.name }} - {{ file.size }} bytes
+                        </li>
+                      }
+                    </ul>
+                  }
+                </ng-template>
+              </p-fileUpload>
+            }
+          </div>
         </div>
 
         <div class="py-2 mt-3">
@@ -51,37 +86,6 @@
               </ng-template>
             </p-table>
           </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <div class="col-12">
-          <span class="text-900 text-2xl block font-medium mb-5">Carga de Archivo</span>
-        </div>
-
-        <div class="card justify-content-center">
-          <p-fileUpload
-            name="demo[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            (onUpload)="onUpload($event)"
-            [multiple]="false"
-            accept=".xlsx"
-            chooseLabel="Seleccionar"
-            uploadLabel="Subir"
-            cancelLabel="Cancelar"
-            maxFileSize="20971520"> <!--20MB-->
-            <ng-template pTemplate="content">
-              @if (uploadFiles.length){
-                <ul>
-                  @for (file of uploadFiles; track $index){
-                    <li>
-                      {{ file.name }} - {{ file.size }} bytes
-                    </li>
-                  }
-                </ul>
-              }
-            </ng-template>
-          </p-fileUpload>
         </div>
       </div>
 
