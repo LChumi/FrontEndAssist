@@ -66,6 +66,7 @@
                   <th pSortableColumn="item">Item</th>
                   <th pSortableColumn="cantidad">Cantidad</th>
                   <th pSortableColumn="fob">FOB</th>
+                  <th pSortableColumn="cbm">CBM</th>
                   <th pSortableColumn="proveedor">Proveedor</th>
                   <th pSortableColumn="status">Status</th>
                 </tr>
@@ -80,6 +81,7 @@
                   <td style="min-width: 10rem;">{{item.item}}</td>
                   <td style="min-width: 10rem;">{{item.cantidad}}</td>
                   <td style="min-width: 10rem;">{{item.fob}}</td>
+                  <td style="min-width: 10rem;">{{item.cbm}}</td>
                   <td style="min-width: 10rem;">{{item.proveedor}}</td>
                   <td><span [class]="'item-badge status-' + item.status.toLowerCase()">{{item.status}}</span></td>
                 </tr>

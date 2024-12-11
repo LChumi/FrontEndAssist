@@ -5,5 +5,6 @@ export interface Items {
   cantidad:  number;
   fob:       number;
   proveedor: number;
+  cbm:       number;
   status:    string;
 }
