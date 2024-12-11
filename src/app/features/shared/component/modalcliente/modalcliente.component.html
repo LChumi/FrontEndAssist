@@ -1,59 +1,105 @@
-<div class="grid">
-    <div class="col-12">
-      <div class="card px-6 py-6">
-        <h4>Selección de proveedores</h4>
-        <p-toolbar styleClass="mb-4">
-          <ng-template pTemplate="left">
-            <div class="my-2">
-              <button pButton pRipple label="Seleccionar" icon="pi pi-check-circle" class="p-button-success" (click)="seleccionarProveedor()" [disabled]="!selectedClient"></button>
-            </div>
-          </ng-template>
-          <ng-template pTemplate="right">
-            <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
-              <p-dropdown [options]="sortTipoCli" placeholder="Clasificar por Tipo" (onChange)="onSortChange($event)"></p-dropdown>
-            </div>
-          </ng-template>
-        </p-toolbar>
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{width: '90vw', maxWidth: '900px'}"
+  [breakpoints]="{'960px': '90vw', '640px': '100vw'}"
+  class="p-fluid"
+  [header]="tipoCliente()"
+  [closable]="true"
+  (onHide)="visible=false"
+>
+  <!-- Toolbar -->
+  <div class="mb-4">
+    <p-toolbar>
+      <ng-template pTemplate="left">
+      </ng-template>
+      <ng-template pTemplate="right">
+        <p-dropdown [hidden]="isVisibleDropdown"
+          [options]="sortTipoCli"
+          placeholder="Clasificar por Tipo"
+          (onChange)="onSortChange($event)">
+        </p-dropdown>
+      </ng-template>
+    </p-toolbar>
+  </div>
 
-        <p-table #dv [value]="clientes" dataKey="codigo" [rows]="5" [loading]="loading" [rowHover]="true" [paginator]="true" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas" [globalFilterFields]="['nombre', 'rucCedula']" responsiveLayout="scroll" [(selection)]="selectedClient" selectionMode="single">
-          <ng-template pTemplate="caption">
-            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-              <h5 class="m-0">Lista</h5>
-              <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input type="text" #filter pInputText placeholder="Buscar Proveedor" (input)="onGlobalFilter(dv,$event)" class="w-full"/>
-              </span>
+  <!-- Tabla -->
+  <div>
+    <p-table
+      #dv
+      [value]="clientes"
+      dataKey="codigo"
+      [rows]="5"
+      [loading]="loading"
+      [rowHover]="true"
+      [paginator]="true"
+      [responsiveLayout]="'scroll'"
+      [globalFilterFields]="['nombre', 'rucCedula']"
+      [(selection)]="selectedClient"
+      selectionMode="single"
+      currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
+
+      <!-- Barra de Búsqueda -->
+      <ng-template pTemplate="caption">
+        <div class="flex flex-column sm:flex-row sm:justify-content-between sm:align-items-center">
+          <h5 class="m-0">Lista de {{tipoCliente()}}</h5>
+          <span class="p-input-icon-left w-full sm:w-auto">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              #filter
+              pInputText
+              placeholder="Buscar {{tipoCliente()}}"
+              (input)="onGlobalFilter(dv, $event)"
+              class="w-full sm:w-auto"
+            />
+          </span>
+        </div>
+      </ng-template>
+
+      <!-- Encabezado de la Tabla -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th pSortableColumn="nombre">
+            Nombre
+            <p-sortIcon field="nombre"></p-sortIcon>
+          </th>
+          <th pSortableColumn="rucCedula">
+            Ruc Cedula
+            <p-sortIcon field="rucCedula"></p-sortIcon>
+          </th>
+          <th pSortableColumn="telefono">Teléfono</th>
+          <th pSortableColumn="mail">Correo</th>
+        </tr>
+      </ng-template>
+
+      <!-- Filas de la Tabla -->
+      <ng-template pTemplate="body" let-cliente>
+        <tr>
+          <td>
+            <div class="flex">
+              <button pButton pRipple icon="pi pi-check-circle" class="p-button-rounded p-button-success mr-2" (click)="seleccionarProv(cliente)"></button>
             </div>
-          </ng-template>
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width: 3rem"></th>
-              <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-              <th pSortableColumn="rucCedula">Ruc Cedula <p-sortIcon field="rucCedula"></p-sortIcon></th>
-              <th pSortableColumn="telefono">Telefono</th>
-              <th pSortableColumn="mail">Correo</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-cliente>
-            <tr>
-              <td>
-                <p-tableRadioButton [value]="cliente"></p-tableRadioButton>
-              </td>
-              <td style="width:25%; min-width:25rem;"><span class="p-column-title">Nombre</span>
-                {{cliente.nombre}}
-              </td>
-              <td style="width:14%; min-width:10rem;"><span class="p-column-title">Ruc Cedula</span>
-                {{cliente.rucCedula}}
-              </td>
-              <td style="width:14%; min-width:10rem;"><span class="p-column-title">Telefono</span>
-                {{cliente.telefono}}
-              </td>
-              <td style="width:14%; min-width:10rem;"><span class="p-column-title">Correo</span>
-                {{cliente.mail}}
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
-</div>
+          </td>
+          <td style="width:25%; min-width:25rem;">
+            <span class="p-column-title">Nombre</span>
+            {{ cliente.nombre }}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Ruc Cedula</span>
+            {{ cliente.rucCedula }}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Teléfono</span>
+            {{ cliente.telefono }}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Correo</span>
+            {{ cliente.mail }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

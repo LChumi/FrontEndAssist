@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, OnInit, Output, output} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {SelectItem} from "primeng/api";
 import {ToolbarModule} from "primeng/toolbar";
@@ -9,6 +9,7 @@ import {Table, TableModule} from "primeng/table";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ChipsModule} from "primeng/chips";
+import {DialogModule} from "primeng/dialog";
 
 @Component({
   standalone: true,
@@ -20,14 +21,22 @@ import {ChipsModule} from "primeng/chips";
     ButtonDirective,
     Ripple,
     ChipsModule,
+    DialogModule,
   ],
   templateUrl: './modalcliente.component.html',
   styles: ``
 })
 export class ModalclienteComponent implements OnInit{
 
-  clientDialog = true
+  public tipoCliente = input.required<string>();
+  @Input() visible: boolean = false
+  @Input() isVisibleDropdown: boolean = true
+  @Output() onBtnClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onChangeProv: EventEmitter<string> = new EventEmitter<string>();
+
+
   loading = false;
+
   sortTipoCli: SelectItem[] =[]
   clientes: Cliente[] =[]
   selectedClient!: Cliente
@@ -36,8 +45,6 @@ export class ModalclienteComponent implements OnInit{
   clienteService = inject(ClienteService)
 
   empresa = 0;
-
-  cols: any[] =[]
 
   constructor() {}
 
@@ -49,11 +56,9 @@ export class ModalclienteComponent implements OnInit{
     ]
     this.empresa = Number(sessionStorage.getItem("empresa"));
     this.listarClientes(this.empresa, 2);
-
   }
 
   onSortChange(event : any){
-    console.log(event)
     const tipo = Number(event.value);
     this.listarClientes(this.empresa,tipo)
   }
@@ -66,7 +71,7 @@ export class ModalclienteComponent implements OnInit{
         this.loading=false
       },
       error: err => {
-        console.log(err)
+        console.error(err)
         this.clientes =[]
         this.loading=false
       }
@@ -79,6 +84,17 @@ export class ModalclienteComponent implements OnInit{
 
   seleccionarProveedor(){
     this.selectionService.actualizarClienteSeleccionado(this.selectedClient.codigo)
+    this.onBtnClick.emit(false)
+    this.visible = false
   }
+
+  seleccionarProv(proveedor: Cliente){
+    this.selectionService.actualizarClienteSeleccionado(proveedor.codigo)
+    //sessionStorage.setItem("proveedor", proveedor.nombre)
+    this.onChangeProv.emit(proveedor.nombre)
+    this.onBtnClick.emit(false)
+    this.visible = false
+  }
+
 
 }
