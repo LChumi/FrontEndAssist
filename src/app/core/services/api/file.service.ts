@@ -15,23 +15,12 @@ export class FileService {
 
   constructor() { }
 
-  sendExcel(file: File, empresa: string): Observable<Items[] | ErrorResponse> {
+  sendExcel(file: File, empresa: string): Observable<Items[]> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('empresa', empresa);
 
-    return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Error sending file:', error);
-
-        // Verifica si el error sigue el formato de ErrorResponse y lo devuelve.
-        const errorResponse: ErrorResponse = {
-          status: error.status,
-          message: error.error?.message || 'Error desconocido',
-        };
-        return of(errorResponse); // Devuelve un observable con el error estructurado
-      })
-    );
+    return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData)
   }
 
 }
