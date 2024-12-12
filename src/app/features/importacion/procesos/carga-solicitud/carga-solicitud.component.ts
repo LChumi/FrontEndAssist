@@ -70,19 +70,34 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
     files.forEach((file: File) => {
       this.fileService.sendExcel(file, this.idEmpresa).subscribe({
-        next: succes => {
-          if (succes){
-            successCount++
-            this.listItems = succes
+        next: (response) => {
+          if ('status' in response && 'message' in response) {
+            // Es un error porque coincide con la interfaz ErrorResponse
+            console.error('Error recibido:', response.message);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: response.message
+            });
+            this.loading=false
+            return
+          } else if (Array.isArray(response) && response.length > 0) {
+            // Es una respuesta exitosa y tiene elementos
+            successCount++;
+            this.listItems = response;
           } else {
+            // Caso exitoso pero sin resultados
+            console.warn('Archivo procesado, pero no se encontraron elementos.');
             errorCount++;
           }
           this.checkBatchCompletion(successCount, errorCount, files.length);
         },
-        error: error => {
+        error: (error) => {
+          console.error('Error inesperado:', error);
           errorCount++;
+          this.checkBatchCompletion(successCount, errorCount, files.length);
         }
-      })
+      });
     })
   }
 
