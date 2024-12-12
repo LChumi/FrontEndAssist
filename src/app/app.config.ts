@@ -1,12 +1,12 @@
-import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, ErrorHandler, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
-import {LayoutComponent} from "./layout/components/layout/layout.component";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {errorHandlerInterceptor} from "./core/interceptors/error-handler.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     MessageService,
     importProvidersFrom(ToastModule),
-    provideHttpClient(withFetch(), withInterceptors([]))
+    provideHttpClient(withFetch(), withInterceptors([errorHandlerInterceptor]))
   ]
 };
