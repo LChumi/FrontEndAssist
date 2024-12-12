@@ -72,33 +72,30 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     files.forEach((file: File) => {
       this.fileService.sendExcel(file, this.idEmpresa).subscribe({
         next: (response) => {
-          console.log('Archivos procesados:', response);
-          this.listItems = response;
+          if (response.length ==0){
+            this.message('warn', 'Advertencia', 'El archivo esta vacio')
+            this.loading=false
+          }
+          this.message('success', 'Envio completo', 'archivo enviado exitosamente')
+          this.listItems = response
+          this.listItems=[]
+          this.loading=false
         },
         error: (error: ErrorResponse) => {
-          console.error('Error desde el interceptor:', error.message);
-          this.messageService.add({
-            severity: 'error',
-            summary: `Error`,
-            detail: error.message,
-          });
+          this.message('error', 'Error', error.message)
+          this.listItems=[]
           this.loading=false
         },
       });
     })
   }
 
-  checkBatchCompletion(successCount: number, errorCount: number, totalFiles: number) {
-    if (successCount + errorCount === totalFiles) {
-      this.loading = false;
-
-      const summary = `${successCount} archivo(s) enviado(s) exitosamente, ${errorCount} error(es).`;
+  message(severity: string , summary: string, detail:string) {
       this.messageService.add({
-        severity: errorCount > 0 ? 'warn' : 'success',
-        summary: 'Envío completado',
-        detail: summary
+        severity: severity,
+        summary: summary,
+        detail: detail
       });
-    }
   }
 
   abrirModal(){
