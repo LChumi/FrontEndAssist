@@ -6,8 +6,8 @@ import {Items} from "@models/record/items";
 import {OrderListModule} from "primeng/orderlist";
 import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
-import {ModalclienteComponent} from "../../../shared/component/modalcliente/modalcliente.component";
 import {ErrorResponse} from "@models/error/error-response";
+import {ModalclienteComponent} from "@features/shared/component/modalcliente/modalcliente.component";
 
 @Component({
   standalone: true,
