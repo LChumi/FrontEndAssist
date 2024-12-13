@@ -66,8 +66,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
         });
       return
     }
-    let successCount =0;
-    let errorCount =0;
 
     files.forEach((file: File) => {
       this.fileService.sendExcel(file, this.idEmpresa).subscribe({
@@ -75,10 +73,10 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
           if (response.length ==0){
             this.message('warn', 'Advertencia', 'El archivo esta vacio')
             this.loading=false
+            this.listItems=[]
           }
           this.message('success', 'Envio completo', 'archivo enviado exitosamente')
           this.listItems = response
-          this.listItems=[]
           this.loading=false
         },
         error: (error: ErrorResponse) => {
