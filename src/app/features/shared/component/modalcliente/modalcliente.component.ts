@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, Input, OnInit, Output, output} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, OnInit, Output} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {SelectItem} from "primeng/api";
 import {ToolbarModule} from "primeng/toolbar";

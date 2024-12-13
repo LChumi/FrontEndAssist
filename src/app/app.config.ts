@@ -6,7 +6,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
-import {errorHandlerInterceptor} from "./core/interceptors/error-handler.interceptor";
+import {errorHandlerInterceptor} from "@interceptors/error-handler.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
