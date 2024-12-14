@@ -9,22 +9,105 @@
     <div class="col-12">
       <ul class="flex list-none flex-wrap">
         <li class="flex align-items-center text-primary mr-2">Carga Solicitud <i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
-        <li class="flex align-items-center text-500 mr-2">Informacion<i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
+        <li class="flex align-items-center text-500 mr-2">Información<i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
         <li class="flex align-items-center text-500 mr-2">Lista productos <i class="pi pi-chevron-right text-500 text-xs ml-2"></i></li>
         <li class="flex align-items-center text-500 mr-2">Solicitud Orden</li>
       </ul>
 
       <div class="col-12">
-        <div class="pb-3 surface-border">
-          <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-success mr-2" (click)="abrirModal()"></button>
-          <app-modalcliente [tipoCliente]="tipocliente" [visible]="modalVisible"></app-modalcliente>
-        </div>
+          <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-success mr-1" (click)="abrirModal()"></button>
+          <app-modalcliente [tipoCliente]="tipocliente" [isVisibleDropdown]="false" [visible]="modalVisible"></app-modalcliente>
       </div>
 
-      <div class="col-12">
-        <div class="card">
+      @if (listItems.length >0){
+        <div class="mt-1">
+          <div class="card">
+            <p-table [value]="listItems" dataKey="nombre" responsiveLayout="scroll">
+              <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                  <h5>Lista de Items</h5>
+                  <button pButton pRipple label="Seleccionar Nuevo Archivo" icon="pi pi-check" class="p-button-success" (click)="cargarNuevo()"></button>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 1rem"></th>
+                  <th pSortableColumn="id">Barra</th>
+                  <th pSortableColumn="nombre">Nombre</th>
+                  <th pSortableColumn="item">Item</th>
+                  <th pSortableColumn="cantidad">Cantidad</th>
+                  <th pSortableColumn="fob">FOB</th>
+                  <th pSortableColumn="cbm">CBM</th>
+                  <th pSortableColumn="cbm">Trancito</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item let-expanded="expanded">
+                <tr>
+                  <td style="width: 1rem">
+                    @if (item.trancitos){
+                      <button type="button" pButton pRipple [pRowToggler]="item" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    }
+                  </td>
+                  <td>
+                    <div class="border-round m-2 p-2 text-left" style="display: block;">
+                      <div class="font-medium">{{ item.id }}</div>
+                      <small class="mt-1" style="font-size: 10px" [class]="'item-badge status-' + item.status.toLowerCase()">
+                        {{ item.status }}
+                      </small>
+                    </div>
+                  </td>
+
+
+                  <td style="min-width: 8rem;">{{item.nombre}}</td>
+                  <td style="min-width: 10rem;">{{item.item}}</td>
+                  <td style="min-width: 10rem;">{{item.cantidad}}</td>
+                  <td style="min-width: 10rem;">{{item.fob}}</td>
+                  <td style="min-width: 10rem;">{{item.cbm}}</td>
+                  <td class="text-right" style="min-width: 10rem;">{{item.cantidadTrancito}}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="rowexpansion" let-item>
+                <tr>
+                  <td colspan="8">
+                    <div class="p-3">
+                      <p-table [value]="item.trancitos" dataKey="id" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                            <th pSortableColumn="nroComprobante">Numero Comprobante<p-sortIcon field="nroComprobante"></p-sortIcon></th>
+                            <th pSortableColumn="observacion">Observación</th>
+                            <th pSortableColumn="cantidadPedida">Cantidad Pedida <p-sortIcon field="cantidadPedida"></p-sortIcon></th>
+                            <th pSortableColumn="fob">FOB</th>
+                            <th pSortableColumn="fobTotal">FOB Total</th>
+                            <th pSortableColumn="tipoDoc">Tipo Documento</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-trancito>
+                          <tr>
+                            <td>{{trancito.fecha}}</td>
+                            <td>{{trancito.nroComprobante}}</td>
+                            <td>{{trancito.observacion}}</td>
+                            <td>{{trancito.cantidadPedida}}</td>
+                            <td>{{trancito.fob}}</td>
+                            <td>{{trancito.fobTotal}}</td>
+                            <td>{{trancito.tipoDoc}}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <button pButton pRipple label="Continuar" icon="pi pi-check"></button>
+          </div>
+        </div>
+      }
+
+      @if (listItems.length ==0) {
+        <div class="col-12">
           <div class="card justify-content-center">
-            <span class="text-900 text-2xl block font-medium mb-5">Carga de Archivo</span>
+            <span class="text-900 text-2xl block font-medium mb-5">Seleccionar o arrastrar archivo</span>
             @if (loading){
               <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #70aeff"></i>
             }@else{
@@ -52,77 +135,9 @@
               </p-fileUpload>
             }
           </div>
-        </div>
 
-        <div class="py-2 mt-3">
-          <div class="card">
-            <h5>Lista de Items</h5>
-            <p-table [value]="listItems" dataKey="nombre" responsiveLayout="scroll">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th style="width: 3rem"></th>
-                  <th pSortableColumn="status">Status</th>
-                  <th pSortableColumn="id">Barra</th>
-                  <th pSortableColumn="nombre">Nombre</th>
-                  <th pSortableColumn="item">Item</th>
-                  <th pSortableColumn="cantidad">Cantidad</th>
-                  <th pSortableColumn="fob">FOB</th>
-                  <th pSortableColumn="cbm">CBM</th>
-                  <th pSortableColumn="cbm">Trancito</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-item let-expanded="expanded">
-                <tr>
-                  <td>
-                    <button type="button" pButton pRipple [pRowToggler]="item" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                  </td>
-                  <td><span [class]="'item-badge status-' + item.status.toLowerCase()">{{item.status}}</span></td>
-                  <td style="min-width: 12rem;">{{item.id}}</td>
-                  <td style="min-width: 8rem;">{{item.nombre}}</td>
-                  <td style="min-width: 10rem;">{{item.item}}</td>
-                  <td style="min-width: 10rem;">{{item.cantidad}}</td>
-                  <td style="min-width: 10rem;">{{item.fob}}</td>
-                  <td style="min-width: 10rem;">{{item.cbm}}</td>
-                  <td style="min-width: 10rem;">{{item.cantidadTrancito}}</td>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="rowexpansion" let-item>
-                <tr>
-                  <td colspan="8">
-                    <div class="p-3">
-                      <p-table [value]="item.trancitos" dataKey="id" responsiveLayout="scroll">
-                        <ng-template pTemplate="header">
-                          <tr>
-                            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
-                            <th pSortableColumn="nroComprobante">Numero Comprobante<p-sortIcon field="nroComprobante"></p-sortIcon></th>
-                            <th pSortableColumn="observacion">Observacion</th>
-                            <th pSortableColumn="cantidadPedida">Cantidad Pedida <p-sortIcon field="cantidadPedida"></p-sortIcon></th>
-                            <th pSortableColumn="fob">FOB</th>
-                            <th pSortableColumn="fobTotal">FOB Total</th>
-                            <th pSortableColumn="tipoDoc">Tipo Documento</th>
-                          </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-trancito>
-                          <tr>
-                            <td>{{trancito.fecha}}</td>
-                            <td>{{trancito.nroComprobante}}</td>
-                            <td>{{trancito.observacion}}</td>
-                            <td>{{trancito.cantidadPedida}}</td>
-                            <td>{{trancito.fob}}</td>
-                            <td>{{trancito.fobTotal}}</td>
-                            <td>{{trancito.tipoDoc}}</td>
-                          </tr>
-                        </ng-template>
-                      </p-table>
-                    </div>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
         </div>
-      </div>
-
+      }
     </div>
   </div>
 </div>

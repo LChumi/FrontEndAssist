@@ -6,7 +6,6 @@ export interface Items {
   nombre:             string;
   cantidad:           number;
   fob:                number;
-  proveedor:          number;
   cbm:                number;
   cantidadTrancito:   number;
   status:             string;
