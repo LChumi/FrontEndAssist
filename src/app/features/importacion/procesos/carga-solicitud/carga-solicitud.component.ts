@@ -108,4 +108,8 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     }
   }
 
+  cargarNuevo(){
+    this.listItems =[]
+  }
+
 }
