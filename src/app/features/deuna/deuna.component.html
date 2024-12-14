@@ -1,0 +1,7 @@
+<div class="container" style="background-image: url('images/fondoDeuna.jpg'); background-size: cover; background-position: center; height: 100vh; display: flex; justify-content: center; align-items: center;">
+  @if (imageBase64) {
+    <div class="flex justify-content-center" style="background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 10px;">
+      <p-image [src]="imageBase64" alt="QR code" width="450" [preview]="true"></p-image>
+    </div>
+  }
+</div>

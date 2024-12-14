@@ -1,8 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {LayoutService} from "../../service/layout.service";
 import {RouterLink} from "@angular/router";
-import {AppMenuComponent} from "../app-menu/app-menu.component";
 import {NgOptimizedImage} from "@angular/common";
+import {AppMenuComponent} from "@layout/components/app-menu/app-menu.component";
+import {LayoutService} from "@layout/service/layout.service";
 
 @Component({
   selector: 'app-sidebar',

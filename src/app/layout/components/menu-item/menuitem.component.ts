@@ -11,14 +11,14 @@ import {
 import { animate, state, style, transition, trigger,AnimationEvent } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import {LayoutService} from "../../service/layout.service";
 import {NavigationEnd, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {DomHandler} from "primeng/dom";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {DockModule} from "primeng/dock";
-import {MenuService} from "../../service/menu.service";
-import {SidebarComponent} from "../sidebar/sidebar.component";
 import {Ripple} from "primeng/ripple";
+import {LayoutService} from "@layout/service/layout.service";
+import {MenuService} from "@layout/service/menu.service";
+import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
 
 @Component({
   selector: '[app-menuitem]',

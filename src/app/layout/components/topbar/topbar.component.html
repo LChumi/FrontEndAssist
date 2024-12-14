@@ -9,18 +9,15 @@
 
   <div class="topbar-end">
     <ul class="topbar-menu">
-      <li class="topbar-search">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input type="text" pInputText placeholder="Search" class="w-12rem sm:w-full">
-                </span>
+      <li class="topbar-breadcrumb">
+                <span class="p-text-secondary">{{empresa}}</span>
       </li>
       <li class="ml-3">
         <button pButton type="button" icon="pi pi-cog" class="p-button-text p-button-secondary p-button-rounded flex-shrink-0" (click)="onConfigButtonClick()"></button>
       </li>
       <li class="topbar-profile">
         <button type="button" class="p-link" (click)="onProfileButtonClick()">
-          <img src="/images/logo_assist.svg" alt="Profile" />
+          <img src="/images/logo_assist.svg" alt="Profile" height="22" width="32"/>
         </button>
       </li>
     </ul>
