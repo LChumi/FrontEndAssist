@@ -8,6 +8,10 @@ import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
 import {ErrorResponse} from "@models/error/error-response";
 import {ModalclienteComponent} from "@features/shared/component/modalcliente/modalcliente.component";
+import {DialogModule} from "primeng/dialog";
+import {ChipsModule} from "primeng/chips";
+import {FormsModule} from "@angular/forms";
+import {DecimalPipe, NgClass} from "@angular/common";
 
 @Component({
   standalone: true,
@@ -17,7 +21,12 @@ import {ModalclienteComponent} from "@features/shared/component/modalcliente/mod
     OrderListModule,
     TableModule,
     Ripple,
-    ModalclienteComponent
+    ModalclienteComponent,
+    DialogModule,
+    ChipsModule,
+    FormsModule,
+    NgClass,
+    DecimalPipe
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
@@ -35,18 +44,23 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     })
   }
 
+  idEmpresa : any
   uploadFiles: any[] = []; // Archivos seleccionados
 
   messageService = inject(MessageService);
   fileService = inject(FileService)
 
   listItems : Items[] =[]
+  item: Items ={} as Items;
+
   tipocliente='Proveedor'
   proveedor=''
-  modalVisible = false;
 
+  modalVisible = false;
   loading= false
-  idEmpresa : any
+  itemDialog = false
+  deleteItemDialog = false
+  submitted = false
 
   ngOnInit(): void {
     const empresa = sessionStorage.getItem('empresa')
@@ -110,6 +124,22 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   cargarNuevo(){
     this.listItems =[]
+  }
+
+  editItem(item: Items){
+    this.item = { ...item }
+    this.itemDialog = true
+  }
+  deleteItem(item: Items){
+    this.deleteItemDialog = true
+    this.item = { ...item }
+  }
+
+  confirmDelete(){
+    this.deleteItemDialog = false;
+    this.listItems = this.listItems.filter(item => item.id !== this.item.id);
+    this.messageService.add({ severity: 'success', summary: 'Realizado', detail: 'Item Eliminado', life: 3000 });
+    this.item = {} as Items;
   }
 
 }

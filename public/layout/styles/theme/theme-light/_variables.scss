@@ -844,10 +844,10 @@ $imagePreviewActionIconFontSize:1.5rem !default;
 $imagePreviewActionIconBorderRadius:50% !default;
 
 :root {
-    font-family:'Poppins', sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     font-feature-settings: "cv02","cv03","cv04","cv11";
     font-variation-settings: normal;
-    --font-family:'Poppins', sans-serif;
+    --font-family: "Helvetica Neue", sans-serif;
     --font-feature-settings: "cv02","cv03","cv04","cv11";
     --surface-a:#{$shade000};
     --surface-b:#{$shade100};
