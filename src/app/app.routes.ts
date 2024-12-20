@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
-import {NotFoundComponent} from "./features/error/not-found/not-found.component";
-import DeunaComponent from "./features/deuna/deuna.component";
+import {NotFoundComponent} from "@features/error/not-found/not-found.component";
+import DeunaComponent from "@features/deuna/deuna.component";
 
 export const routes: Routes = [
   {
@@ -53,7 +53,7 @@ export const routes: Routes = [
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
+  {path:'deuna/:id/:empresa', component: DeunaComponent},
   {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
-  {path: '**', redirectTo: 'notFound', pathMatch: 'full'},
-  {path:'deuna:/id/:empresa', component: DeunaComponent}
+  {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];

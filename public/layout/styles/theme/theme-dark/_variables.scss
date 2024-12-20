@@ -16,7 +16,7 @@ $colors: (
 //shades
 $shade000:rgba(255,255,255,.87) !default;  //text color
 $shade100:rgba(255,255,255,.60) !default;  //text secondary color
-$shade500:#4f545f !default;  
+$shade500:#4f545f !default;
 $shade600:#303643 !default;  //input bg, border, divider
 $shade700:#111827 !default;  //menu bg
 $shade800:#0f1522 !default;  //elevated surface
@@ -842,10 +842,10 @@ $imagePreviewActionIconFontSize:1.5rem !default;
 $imagePreviewActionIconBorderRadius:50% !default;
 
 :root {
-    font-family:'Poppins', sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     font-feature-settings: "cv02","cv03","cv04","cv11";
     font-variation-settings: normal;
-    --font-family:'Poppins', sans-serif;
+    --font-family: "Helvetica Neue", sans-serif;
     --font-feature-settings: "cv02","cv03","cv04","cv11";
     --surface-a:#{$shade800};
     --surface-b:#{$shade900};
