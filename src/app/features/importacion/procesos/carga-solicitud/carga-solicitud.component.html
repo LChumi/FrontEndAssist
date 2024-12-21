@@ -36,8 +36,12 @@
                   <th pSortableColumn="nombre">Nombre</th>
                   <th pSortableColumn="item">Item</th>
                   <th pSortableColumn="cantidad">Cantidad</th>
+                  <th pSortableColumn="cbm">CXB</th>
                   <th pSortableColumn="fob">FOB</th>
                   <th pSortableColumn="cbm">CBM</th>
+                  <th pSortableColumn="cbm">Cantidad Total</th>
+                  <th pSortableColumn="cbm">CBM Total</th>
+                  <th pSortableColumn="cbm">FOB Total</th>
                   <th pSortableColumn="cbm">Trancito</th>
                   <th></th>
                 </tr>
@@ -61,8 +65,12 @@
                   <td style="min-width: 8rem;">{{item.nombre}}</td>
                   <td style="min-width: 10rem;">{{item.item}}</td>
                   <td class="text-right" style="min-width: 10rem;">{{item.cantidad}}</td>
+                  <td class="text-right" style="min-width: 10rem;">{{item.cxb}}</td>
                   <td class="text-right" style="min-width: 10rem;">{{ item.fob | number:'1.4-4' }}</td>
                   <td class="text-right" style="min-width: 10rem;">{{ item.cbm | number:'1.2-2' }}</td>
+                  <td class="text-right" style="min-width: 10rem;">{{item.cantidadTotal}}</td>
+                  <td class="text-right" style="min-width: 10rem;">{{ item.cbmTotal | number:'1.2-2' }}</td>
+                  <td class="text-right" style="min-width: 10rem;">{{ item.fobTotal | number:'1.4-4' }}</td>
                   <td class="text-right" style="min-width: 10rem;">{{item.cantidadTrancito}}</td>
                   <td>
                     <div class="flex">
@@ -109,23 +117,44 @@
           </div>
         </div>
 
-        <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalle del item" [modal]="true" class="p-fluid">
+        <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalle del item {{item.nombre}}" [modal]="true" [closable]="false" class="p-fluid uppercase">
           <ng-template pTemplate="content">
-            <!--image <img [src]="" [alt]="item.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image">-->
+            @if (imageUrl){
+              <img [src]="imageUrl" [alt]="item.nombre" width="150" class="mt-0 mx-auto mb-5 block shadow-2">
+            }
             <div class="field">
-              <small class="ng-dirty ng-animating text-">Cantidad anterior {{item.cantidad}}</small>
+              <small class="ng-dirty ng-animating text-">Cantidad anterior {{cantidadAnterior}}</small>
               <input type="text" pInputText id="cantidad" [(ngModel)]="item.cantidad" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.cantidad}">
               @if (submitted && item.cantidad) {
                 <small class="ng-dirty ng-invalid">Cantidad es requerida</small>
               }
             </div>
             <div class="field">
-              <small class="ng-dirty ng-animating">FOB anterior {{item.fob}}</small>
+              <small class="ng-dirty ng-animating">FOB anterior {{fobAnterior}}</small>
               <input type="text" pInputText id="fob" [(ngModel)]="item.fob" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
               @if (submitted && item.fob) {
                 <small class="ng-dirty ng-invalid">FOB es requerida</small>
               }
             </div>
+            <div class="field">
+              <small class="ng-dirty ng-animating">CBM anterior {{cbmAnterior}}</small>
+              <input type="text" pInputText id="cbm" [(ngModel)]="item.cbm" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
+              @if (submitted && item.cbm) {
+                <small class="ng-dirty ng-invalid">FOB es requerida</small>
+              }
+            </div>
+            <div class="field">
+              <small class="ng-dirty ng-animating">CBM anterior {{cxbAnterior}}</small>
+              <input type="text" pInputText id="cxb" [(ngModel)]="item.cxb" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
+              @if (submitted && item.cxb) {
+                <small class="ng-dirty ng-invalid">FOB es requerida</small>
+              }
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveItem()"></button>
           </ng-template>
         </p-dialog>
 
