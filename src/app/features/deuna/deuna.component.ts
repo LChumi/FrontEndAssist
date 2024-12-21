@@ -40,7 +40,7 @@ export default class DeunaComponent implements OnInit{
       this.empresa = params.get('empresa')
     })
     this.parameterIsNumeric(this.usrLiquida)
-    //this.obtenerQr()
+    this.obtenerQr()
   }
 
   parameterIsNumeric(data:string){
@@ -55,6 +55,7 @@ export default class DeunaComponent implements OnInit{
       data => {
         if(data.qr){
           this.imageBase64 = data.qr
+          console.log(data.deeplink)
           this.validarQr()
         }
       }
