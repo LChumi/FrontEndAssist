@@ -12,6 +12,7 @@ import {DialogModule} from "primeng/dialog";
 import {ChipsModule} from "primeng/chips";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgClass} from "@angular/common";
+import {ImagenService} from "@services/api/images/imagen.service";
 
 @Component({
   standalone: true,
@@ -49,18 +50,25 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   messageService = inject(MessageService);
   fileService = inject(FileService)
+  imagenService = inject(ImagenService)
 
   listItems : Items[] =[]
   item: Items ={} as Items;
 
   tipocliente='Proveedor'
   proveedor=''
+  imageUrl: string | null = ''
 
   modalVisible = false;
   loading= false
   itemDialog = false
   deleteItemDialog = false
   submitted = false
+
+  cantidadAnterior =0;
+  cxbAnterior = 0;
+  fobAnterior = 0;
+  cbmAnterior = 0;
 
   ngOnInit(): void {
     const empresa = sessionStorage.getItem('empresa')
@@ -129,6 +137,11 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   editItem(item: Items){
     this.item = { ...item }
     this.itemDialog = true
+    this.getImagen()
+    this.cantidadAnterior = item.cantidad
+    this.cbmAnterior = item.cbm
+    this.fobAnterior = item.fob
+    this.cxbAnterior = item.cxb
   }
   deleteItem(item: Items){
     this.deleteItemDialog = true
@@ -142,4 +155,51 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     this.item = {} as Items;
   }
 
+  getImagen(){
+    if (this.item){
+      this.imagenService.getImagen(this.item.id).subscribe({
+        next: (response) => {
+          this.imageUrl = URL.createObjectURL(response);
+        },
+        error: (error) => {
+          console.error(error)
+        }
+      })
+    }
+  }
+
+  saveItem() {
+    this.submitted = true
+    const index = this.findIndexById(this.item.id);
+    if (index !== -1) {
+      this.item.cantidadTotal = this.item.cantidad * this.item.cxb
+      this.item.cbmTotal = this.item.cbm * this.item.cantidad
+      this.item.fobTotal = this.item.fob * this.item.cantidadTotal
+      this.listItems[index] = this.item;
+      this.messageService.add({ severity: 'success', summary: 'Realizado', detail: 'Item Actualizado', life: 3000 });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Item no encontrado', life: 3000 });
+    }
+    this.listItems = [...this.listItems];
+    this.itemDialog = false;
+    this.item = {} as Items;
+  }
+
+
+  hideDialog(){
+    this.itemDialog = false
+    this.submitted = false
+    this.imageUrl = null
+  }
+
+  findIndexById(id:string): number{
+    let index = -1;
+    for (let i =0; i < this.listItems.length; i++){
+      if (this.listItems[i].id === id){
+        index = i;
+        break;
+      }
+    }
+    return index;
+  }
 }
