@@ -13,6 +13,7 @@ import {ChipsModule} from "primeng/chips";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {ImagenService} from "@services/api/images/imagen.service";
+import {ScrollTopModule} from "primeng/scrolltop";
 
 @Component({
   standalone: true,
@@ -27,7 +28,8 @@ import {ImagenService} from "@services/api/images/imagen.service";
     ChipsModule,
     FormsModule,
     NgClass,
-    DecimalPipe
+    DecimalPipe,
+    ScrollTopModule
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
