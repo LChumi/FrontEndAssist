@@ -114,7 +114,17 @@
                   </tr>
                 </ng-template>
               </p-table>
-              <button pButton pRipple label="Continuar" icon="pi pi-check"></button>
+              <button pButton pRipple label="Confirmar" icon="pi pi-check" (click)="confirmDialog=true"></button>
+              <p-dialog [(visible)]="confirmDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
+                <div class="flex align-items-center justify-content-center">
+                  <i class="pi pi-exclamation-triangle mr-3 text-yellow-800" style="font-size: 2rem"></i>
+                  <span>¿Confirmar lista de items?</span>
+                </div>
+                <ng-template pTemplate="footer">
+                  <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-info" label="No" (click)="confirmDialog = false"></button>
+                  <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-danger" label="Si" (click)="confirmDoc()"></button>
+                </ng-template>
+              </p-dialog>
             </div>
           </div>
 
