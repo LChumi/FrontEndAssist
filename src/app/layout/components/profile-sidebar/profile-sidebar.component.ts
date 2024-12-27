@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {SidebarModule} from "primeng/sidebar";
 import {BadgeModule} from "primeng/badge";
 import {LayoutService} from "@layout/service/layout.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profilemenu',
@@ -14,7 +15,13 @@ import {LayoutService} from "@layout/service/layout.service";
 })
 export class ProfileSidebarComponent {
 
-  constructor(public layoutService: LayoutService) { }
+  nombre: any;
+  layoutService = inject(LayoutService)
+  router = inject(Router);
+
+  constructor() {
+    this.nombre = sessionStorage.getItem('nombre');
+  }
 
   get visible(): boolean {
     return this.layoutService.state.profileSidebarVisible;
@@ -22,5 +29,11 @@ export class ProfileSidebarComponent {
 
   set visible(_val: boolean) {
     this.layoutService.state.profileSidebarVisible = _val;
+  }
+
+  signOut(): void {
+    sessionStorage.clear();
+    this.visible = false;
+    this.router.navigate(['/assist','auth' , 'login']);
   }
 }
