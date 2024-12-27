@@ -22,4 +22,8 @@ export class FileService {
     return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData)
   }
 
+  confirmarSolicitud(items: Items[]): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/confirmar/solicitud`, items)
+  }
+
 }

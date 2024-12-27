@@ -65,6 +65,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   loading= false
   itemDialog = false
   deleteItemDialog = false
+  confirmDialog = false
   submitted = false
 
   cantidadAnterior =0;
@@ -155,6 +156,21 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     this.listItems = this.listItems.filter(item => item.id !== this.item.id);
     this.messageService.add({ severity: 'success', summary: 'Realizado', detail: 'Item Eliminado', life: 3000 });
     this.item = {} as Items;
+  }
+
+  confirmDoc(){
+    this.fileService.confirmarSolicitud(this.listItems).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.confirmDialog = false
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se cargo la lista de items', life: 3000 });
+        this.listItems = []
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+
   }
 
   getImagen(){
