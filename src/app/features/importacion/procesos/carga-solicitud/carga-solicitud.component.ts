@@ -165,6 +165,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
         this.confirmDialog = false
         this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se cargo la lista de items', life: 3000 });
         this.listItems = []
+        this.proveedor = ''
       },
       error: (error) => {
         console.log(error);
