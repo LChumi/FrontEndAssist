@@ -16,11 +16,13 @@ import {Router} from "@angular/router";
 export class ProfileSidebarComponent {
 
   nombre: any;
+  username : any;
   layoutService = inject(LayoutService)
   router = inject(Router);
 
   constructor() {
     this.nombre = sessionStorage.getItem('nombre');
+    this.username= sessionStorage.getItem('username');
   }
 
   get visible(): boolean {
