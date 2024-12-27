@@ -43,8 +43,7 @@ export default class CargaDocumentosComponent implements OnInit{
   }
 
   uploadFilesDirectly(event: any) {
-    console.log('entro a subir archivos')
-    console.log(event)
+    this.loading = true;
     const files = event.files;
     if (files.length === 0) {
       this.messageService.add({
@@ -55,7 +54,6 @@ export default class CargaDocumentosComponent implements OnInit{
       return;
     }
 
-    this.loading = true;
     let successCount = 0;
     let errorCount = 0;
 

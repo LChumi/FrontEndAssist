@@ -2,46 +2,50 @@
   <span class="block text-900 font-bold text-xl mb-4">Registro de Documentos enviados por el SRI</span>
 
   @if (haveEmail){
-    <div class="grid">
-      <div class="col-12">
-        <div class="card">
-          <h4>Cargar archivo</h4>
-          <p-fileUpload
-            name="doc[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            (onUpload)="uploadFilesDirectly($event)"
-            (onSelect)="onFilesSelected($event)"
-            [multiple]="true"
-            [auto]="false"
-            accept=".txt,.csv,.json,.xml"
-            maxFileSize="20971520"
-            chooseLabel="Seleccionar"
-            uploadLabel="Subir"
-            cancelLabel="Cancelar">
-            <ng-template pTemplate="content">
-              @if (uploadFiles.length) {
-                <ul>
-                  @for (file of uploadFiles; track $index){
-                    <li>{{file.name}} - {{file.size}} bytes</li>
-                  }
-                </ul>
-              }
-            </ng-template>
-          </p-fileUpload>
-        </div>
+    @if (loading){
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #70aeff"></i>
+    }@else{
+      <div class="grid">
+        <div class="col-12">
+          <div class="card">
+            <h4>Cargar archivo</h4>
+            <p-fileUpload
+              name="doc[]"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              (onUpload)="uploadFilesDirectly($event)"
+              (onSelect)="onFilesSelected($event)"
+              [multiple]="true"
+              [auto]="false"
+              accept=".txt,.csv,.json,.xml"
+              maxFileSize="20971520"
+              chooseLabel="Seleccionar"
+              uploadLabel="Subir"
+              cancelLabel="Cancelar">
+              <ng-template pTemplate="content">
+                @if (uploadFiles.length) {
+                  <ul>
+                    @for (file of uploadFiles; track $index){
+                      <li>{{file.name}} - {{file.size}} bytes</li>
+                    }
+                  </ul>
+                }
+              </ng-template>
+            </p-fileUpload>
+          </div>
 
-        <div class="card">
-          <h4>Subir texto</h4>
-          <textarea rows="5"
-                    placeholder="Ingrese el documento"
-                    [(ngModel)]="textContent"
-                    pInputTextarea
-                    class="w-full p-inputtext"
-                    style="resize:none; overflow-y:auto"></textarea>
-          <button pButton pRipple label="Enviar Texto" [loading]="loading" icon ="pi pi-send" (click)="uploadString(textContent)"></button>
+          <div class="card">
+            <h4>Subir texto</h4>
+            <textarea rows="5"
+                      placeholder="Ingrese el documento"
+                      [(ngModel)]="textContent"
+                      pInputTextarea
+                      class="w-full p-inputtext"
+                      style="resize:none; overflow-y:auto"></textarea>
+            <button pButton pRipple label="Enviar Texto" [loading]="loading" icon ="pi pi-send" (click)="uploadString(textContent)"></button>
+          </div>
         </div>
       </div>
-    </div>
+    }
   } @else {
     <div class="card">
       <h4>Usuario sin registro de correo </h4>
