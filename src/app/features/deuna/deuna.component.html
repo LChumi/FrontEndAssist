@@ -4,10 +4,10 @@
       <p-image [src]="imageBase64" alt="QR code" width="450" ></p-image>
     </div>
     <div class="col" style="width: 100%; max-width: 600px; margin-top: 20px;">
-      <p-progressBar [value]="value" [showValue]="false"></p-progressBar>
+      <p-progressBar mode="indeterminate"></p-progressBar>
     </div>
   }
   <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Ok'" [rejectVisible]="false"></p-confirmDialog>
   <p-toast key="tst"></p-toast>
-  </div>
+ </div>
 
