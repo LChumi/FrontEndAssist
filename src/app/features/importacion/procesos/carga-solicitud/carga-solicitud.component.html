@@ -45,7 +45,7 @@
                     <th pSortableColumn="cbm">CBM Total</th>
                     <th pSortableColumn="cbm">FOB Total</th>
                     <th pSortableColumn="cbm">Trancito</th>
-                    <th></th>
+                    <th style="position: sticky; right: 0; top: 0; z-index: 1; background-color: #fcfcfd;"></th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-expanded="expanded">
@@ -74,7 +74,7 @@
                     <td class="text-right" style="min-width: 10rem;">{{ item.cbmTotal | number:'1.2-2' }}</td>
                     <td class="text-right" style="min-width: 10rem;">{{ item.fobTotal | number:'1.4-4' }}</td>
                     <td class="text-right" style="min-width: 10rem;">{{item.cantidadTrancito}}</td>
-                    <td>
+                    <td style="position: sticky; right: 0; top: 0; z-index: 1; background-color: #fcfcfd;">
                       <div class="flex">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editItem(item)"></button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteItem(item)"></button>
