@@ -6,6 +6,7 @@ import {Ripple} from "primeng/ripple";
 import {ContabilidadService} from "@services/api/contabilidad.service";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
 
 @Component({
   standalone: true,
@@ -13,7 +14,8 @@ import {Router} from "@angular/router";
     FileUploadModule,
     InputTextareaModule,
     Ripple,
-    FormsModule
+    FormsModule,
+    FavoriteComponent
   ],
   templateUrl: './carga-documentos.component.html',
   styles: ``

@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {ImagenService} from "@services/api/images/imagen.service";
 import {ScrollTopModule} from "primeng/scrolltop";
+import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
 
 @Component({
   standalone: true,
@@ -29,7 +30,8 @@ import {ScrollTopModule} from "primeng/scrolltop";
     FormsModule,
     NgClass,
     DecimalPipe,
-    ScrollTopModule
+    ScrollTopModule,
+    FavoriteComponent
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
@@ -48,6 +50,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   }
 
   idEmpresa : any
+  usrId: any
   uploadFiles: any[] = []; // Archivos seleccionados
 
   messageService = inject(MessageService);
@@ -75,8 +78,10 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const empresa = sessionStorage.getItem('empresa')
-    if (empresa){
+    const usrId: any = sessionStorage.getItem('usrid')
+    if (empresa && usrId){
       this.idEmpresa = Number(empresa)
+      this.usrId = Number(usrId)
     }
   }
 
