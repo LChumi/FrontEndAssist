@@ -28,6 +28,11 @@ export const routes: Routes = [
       {
         path:'inicio', component: LayoutComponent,
         children:[
+          {
+            path: '',
+            data: {breadcrumb: 'Inicio Dashboard'},
+            loadComponent: () => import('./features/dashboards/dashboard/dashboard.component')
+          },
           {path: 'importaciones',
             data: {breadcrumb: 'Importacion'},
             children:[
