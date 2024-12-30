@@ -14,7 +14,7 @@ import {FavoritesService} from "@services/state/favorites.service";
   templateUrl: './favorite.component.html',
   styles: ``
 })
-export class FavoriteComponent implements OnInit {
+export class FavoriteComponent{
   public usrId = input.required<number>();
   public titulo = input.required<string>();
 
@@ -23,23 +23,19 @@ export class FavoriteComponent implements OnInit {
   router = inject(Router);
   favoriteService = inject(FavoritesService)
 
-  toggleFavorite(){
+  toggleFavorite() {
     const currentPath = this.router.url
     this.isFavorite = !this.isFavorite;
-    console.log(currentPath)
     if (this.isFavorite) {
-      this.favoriteService.deleteFavorite(1,currentPath)//this.isFavorite false;
-    }else {
-      this.favoriteService.addFavorite(1,currentPath)//this.isFavorite True;
+      this.favoriteService.deleteFavorite(1, currentPath)//this.isFavorite false;
+    } else {
+      this.favoriteService.addFavorite(1, currentPath)//this.isFavorite True;
     }
   }
 
-  chekIfFavorite(){
+  checkIfFavorite() {
     const currentPath = this.router.url
     //this.favoriteService.isFavorited(1,currentPath).subscribe(isFav) =>{this.isFavorite = isFav}
   }
 
-  ngOnInit(): void {
-    //this.chekIfFavorite()
-  }
 }
