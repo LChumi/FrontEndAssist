@@ -15,7 +15,7 @@ export default class DashboardComponent {
   favoritos:any
 
   constructor() {
-    this.nombre = sessionStorage.getItem('nombre');
+    this.getNameLastName()
     this.getDate()
   }
 
@@ -32,8 +32,22 @@ export default class DashboardComponent {
     this.fecha = `${year}-${month}-${day}`;
     this.hora = `${formattedHours}:${minutes} ${ampm}`;
 
-    console.log(this.fecha); // Ejemplo de salida: 2024-12-30
-    console.log(this.hora);  // Ejemplo de salida: 10:24 am
-
   }
+
+  getNameLastName() {
+    this.nombre = sessionStorage.getItem('nombre');
+    const nombres = this.nombre.split(' ');
+    let name = nombres[0];
+    let lastName = '';
+
+    if (nombres.length > 2) {
+      lastName = nombres[2];
+    } else if (nombres.length > 1) {
+      lastName = nombres[1];
+    }
+
+    this.nombre = (lastName ? lastName + ' ' : '') + name ;
+    return this.nombre;
+  }
+
 }
