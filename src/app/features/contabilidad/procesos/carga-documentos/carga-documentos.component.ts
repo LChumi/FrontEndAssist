@@ -37,7 +37,6 @@ export default class CargaDocumentosComponent implements OnInit{
 
   ngOnInit(): void {
     this.id_usuario = sessionStorage.getItem('usrid')
-    console.log(this.id_usuario)
     if (this.id_usuario == '') {
       this.router.navigate(['/assist','auth', 'login'])
     }
