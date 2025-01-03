@@ -10,6 +10,8 @@ import {ConfigComponent} from "@layout/config/config.component";
 import {PasswordModule} from "primeng/password";
 import {UsuarioService} from "@services/api/usuario.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
+import {MessageService} from "primeng/api";
+import {ErrorResponse} from "@models/error/error-response";
 
 @Component({
   standalone: true,
@@ -37,10 +39,7 @@ export default class LoginComponent implements OnInit{
   fb = inject(FormBuilder)
   usuarioService = inject(UsuarioService)
   router = inject(Router)
-
-  get dark() {
-    return this.layoutService.config().colorScheme !== 'light';
-  }
+  messageService = inject(MessageService)
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -61,19 +60,17 @@ export default class LoginComponent implements OnInit{
       clave: password
     }
 
-    this.usuarioService.temporalLogin(loginRequest).subscribe(
-      user=>{
-        if (user){
-          sessionStorage.setItem('usrid',String(user.id))
-          sessionStorage.setItem('nombre',user.nombre)
-          sessionStorage.setItem('username', user.username)
-          this.goToDashboard()
-        }else {
-          this.loginForm.reset()
-        }
-
+    this.usuarioService.temporalLogin(loginRequest).subscribe({
+      next: user =>{
+        sessionStorage.setItem('usrid',String(user.id))
+        sessionStorage.setItem('nombre',user.nombre)
+        sessionStorage.setItem('username', user.username)
+        this.messageService.add({severity: 'success', summary:'Bienvenido', detail: user.nombre})
+        this.goToDashboard()
+      }, error: (error: ErrorResponse) => {
+        this.messageService.add({severity: 'warn', summary:error.message, detail: 'Verifique nombre usuario o contraseña'})
       }
-    )
+    })
   }
 
   goToDashboard(){
