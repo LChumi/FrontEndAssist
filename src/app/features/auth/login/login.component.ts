@@ -65,7 +65,7 @@ export default class LoginComponent implements OnInit{
         sessionStorage.setItem('usrid',String(user.id))
         sessionStorage.setItem('nombre',user.nombre)
         sessionStorage.setItem('username', user.username)
-        this.messageService.add({severity: 'success', summary:'Bienvenido', detail: user.nombre})
+        this.messageService.add({severity: 'success', summary:'Bienvenido', detail: user.nombre , life: 2000})
         this.goToDashboard()
       }, error: (error: ErrorResponse) => {
         this.messageService.add({severity: 'warn', summary:error.message, detail: 'Verifique nombre usuario o contraseña'})
