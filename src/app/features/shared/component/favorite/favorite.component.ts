@@ -3,6 +3,7 @@ import {ButtonDirective} from "primeng/button";
 import {TooltipModule} from "primeng/tooltip";
 import {Router} from "@angular/router";
 import {FavoritesService} from "@services/state/favorites.service";
+import {FavoriteRequest} from "@models/record/favorite-request";
 
 @Component({
   selector: 'app-favorite',
@@ -14,7 +15,7 @@ import {FavoritesService} from "@services/state/favorites.service";
   templateUrl: './favorite.component.html',
   styles: ``
 })
-export class FavoriteComponent{
+export class FavoriteComponent implements OnInit {
   public usrId = input.required<number>();
   public titulo = input.required<string>();
 
@@ -23,19 +24,38 @@ export class FavoriteComponent{
   router = inject(Router);
   favoriteService = inject(FavoritesService)
 
+  favoriteRequest: FavoriteRequest ={} as FavoriteRequest;
+
   toggleFavorite() {
-    const currentPath = this.router.url
-    this.isFavorite = !this.isFavorite;
     if (this.isFavorite) {
-      this.favoriteService.deleteFavorite(1, currentPath)//this.isFavorite false;
+      this.favoriteService.deleteFavorite(this.favoriteRequest).subscribe(() => {
+        this.isFavorite = false;
+      })
     } else {
-      this.favoriteService.addFavorite(1, currentPath)//this.isFavorite True;
+      this.favoriteService.addFavorite(this.favoriteRequest).subscribe(() => {
+        this.isFavorite = true;
+      })
     }
   }
 
   checkIfFavorite() {
     const currentPath = this.router.url
-    //this.favoriteService.isFavorited(1,currentPath).subscribe(isFav) =>{this.isFavorite = isFav}
+    this.favoriteService.isFavorited(this.favoriteRequest).subscribe(
+      isFavorite => {
+        this.isFavorite = isFavorite;
+      }
+    )
+  }
+
+  ngOnInit(): void {
+    const currentPath = this.router.url
+    const empresaId = Number(sessionStorage.getItem("empresa"));
+    this.favoriteRequest = {
+      empresa: empresaId,
+      path: currentPath,
+      idUsuario: this.usrId()
+    }
+    this.checkIfFavorite()
   }
 
 }
