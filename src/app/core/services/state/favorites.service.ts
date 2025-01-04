@@ -16,19 +16,19 @@ export class FavoritesService {
 
   constructor() { }
 
-  addFavorite(request: FavoriteRequest): Observable<UsuarioFavoritos> {
-    return this.http.post<UsuarioFavoritos>(`${this.baseUrl}/favoritos/add`, request)
-  }
-
-  deleteFavorite(usrId: number, path:string) {
-
-  }
-
   getFavorites(usrId: number, empresa: number): Observable<UsuarioFavoritos[]>{
     return this.http.get<UsuarioFavoritos[]>(`${this.baseUrl}/favoritos/${usrId}/${empresa}`)
   }
 
+  addFavorite(request: FavoriteRequest): Observable<UsuarioFavoritos> {
+    return this.http.post<UsuarioFavoritos>(`${this.baseUrl}/favoritos/add`, request)
+  }
+
   isFavorited(request: FavoriteRequest): Observable<boolean> {
     return this.http.post<boolean>(`${this.baseUrl}/favoritos/get`, request)
+  }
+
+  deleteFavorite(request: FavoriteRequest) {
+    return this.http.delete(`${this.baseUrl}/favoritos/delete`, {body :request})
   }
 }
