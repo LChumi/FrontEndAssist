@@ -1,22 +1,48 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import {FavoritesService} from "@services/state/favorites.service";
+import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
+import {DataViewModule} from "primeng/dataview";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   standalone: true,
-  imports: [],
+  imports: [
+    DataViewModule,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './dashboard.component.html',
   styles: ``
 })
-export default class DashboardComponent {
+export default class DashboardComponent implements OnInit {
   nombre: any;
   username: any;
   imageUsr: any
   fecha: any;
   hora: any;
-  favoritos:any
+  favoritos: UsuarioFavoritos[] =[];
+
+  favoritoService = inject(FavoritesService)
 
   constructor() {
     this.getNameLastName()
     this.getDate()
+  }
+
+  ngOnInit(): void {
+    const usrId = sessionStorage.getItem("usrid");
+    const empresaId = sessionStorage.getItem("empresa");
+    console.log(usrId , empresaId);
+    this.getFavoritos(usrId,empresaId)
+  }
+
+  getFavoritos(usuario: any , empresa: any ){
+    this.favoritoService.getFavorites(usuario,empresa).subscribe({
+      next: data => {
+        this.favoritos = data
+        console.log(data)
+      }
+    })
   }
 
   getDate(){
@@ -33,7 +59,6 @@ export default class DashboardComponent {
     this.hora = `${formattedHours}:${minutes} ${ampm}`;
 
   }
-
   getNameLastName() {
     this.nombre = sessionStorage.getItem('nombre');
     const nombres = this.nombre.split(' ');
@@ -49,5 +74,4 @@ export default class DashboardComponent {
     this.nombre = (lastName ? lastName + ' ' : '') + name ;
     return this.nombre;
   }
-
 }

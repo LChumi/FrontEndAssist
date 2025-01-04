@@ -44,6 +44,6 @@ export default class EmpresaComponent implements OnInit{
   }
 
   goToInicio(){
-    this.router.navigate(['/assist', 'inicio'])
+    this.router.navigate(['/assist', 'inicio', 'dashboard'])
   }
 }
