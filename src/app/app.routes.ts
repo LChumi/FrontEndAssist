@@ -29,7 +29,7 @@ export const routes: Routes = [
         path:'inicio', component: LayoutComponent,
         children:[
           {
-            path: '',
+            path: 'dashboard',
             data: {breadcrumb: 'Inicio Dashboard'},
             loadComponent: () => import('./features/dashboards/dashboard/dashboard.component')
           },
@@ -52,7 +52,8 @@ export const routes: Routes = [
                 data: {breadcrumb: 'Carga Documentos '},
               }
             ]
-          }
+          },
+          {path: '', redirectTo: 'dashboard', pathMatch: "full"}
         ]
       },
     ]
