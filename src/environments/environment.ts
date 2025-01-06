@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrlBase: `http://192.168.112.245:8081/`,
+  apiUrlBase: `http://assist.cumpleanos.com.ec/api/`,
   production: true
 };
