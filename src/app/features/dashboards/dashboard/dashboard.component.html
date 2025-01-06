@@ -1,6 +1,6 @@
 <div class="grid">
   <div class="col-12">
-    <div class="flex flex-colum sm:flex-row align-items-center gap-4">
+    <div class="flex flex-column sm:flex-row align-items-center gap-4">
       <div class="flex flex-column sm:flex-row align-items-center gap-3">
         @if (imageUsr) {
           <img [src]="imageUsr" class="w-4rem h-4rem flex-shrink-0" alt="profileUser">
@@ -18,12 +18,12 @@
       @if (favoritos){
         @for (fav of favoritos; track fav.codigo){
           <div class="col-12 md:col-6 xl:col-3">
-            <div class="card h-full cursor-pointer" routerLink="{{fav.programa.path}}" routerLinkActive="active-route">
-              <div class="p-3">
-                <span class="font-semibold text-lg">{{fav.programa.nombre}}</span>
-                <div class="flex lg:justify-content-between align-content-start mt-3">
-                  <div class="w-6">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" fill="var(--primary-color)" viewBox="0 0 24 24">
+            <div class="card h-full cursor-pointer flex flex-col align-items-center justify-content-center" routerLink="{{fav.programa.path}}" routerLinkActive="active-route">
+              <div class="p-3 text-center">
+                <span class="font-semibold text-lg block">{{fav.programa.nombre}}</span>
+                <div class="flex justify-content-center align-items-center mt-3">
+                  <div class="w-3 h-3">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="var(--primary-color)" viewBox="0 0 24 24">
                       <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                     </svg>
                   </div>
@@ -35,6 +35,4 @@
       }
     </div>
   </div>
-
-
 </div>
