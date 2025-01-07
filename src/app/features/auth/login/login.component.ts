@@ -68,7 +68,7 @@ export default class LoginComponent implements OnInit{
         this.messageService.add({severity: 'success', summary:'Bienvenido', detail: user.nombre , life: 2000})
         this.goToDashboard()
       }, error: (error: ErrorResponse) => {
-        this.messageService.add({severity: 'warn', summary:error.message, detail: 'Verifique nombre usuario o contraseña'})
+        this.messageService.add({severity: 'warn', summary:'Verifique nombre usuario o contraseña', detail: error.message })
       }
     })
   }
