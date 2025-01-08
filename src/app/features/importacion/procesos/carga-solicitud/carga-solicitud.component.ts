@@ -45,11 +45,11 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
       this.modalVisible = visible
     })
     this.modalcliente.onChangeProv.subscribe(prov => {
-      this.proveedor= prov
+      this.proveedor = prov
     })
   }
 
-  idEmpresa : any
+  idEmpresa: any
   usrId: any
   uploadFiles: any[] = []; // Archivos seleccionados
 
@@ -57,21 +57,21 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   fileService = inject(FileService)
   imagenService = inject(ImagenService)
 
-  listItems : Items[] =[]
-  item: Items ={} as Items;
+  listItems: Items[] = []
+  item: Items = {} as Items;
 
-  tipocliente='Proveedor'
-  proveedor=''
+  tipocliente = 'Proveedor'
+  proveedor = ''
   imageUrl: string | null = ''
 
   modalVisible = false;
-  loading= false
+  loading = false
   itemDialog = false
   deleteItemDialog = false
   confirmDialog = false
   submitted = false
 
-  cantidadAnterior =0;
+  cantidadAnterior = 0;
   cxbAnterior = 0;
   fobAnterior = 0;
   cbmAnterior = 0;
@@ -79,71 +79,71 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const empresa = sessionStorage.getItem('empresa')
     const usrId: any = sessionStorage.getItem('usrid')
-    if (empresa && usrId){
+    if (empresa && usrId) {
       this.idEmpresa = Number(empresa)
       this.usrId = Number(usrId)
     }
   }
 
-  onUpload(event : any) {
-    this.loading= true
+  onUpload(event: any) {
+    this.loading = true
     const files = event.files
-    if (files.length === 0){
+    if (files.length === 0) {
       this.messageService.add({
-          severity: 'warm',
-          summary:'Error',
-          detail: 'No hay archivos para enviar'
-        });
+        severity: 'warm',
+        summary: 'Error',
+        detail: 'No hay archivos para enviar'
+      });
       return
     }
 
     files.forEach((file: File) => {
       this.fileService.sendExcel(file, this.idEmpresa).subscribe({
         next: (response) => {
-          if (response.length ==0){
+          if (response.length == 0) {
             this.message('warn', 'Advertencia', 'El archivo esta vacio')
-            this.loading=false
-            this.listItems=[]
+            this.loading = false
+            this.listItems = []
           }
           this.message('success', 'Envio completo', 'archivo enviado exitosamente')
           this.listItems = response
-          this.loading=false
+          this.loading = false
         },
         error: (error: ErrorResponse) => {
           this.message('error', 'Error', error.message)
-          this.listItems=[]
-          this.loading=false
+          this.listItems = []
+          this.loading = false
         },
       });
     })
   }
 
-  message(severity: string , summary: string, detail:string) {
-      this.messageService.add({
-        severity: severity,
-        summary: summary,
-        detail: detail
-      });
+  message(severity: string, summary: string, detail: string) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail
+    });
   }
 
-  abrirModal(){
+  abrirModal() {
     this.modalVisible = !this.modalVisible;
   }
 
   getButtonLabel(): string {
-    if (this.proveedor == ''){
+    if (this.proveedor == '') {
       return 'Seleccionar Proveedor'
     } else {
       return this.proveedor
     }
   }
 
-  cargarNuevo(){
-    this.listItems =[]
+  cargarNuevo() {
+    this.listItems = []
   }
 
-  editItem(item: Items){
-    this.item = { ...item }
+  editItem(item: Items) {
+    this.item = {...item}
     this.itemDialog = true
     this.getImagen()
     this.cantidadAnterior = item.cantidad
@@ -151,24 +151,30 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     this.fobAnterior = item.fob
     this.cxbAnterior = item.cxb
   }
-  deleteItem(item: Items){
+
+  deleteItem(item: Items) {
     this.deleteItemDialog = true
-    this.item = { ...item }
+    this.item = {...item}
   }
 
-  confirmDelete(){
+  confirmDelete() {
     this.deleteItemDialog = false;
     this.listItems = this.listItems.filter(item => item.id !== this.item.id);
-    this.messageService.add({ severity: 'success', summary: 'Realizado', detail: 'Item Eliminado', life: 3000 });
+    this.messageService.add({severity: 'success', summary: 'Realizado', detail: 'Item Eliminado', life: 3000});
     this.item = {} as Items;
   }
 
-  confirmDoc(){
+  confirmDoc() {
     this.fileService.confirmarSolicitud(this.listItems).subscribe({
       next: (response) => {
         console.log(response)
         this.confirmDialog = false
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se cargo la lista de items', life: 3000 });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Exito',
+          detail: 'Se cargo la lista de items',
+          life: 3000
+        });
         this.listItems = []
         this.proveedor = ''
       },
@@ -179,8 +185,8 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   }
 
-  getImagen(){
-    if (this.item){
+  getImagen() {
+    if (this.item) {
       this.imagenService.getImagen(this.item.id).subscribe({
         next: (response) => {
           this.imageUrl = URL.createObjectURL(response);
@@ -200,9 +206,9 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
       this.item.cbmTotal = this.item.cbm * this.item.cantidad
       this.item.fobTotal = this.item.fob * this.item.cantidadTotal
       this.listItems[index] = this.item;
-      this.messageService.add({ severity: 'success', summary: 'Realizado', detail: 'Item Actualizado', life: 3000 });
+      this.messageService.add({severity: 'success', summary: 'Realizado', detail: 'Item Actualizado', life: 3000});
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Item no encontrado', life: 3000 });
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Item no encontrado', life: 3000});
     }
     this.listItems = [...this.listItems];
     this.itemDialog = false;
@@ -210,16 +216,16 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   }
 
 
-  hideDialog(){
+  hideDialog() {
     this.itemDialog = false
     this.submitted = false
     this.imageUrl = null
   }
 
-  findIndexById(id:string): number{
+  findIndexById(id: string): number {
     let index = -1;
-    for (let i =0; i < this.listItems.length; i++){
-      if (this.listItems[i].id === id){
+    for (let i = 0; i < this.listItems.length; i++) {
+      if (this.listItems[i].id === id) {
         index = i;
         break;
       }

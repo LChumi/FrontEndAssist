@@ -26,7 +26,7 @@ import {DialogModule} from "primeng/dialog";
   templateUrl: './modalcliente.component.html',
   styles: ``
 })
-export class ModalclienteComponent implements OnInit{
+export class ModalclienteComponent implements OnInit {
 
   public tipoCliente = input.required<string>();
   @Input() visible: boolean = false
@@ -37,8 +37,8 @@ export class ModalclienteComponent implements OnInit{
 
   loading = false;
 
-  sortTipoCli: SelectItem[] =[]
-  clientes: Cliente[] =[]
+  sortTipoCli: SelectItem[] = []
+  clientes: Cliente[] = []
   selectedClient!: Cliente
 
   selectionService = inject(SelectionService)
@@ -46,10 +46,11 @@ export class ModalclienteComponent implements OnInit{
 
   empresa = 0;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
-    this.sortTipoCli =[
+    this.sortTipoCli = [
       {label: 'Cliente', value: 1},
       {label: 'Proveedor', value: 2},
       {label: 'Empleado', value: 5},
@@ -58,22 +59,22 @@ export class ModalclienteComponent implements OnInit{
     this.listarClientes(this.empresa, 2);
   }
 
-  onSortChange(event : any){
+  onSortChange(event: any) {
     const tipo = Number(event.value);
-    this.listarClientes(this.empresa,tipo)
+    this.listarClientes(this.empresa, tipo)
   }
 
-  listarClientes(empresa:number , tipo:number){
-    this.loading=true;
-    this.clienteService.getClienteXTipo(empresa,tipo).subscribe({
+  listarClientes(empresa: number, tipo: number) {
+    this.loading = true;
+    this.clienteService.getClienteXTipo(empresa, tipo).subscribe({
       next: data => {
         this.clientes = data
-        this.loading=false
+        this.loading = false
       },
       error: err => {
         console.error(err)
-        this.clientes =[]
-        this.loading=false
+        this.clientes = []
+        this.loading = false
       }
     })
   }
@@ -82,13 +83,13 @@ export class ModalclienteComponent implements OnInit{
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  seleccionarProveedor(){
+  seleccionarProveedor() {
     this.selectionService.actualizarClienteSeleccionado(this.selectedClient.codigo)
     this.onBtnClick.emit(false)
     this.visible = false
   }
 
-  seleccionarProv(proveedor: Cliente){
+  seleccionarProv(proveedor: Cliente) {
     this.selectionService.actualizarClienteSeleccionado(proveedor.codigo)
     //sessionStorage.setItem("proveedor", proveedor.nombre)
     this.onChangeProv.emit(proveedor.nombre)

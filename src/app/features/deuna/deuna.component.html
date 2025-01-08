@@ -1,13 +1,16 @@
-<div class="container" style="background-image: url('images/fondoDeuna.png'); background-size: cover; background-position: center; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+<div class="container"
+     style="background-image: url('images/fondoDeuna.png'); background-size: cover; background-position: center; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;">
   @if (imageBase64) {
-    <div class="flex justify-content-center" style="background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-      <p-image [src]="imageBase64" alt="QR code" width="450" ></p-image>
+    <div class="flex justify-content-center"
+         style="background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+      <p-image [src]="imageBase64" alt="QR code" width="450"></p-image>
     </div>
     <div class="col" style="width: 100%; max-width: 600px; margin-top: 20px;">
       <p-progressBar mode="indeterminate"></p-progressBar>
     </div>
   }
-  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Ok'" [rejectVisible]="false"></p-confirmDialog>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Ok'"
+                   [rejectVisible]="false"></p-confirmDialog>
   <p-toast key="tst"></p-toast>
- </div>
+</div>
 

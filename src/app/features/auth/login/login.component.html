@@ -4,17 +4,26 @@
       <!-- Imagen -->
       <image href="/images/logo_assist.png" x="38%" y="10" height="75" width="75"/>
       <!-- Texto ASSIST -->
-      <text x="50%" y="90" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="var(--primary-color)" text-anchor="middle">ASSIST</text>
+      <text x="50%" y="90" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="var(--primary-color)"
+            text-anchor="middle">ASSIST
+      </text>
       <!-- Texto SOFTWARE -->
-      <text x="50%" y="95" font-family="Arial, sans-serif" font-size="5" font-weight="400" fill="var(--primary-color)" text-anchor="middle">SOFTWARE</text>
+      <text x="50%" y="95" font-family="Arial, sans-serif" font-size="5" font-weight="400" fill="var(--primary-color)"
+            text-anchor="middle">SOFTWARE
+      </text>
     </svg>
 
-    <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+    <div
+      style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
       <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
         <div class="text-center mb-5">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 40" class="app-logo-normal">
-            <text x="50%" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="var(--primary-color)" text-anchor="middle">Bienvenido</text>
-            <text x="50%" y="40" font-family="Arial, sans-serif" font-size="15" font-weight="500" fill="var(--primary-color)" text-anchor="middle">Inicia Sesion</text>
+            <text x="50%" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="600"
+                  fill="var(--primary-color)" text-anchor="middle">Bienvenido
+            </text>
+            <text x="50%" y="40" font-family="Arial, sans-serif" font-size="15" font-weight="500"
+                  fill="var(--primary-color)" text-anchor="middle">Inicia Sesion
+            </text>
           </svg>
         </div>
 
@@ -59,7 +68,8 @@
                 <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                 <label for="rememberme1">Recordarme</label>
               </div>
-              <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="['/assist/auth/forgotpassword']">Olvidé la contraseña</a>
+              <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)"
+                 [routerLink]="['/assist/auth/forgotpassword']">Olvidé la contraseña</a>
             </div>
 
             <button pButton pRipple label="Iniciar Sesión" class="w-full p-3 text-xl" type="submit"></button>

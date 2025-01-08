@@ -116,7 +116,7 @@ export class LayoutService {
   }
 
   onConfigUpdate() {
-    this._config = { ...this.config() };
+    this._config = {...this.config()};
     this.configUpdate.next(this.config());
   }
 

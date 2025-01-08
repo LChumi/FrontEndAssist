@@ -29,7 +29,7 @@ import {ErrorResponse} from "@models/error/error-response";
   templateUrl: './login.component.html',
   styles: ``
 })
-export default class LoginComponent implements OnInit{
+export default class LoginComponent implements OnInit {
   rememberMe: boolean = false;
   password!: string;
 
@@ -48,33 +48,37 @@ export default class LoginComponent implements OnInit{
     })
   }
 
-  onSubmit(){
-    if (this.loginForm.invalid){
+  onSubmit() {
+    if (this.loginForm.invalid) {
       return
     }
     const usuario = this.loginForm.get('usuario')?.value
     const password = this.loginForm.get('password')?.value
 
-    const loginRequest: AuthenticationRequest={
+    const loginRequest: AuthenticationRequest = {
       nombreUsuario: usuario,
       clave: password
     }
 
     this.usuarioService.temporalLogin(loginRequest).subscribe({
-      next: user =>{
-        sessionStorage.setItem('usrid',String(user.id))
-        sessionStorage.setItem('nombre',user.nombre)
+      next: user => {
+        sessionStorage.setItem('usrid', String(user.id))
+        sessionStorage.setItem('nombre', user.nombre)
         sessionStorage.setItem('username', user.username)
-        this.messageService.add({severity: 'success', summary:'Bienvenido', detail: user.nombre , life: 2000})
+        this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
         this.goToDashboard()
       }, error: (error: ErrorResponse) => {
-        this.messageService.add({severity: 'warn', summary:'Verifique nombre usuario o contraseña', detail: error.message })
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Verifique nombre usuario o contraseña',
+          detail: error.message
+        })
       }
     })
   }
 
-  goToDashboard(){
-    this.router.navigate(['/assist','auth', 'empresas'])
+  goToDashboard() {
+    this.router.navigate(['/assist', 'auth', 'empresas'])
   }
 
 }

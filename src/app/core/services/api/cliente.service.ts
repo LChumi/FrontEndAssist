@@ -9,16 +9,17 @@ import {Cliente} from "@models/entities/cliente";
 })
 export class ClienteService {
 
-  private baseUrl = environment.apiUrlBase+'assist';
+  private baseUrl = environment.apiUrlBase + 'assist';
   private http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
   getClienteXTipo(empresa: number, tipo: number): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.baseUrl}/clientes/${empresa}/${tipo}`)
   }
 
-  getClienteXtipoxCategoria(empresa: number, tipo: number, categoria: number): Observable<Cliente[]>{
+  getClienteXtipoxCategoria(empresa: number, tipo: number, categoria: number): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.baseUrl}/cliente/${empresa}/${tipo}/${categoria}`)
   }
 }

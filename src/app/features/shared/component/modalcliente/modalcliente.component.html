@@ -15,9 +15,9 @@
       </ng-template>
       <ng-template pTemplate="right">
         <p-dropdown [hidden]="isVisibleDropdown"
-          [options]="sortTipoCli"
-          placeholder="Clasificar por Tipo"
-          (onChange)="onSortChange($event)">
+                    [options]="sortTipoCli"
+                    placeholder="Clasificar por Tipo"
+                    (onChange)="onSortChange($event)">
         </p-dropdown>
       </ng-template>
     </p-toolbar>
@@ -42,7 +42,7 @@
       <!-- Barra de Búsqueda -->
       <ng-template pTemplate="caption">
         <div class="flex flex-column sm:flex-row sm:justify-content-between sm:align-items-center">
-          <h5 class="m-0">Lista de {{tipoCliente()}}</h5>
+          <h5 class="m-0">Lista de {{ tipoCliente() }}</h5>
           <span class="p-input-icon-left w-full sm:w-auto">
             <i class="pi pi-search"></i>
             <input
@@ -79,7 +79,9 @@
         <tr>
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-outlined p-button-contrast mr-2" (click)="seleccionarProv(cliente)"></button>
+              <button pButton pRipple icon="pi pi-check"
+                      class="p-button-rounded p-button-outlined p-button-contrast mr-2"
+                      (click)="seleccionarProv(cliente)"></button>
             </div>
           </td>
           <td style="width:25%; min-width:25rem;">

@@ -9,10 +9,11 @@ import {Items} from "@models/record/items";
 })
 export class FileService {
 
-  private baseUrl = environment.apiUrlBase+'assist'
+  private baseUrl = environment.apiUrlBase + 'assist'
   http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
   sendExcel(file: File, empresa: string): Observable<Items[]> {
     const formData: FormData = new FormData();

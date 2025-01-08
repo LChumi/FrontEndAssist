@@ -10,13 +10,14 @@ import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 })
 export class FavoritesService {
 
-  private baseUrl = environment.apiUrlBase+ 'assist'
+  private baseUrl = environment.apiUrlBase + 'assist'
 
   http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
-  getFavorites(usrId: number, empresa: number): Observable<UsuarioFavoritos[]>{
+  getFavorites(usrId: number, empresa: number): Observable<UsuarioFavoritos[]> {
     return this.http.get<UsuarioFavoritos[]>(`${this.baseUrl}/favoritos/${usrId}/${empresa}`)
   }
 
@@ -29,6 +30,6 @@ export class FavoritesService {
   }
 
   deleteFavorite(request: FavoriteRequest) {
-    return this.http.delete(`${this.baseUrl}/favoritos/delete`, {body :request})
+    return this.http.delete(`${this.baseUrl}/favoritos/delete`, {body: request})
   }
 }

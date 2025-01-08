@@ -16,34 +16,34 @@ import {Router} from "@angular/router";
   templateUrl: './empresa.component.html',
   styles: ``
 })
-export default class EmpresaComponent implements OnInit{
+export default class EmpresaComponent implements OnInit {
 
-  menuService= inject(MenusService)
+  menuService = inject(MenusService)
   router = inject(Router)
 
-  listasEmpresa: Empresa[] =[]
+  listasEmpresa: Empresa[] = []
 
   ngOnInit(): void {
-    const usrIdString =sessionStorage.getItem('usrid')
-    if (usrIdString){
+    const usrIdString = sessionStorage.getItem('usrid')
+    if (usrIdString) {
       const usrId = Number(usrIdString)
       this.menuService.getEmpresas(usrId).subscribe(
         empresas => {
-          this.listasEmpresa=empresas
+          this.listasEmpresa = empresas
         }
       )
     }
   }
 
-  empresaSelected(empresa:Empresa){
-    if (empresa){
+  empresaSelected(empresa: Empresa) {
+    if (empresa) {
       sessionStorage.setItem('empresa', String(empresa.id))
       sessionStorage.setItem('nombreEmpresa', empresa.nombre)
       this.goToInicio()
     }
   }
 
-  goToInicio(){
+  goToInicio() {
     this.router.navigate(['/assist', 'inicio', 'dashboard'])
   }
 }

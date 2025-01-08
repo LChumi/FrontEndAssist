@@ -20,7 +20,7 @@ export default class DashboardComponent implements OnInit {
   imageUsr: any
   fecha: any;
   hora: any;
-  favoritos: UsuarioFavoritos[] =[];
+  favoritos: UsuarioFavoritos[] = [];
 
   favoritoService = inject(FavoritesService)
 
@@ -32,12 +32,12 @@ export default class DashboardComponent implements OnInit {
   ngOnInit(): void {
     const usrId = sessionStorage.getItem("usrid");
     const empresaId = sessionStorage.getItem("empresa");
-    console.log(usrId , empresaId);
-    this.getFavoritos(usrId,empresaId)
+    console.log(usrId, empresaId);
+    this.getFavoritos(usrId, empresaId)
   }
 
-  getFavoritos(usuario: any , empresa: any ){
-    this.favoritoService.getFavorites(usuario,empresa).subscribe({
+  getFavoritos(usuario: any, empresa: any) {
+    this.favoritoService.getFavorites(usuario, empresa).subscribe({
       next: data => {
         this.favoritos = data
         console.log(data)
@@ -45,7 +45,7 @@ export default class DashboardComponent implements OnInit {
     })
   }
 
-  getDate(){
+  getDate() {
     const fecha = new Date();
     const year = fecha.getFullYear();
     const month = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
@@ -59,6 +59,7 @@ export default class DashboardComponent implements OnInit {
     this.hora = `${formattedHours}:${minutes} ${ampm}`;
 
   }
+
   getNameLastName() {
     this.nombre = sessionStorage.getItem('nombre');
     const nombres = this.nombre.split(' ');
@@ -71,7 +72,7 @@ export default class DashboardComponent implements OnInit {
       lastName = nombres[1];
     }
 
-    this.nombre = (lastName ? lastName + ' ' : '') + name ;
+    this.nombre = (lastName ? lastName + ' ' : '') + name;
     return this.nombre;
   }
 }

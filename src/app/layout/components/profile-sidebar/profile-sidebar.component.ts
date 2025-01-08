@@ -16,13 +16,13 @@ import {Router} from "@angular/router";
 export class ProfileSidebarComponent {
 
   nombre: any;
-  username : any;
+  username: any;
   layoutService = inject(LayoutService)
   router = inject(Router);
 
   constructor() {
     this.nombre = sessionStorage.getItem('nombre');
-    this.username= sessionStorage.getItem('username');
+    this.username = sessionStorage.getItem('username');
   }
 
   get visible(): boolean {
@@ -36,6 +36,6 @@ export class ProfileSidebarComponent {
   signOut(): void {
     sessionStorage.clear();
     this.visible = false;
-    this.router.navigate(['/assist','auth' , 'login']);
+    this.router.navigate(['/assist', 'auth', 'login']);
   }
 }

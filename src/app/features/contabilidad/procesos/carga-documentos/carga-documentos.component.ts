@@ -20,7 +20,7 @@ import {FavoriteComponent} from "@features/shared/component/favorite/favorite.co
   templateUrl: './carga-documentos.component.html',
   styles: ``
 })
-export default class CargaDocumentosComponent implements OnInit{
+export default class CargaDocumentosComponent implements OnInit {
 
   uploadFiles: any[] = []; // Archivos seleccionados
   textContent: string = ''; // Texto ingresado en el textarea
@@ -38,7 +38,7 @@ export default class CargaDocumentosComponent implements OnInit{
   ngOnInit(): void {
     this.id_usuario = sessionStorage.getItem('usrid')
     if (this.id_usuario == '') {
-      this.router.navigate(['/assist','auth', 'login'])
+      this.router.navigate(['/assist', 'auth', 'login'])
     }
     this.obtenerCorreoEmpresarial()
   }
@@ -120,20 +120,24 @@ export default class CargaDocumentosComponent implements OnInit{
     );
   }
 
-  obtenerCorreoEmpresarial(){
+  obtenerCorreoEmpresarial() {
     this.contabilidadService.getEmpleado(this.id_usuario).subscribe(
       empleado => {
-        if (empleado){
-          if (empleado.mailEmpresa){
-            this.emailEmpresa=empleado.mailEmpresa
+        if (empleado) {
+          if (empleado.mailEmpresa) {
+            this.emailEmpresa = empleado.mailEmpresa
             this.haveEmail = true;
           } else {
-            this.messageService.add({severity: 'warn', summary: 'Error', detail: 'El email empresarial es obligatorio'});
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Error',
+              detail: 'El email empresarial es obligatorio'
+            });
             console.log('Es empleado sin correo ')
             this.haveEmail = false;
             return;
           }
-        }else {
+        } else {
           this.messageService.add({severity: 'warn', summary: 'Error', detail: 'El email empresarial es obligatorio'});
           this.haveEmail = false;
         }

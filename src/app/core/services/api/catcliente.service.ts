@@ -9,12 +9,13 @@ import {Catcliente} from "@models/entities/catcliente";
 })
 export class CatclienteService {
 
-  private baseUrl = environment.apiUrlBase+'models';
+  private baseUrl = environment.apiUrlBase + 'models';
   private http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
-  getCategoriaByEmpresa(empresa:number):Observable<Catcliente[]>{
+  getCategoriaByEmpresa(empresa: number): Observable<Catcliente[]> {
     return this.http.get<Catcliente[]>(`${this.baseUrl}/categorias/${empresa}`)
   }
 }

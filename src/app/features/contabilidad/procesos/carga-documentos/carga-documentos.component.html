@@ -6,10 +6,10 @@
 
   <span class="block text-900 font-bold text-xl mb-4">Registro de Documentos enviados por el SRI</span>
 
-  @if (haveEmail){
-    @if (loading){
+  @if (haveEmail) {
+    @if (loading) {
       <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #70aeff"></i>
-    }@else{
+    } @else {
       <div class="grid">
         <div class="col-12">
           <div class="card">
@@ -29,8 +29,8 @@
               <ng-template pTemplate="content">
                 @if (uploadFiles.length) {
                   <ul>
-                    @for (file of uploadFiles; track $index){
-                      <li>{{file.name}} - {{file.size}} bytes</li>
+                    @for (file of uploadFiles; track $index) {
+                      <li>{{ file.name }} - {{ file.size }} bytes</li>
                     }
                   </ul>
                 }
@@ -46,7 +46,8 @@
                       pInputTextarea
                       class="w-full p-inputtext"
                       style="resize:none; overflow-y:auto"></textarea>
-            <button pButton pRipple label="Enviar Texto" [loading]="loading" icon ="pi pi-send" (click)="uploadString(textContent)"></button>
+            <button pButton pRipple label="Enviar Texto" [loading]="loading" icon="pi pi-send"
+                    (click)="uploadString(textContent)"></button>
           </div>
         </div>
       </div>
@@ -57,7 +58,6 @@
       <span>Solicita tu correo </span>
     </div>
   }
-
 
 
 </div>

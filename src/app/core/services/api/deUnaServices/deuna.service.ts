@@ -10,16 +10,17 @@ import {InfoResponse} from "@models/record/info-response";
 })
 export class DeunaService {
 
-  private baseUrl = environment.apiUrlBase+'pos';
+  private baseUrl = environment.apiUrlBase + 'pos';
   http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
-  generarPago(usrLiq: number, empresa: number):Observable<PaymentResponse>{
+  generarPago(usrLiq: number, empresa: number): Observable<PaymentResponse> {
     return this.http.get<PaymentResponse>(`${this.baseUrl}/generar-pago/${usrLiq}/${empresa}`)
   }
 
-  validarPago(usrLiq: number, empresa: number):Observable<InfoResponse>{
+  validarPago(usrLiq: number, empresa: number): Observable<InfoResponse> {
     return this.http.get<InfoResponse>(`${this.baseUrl}/validar-pago/${usrLiq}/${empresa}`)
   }
 }
