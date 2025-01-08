@@ -19,7 +19,9 @@ export class SidebarComponent {
   timeout: any = null;
 
   @ViewChild('menuContainer') menuContainer!: ElementRef;
-  constructor(public layoutService: LayoutService, public el: ElementRef) {}
+
+  constructor(public layoutService: LayoutService, public el: ElementRef) {
+  }
 
 
   onMouseEnter() {

@@ -21,7 +21,7 @@ import {ErrorResponse} from "@models/error/error-response";
   templateUrl: './deuna.component.html',
   styles: ``
 })
-export default class DeunaComponent implements OnInit{
+export default class DeunaComponent implements OnInit {
 
   route = inject(ActivatedRoute)
   deunaService = inject(DeunaService);
@@ -30,9 +30,9 @@ export default class DeunaComponent implements OnInit{
   private subscription: Subscription | null = null;
 
   usrLiquida: any;
-  empresa:any;
+  empresa: any;
   imageBase64: string | null = '';
-  value =0;
+  value = 0;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -43,17 +43,17 @@ export default class DeunaComponent implements OnInit{
     this.obtenerQr()
   }
 
-  parameterIsNumeric(data:string){
-    if (data && !/^\d+$/.test(data)){
+  parameterIsNumeric(data: string) {
+    if (data && !/^\d+$/.test(data)) {
       console.error('El ID debe ser un numero')
       return;
     }
   }
 
-  obtenerQr(){
+  obtenerQr() {
     this.deunaService.generarPago(this.usrLiquida, this.empresa).subscribe(
       data => {
-        if(data.qr){
+        if (data.qr) {
           this.imageBase64 = data.qr
           console.log(data.deeplink)
           this.validarQr()
@@ -62,7 +62,7 @@ export default class DeunaComponent implements OnInit{
     )
   }
 
-  validarQr(){
+  validarQr() {
     this.value = 0;
     const intervalTime = 2000; // 2 segundos
     const maxTime = 60000; // 1 1/2 minuto
@@ -77,9 +77,9 @@ export default class DeunaComponent implements OnInit{
     });
     this.deunaService.validarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
-        if(/APPROVED/.test(data.status)){
+        if (/APPROVED/.test(data.status)) {
           this.confirm()
-          this.value=100
+          this.value = 100
           this.subscription?.unsubscribe();
           this.cleanData()
         }
@@ -91,29 +91,34 @@ export default class DeunaComponent implements OnInit{
     });
   }
 
-  confirm(){
+  confirm() {
     this.confirmatioService.confirm({
       message: 'El pago fue realizado exitosamente por favor cierre la ventana',
       header: 'Confirmacion',
       icon: 'pi pi-window-minimize',
-      accept: () =>{
-        this.toast.add({key: 'tst', severity: 'info', summary: 'Gracias por usar DeUna Pagos', detail: 'Cierre la ventana por favor'})
+      accept: () => {
+        this.toast.add({
+          key: 'tst',
+          severity: 'info',
+          summary: 'Gracias por usar DeUna Pagos',
+          detail: 'Cierre la ventana por favor'
+        })
       }
     })
   }
 
-  error(error:any){
+  error(error: any) {
     this.confirmatioService.confirm({
       message: 'Tiempo de espera agotado',
       header: 'Confirmacion',
       icon: 'pi pi-exclamation-circle',
-      accept: () =>{
+      accept: () => {
         this.toast.add({key: 'tst', severity: 'warn', summary: error, detail: 'Cierre la ventana por favor'})
       }
     })
   }
 
-  cleanData(){
+  cleanData() {
     this.imageBase64 = null
     this.usrLiquida = null
     this.empresa = null

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BehaviorSubject, filter} from "rxjs";
 import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {AsyncPipe, NgForOf} from "@angular/common";

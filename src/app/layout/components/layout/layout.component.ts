@@ -24,7 +24,7 @@ import {LayoutService} from "@layout/service/layout.service";
   ],
   templateUrl: './layout.component.html',
 })
-export class LayoutComponent implements OnDestroy{
+export class LayoutComponent implements OnDestroy {
   overlayMenuOpenSubscription: Subscription;
 
   menuOutsideClickListener: any;

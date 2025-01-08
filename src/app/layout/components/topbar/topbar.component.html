@@ -10,14 +10,17 @@
   <div class="topbar-end">
     <ul class="topbar-menu">
       <li class="topbar-breadcrumb">
-                <span class="p-text-secondary">{{empresa}}</span>
+        <span class="p-text-secondary">{{ empresa }}</span>
       </li>
       <li class="ml-3">
-        <button pButton type="button" icon="pi pi-cog" class="p-button-text p-button-secondary p-button-rounded flex-shrink-0" (click)="onConfigButtonClick()"></button>
+        <button pButton type="button" icon="pi pi-cog"
+                class="p-button-text p-button-secondary p-button-rounded flex-shrink-0"
+                (click)="onConfigButtonClick()"></button>
       </li>
       <li class="topbar-profile">
         <button type="button" class="p-link" (click)="onProfileButtonClick()">
-          <div class="flex justify-content-center align-items-center border-circle" style="width:2rem; height:2rem;background: var(--primary-color)">
+          <div class="flex justify-content-center align-items-center border-circle"
+               style="width:2rem; height:2rem;background: var(--primary-color)">
             <i class="text-50 pi pi-fw pi-user text-sm"></i>
           </div>
         </button>

@@ -32,6 +32,7 @@ export class TopbarComponent {
   onProfileButtonClick() {
     this.layoutService.showProfileSidebar();
   }
+
   onConfigButtonClick() {
     this.layoutService.showConfigSidebar();
   }

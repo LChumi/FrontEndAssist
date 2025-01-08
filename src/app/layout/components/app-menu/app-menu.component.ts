@@ -16,19 +16,19 @@ export class AppMenuComponent implements OnInit {
   menuService = inject(MenusService)
 
   usrId: number | null = 0
-  empresaId:number | null=0
+  empresaId: number | null = 0
 
   model: any[] = [];
 
   ngOnInit() {
-    const usrIdStr =sessionStorage.getItem('usrid')
+    const usrIdStr = sessionStorage.getItem('usrid')
     const empresaStr = sessionStorage.getItem('empresa')
-    if (usrIdStr && empresaStr){
+    if (usrIdStr && empresaStr) {
       const usrId = Number(usrIdStr)
       const empresa = Number(empresaStr)
-      this.menuService.getMenus(usrId,empresa).subscribe(
+      this.menuService.getMenus(usrId, empresa).subscribe(
         menus => {
-          this.model= menus
+          this.model = menus
         }
       )
     }

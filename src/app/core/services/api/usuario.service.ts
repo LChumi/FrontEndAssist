@@ -11,16 +11,17 @@ import {UserResponse} from "@models/record/user-response";
 })
 export class UsuarioService {
 
-  private baseUrl = environment.apiUrlBase+'assist'
+  private baseUrl = environment.apiUrlBase + 'assist'
   http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
-  temporalLogin(request: AuthenticationRequest): Observable<UserResponse>{
+  temporalLogin(request: AuthenticationRequest): Observable<UserResponse> {
     return this.http.post<UserResponse>(`${this.baseUrl}/login`, request)
   }
 
-  recoveryPassword(userId: string): Observable<ServiceResponse>{
+  recoveryPassword(userId: string): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(`${this.baseUrl}/forgot-password/${userId}`)
   }
 

@@ -12,15 +12,16 @@ export class ContabilidadService {
   private baseUrl = environment.apiUrlBase
   http = inject(HttpClient)
 
-  constructor() { }
+  constructor() {
+  }
 
-  getEmpleado(usuarioId: string): Observable<Empleado>{
+  getEmpleado(usuarioId: string): Observable<Empleado> {
     return this.http.get<Empleado>(`${this.baseUrl}models/empleado/id-usuario/${usuarioId}`)
   }
 
   sendString(data: string, email: string): Observable<boolean> {
     const params = new HttpParams().set('email', email);
-    return this.http.post<boolean>(`${this.baseUrl}recp/string`, data, { params })
+    return this.http.post<boolean>(`${this.baseUrl}recp/string`, data, {params})
       .pipe(
         catchError(error => {
           console.error('Error sending string:', error);

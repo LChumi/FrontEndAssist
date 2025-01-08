@@ -10,16 +10,17 @@ import {Empresa} from "@models/entities/empresa";
 })
 export class MenusService {
 
-  private baseUrl= environment.apiUrlBase+'assist'
+  private baseUrl = environment.apiUrlBase + 'assist'
   http = inject(HttpClient)
 
-  constructor() {}
+  constructor() {
+  }
 
-  getMenus(usuario:number, empresa:number): Observable<MenuPrincipal[]>{
+  getMenus(usuario: number, empresa: number): Observable<MenuPrincipal[]> {
     return this.http.get<MenuPrincipal[]>(`${this.baseUrl}/menus/${usuario}/${empresa}`)
   }
 
-  getEmpresas(usuario:number):Observable<Empresa[]>{
+  getEmpresas(usuario: number): Observable<Empresa[]> {
     return this.http.get<Empresa[]>(`${this.baseUrl}/empresas/${usuario}`)
   }
 

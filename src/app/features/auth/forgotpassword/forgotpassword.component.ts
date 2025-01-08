@@ -22,13 +22,13 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
   templateUrl: './forgotpassword.component.html',
   styles: ``
 })
-export default class ForgotpasswordComponent implements OnInit{
+export default class ForgotpasswordComponent implements OnInit {
 
   resendForm!: FormGroup
 
-  response= true;
+  response = true;
   loading = false;
-  serviceResponse: ServiceResponse={} as ServiceResponse
+  serviceResponse: ServiceResponse = {} as ServiceResponse
 
   usuarioService = inject(UsuarioService)
   fb = inject(FormBuilder)
@@ -39,17 +39,17 @@ export default class ForgotpasswordComponent implements OnInit{
     })
   }
 
-  onSubmit(){
-    this.loading= true;
-    if (this.resendForm.invalid){
+  onSubmit() {
+    this.loading = true;
+    if (this.resendForm.invalid) {
       return
     }
     const usuario = this.resendForm.get('usuario')?.value;
     this.usuarioService.recoveryPassword(usuario).subscribe(
-      data=>{
-        this.response=false
+      data => {
+        this.response = false
         this.serviceResponse = data
-        this.loading=false;
+        this.loading = false;
       }, error => {
         this.loading = false
       }

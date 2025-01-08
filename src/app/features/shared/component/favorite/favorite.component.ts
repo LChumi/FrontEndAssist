@@ -24,7 +24,7 @@ export class FavoriteComponent implements OnInit {
   router = inject(Router);
   favoriteService = inject(FavoritesService)
 
-  favoriteRequest: FavoriteRequest ={} as FavoriteRequest;
+  favoriteRequest: FavoriteRequest = {} as FavoriteRequest;
 
   toggleFavorite() {
     if (this.isFavorite) {
