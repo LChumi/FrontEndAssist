@@ -1,0 +1,110 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '600px', maxWidth: '90vw' }"
+  [breakpoints]="{ '960px': '90vw', '640px': '100vw' }"
+  class="p-fluid"
+  [header]="'SELECCIÓN DE COMPROBANTE'"
+  [closable]="true"
+  (onHide)="visible = false"
+>
+
+  <ng-template pTemplate="body">
+    <div class="card py-4 px-4 mb-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Programa:</label>
+          <span> programa facturacion</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Fecha:</label>
+          <span> 9-1-2025 </span>
+        </div>
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Módulo:</label>
+          <span> modulo facturacion</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Usuario:</label>
+          <span> lchumi </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card py-4 px-4 mb-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Documento:</label>
+          <span> documento </span>
+        </div>
+        <div class="flex items-center justify-between">
+          <label class="block font-bold text-gray-700 mr-2">Módulo:</label>
+          <span> modulo </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card py-4 px-4 mb-4">
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Sigla -->
+        <div class="flex items-center">
+          <label class="block font-bold text-gray-700 w-1/3">Sigla:</label>
+          <p-dropdown placeholder="Seleccione una sigla" class="w-2/3"></p-dropdown>
+        </div>
+        <div class="flex items-center">
+          <span class="w-2/3"> siglaSeleccionada </span>
+        </div>
+
+        <!-- Almacén -->
+        <div class="flex items-center">
+          <label class="block font-bold text-gray-700 w-1/3">Almacén:</label>
+          <p-dropdown placeholder="Seleccione un almacén" class="w-2/3"></p-dropdown>
+        </div>
+        <div class="flex items-center">
+          <span class="w-2/3"> nombreAlmacen </span>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <!-- Punto de Venta -->
+        <div class="flex items-center">
+          <label class="block font-bold text-gray-700 w-1/3">Punto de Venta:</label>
+          <p-dropdown placeholder="punto de venta" class="w-full max-w-xs"></p-dropdown>
+        </div>
+
+        <!-- Fecha -->
+        <div class="flex items-center mt-4">
+          <label class="block font-bold text-gray-700 w-1/3">Fecha:</label>
+          <span class="w-2/3"> date </span>
+        </div>
+
+        <!-- Liquidación -->
+        <div class="flex items-center mt-4">
+          <label class="block font-bold text-gray-700 w-1/3">Liquidación:</label>
+          <input pInputText class="w-2/3" disabled />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Botones en el pie -->
+  <ng-template pTemplate="footer">
+    <div class="flex justify-end gap-2">
+      <button
+        type="button"
+        pButton
+        label="Aceptar"
+        icon="pi pi-check"
+        class="p-button-info"
+      ></button>
+      <button
+        type="button"
+        pButton
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-secondary"
+        (click)="visible = false"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
