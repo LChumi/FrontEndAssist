@@ -15,6 +15,9 @@ import {DecimalPipe, NgClass} from "@angular/common";
 import {ImagenService} from "@services/api/images/imagen.service";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
+import {
+  SeleccionComprobanteComponent
+} from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
 
 @Component({
   standalone: true,
@@ -31,7 +34,8 @@ import {FavoriteComponent} from "@features/shared/component/favorite/favorite.co
     NgClass,
     DecimalPipe,
     ScrollTopModule,
-    FavoriteComponent
+    FavoriteComponent,
+    SeleccionComprobanteComponent
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
