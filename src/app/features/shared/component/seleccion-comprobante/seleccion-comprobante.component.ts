@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, input, InputSignal, OnInit} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
@@ -16,7 +16,14 @@ import {ChipsModule} from "primeng/chips";
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
 })
-export class SeleccionComprobanteComponent {
+export class SeleccionComprobanteComponent  implements OnInit {
+  public tipoDoc = input.required<number>();
+  @Input() visible: boolean = false;
 
-  visible = true;
+  ngOnInit(): void {
+    console.log(this.tipoDoc());
+    console.log(this.visible)
+  }
+
+
 }
