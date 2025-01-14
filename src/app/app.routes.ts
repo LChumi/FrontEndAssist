@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
 import {NotFoundComponent} from "@features/error/not-found/not-found.component";
-import DeunaComponent from "@features/deuna/deuna.component";
+import DeunaComponent from "@features/payments/deuna/deuna.component";
 
 export const routes: Routes = [
   {
