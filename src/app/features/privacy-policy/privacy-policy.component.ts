@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class PrivacyPolicyComponent {
 
+  emailInfo: string='info@cumpleanos.com.ec';
 }
