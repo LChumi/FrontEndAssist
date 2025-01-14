@@ -3,6 +3,7 @@ import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {getCurrentDate, getCurrentTime} from "../../../core/utils";
 
 @Component({
   standalone: true,
@@ -46,17 +47,8 @@ export default class DashboardComponent implements OnInit {
   }
 
   getDate() {
-    const fecha = new Date();
-    const year = fecha.getFullYear();
-    const month = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
-    const day = fecha.getDate().toString().padStart(2, '0');
-    const hours = fecha.getHours();
-    const minutes = fecha.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0'); // Convierte 0 a 12 para formato de 12 horas
-
-    this.fecha = `${year}-${month}-${day}`;
-    this.hora = `${formattedHours}:${minutes} ${ampm}`;
+    this.fecha = getCurrentDate();
+    this.hora = getCurrentTime();
 
   }
 
