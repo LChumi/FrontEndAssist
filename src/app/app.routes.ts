@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
 import {NotFoundComponent} from "@features/error/not-found/not-found.component";
 import DeunaComponent from "@features/payments/deuna/deuna.component";
+import {PrivacyPolicyComponent} from "@features/privacy-policy/privacy-policy.component";
 
 export const routes: Routes = [
   {
@@ -60,6 +61,7 @@ export const routes: Routes = [
   },
   {path: 'notFound', component: NotFoundComponent},
   {path:'deuna/:id/:empresa', component: DeunaComponent},
+  {path:'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
   {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];
