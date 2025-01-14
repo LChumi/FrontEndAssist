@@ -3,7 +3,7 @@ import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {getCurrentDate, getCurrentTime} from "../../../core/utils";
+import {getCurrentDate, getCurrentTime} from "@utils/date-utils";
 
 @Component({
   standalone: true,
