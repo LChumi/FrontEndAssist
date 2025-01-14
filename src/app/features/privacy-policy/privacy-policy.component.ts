@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class PrivacyPolicyComponent {
-
   emailInfo: string='info@cumpleanos.com.ec';
 }
