@@ -9,7 +9,8 @@
       "@services/*": ["./src/app/core/services/*"],
       "@layout/*": ["./src/app/layout/*"],
       "@features/*": ["./src/app/features/*"],
-      "@interceptors/*": ["./src/app/core/interceptors/*"]
+      "@interceptors/*": ["./src/app/core/interceptors/*"],
+      "@utils/*": ["./src/app/core/utils/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
