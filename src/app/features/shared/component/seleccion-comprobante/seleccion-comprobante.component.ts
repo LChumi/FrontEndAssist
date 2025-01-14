@@ -3,6 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {ChipsModule} from "primeng/chips";
+import {getCurrentDate} from "@utils/date-utils";
 
 @Component({
   selector: 'app-seleccion-comprobante',
@@ -20,9 +21,10 @@ export class SeleccionComprobanteComponent  implements OnInit {
   public tipoDoc = input.required<number>();
   @Input() visible: boolean = false;
 
+  date:string='';
+
   ngOnInit(): void {
-    console.log(this.tipoDoc());
-    console.log(this.visible)
+    this.date=getCurrentDate()
   }
 
 
