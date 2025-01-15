@@ -13,20 +13,22 @@
   </ng-template>
   <ng-template pTemplate="content">
         <div class="grid">
-          <div class="col-9">
-            <div class="text-900 font-semibold mb-2">Documento</div>
-            <p class="flex align-items-center m-0">
-              <i class="pi pi-book text-700 mr-2"></i>
-              <span>{{ dTipoDoc[0].nombreTipoDoc }}</span>
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="text-900 font-semibold mb-2">Modulo</div>
-            <p class="flex align-items-center m-0">
-              <i class="pi pi-book"></i>
-              <span>{{ dTipoDoc[0].ctiId }}</span>
-            </p>
-          </div>
+          @if (dTipoDoc.length > 0){
+            <div class="col-9">
+              <div class="text-900 font-semibold mb-2">Documento</div>
+              <p class="flex align-items-center m-0">
+                <i class="pi pi-book text-700 mr-2"></i>
+                <span>{{ dTipoDoc[0].nombreTipoDoc }}</span>
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="text-900 font-semibold mb-2">Modulo</div>
+              <p class="flex align-items-center m-0">
+                <i class="pi pi-book"></i>
+                <span>{{ dTipoDoc[0].ctiId }}</span>
+              </p>
+            </div>
+          }
         </div>
     <div class="grid p-fluid formgrid">
       <div class="col-12 md:col-6 field">
@@ -48,13 +50,15 @@
             </span>
       </div>
 
-      <div class="col-6">
-        <div class="text-900 font-semibold mb-2">Sigla</div>
-        <p class="flex align-items-center m-0">
-          <i class="pi pi-fw pi-clock text-700 mr-2"></i>
-          <span>{{dTipoDocSelected.nombreCtipocom}}</span>
-        </p>
-      </div>
+      @if (dTipoDocSelected) {
+        <div class="col-6">
+          <p class="flex align-items-center m-0">
+            <i class="pi pi-fw pi-bookmark text-700 mr-2"></i>
+            <span>{{dTipoDocSelected.nombreCtipocom}}</span>
+          </p>
+        </div>
+      }
+
     </div>
 
   </ng-template>
