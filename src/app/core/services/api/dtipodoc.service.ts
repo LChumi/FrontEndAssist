@@ -14,7 +14,7 @@ export class DtipodocService {
 
   constructor() { }
 
-  getTipoDoc(empresa: number, tpdCodigo: number): Observable<Dtipodoc>{
-    return this.http.get<Dtipodoc>(`${this.baseUrl}/dtipodoc/${empresa}/${tpdCodigo}`)
+  getTipoDoc(empresa: number, tpdCodigo: number): Observable<Dtipodoc[]>{
+    return this.http.get<Dtipodoc[]>(`${this.baseUrl}/dtipodoc/${empresa}/${tpdCodigo}`)
   }
 }

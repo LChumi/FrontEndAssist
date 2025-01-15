@@ -35,13 +35,13 @@ export default class DashboardComponent implements OnInit {
     const usrId = getSessionItem("usrId");
     const empresaId = getSessionItem("empresa");
     this.getFavoritos(usrId, empresaId)
+    this.getAccesos(usrId, empresaId)
   }
 
   getFavoritos(usuario: any, empresa: any) {
     this.favoritoService.getFavorites(usuario, empresa).subscribe({
       next: data => {
         this.favoritos = data
-        console.log(data)
       }
     })
   }
