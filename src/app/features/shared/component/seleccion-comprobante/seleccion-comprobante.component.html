@@ -1,70 +1,128 @@
 <p-dialog
+  #dd
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '600px', maxWidth: '90vw' }"
   [breakpoints]="{ '960px': '90vw', '640px': '100vw' }"
-  class="p-fluid"
-  [header]="'SELECCIÓN DE COMPROBANTE'"
   [closable]="true"
-  (onHide)="visible = false"
+  (onHide)="close()"
 >
-  <ng-template pTemplate="body">
+
+  <ng-template pTemplate="header">
+    <span class="text-900 font-semibold text-xl">Seleccion de comprobante</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+        <div class="grid">
+          <div class="col-9">
+            <div class="text-900 font-semibold mb-2">Documento</div>
+            <p class="flex align-items-center m-0">
+              <i class="pi pi-book text-700 mr-2"></i>
+              <span>{{ dTipoDoc[0].nombreTipoDoc }}</span>
+            </p>
+          </div>
+          <div class="col-3">
+            <div class="text-900 font-semibold mb-2">Modulo</div>
+            <p class="flex align-items-center m-0">
+              <i class="pi pi-book"></i>
+              <span>{{ dTipoDoc[0].ctiId }}</span>
+            </p>
+          </div>
+        </div>
+    <div class="grid p-fluid formgrid">
+      <div class="col-12 md:col-6 field">
+        <label for="sigla" class="text-900 font-semibold">Sigla</label>
+        <span class="p-input-icon-left">
+              <i class="pi pi-circle"></i>
+              <p-dropdown inputId="sigla" [appendTo]="dd" [options]="dTipoDoc" [(ngModel)]="dTipoDocSelected" optionLabel="ctiId">
+                <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                    <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle" [style.background-color]="'#5676e1'"></div>
+                    <div>{{dTipoDocSelected.ctiId}}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-doc pTemplate="item">
+                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle" [style.background-color]="'#5676e1'"></div>
+                  <div>{{doc.ctiId}}</div>
+                </ng-template>
+              </p-dropdown>
+            </span>
+      </div>
+
+      <div class="col-6">
+        <div class="text-900 font-semibold mb-2">Sigla</div>
+        <p class="flex align-items-center m-0">
+          <i class="pi pi-fw pi-clock text-700 mr-2"></i>
+          <span>{{dTipoDocSelected.nombreCtipocom}}</span>
+        </p>
+      </div>
+    </div>
+
+  </ng-template>
+  <!--<ng-template pTemplate="body">
 
     <div class="card py-4 px-4 mb-4">
       <div class="grid grid-cols-2 gap-4">
         <div class="flex items-center justify-between">
           <label class="block font-bold text-gray-700 mr-2">Documento:</label>
-          <span> documento </span>
+          @if (dTipoDoc.length > 0) {
+            <span> {{dTipoDoc[0].nombreTipoDoc}} </span>
+          }
+
         </div>
         <div class="flex items-center justify-between">
           <label class="block font-bold text-gray-700 mr-2">Módulo:</label>
-          <span> modulo </span>
+          @if (dTipoDoc.length > 0) {
+            <span> {{dTipoDoc[0].ctiId}} </span>
+          }
         </div>
       </div>
     </div>
 
     <div class="card py-4 px-4 mb-4">
       <div class="grid grid-cols-2 gap-4">
-        <!-- Sigla -->
+        &lt;!&ndash; Sigla &ndash;&gt;
         <div class="flex items-center">
           <label class="block font-bold text-gray-700 w-1/3">Sigla:</label>
-          <p-dropdown placeholder="Seleccione una sigla" class="w-2/3"></p-dropdown>
+          <p-dropdown [options]="dTipoDoc" [(ngModel)]="dTipoDocSelected" optionLabel="ctiId" placeholder="Seleccione una sigla" class="w-full max-w-xs"></p-dropdown>
         </div>
         <div class="flex items-center">
-          <span class="w-2/3"> siglaSeleccionada </span>
+          <span class="w-2/3">{{dTipoDocSelected.nombreCtipocom}}</span>
         </div>
 
-        <!-- Almacén -->
+        &lt;!&ndash; Almacén &ndash;&gt;
         <div class="flex items-center">
           <label class="block font-bold text-gray-700 w-1/3">Almacén:</label>
-          <p-dropdown placeholder="Seleccione un almacén" class="w-2/3"></p-dropdown>
+          <p-dropdown [options]="almacenes" [(ngModel)]="almacenSelected" optionLabel="almId" placeholder="Seleccione un almacén" class="w-full max-w-xs" (onChange)="onAlmacenChange($event)"></p-dropdown>
         </div>
         <div class="flex items-center">
-          <span class="w-2/3"> nombreAlmacen </span>
+          <span class="w-2/3">{{almacenSelected.nombre}}</span>
+        </div>
+
+        &lt;!&ndash; PVenta &ndash;&gt;
+        <div class="flex items-center">
+          <label class="block font-bold text-gray-700 w-1/3">Punto Venta:</label>
+          <p-dropdown [options]="pventas" [(ngModel)]="pventasSelected" optionLabel="pveId" placeholder="punto de venta" class="w-full max-w-xs"></p-dropdown>
+        </div>
+        <div class="flex items-center">
+          <span class="w-2/3">{{pventasSelected.nombre}}</span>
         </div>
       </div>
 
       <div class="mt-4">
-        <!-- Punto de Venta -->
-        <div class="flex items-center">
-          <label class="block font-bold text-gray-700 w-1/3">Punto de Venta:</label>
-          <p-dropdown placeholder="punto de venta" class="w-full max-w-xs"></p-dropdown>
-        </div>
-
-        <!-- Fecha -->
+        &lt;!&ndash; Fecha &ndash;&gt;
         <div class="flex items-center mt-4">
           <label class="block font-bold text-gray-700 w-1/3 px-2">Fecha: </label>
           <span class="w-2/3"> {{date}}</span>
         </div>
 
-        <!-- Liquidación -->
+        &lt;!&ndash; Liquidación &ndash;&gt;
         <div class="flex items-center mt-4">
           <label class="block font-bold text-gray-700 w-1/3">Liquidación:</label>
           <input pInputText class="w-2/3" disabled/>
         </div>
       </div>
     </div>
-  </ng-template>
+  </ng-template>-->
 
   <!-- Botones en el pie -->
   <ng-template pTemplate="footer">
@@ -82,7 +140,7 @@
         label="Cancelar"
         icon="pi pi-times"
         class="p-button-secondary"
-        (click)="visible = false"
+        (click)="close()"
       ></button>
     </div>
   </ng-template>

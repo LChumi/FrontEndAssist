@@ -15,6 +15,10 @@ export class AlmacenService {
   constructor() { }
 
   getAlmacen(empresa:number, codigo: number): Observable<Almacen> {
-    return this.http.get<Almacen>(`${this.baseUrl}/almacen-get/${empresa}/${empresa}`)
+    return this.http.get<Almacen>(`${this.baseUrl}/almacen-get/${empresa}/${codigo}`)
+  }
+
+  listAlamacenes(empresa:number): Observable<Almacen[]> {
+    return this.http.get<Almacen[]>(`${this.baseUrl}/almacenes/${empresa}`)
   }
 }

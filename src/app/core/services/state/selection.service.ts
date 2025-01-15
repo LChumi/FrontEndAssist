@@ -8,9 +8,11 @@ export class SelectionService {
 
   private clienteSelectionSource = new BehaviorSubject<number>(0);
   private empresaSelectionSource = new BehaviorSubject<number>(0);
+  private almacenSelectionSource = new BehaviorSubject<number>(0);
 
   clienteSeleccionado$ = this.clienteSelectionSource.asObservable();
   empresaSeleccionada$ = this.empresaSelectionSource.asObservable();
+  almacenSeleccionado$ = this.almacenSelectionSource.asObservable();
 
   constructor() {
   }
@@ -20,7 +22,10 @@ export class SelectionService {
   }
 
   actualizarEmpresaSeleccionado(id: number) {
-    console.log(id)
     this.empresaSelectionSource.next(id);
+  }
+
+  actualizarAlmacenSeleccionado(id: number) {
+    this.almacenSelectionSource.next(id);
   }
 }
