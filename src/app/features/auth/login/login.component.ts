@@ -11,7 +11,7 @@ import {UsuarioService} from "@services/api/usuario.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
-import {setSessionItem} from "@utils/storage-utils";
+import {setSessionItem} from "@utils/index";
 
 @Component({
   standalone: true,

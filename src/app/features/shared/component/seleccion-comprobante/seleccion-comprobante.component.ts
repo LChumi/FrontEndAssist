@@ -3,7 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {ChipsModule} from "primeng/chips";
-import {getCurrentDate} from "@utils/date-utils";
+import {getCurrentDate} from "@utils/index";
 
 @Component({
   selector: 'app-seleccion-comprobante',

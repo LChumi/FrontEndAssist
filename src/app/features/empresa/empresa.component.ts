@@ -5,7 +5,7 @@ import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
 import {Router} from "@angular/router";
-import {getSessionItem, setSessionItem} from "@utils/storage-utils";
+import {getSessionItem, setSessionItem} from "@utils/index";
 
 @Component({
   standalone: true,

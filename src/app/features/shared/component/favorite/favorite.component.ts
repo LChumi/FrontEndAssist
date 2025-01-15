@@ -4,7 +4,7 @@ import {TooltipModule} from "primeng/tooltip";
 import {Router} from "@angular/router";
 import {FavoritesService} from "@services/state/favorites.service";
 import {FavoriteRequest} from "@models/record/favorite-request";
-import {getSessionItem} from "@utils/storage-utils";
+import {getSessionItem} from "@utils/index";
 
 @Component({
   selector: 'app-favorite',

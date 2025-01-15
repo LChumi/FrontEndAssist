@@ -7,7 +7,7 @@ import {ContabilidadService} from "@services/api/contabilidad.service";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
-import {getSessionItem} from "@utils/storage-utils";
+import {getSessionItem} from "@utils/index";
 
 @Component({
   standalone: true,

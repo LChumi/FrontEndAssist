@@ -3,8 +3,8 @@ import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {getCurrentDate, getCurrentTime} from "@utils/date-utils";
-import {getSessionItem} from "@utils/storage-utils";
+import {getCurrentDate, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
+import {AccesoService} from "@services/api/acceso.service";
 
 @Component({
   standalone: true,
@@ -18,13 +18,13 @@ import {getSessionItem} from "@utils/storage-utils";
 })
 export default class DashboardComponent implements OnInit {
   nombre: any;
-  username: any;
   imageUsr: any
   fecha: any;
   hora: any;
   favoritos: UsuarioFavoritos[] = [];
 
   favoritoService = inject(FavoritesService)
+  accesoService = inject(AccesoService)
 
   constructor() {
     this.getNameLastName()
@@ -66,5 +66,14 @@ export default class DashboardComponent implements OnInit {
 
     this.nombre = (lastName ? lastName + ' ' : '') + name;
     return this.nombre;
+  }
+
+  getAccesos(usrId:any, empresaId:any) {
+    this.accesoService.getAcceso(usrId,empresaId).subscribe({
+      next: data => {
+        setSessionItem("almId", String(data.almacen))
+        setSessionItem("pventa", String(data.pVenta))
+      }
+    })
   }
 }
