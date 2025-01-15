@@ -4,6 +4,7 @@ import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDate, getCurrentTime} from "@utils/date-utils";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -31,9 +32,8 @@ export default class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const usrId = sessionStorage.getItem("usrid");
-    const empresaId = sessionStorage.getItem("empresa");
-    console.log(usrId, empresaId);
+    const usrId = getSessionItem("usrId");
+    const empresaId = getSessionItem("empresa");
     this.getFavoritos(usrId, empresaId)
   }
 
@@ -53,7 +53,7 @@ export default class DashboardComponent implements OnInit {
   }
 
   getNameLastName() {
-    this.nombre = sessionStorage.getItem('nombre');
+    this.nombre = getSessionItem('nombre');
     const nombres = this.nombre.split(' ');
     let name = nombres[0];
     let lastName = '';

@@ -5,6 +5,7 @@ import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
 import {Router} from "@angular/router";
+import {getSessionItem, setSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -24,7 +25,7 @@ export default class EmpresaComponent implements OnInit {
   listasEmpresa: Empresa[] = []
 
   ngOnInit(): void {
-    const usrIdString = sessionStorage.getItem('usrid')
+    const usrIdString = getSessionItem('usrId')
     if (usrIdString) {
       const usrId = Number(usrIdString)
       this.menuService.getEmpresas(usrId).subscribe(
@@ -37,13 +38,13 @@ export default class EmpresaComponent implements OnInit {
 
   empresaSelected(empresa: Empresa) {
     if (empresa) {
-      sessionStorage.setItem('empresa', String(empresa.id))
-      sessionStorage.setItem('nombreEmpresa', empresa.nombre)
+      setSessionItem('empresa', String(empresa.id))
+      setSessionItem('nombreEmpresa', empresa.nombre)
       this.goToInicio()
     }
   }
 
   goToInicio() {
-    this.router.navigate(['/assist', 'inicio', 'dashboard'])
+    this.router.navigate(['/assist', 'inicio', 'dashboard']).then(r => {})
   }
 }

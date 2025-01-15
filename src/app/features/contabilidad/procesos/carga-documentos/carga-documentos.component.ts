@@ -7,6 +7,7 @@ import {ContabilidadService} from "@services/api/contabilidad.service";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -36,9 +37,9 @@ export default class CargaDocumentosComponent implements OnInit {
   id_usuario: any;
 
   ngOnInit(): void {
-    this.id_usuario = sessionStorage.getItem('usrid')
+    this.id_usuario = getSessionItem('usrId')
     if (this.id_usuario == '') {
-      this.router.navigate(['/assist', 'auth', 'login'])
+      this.router.navigate(['/assist', 'auth', 'login']).then(r => {})
     }
     this.obtenerCorreoEmpresarial()
   }

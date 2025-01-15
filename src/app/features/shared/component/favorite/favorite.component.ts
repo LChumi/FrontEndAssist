@@ -4,6 +4,7 @@ import {TooltipModule} from "primeng/tooltip";
 import {Router} from "@angular/router";
 import {FavoritesService} from "@services/state/favorites.service";
 import {FavoriteRequest} from "@models/record/favorite-request";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   selector: 'app-favorite',
@@ -49,7 +50,7 @@ export class FavoriteComponent implements OnInit {
 
   ngOnInit(): void {
     const currentPath = this.router.url
-    const empresaId = Number(sessionStorage.getItem("empresa"));
+    const empresaId = Number(getSessionItem("empresa"));
     this.favoriteRequest = {
       empresa: empresaId,
       path: currentPath,

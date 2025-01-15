@@ -3,6 +3,7 @@ import {ChipsModule} from "primeng/chips";
 import {ButtonDirective} from "primeng/button";
 import {BreadcrumbComponent} from "@layout/components/breadcrumb/breadcrumb.component";
 import {LayoutService} from "@layout/service/layout.service";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   selector: 'app-topbar',
@@ -22,7 +23,7 @@ export class TopbarComponent {
   empresa: any
 
   constructor() {
-    this.empresa = sessionStorage.getItem('nombreEmpresa')
+    this.empresa = getSessionItem('nombreEmpresa')
   }
 
   onMenuButtonClick() {
