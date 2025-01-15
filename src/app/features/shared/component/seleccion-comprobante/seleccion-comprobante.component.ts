@@ -1,4 +1,4 @@
-import {Component, Input, input, InputSignal, OnInit} from '@angular/core';
+import {Component, Input, input, OnInit} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
