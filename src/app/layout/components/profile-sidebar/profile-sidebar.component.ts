@@ -3,7 +3,7 @@ import {SidebarModule} from "primeng/sidebar";
 import {BadgeModule} from "primeng/badge";
 import {LayoutService} from "@layout/service/layout.service";
 import {Router} from "@angular/router";
-import {clearSessionItems, getSessionItem} from "@utils/storage-utils";
+import {clearSessionItems, getSessionItem} from "@utils/index"
 
 @Component({
   selector: 'app-profilemenu',

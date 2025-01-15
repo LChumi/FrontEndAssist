@@ -18,7 +18,7 @@ import {FavoriteComponent} from "@features/shared/component/favorite/favorite.co
 import {
   SeleccionComprobanteComponent
 } from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
-import {getSessionItem} from "@utils/storage-utils";
+import {getSessionItem} from "@utils/index";
 
 @Component({
   standalone: true,
