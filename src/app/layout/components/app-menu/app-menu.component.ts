@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MenuitemComponent} from "@layout/components/menu-item/menuitem.component";
 import {MenusService} from "@services/api/menus.service";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   selector: 'app-menu',
@@ -21,8 +22,8 @@ export class AppMenuComponent implements OnInit {
   model: any[] = [];
 
   ngOnInit() {
-    const usrIdStr = sessionStorage.getItem('usrid')
-    const empresaStr = sessionStorage.getItem('empresa')
+    const usrIdStr = getSessionItem('usrId')
+    const empresaStr = getSessionItem('empresa')
     if (usrIdStr && empresaStr) {
       const usrId = Number(usrIdStr)
       const empresa = Number(empresaStr)

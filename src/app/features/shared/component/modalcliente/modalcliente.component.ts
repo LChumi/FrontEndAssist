@@ -10,6 +10,7 @@ import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ChipsModule} from "primeng/chips";
 import {DialogModule} from "primeng/dialog";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -55,7 +56,7 @@ export class ModalclienteComponent implements OnInit {
       {label: 'Proveedor', value: 2},
       {label: 'Empleado', value: 5},
     ]
-    this.empresa = Number(sessionStorage.getItem("empresa"));
+    this.empresa = Number(getSessionItem("empresa"));
     this.listarClientes(this.empresa, 2);
   }
 
@@ -83,15 +84,8 @@ export class ModalclienteComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  seleccionarProveedor() {
-    this.selectionService.actualizarClienteSeleccionado(this.selectedClient.codigo)
-    this.onBtnClick.emit(false)
-    this.visible = false
-  }
-
   seleccionarProv(proveedor: Cliente) {
     this.selectionService.actualizarClienteSeleccionado(proveedor.codigo)
-    //sessionStorage.setItem("proveedor", proveedor.nombre)
     this.onChangeProv.emit(proveedor.nombre)
     this.onBtnClick.emit(false)
     this.visible = false

@@ -3,6 +3,7 @@ import {SidebarModule} from "primeng/sidebar";
 import {BadgeModule} from "primeng/badge";
 import {LayoutService} from "@layout/service/layout.service";
 import {Router} from "@angular/router";
+import {clearSessionItems, getSessionItem} from "@utils/storage-utils";
 
 @Component({
   selector: 'app-profilemenu',
@@ -21,8 +22,8 @@ export class ProfileSidebarComponent {
   router = inject(Router);
 
   constructor() {
-    this.nombre = sessionStorage.getItem('nombre');
-    this.username = sessionStorage.getItem('username');
+    this.nombre = getSessionItem('nombre');
+    this.username = getSessionItem('username');
   }
 
   get visible(): boolean {
@@ -34,7 +35,7 @@ export class ProfileSidebarComponent {
   }
 
   signOut(): void {
-    sessionStorage.clear();
+    clearSessionItems();
     this.visible = false;
     this.router.navigate(['/assist', 'auth', 'login']);
   }

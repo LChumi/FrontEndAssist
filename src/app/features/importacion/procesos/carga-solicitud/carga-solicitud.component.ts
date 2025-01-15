@@ -18,6 +18,7 @@ import {FavoriteComponent} from "@features/shared/component/favorite/favorite.co
 import {
   SeleccionComprobanteComponent
 } from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
+import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -81,8 +82,8 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   cbmAnterior = 0;
 
   ngOnInit(): void {
-    const empresa = sessionStorage.getItem('empresa')
-    const usrId: any = sessionStorage.getItem('usrid')
+    const empresa = getSessionItem('empresa')
+    const usrId: any = getSessionItem('usrId')
     if (empresa && usrId) {
       this.idEmpresa = Number(empresa)
       this.usrId = Number(usrId)

@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {LayoutService} from "@layout/service/layout.service";
 import {CheckboxModule} from "primeng/checkbox";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
@@ -12,6 +11,7 @@ import {UsuarioService} from "@services/api/usuario.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
+import {setSessionItem} from "@utils/storage-utils";
 
 @Component({
   standalone: true,
@@ -35,7 +35,6 @@ export default class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
 
-  layoutService = inject(LayoutService)
   fb = inject(FormBuilder)
   usuarioService = inject(UsuarioService)
   router = inject(Router)
@@ -62,9 +61,9 @@ export default class LoginComponent implements OnInit {
 
     this.usuarioService.temporalLogin(loginRequest).subscribe({
       next: user => {
-        sessionStorage.setItem('usrid', String(user.id))
-        sessionStorage.setItem('nombre', user.nombre)
-        sessionStorage.setItem('username', user.username)
+        setSessionItem('usrId',String(user.id))
+        setSessionItem('nombre', user.nombre)
+        setSessionItem('username', user.username)
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
         this.goToDashboard()
       }, error: (error: ErrorResponse) => {
@@ -78,7 +77,7 @@ export default class LoginComponent implements OnInit {
   }
 
   goToDashboard() {
-    this.router.navigate(['/assist', 'auth', 'empresas'])
+    this.router.navigate(['/assist', 'auth', 'empresas']).then(r => {})
   }
 
 }
