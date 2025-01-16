@@ -12,125 +12,135 @@
     <span class="text-900 font-semibold text-xl">Seleccion de comprobante</span>
   </ng-template>
   <ng-template pTemplate="content">
-        <div class="grid">
-          @if (dTipoDoc.length > 0){
-            <div class="col-9">
-              <div class="text-900 font-semibold mb-2">Documento</div>
-              <p class="flex align-items-center m-0">
-                <i class="pi pi-book text-700 mr-2"></i>
-                <span>{{ dTipoDoc[0].nombreTipoDoc }}</span>
-              </p>
-            </div>
-            <div class="col-3">
-              <div class="text-900 font-semibold mb-2">Modulo</div>
-              <p class="flex align-items-center m-0">
-                <i class="pi pi-book"></i>
-                <span>{{ dTipoDoc[0].ctiId }}</span>
-              </p>
-            </div>
-          }
+    <!-- Encabezado Documento-->
+    <div class="grid">
+      @if (dTipoDoc.length > 0) {
+        <div class="col-8">
+          <div class="text-900 font-semibold mb-2">Documento</div>
+          <p class="flex align-items-center m-0">
+            <i class="pi pi-book text-700 mr-2"></i>
+            <span>{{ dTipoDoc[0].nombreTipoDoc }}</span>
+          </p>
         </div>
+        <div class="col-2">
+          <div class="text-900 font-semibold mb-2">Modulo</div>
+          <p class="flex align-items-center m-0">
+            <i class="pi pi-book mr-2"></i>
+            <span>{{ dTipoDoc[0].ctiId }}</span>
+          </p>
+        </div>
+      }
+    </div>
+    <!-- Inputs -->
     <div class="grid p-fluid formgrid">
+      <!-- Dropdown de Sigla -->
       <div class="col-12 md:col-6 field">
         <label for="sigla" class="text-900 font-semibold">Sigla</label>
         <span class="p-input-icon-left">
               <i class="pi pi-circle"></i>
-              <p-dropdown inputId="sigla" [appendTo]="dd" [options]="dTipoDoc" [(ngModel)]="dTipoDocSelected" optionLabel="ctiId">
+              <p-dropdown inputId="sigla" [appendTo]="dd" [options]="dTipoDoc" [(ngModel)]="dTipoDocSelected"
+                          optionLabel="ctiId">
                 <ng-template pTemplate="selectedItem">
                   <div class="flex align-items-center">
-                    <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle" [style.background-color]="'#5676e1'"></div>
-                    <div>{{dTipoDocSelected.ctiId}}</div>
+                    <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                         [style.background-color]="'#5676e1'"></div>
+                    <div>{{ dTipoDocSelected.ctiId }}</div>
                   </div>
                 </ng-template>
                 <ng-template let-doc pTemplate="item">
-                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle" [style.background-color]="'#5676e1'"></div>
-                  <div>{{doc.ctiId}}</div>
+                  <div class="flex align-items-center">
+                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                       [style.background-color]="'#5676e1'"></div>
+                  <div>{{ doc.ctiId }}</div>
+                  </div>
                 </ng-template>
               </p-dropdown>
             </span>
       </div>
-
       @if (dTipoDocSelected) {
-        <div class="col-6">
+        <div class="col-6 py-4">
           <p class="flex align-items-center m-0">
-            <i class="pi pi-fw pi-bookmark text-700 mr-2"></i>
-            <span>{{dTipoDocSelected.nombreCtipocom}}</span>
+            <span>{{ dTipoDocSelected.nombreCtipocom }}</span>
+          </p>
+        </div>
+      }
+      <!--Dropdown Almacen -->
+      <div class="col-12 md:col-6 field">
+        <label for="almacen" class="text-900 font-semibold">Almacen</label>
+        <span class="p-input-icon-left">
+              <i class="pi pi-circle"></i>
+              <p-dropdown inputId="almacen" [appendTo]="dd" [options]="almacenes" [(ngModel)]="almacenSelected"
+                          optionLabel="almId" (onChange)="onAlmacenChange($event)">
+                <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                    <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                         [style.background-color]="'#5676e1'"></div>
+                    <div>{{ almacenSelected.almId }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-alm pTemplate="item">
+                  <div class="flex align-items-center">
+                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                       [style.background-color]="'#5676e1'"></div>
+                  <div>{{ alm.almId }}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </span>
+      </div>
+      @if (dTipoDocSelected) {
+        <div class="col-6 py-4">
+          <p class="flex align-items-center m-0">
+            <span>{{ almacenSelected.nombre }}</span>
+          </p>
+        </div>
+      }
+      <!-- Dropdwon Punto Venta -->
+      <div class="col-12 md:col-6 field">
+        <label for="pventa" class="text-900 font-semibold">Punto Venta</label>
+        <span class="p-input-icon-left">
+              <i class="pi pi-circle"></i>
+              <p-dropdown inputId="pventa" [appendTo]="dd" [options]="pventas" [(ngModel)]="pventasSelected"
+                          optionLabel="pveId">
+                <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                    <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                         [style.background-color]="'#5676e1'"></div>
+                    <div>{{ pventasSelected.pveId }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-pventa pTemplate="item">
+                  <div class="flex align-items-center">
+                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                       [style.background-color]="'#5676e1'"></div>
+                  <div>{{ pventa.pveId }}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </span>
+      </div>
+      @if (dTipoDocSelected) {
+        <div class="col-6 py-4">
+          <p class="flex align-items-center m-0">
+            <span>{{ pventasSelected.nombre }}</span>
           </p>
         </div>
       }
 
     </div>
+    <!--Fecha -->
+    <div class="field text-center">
+      <label for="fecha" class="text-900 font-semibold mr-2">Fecha</label>
+      <p-calendar [appendTo]="dd" dateFormat="dd-mm-yy" [required]="true" inputId="fecha"
+                  [(ngModel)]="fecha"></p-calendar>
+    </div>
+
 
   </ng-template>
-  <!--<ng-template pTemplate="body">
-
-    <div class="card py-4 px-4 mb-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div class="flex items-center justify-between">
-          <label class="block font-bold text-gray-700 mr-2">Documento:</label>
-          @if (dTipoDoc.length > 0) {
-            <span> {{dTipoDoc[0].nombreTipoDoc}} </span>
-          }
-
-        </div>
-        <div class="flex items-center justify-between">
-          <label class="block font-bold text-gray-700 mr-2">Módulo:</label>
-          @if (dTipoDoc.length > 0) {
-            <span> {{dTipoDoc[0].ctiId}} </span>
-          }
-        </div>
-      </div>
-    </div>
-
-    <div class="card py-4 px-4 mb-4">
-      <div class="grid grid-cols-2 gap-4">
-        &lt;!&ndash; Sigla &ndash;&gt;
-        <div class="flex items-center">
-          <label class="block font-bold text-gray-700 w-1/3">Sigla:</label>
-          <p-dropdown [options]="dTipoDoc" [(ngModel)]="dTipoDocSelected" optionLabel="ctiId" placeholder="Seleccione una sigla" class="w-full max-w-xs"></p-dropdown>
-        </div>
-        <div class="flex items-center">
-          <span class="w-2/3">{{dTipoDocSelected.nombreCtipocom}}</span>
-        </div>
-
-        &lt;!&ndash; Almacén &ndash;&gt;
-        <div class="flex items-center">
-          <label class="block font-bold text-gray-700 w-1/3">Almacén:</label>
-          <p-dropdown [options]="almacenes" [(ngModel)]="almacenSelected" optionLabel="almId" placeholder="Seleccione un almacén" class="w-full max-w-xs" (onChange)="onAlmacenChange($event)"></p-dropdown>
-        </div>
-        <div class="flex items-center">
-          <span class="w-2/3">{{almacenSelected.nombre}}</span>
-        </div>
-
-        &lt;!&ndash; PVenta &ndash;&gt;
-        <div class="flex items-center">
-          <label class="block font-bold text-gray-700 w-1/3">Punto Venta:</label>
-          <p-dropdown [options]="pventas" [(ngModel)]="pventasSelected" optionLabel="pveId" placeholder="punto de venta" class="w-full max-w-xs"></p-dropdown>
-        </div>
-        <div class="flex items-center">
-          <span class="w-2/3">{{pventasSelected.nombre}}</span>
-        </div>
-      </div>
-
-      <div class="mt-4">
-        &lt;!&ndash; Fecha &ndash;&gt;
-        <div class="flex items-center mt-4">
-          <label class="block font-bold text-gray-700 w-1/3 px-2">Fecha: </label>
-          <span class="w-2/3"> {{date}}</span>
-        </div>
-
-        &lt;!&ndash; Liquidación &ndash;&gt;
-        <div class="flex items-center mt-4">
-          <label class="block font-bold text-gray-700 w-1/3">Liquidación:</label>
-          <input pInputText class="w-2/3" disabled/>
-        </div>
-      </div>
-    </div>
-  </ng-template>-->
 
   <!-- Botones en el pie -->
   <ng-template pTemplate="footer">
-    <div class="flex justify-end gap-2">
+    <div class="flex justify-content-center gap-2">
       <button
         type="button"
         pButton
