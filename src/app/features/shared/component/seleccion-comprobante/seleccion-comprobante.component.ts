@@ -12,6 +12,7 @@ import {Almacen} from "@models/entities/almacen";
 import {PuntoventaService} from "@services/api/puntoventa.service";
 import {Puntoventa} from "@models/entities/puntoventa";
 import {SelectionService} from "@services/state/selection.service";
+import {CalendarModule} from "primeng/calendar";
 
 @Component({
   selector: 'app-seleccion-comprobante',
@@ -21,7 +22,8 @@ import {SelectionService} from "@services/state/selection.service";
     ButtonDirective,
     DropdownModule,
     ChipsModule,
-    FormsModule
+    FormsModule,
+    CalendarModule
   ],
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
@@ -32,6 +34,7 @@ export class SeleccionComprobanteComponent  implements OnInit{
 
   date:string='';
   empresa:any;
+  fecha: any
 
   dTipoDoc: Dtipodoc[]=[];
   almacenes:Almacen[] =[];
@@ -50,7 +53,7 @@ export class SeleccionComprobanteComponent  implements OnInit{
     this.empresa = getSessionItem("empresa");
     this.date=getCurrentDate()
     this.getDocumento()
-    this.getAlmacenes()
+    this.getAlmacen()
     this.seleccionService.almacenSeleccionado$.subscribe(id => {this.getPuntoventa(id)})
   }
 
@@ -97,6 +100,7 @@ export class SeleccionComprobanteComponent  implements OnInit{
 
   onAlmacenChange(event: any){
     const selectedAlmacen = event.value;
+    this.pventasSelected = {} as Puntoventa;
     this.seleccionService.actualizarAlmacenSeleccionado(selectedAlmacen.codigo);
   }
 
