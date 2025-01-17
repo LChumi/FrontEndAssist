@@ -54,6 +54,7 @@ export class SeleccionComprobanteComponent implements OnInit {
     this.date = getCurrentDate()
     this.getDocumento()
     this.getAlmacen()
+    this.getPuntoventaDefecto()
     this.seleccionService.almacenSeleccionado$.subscribe(id => {
       this.getPuntoventa(id)
     })
@@ -64,6 +65,7 @@ export class SeleccionComprobanteComponent implements OnInit {
       this.tipoDocService.getTipoDoc(Number(this.empresa), this.tipoDoc()).subscribe({
         next: (result) => {
           this.dTipoDoc = result;
+          this.dTipoDocSelected= result[0]
         }
       })
     }
@@ -72,9 +74,11 @@ export class SeleccionComprobanteComponent implements OnInit {
   getAlmacen() {
     const almacen = Number(getSessionItem("almId"))
     if (this.empresa && almacen) {
+      this.seleccionService.actualizarAlmacenSeleccionado(almacen);
       this.almacenService.getAlmacen(this.empresa, almacen).subscribe({
         next: (result) => {
           this.almacenes.push(result);
+          this.almacenSelected= result
         }
       })
     }
@@ -111,6 +115,26 @@ export class SeleccionComprobanteComponent implements OnInit {
     this.dTipoDoc = [];
     this.almacenes = [];
     this.date = '';
+  }
+
+  getPuntoventaDefecto() {
+    const almacen = Number(getSessionItem("almId"))
+    const pventa = Number(getSessionItem("pventa"))
+    this.pventaService.getPventa(this.empresa, almacen, pventa).subscribe({
+      next: (result) => {
+        console.log(result);
+        this.pventasSelected = result
+      }
+    })
+  }
+
+  saveDocumento() {
+    console.log(this.pventasSelected)
+    console.log(this.pventas)
+    console.log(this.seleccionService)
+    console.log(this.almacenSelected)
+    console.log(this.dTipoDocSelected)
+    console.log(this.fecha)
   }
 
 }

@@ -17,4 +17,8 @@ export class PuntoventaService {
   listPventas(empresa: number, almacen:number): Observable<Puntoventa[]> {
     return this.http.get<Puntoventa[]>(`${this.baseUrl}/pve/listar/${empresa}/${almacen}`)
   }
+
+  getPventa(empresa: number, almacen: number, secuencia: number): Observable<Puntoventa> {
+    return this.http.get<Puntoventa>(`${this.baseUrl}/pve/get/${empresa}/${almacen}/${secuencia}`)
+  }
 }
