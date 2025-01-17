@@ -5,4 +5,5 @@ export interface Dtipodoc {
   ctiId:          string;
   tpdCodigo:      number;
   nombreTipoDoc:  string;
+  modulo:         string;
 }

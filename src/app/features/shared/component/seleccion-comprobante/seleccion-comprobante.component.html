@@ -26,7 +26,7 @@
           <div class="text-900 font-semibold mb-2">Modulo</div>
           <p class="flex align-items-center m-0">
             <i class="pi pi-book mr-2"></i>
-            <span>{{ dTipoDoc[0].ctiId }}</span>
+            <span>{{ dTipoDoc[0].modulo }}</span>
           </p>
         </div>
       }
@@ -146,6 +146,7 @@
         label="Aceptar"
         icon="pi pi-check"
         class="p-button-info"
+        (click)="saveDocumento()"
       ></button>
       <button
         type="button"
