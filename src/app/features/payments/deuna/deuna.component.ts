@@ -51,15 +51,17 @@ export default class DeunaComponent implements OnInit {
   }
 
   obtenerQr() {
-    this.deunaService.generarPago(this.usrLiquida, this.empresa).subscribe(
-      data => {
+    this.deunaService.generarPago(this.usrLiquida, this.empresa).subscribe({
+      next: data => {
         if (data.qr) {
           this.imageBase64 = data.qr
-          console.log(data.deeplink)
           this.validarQr()
         }
+      },
+      error: err => {
+        this.error(err.message, 'Ocurrió un problema con el servicio DeUnaPagos.')
       }
-    )
+    })
   }
 
   validarQr() {
@@ -85,7 +87,7 @@ export default class DeunaComponent implements OnInit {
         }
       },
       error: (error: ErrorResponse) => {
-        this.error(error.message)
+        this.error(error.message, 'Tiempo de espera agotado')
         this.cleanData()
       }
     });
@@ -107,9 +109,9 @@ export default class DeunaComponent implements OnInit {
     })
   }
 
-  error(error: any) {
+  error(error: any, message: string) {
     this.confirmatioService.confirm({
-      message: 'Tiempo de espera agotado',
+      message: message,
       header: 'Confirmacion',
       icon: 'pi pi-exclamation-circle',
       accept: () => {
