@@ -75,6 +75,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   deleteItemDialog = false
   confirmDialog = false
   submitted = false
+  seleccionComprobante = false
 
   cantidadAnterior = 0;
   cxbAnterior = 0;
@@ -182,6 +183,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
         });
         this.listItems = []
         this.proveedor = ''
+        this.seleccionComprobante = true
       },
       error: (error) => {
         console.log(error);

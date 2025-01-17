@@ -7,7 +7,6 @@
     <div class="col-12">
       <span class="text-900 block font-bold text-xl">Carga de archivo solicitud de Importacion</span>
     </div>
-    <app-seleccion-comprobante [visible]="true" [tipoDoc]="119"></app-seleccion-comprobante>
 
     <div class="col-12">
       <ul class="flex list-none flex-wrap">
@@ -254,5 +253,6 @@
 
     </div>
   </div>
+  <app-seleccion-comprobante [visible]="seleccionComprobante" [tipoDoc]="119"></app-seleccion-comprobante>
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>

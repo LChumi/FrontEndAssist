@@ -135,6 +135,7 @@ export class SeleccionComprobanteComponent implements OnInit {
     console.log(this.almacenSelected)
     console.log(this.dTipoDocSelected)
     console.log(this.fecha)
+    this.visible=false;
   }
 
 }
