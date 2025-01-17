@@ -28,20 +28,20 @@ import {CalendarModule} from "primeng/calendar";
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
 })
-export class SeleccionComprobanteComponent  implements OnInit{
+export class SeleccionComprobanteComponent implements OnInit {
   public tipoDoc = input.required<number>();
   @Input() visible: boolean = false;
 
-  date:string='';
-  empresa:any;
+  date: string = '';
+  empresa: any;
   fecha: any
 
-  dTipoDoc: Dtipodoc[]=[];
-  almacenes:Almacen[] =[];
-  pventas:Puntoventa[] =[];
+  dTipoDoc: Dtipodoc[] = [];
+  almacenes: Almacen[] = [];
+  pventas: Puntoventa[] = [];
 
   dTipoDocSelected: Dtipodoc = {} as Dtipodoc;
-  almacenSelected:  Almacen = {} as Almacen;
+  almacenSelected: Almacen = {} as Almacen;
   pventasSelected: Puntoventa = {} as Puntoventa;
 
   tipoDocService = inject(DtipodocService)
@@ -51,15 +51,17 @@ export class SeleccionComprobanteComponent  implements OnInit{
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
-    this.date=getCurrentDate()
+    this.date = getCurrentDate()
     this.getDocumento()
     this.getAlmacen()
-    this.seleccionService.almacenSeleccionado$.subscribe(id => {this.getPuntoventa(id)})
+    this.seleccionService.almacenSeleccionado$.subscribe(id => {
+      this.getPuntoventa(id)
+    })
   }
 
-  getDocumento(){
-    if (this.empresa){
-      this.tipoDocService.getTipoDoc(Number(this.empresa),this.tipoDoc()).subscribe({
+  getDocumento() {
+    if (this.empresa) {
+      this.tipoDocService.getTipoDoc(Number(this.empresa), this.tipoDoc()).subscribe({
         next: (result) => {
           this.dTipoDoc = result;
         }
@@ -67,10 +69,10 @@ export class SeleccionComprobanteComponent  implements OnInit{
     }
   }
 
-  getAlmacen(){
+  getAlmacen() {
     const almacen = Number(getSessionItem("almId"))
-    if (this.empresa && almacen){
-      this.almacenService.getAlmacen(this.empresa,almacen).subscribe({
+    if (this.empresa && almacen) {
+      this.almacenService.getAlmacen(this.empresa, almacen).subscribe({
         next: (result) => {
           this.almacenes.push(result);
         }
@@ -78,8 +80,8 @@ export class SeleccionComprobanteComponent  implements OnInit{
     }
   }
 
-  getAlmacenes(){
-    if (this.empresa){
+  getAlmacenes() {
+    if (this.empresa) {
       this.almacenService.listAlamacenes(this.empresa).subscribe({
         next: (result) => {
           this.almacenes = result;
@@ -88,8 +90,8 @@ export class SeleccionComprobanteComponent  implements OnInit{
     }
   }
 
-  getPuntoventa(almId: number){
-    if (this.empresa && almId){
+  getPuntoventa(almId: number) {
+    if (this.empresa && almId) {
       this.pventaService.listPventas(this.empresa, almId).subscribe({
         next: (result) => {
           this.pventas = result;
@@ -98,17 +100,17 @@ export class SeleccionComprobanteComponent  implements OnInit{
     }
   }
 
-  onAlmacenChange(event: any){
+  onAlmacenChange(event: any) {
     const selectedAlmacen = event.value;
     this.pventasSelected = {} as Puntoventa;
     this.seleccionService.actualizarAlmacenSeleccionado(selectedAlmacen.codigo);
   }
 
-  close(){
+  close() {
     this.visible = false;
     this.dTipoDoc = [];
     this.almacenes = [];
-    this.date='';
+    this.date = '';
   }
 
 }
