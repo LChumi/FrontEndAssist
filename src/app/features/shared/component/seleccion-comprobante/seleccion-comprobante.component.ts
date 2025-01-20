@@ -13,6 +13,8 @@ import {PuntoventaService} from "@services/api/puntoventa.service";
 import {Puntoventa} from "@models/entities/puntoventa";
 import {SelectionService} from "@services/state/selection.service";
 import {CalendarModule} from "primeng/calendar";
+import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
+import {Items} from "@models/record/items";
 
 @Component({
   selector: 'app-seleccion-comprobante',
@@ -31,6 +33,7 @@ import {CalendarModule} from "primeng/calendar";
 export class SeleccionComprobanteComponent implements OnInit {
   public tipoDoc = input.required<number>();
   @Input() visible: boolean = false;
+  public listaItems = input.required<Items[]>();
 
   date: string = '';
   empresa: any;
@@ -135,6 +138,26 @@ export class SeleccionComprobanteComponent implements OnInit {
     console.log(this.almacenSelected)
     console.log(this.dTipoDocSelected)
     console.log(this.fecha)
+    const usuario = Number(getSessionItem("usrId"));
+    let proveedor
+    this.seleccionService.clienteSeleccionado$.subscribe(id => {
+      proveedor = id
+    })
+    if (proveedor && usuario) {
+      const request: SolicitudRequestDTO = {
+        empresa: this.empresa,
+        tipodoc: this.dTipoDocSelected.tpdCodigo,
+        almacen: this.almacenSelected.codigo,
+        pventa: this.pventasSelected.secuencia,
+        sigla: this.dTipoDocSelected.ctiCodigo,
+        proveedor: proveedor,
+        usuario: usuario
+        modulo: this.dTipoDocSelected.moduloCodigo,
+
+
+
+      }
+    }
     this.visible=false;
   }
 

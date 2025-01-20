@@ -3,6 +3,7 @@ import {environment} from "@environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Items} from "@models/record/items";
+import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,9 @@ export class FileService {
     return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData)
   }
 
-  confirmarSolicitud(items: Items[]): Observable<boolean> {
-    return this.http.post<boolean>(`${this.baseUrl}/confirmar/solicitud`, items)
+  confirmarSolicitud(request: SolicitudRequestDTO): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/confirmar/solicitud`, request)
   }
+
 
 }

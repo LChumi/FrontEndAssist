@@ -170,28 +170,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     this.item = {} as Items;
   }
 
-  confirmDoc() {
-    this.fileService.confirmarSolicitud(this.listItems).subscribe({
-      next: (response) => {
-        console.log(response)
-        this.confirmDialog = false
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Exito',
-          detail: 'Se cargo la lista de items',
-          life: 3000
-        });
-        this.listItems = []
-        this.proveedor = ''
-        this.seleccionComprobante = true
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-
-  }
-
   getImagen() {
     if (this.item) {
       this.imagenService.getImagen(this.item.id).subscribe({
