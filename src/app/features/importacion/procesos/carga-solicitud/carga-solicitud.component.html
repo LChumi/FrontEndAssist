@@ -146,7 +146,7 @@
                   <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-danger" label="No"
                           (click)="confirmDialog = false"></button>
                   <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-info" label="Si"
-                          (click)="confirmDoc()"></button>
+                          (click)="seleccionComprobante=true"></button>
                 </ng-template>
               </p-dialog>
 
@@ -253,6 +253,6 @@
 
     </div>
   </div>
-  <app-seleccion-comprobante [visible]="seleccionComprobante" [tipoDoc]="119"></app-seleccion-comprobante>
+  <app-seleccion-comprobante [visible]="true" [tipoDoc]="119" [listaItems]="listItems" ></app-seleccion-comprobante>
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>

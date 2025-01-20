@@ -10,5 +10,6 @@ export interface SolicitudRequestDTO {
   usuario:   number;
   fecha:     Date;
   modulo:    number;
+  bodega:    number;
   items:     Items[];
 }
