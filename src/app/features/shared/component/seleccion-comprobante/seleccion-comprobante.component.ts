@@ -147,8 +147,9 @@ export class SeleccionComprobanteComponent implements OnInit {
         proveedor: proveedor,
         usuario: usuario,
         fecha: this.fecha,
-        modulo: this.dTipoDocSelected.moduloCodigo,
+        modulo: this.dTipoDocSelected.modCodigo,
         bodega: 1,
+        observacion: '',
         items: this.listaItems()
       }
       console.log(request)
