@@ -132,12 +132,6 @@ export class SeleccionComprobanteComponent implements OnInit {
   }
 
   saveDocumento() {
-    console.log(this.pventasSelected)
-    console.log(this.pventas)
-    console.log(this.seleccionService)
-    console.log(this.almacenSelected)
-    console.log(this.dTipoDocSelected)
-    console.log(this.fecha)
     const usuario = Number(getSessionItem("usrId"));
     let proveedor
     this.seleccionService.clienteSeleccionado$.subscribe(id => {
@@ -151,12 +145,13 @@ export class SeleccionComprobanteComponent implements OnInit {
         pventa: this.pventasSelected.secuencia,
         sigla: this.dTipoDocSelected.ctiCodigo,
         proveedor: proveedor,
-        usuario: usuario
+        usuario: usuario,
+        fecha: this.fecha,
         modulo: this.dTipoDocSelected.moduloCodigo,
-
-
-
+        bodega: 1,
+        items: this.listaItems()
       }
+      console.log(request)
     }
     this.visible=false;
   }
