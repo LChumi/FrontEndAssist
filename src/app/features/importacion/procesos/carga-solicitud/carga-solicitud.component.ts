@@ -19,6 +19,7 @@ import {
   SeleccionComprobanteComponent
 } from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
 import {getSessionItem} from "@utils/index";
+import {SeleccionBodegasComponent} from "@features/shared/component/seleccion-bodegas/seleccion-bodegas.component";
 
 @Component({
   standalone: true,
@@ -36,7 +37,8 @@ import {getSessionItem} from "@utils/index";
     DecimalPipe,
     ScrollTopModule,
     FavoriteComponent,
-    SeleccionComprobanteComponent
+    SeleccionComprobanteComponent,
+    SeleccionBodegasComponent
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``

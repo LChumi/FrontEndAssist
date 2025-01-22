@@ -125,7 +125,6 @@ export class SeleccionComprobanteComponent implements OnInit {
     const pventa = Number(getSessionItem("pventa"))
     this.pventaService.getPventa(this.empresa, almacen, pventa).subscribe({
       next: (result) => {
-        console.log(result);
         this.pventasSelected = result
       }
     })
