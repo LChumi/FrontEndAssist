@@ -1,0 +1,23 @@
+<div class="col-12">
+  <p-dropdown
+    inputId="bodegas"
+    [options]="bodegas"
+    [(ngModel)]="bodegaSelected"
+    optionLabel="nombre"
+    (onChange)="onBodegaSelectedChanged($event)">
+
+    <!-- Plantilla para el elemento seleccionado -->
+    <ng-template pTemplate="selectedItem">
+      <div class="flex align-items-center">
+        <div class="text-primary mr-2">{{ bodegaSelected.nombre }}</div>
+      </div>
+    </ng-template>
+
+    <!-- Plantilla para los ítems -->
+    <ng-template let-bodega pTemplate="item">
+      <div class="flex align-items-center">
+        <div>{{ bodega.nombre }}</div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+</div>

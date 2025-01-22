@@ -20,10 +20,16 @@
       </ul>
 
       <div class="col-12">
-        <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined mr-1"
-                (click)="abrirModal()"></button>
+        <div class="grid">
+          <app-seleccion-bodegas></app-seleccion-bodegas>
+
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined" (click)="abrirModal()"></button>
+          </div>
+        </div>
         <app-modalcliente [tipoCliente]="tipocliente" [visible]="modalVisible"></app-modalcliente>
       </div>
+
 
       @if (proveedor) {
         @if (listItems.length > 0) {
