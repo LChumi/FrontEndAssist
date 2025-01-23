@@ -27,7 +27,15 @@
             <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined" (click)="abrirModal()"></button>
           </div>
         </div>
-        <app-modalcliente [tipoCliente]="tipocliente" [visible]="modalVisible"></app-modalcliente>
+        <div class="grid p-fluid mt-3 ">
+          <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+              <input type="text" id="observacion" pInputText [(ngModel)]="observacion">
+              <label for="observacion">Concepto</label>
+            </span>
+          </div>
+        </div>
+        <app-modalcliente [tipoCliente]="'Proveedor'" [visible]="modalVisible"></app-modalcliente>
       </div>
 
 
@@ -37,8 +45,9 @@
             <div class="card">
               <p-table [value]="listItems" dataKey="nombre" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
+                  <h5>Lista de Items</h5>
                   <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <h5>Lista de Items</h5>
+                    <span class="text-primary font-semibold">Items: {{listItems.length}} en total</span>
                     <button pButton pRipple label="Seleccionar Nuevo Archivo" icon="pi pi-check"
                             class="p-button-outlined" (click)="cargarNuevo()"></button>
                   </div>
@@ -259,6 +268,6 @@
 
     </div>
   </div>
-  <app-seleccion-comprobante [visible]="seleccionComprobante" [tipoDoc]="119" [listaItems]="listItems" ></app-seleccion-comprobante>
+  <app-seleccion-comprobante [visible]="seleccionComprobante" [tipoDoc]="119" [listaItems]="listItems" [observacion]="observacion" ></app-seleccion-comprobante>
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>

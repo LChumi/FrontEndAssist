@@ -32,6 +32,7 @@ import {Items} from "@models/record/items";
 })
 export class SeleccionComprobanteComponent implements OnInit {
   public tipoDoc = input.required<number>();
+  public observacion = input.required<string>();
   @Input() visible: boolean = false;
   public listaItems = input.required<Items[]>();
 
@@ -133,10 +134,14 @@ export class SeleccionComprobanteComponent implements OnInit {
   saveDocumento() {
     const usuario = Number(getSessionItem("usrId"));
     let proveedor
+    let bodega
     this.seleccionService.clienteSeleccionado$.subscribe(id => {
       proveedor = id
     })
-    if (proveedor && usuario) {
+    this.seleccionService.bodegaSeleccionada$.subscribe(id => {
+      bodega = id
+    })
+    if (proveedor && usuario && bodega && this.observacion()) {
       const request: SolicitudRequestDTO = {
         empresa: this.empresa,
         tipodoc: this.dTipoDocSelected.tpdCodigo,
@@ -147,8 +152,8 @@ export class SeleccionComprobanteComponent implements OnInit {
         usuario: usuario,
         fecha: this.fecha,
         modulo: this.dTipoDocSelected.modCodigo,
-        bodega: 1,
-        observacion: '',
+        bodega: bodega,
+        observacion: this.observacion(),
         items: this.listaItems()
       }
       console.log(request)
