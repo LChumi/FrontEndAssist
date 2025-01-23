@@ -67,9 +67,11 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   listItems: Items[] = []
   item: Items = {} as Items;
 
-  tipocliente = 'Proveedor'
   proveedor = ''
   imageUrl: string | null = ''
+
+  observacion : string = ''
+
 
   modalVisible = false;
   loading = false
