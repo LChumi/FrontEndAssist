@@ -268,6 +268,11 @@
 
     </div>
   </div>
-  <app-seleccion-comprobante [visible]="seleccionComprobante" [tipoDoc]="119" [listaItems]="listItems" [observacion]="observacion" ></app-seleccion-comprobante>
+  <app-seleccion-comprobante
+    [visible]="seleccionComprobante"
+    [tipoDoc]="119"
+    [observacion]="observacion"
+    (saveRequest)="handleSaveRequest($event)"
+  ></app-seleccion-comprobante>
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>

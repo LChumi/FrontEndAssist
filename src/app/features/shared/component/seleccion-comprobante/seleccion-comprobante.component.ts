@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, Input, input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
@@ -32,11 +32,12 @@ import {MessageService} from "primeng/api";
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
 })
-export class SeleccionComprobanteComponent implements OnInit {
+export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
   public tipoDoc = input.required<number>();
   public observacion = input.required<string>();
+
   @Input() visible: boolean = false;
-  public listaItems = input.required<Items[]>();
+  @Output() saveRequest = new EventEmitter<{ request: SolicitudRequestDTO, visible:boolean }>();
 
   date: string = '';
   empresa: any;
@@ -158,18 +159,23 @@ export class SeleccionComprobanteComponent implements OnInit {
         modulo: this.dTipoDocSelected.modCodigo,
         bodega: bodega,
         observacion: this.observacion(),
-        items: this.listaItems()
+        items: []
       }
-      this.fileService.confirmarSolicitud(request).subscribe({
+      this.saveRequest.emit({ request: request, visible: false})
+      /*this.fileService.confirmarSolicitud(request).subscribe({
         next: (result) => {
           this.messageService.add({severity: 'success', summary: 'Archivo creado', detail: result.toUpperCase(), life: 3000});
         },
         error: error => {
           console.log(error);
         }
-      })
+      })*/
     }
     this.visible=false;
+  }
+
+  ngOnDestroy(): void {
+    this.visible= false
   }
 
 }

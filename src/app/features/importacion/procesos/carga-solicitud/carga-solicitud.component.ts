@@ -20,6 +20,7 @@ import {
 } from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
 import {getSessionItem} from "@utils/index";
 import {SeleccionBodegasComponent} from "@features/shared/component/seleccion-bodegas/seleccion-bodegas.component";
+import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 
 @Component({
   standalone: true,
@@ -70,7 +71,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   proveedor = ''
   imageUrl: string | null = ''
 
-  observacion : string = ''
+  observacion: string = ''
 
 
   modalVisible = false;
@@ -222,8 +223,13 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     return index;
   }
 
-  aceptDialog(){
+  aceptDialog() {
     this.confirmDialog = false;
     this.seleccionComprobante = !this.seleccionComprobante;
+  }
+
+  handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
+    console.log('Request:', event.request);
+    this.seleccionComprobante = event.visible;
   }
 }
