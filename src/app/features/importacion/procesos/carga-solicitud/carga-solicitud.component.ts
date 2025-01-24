@@ -224,6 +224,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   aceptDialog(){
     this.confirmDialog = false;
-    this.seleccionComprobante = true;
+    this.seleccionComprobante = !this.seleccionComprobante;
   }
 }

@@ -15,6 +15,8 @@ import {SelectionService} from "@services/state/selection.service";
 import {CalendarModule} from "primeng/calendar";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {Items} from "@models/record/items";
+import {FileService} from "@services/api/file.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-seleccion-comprobante',
@@ -52,6 +54,8 @@ export class SeleccionComprobanteComponent implements OnInit {
   almacenService = inject(AlmacenService)
   pventaService = inject(PuntoventaService)
   seleccionService = inject(SelectionService)
+  fileService = inject(FileService)
+  messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
@@ -156,7 +160,14 @@ export class SeleccionComprobanteComponent implements OnInit {
         observacion: this.observacion(),
         items: this.listaItems()
       }
-      console.log(request)
+      this.fileService.confirmarSolicitud(request).subscribe({
+        next: (result) => {
+          this.messageService.add({severity: 'success', summary: 'Archivo creado', detail: result.toUpperCase(), life: 3000});
+        },
+        error: error => {
+          console.log(error);
+        }
+      })
     }
     this.visible=false;
   }
