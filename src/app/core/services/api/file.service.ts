@@ -25,8 +25,7 @@ export class FileService {
   }
 
   confirmarSolicitud(request: SolicitudRequestDTO): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}/confirmar/solicitud`, request)
+    return this.http.post(`${this.baseUrl}/confirmar/solicitud`, request, { responseType: 'text' });
   }
-
 
 }
