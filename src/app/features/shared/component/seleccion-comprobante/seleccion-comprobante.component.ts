@@ -17,7 +17,6 @@ import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {Items} from "@models/record/items";
 import {FileService} from "@services/api/file.service";
 import {MessageService} from "primeng/api";
-import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-seleccion-comprobante',
