@@ -32,12 +32,12 @@ import {MessageService} from "primeng/api";
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
 })
-export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
+export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   public tipoDoc = input.required<number>();
   public observacion = input.required<string>();
 
   @Input() visible: boolean = false;
-  @Output() saveRequest = new EventEmitter<{ request: SolicitudRequestDTO, visible:boolean }>();
+  @Output() saveRequest = new EventEmitter<{ request: SolicitudRequestDTO, visible: boolean }>();
 
   date: string = '';
   empresa: any;
@@ -74,7 +74,7 @@ export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
       this.tipoDocService.getTipoDoc(Number(this.empresa), this.tipoDoc()).subscribe({
         next: (result) => {
           this.dTipoDoc = result;
-          this.dTipoDocSelected= result[0]
+          this.dTipoDocSelected = result[0]
         }
       })
     }
@@ -87,7 +87,7 @@ export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
       this.almacenService.getAlmacen(this.empresa, almacen).subscribe({
         next: (result) => {
           this.almacenes.push(result);
-          this.almacenSelected= result
+          this.almacenSelected = result
         }
       })
     }
@@ -161,7 +161,7 @@ export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
         observacion: this.observacion(),
         items: []
       }
-      this.saveRequest.emit({ request: request, visible: false})
+      this.saveRequest.emit({request: request, visible: false})
       /*this.fileService.confirmarSolicitud(request).subscribe({
         next: (result) => {
           this.messageService.add({severity: 'success', summary: 'Archivo creado', detail: result.toUpperCase(), life: 3000});
@@ -171,11 +171,11 @@ export class SeleccionComprobanteComponent implements OnInit , OnDestroy{
         }
       })*/
     }
-    this.visible=false;
+    this.visible = false;
   }
 
   ngOnDestroy(): void {
-    this.visible= false
+    this.visible = false
   }
 
 }

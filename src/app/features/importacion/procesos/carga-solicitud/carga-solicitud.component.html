@@ -24,7 +24,8 @@
         <div class="grid">
           <app-seleccion-bodegas></app-seleccion-bodegas>
           <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined" (click)="abrirModal()"></button>
+            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined"
+                    (click)="abrirModal()"></button>
           </div>
         </div>
         <div class="grid p-fluid mt-3 ">
@@ -47,7 +48,7 @@
                 <ng-template pTemplate="caption">
                   <h5>Lista de Items</h5>
                   <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <span class="text-primary font-semibold">Items: {{listItems.length}} en total</span>
+                    <span class="text-primary font-semibold">Items: {{ listItems.length }} en total</span>
                     <button pButton pRipple label="Seleccionar Nuevo Archivo" icon="pi pi-check"
                             class="p-button-outlined" (click)="cargarNuevo()"></button>
                   </div>
