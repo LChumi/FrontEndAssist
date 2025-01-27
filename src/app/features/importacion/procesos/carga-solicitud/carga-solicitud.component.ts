@@ -73,7 +73,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   observacion: string = ''
 
-
   modalVisible = false;
   loading = false
   itemDialog = false
@@ -225,11 +224,12 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
 
   aceptDialog() {
     this.confirmDialog = false;
-    this.seleccionComprobante = !this.seleccionComprobante;
+    this.seleccionComprobante = true;
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
-    console.log('Request:', event.request);
+    event.request.items=this.listItems
     this.seleccionComprobante = event.visible;
+    console.log('Request: ', event.request)
   }
 }

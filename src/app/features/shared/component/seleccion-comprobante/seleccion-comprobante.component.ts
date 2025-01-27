@@ -14,7 +14,6 @@ import {Puntoventa} from "@models/entities/puntoventa";
 import {SelectionService} from "@services/state/selection.service";
 import {CalendarModule} from "primeng/calendar";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
-import {Items} from "@models/record/items";
 import {FileService} from "@services/api/file.service";
 import {MessageService} from "primeng/api";
 
@@ -33,11 +32,23 @@ import {MessageService} from "primeng/api";
   styles: ``
 })
 export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
+  private _visible = false;
   public tipoDoc = input.required<number>();
   public observacion = input.required<string>();
 
-  @Input() visible: boolean = false;
+  @Input() set visible(value: boolean) {
+    this._visible = value;
+    if (value) {
+      this.initializeModal();
+    }
+  }
+
+  get visible() : boolean {
+    return this._visible;
+  }
+
   @Output() saveRequest = new EventEmitter<{ request: SolicitudRequestDTO, visible: boolean }>();
+  @Output() visibleChange = new EventEmitter<boolean>();
 
   date: string = '';
   empresa: any;
@@ -59,6 +70,10 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   messageService = inject(MessageService);
 
   ngOnInit(): void {
+    this.initializeModal()
+  }
+
+  initializeModal(): void {
     this.empresa = getSessionItem("empresa");
     this.date = getCurrentDate()
     this.getDocumento()
@@ -119,11 +134,16 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
     this.seleccionService.actualizarAlmacenSeleccionado(selectedAlmacen.codigo);
   }
 
-  close() {
-    this.visible = false;
+  cleanupModal() {
     this.dTipoDoc = [];
     this.almacenes = [];
     this.date = '';
+  }
+
+  close() {
+    this.visible = false;
+    this.cleanupModal()
+    this.visibleChange.emit(false);
   }
 
   getPuntoventaDefecto() {
@@ -161,21 +181,13 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
         observacion: this.observacion(),
         items: []
       }
+      this.visible = false;
       this.saveRequest.emit({request: request, visible: false})
-      /*this.fileService.confirmarSolicitud(request).subscribe({
-        next: (result) => {
-          this.messageService.add({severity: 'success', summary: 'Archivo creado', detail: result.toUpperCase(), life: 3000});
-        },
-        error: error => {
-          console.log(error);
-        }
-      })*/
     }
-    this.visible = false;
   }
 
   ngOnDestroy(): void {
-    this.visible = false
+    this.cleanupModal()
   }
 
 }
