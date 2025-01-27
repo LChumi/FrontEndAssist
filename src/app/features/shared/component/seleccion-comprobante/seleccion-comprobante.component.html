@@ -1,6 +1,7 @@
 <p-dialog
   #dd
   [(visible)]="visible"
+  (visibleChange)=" visible = $event"
   [modal]="true"
   [style]="{ width: '600px', maxWidth: '90vw' }"
   [breakpoints]="{ '960px': '90vw', '640px': '100vw' }"

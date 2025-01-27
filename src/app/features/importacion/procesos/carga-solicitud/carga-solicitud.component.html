@@ -270,7 +270,7 @@
     </div>
   </div>
   <app-seleccion-comprobante
-    [visible]="seleccionComprobante"
+    [(visible)]="seleccionComprobante"
     [tipoDoc]="119"
     [observacion]="observacion"
     (saveRequest)="handleSaveRequest($event)"
