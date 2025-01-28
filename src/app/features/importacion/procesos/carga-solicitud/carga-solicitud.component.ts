@@ -228,7 +228,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
-    event.request.items=this.listItems
+    event.request.items = this.listItems
     this.seleccionComprobante = event.visible;
     console.log('Request: ', event.request)
   }

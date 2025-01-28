@@ -43,7 +43,7 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
     }
   }
 
-  get visible() : boolean {
+  get visible(): boolean {
     return this._visible;
   }
 
