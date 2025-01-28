@@ -66,8 +66,6 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   almacenService = inject(AlmacenService)
   pventaService = inject(PuntoventaService)
   seleccionService = inject(SelectionService)
-  fileService = inject(FileService)
-  messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.initializeModal()
