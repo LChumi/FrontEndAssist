@@ -231,5 +231,14 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     event.request.items = this.listItems
     this.seleccionComprobante = event.visible;
     console.log('Request: ', event.request)
+    this.fileService.confirmarSolicitud(event.request).subscribe({
+      next: (response) => {
+        this.messageService.add({severity: 'success', summary: 'Realizado', detail: 'Creación de Solicitud de Importación', life: 3000});
+      },
+      error: (error: ErrorResponse) => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
+      }
+    })
+    this.cargarNuevo()
   }
 }
