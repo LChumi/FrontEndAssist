@@ -18,7 +18,7 @@ import {FavoriteComponent} from "@features/shared/component/favorite/favorite.co
 import {
   SeleccionComprobanteComponent
 } from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
-import {getSessionItem} from "@utils/index";
+import {getSessionItem, setSessionItem} from "@utils/index";
 import {SeleccionBodegasComponent} from "@features/shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 
@@ -234,6 +234,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
       next: (response) => {
         this.observacion = ''
         this.messageService.add({severity: 'success', summary: 'CREADO', detail: 'SOLICITUD DE IMPORTACIÓN: '+ response, life: 3000});
+        setSessionItem("SCI", response);
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
