@@ -14,7 +14,6 @@ import {Puntoventa} from "@models/entities/puntoventa";
 import {SelectionService} from "@services/state/selection.service";
 import {CalendarModule} from "primeng/calendar";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
-import {FileService} from "@services/api/file.service";
 import {MessageService} from "primeng/api";
 
 @Component({
@@ -62,10 +61,11 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   almacenSelected: Almacen = {} as Almacen;
   pventasSelected: Puntoventa = {} as Puntoventa;
 
-  tipoDocService = inject(DtipodocService)
-  almacenService = inject(AlmacenService)
-  pventaService = inject(PuntoventaService)
-  seleccionService = inject(SelectionService)
+  private tipoDocService = inject(DtipodocService)
+  private almacenService = inject(AlmacenService)
+  private pventaService = inject(PuntoventaService)
+  private seleccionService = inject(SelectionService)
+  private messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.initializeModal()
@@ -155,6 +155,10 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   }
 
   saveDocumento() {
+    if (!this.fecha){
+      this.messageService.add({severity: 'warn', summary: 'Campos vacios', detail: 'Llene los campos del formulario', life: 3000});
+      return
+    }
     const usuario = Number(getSessionItem("usrId"));
     let proveedor
     let bodega
