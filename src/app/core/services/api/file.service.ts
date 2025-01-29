@@ -11,7 +11,7 @@ import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 export class FileService {
 
   private baseUrl = environment.apiUrlBase + 'assist'
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
 
   constructor() {
   }

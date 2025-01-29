@@ -19,8 +19,8 @@ import {getSessionItem, setSessionItem} from "@utils/index";
 })
 export default class EmpresaComponent implements OnInit {
 
-  menuService = inject(MenusService)
-  router = inject(Router)
+  private menuService = inject(MenusService)
+  private router = inject(Router)
 
   listasEmpresa: Empresa[] = []
 

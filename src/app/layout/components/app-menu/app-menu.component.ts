@@ -14,12 +14,9 @@ import {getSessionItem} from "@utils/storage-utils";
 })
 export class AppMenuComponent implements OnInit {
 
-  menuService = inject(MenusService)
+  private menuService = inject(MenusService)
 
-  usrId: number | null = 0
-  empresaId: number | null = 0
-
-  model: any[] = [];
+  protected model: any[] = [];
 
   ngOnInit() {
     const usrIdStr = getSessionItem('usrId')

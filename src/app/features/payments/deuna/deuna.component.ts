@@ -23,16 +23,16 @@ import {ErrorResponse} from "@models/error/error-response";
 })
 export default class DeunaComponent implements OnInit {
 
-  route = inject(ActivatedRoute)
-  deunaService = inject(DeunaService);
-  confirmatioService = inject(ConfirmationService)
-  toast = inject(MessageService);
+  private route = inject(ActivatedRoute)
+  private deunaService = inject(DeunaService);
+  private confirmatioService = inject(ConfirmationService)
+  private toast = inject(MessageService);
   private subscription: Subscription | null = null;
 
-  usrLiquida: any;
-  empresa: any;
-  imageBase64: string | null = '';
-  value = 0;
+  protected usrLiquida: any;
+  protected empresa: any;
+  protected imageBase64: string | null = '';
+  private value = 0;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

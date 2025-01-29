@@ -19,7 +19,7 @@ import {getSessionItem} from "@utils/storage-utils";
 export class TopbarComponent {
   @ViewChild('menubutton') menuButton!: ElementRef;
 
-  layoutService = inject(LayoutService)
+  private layoutService = inject(LayoutService)
   empresa: any
 
   constructor() {

@@ -10,7 +10,7 @@ import {Empleado} from "@models/entities/empleado";
 export class ContabilidadService {
 
   private baseUrl = environment.apiUrlBase
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
 
   constructor() {
   }

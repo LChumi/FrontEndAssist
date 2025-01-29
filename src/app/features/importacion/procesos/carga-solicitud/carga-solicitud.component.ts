@@ -61,9 +61,9 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   usrId: any
   uploadFiles: any[] = []; // Archivos seleccionados
 
-  messageService = inject(MessageService);
-  fileService = inject(FileService)
-  imagenService = inject(ImagenService)
+  private messageService = inject(MessageService);
+  private fileService = inject(FileService)
+  private imagenService = inject(ImagenService)
 
   listItems: Items[] = []
   item: Items = {} as Items;

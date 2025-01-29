@@ -18,8 +18,8 @@ export class ProfileSidebarComponent {
 
   nombre: any;
   username: any;
-  layoutService = inject(LayoutService)
-  router = inject(Router);
+  private layoutService = inject(LayoutService)
+  private router = inject(Router);
 
   constructor() {
     this.nombre = getSessionItem('nombre');

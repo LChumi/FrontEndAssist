@@ -12,7 +12,7 @@ export class FavoritesService {
 
   private baseUrl = environment.apiUrlBase + 'assist'
 
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
 
   constructor() {
   }
