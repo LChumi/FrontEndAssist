@@ -11,7 +11,7 @@ import {InfoResponse} from "@models/record/info-response";
 export class DeunaService {
 
   private baseUrl = environment.apiUrlBase + 'pos';
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
 
   constructor() {
   }

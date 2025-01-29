@@ -30,8 +30,8 @@ export default class ForgotpasswordComponent implements OnInit {
   loading = false;
   serviceResponse: ServiceResponse = {} as ServiceResponse
 
-  usuarioService = inject(UsuarioService)
-  fb = inject(FormBuilder)
+  private usuarioService = inject(UsuarioService)
+  private fb = inject(FormBuilder)
 
   ngOnInit(): void {
     this.resendForm = this.fb.group({

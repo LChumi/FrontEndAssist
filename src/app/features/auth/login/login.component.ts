@@ -35,10 +35,10 @@ export default class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
 
-  fb = inject(FormBuilder)
-  usuarioService = inject(UsuarioService)
-  router = inject(Router)
-  messageService = inject(MessageService)
+  private fb = inject(FormBuilder)
+  private usuarioService = inject(UsuarioService)
+  private router = inject(Router)
+  private messageService = inject(MessageService)
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({

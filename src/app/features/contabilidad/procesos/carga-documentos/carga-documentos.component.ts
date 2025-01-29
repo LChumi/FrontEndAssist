@@ -26,9 +26,9 @@ export default class CargaDocumentosComponent implements OnInit {
   uploadFiles: any[] = []; // Archivos seleccionados
   textContent: string = ''; // Texto ingresado en el textarea
 
-  messageService = inject(MessageService);
-  contabilidadService = inject(ContabilidadService);
-  router = inject(Router)
+  private messageService = inject(MessageService);
+  private contabilidadService = inject(ContabilidadService);
+  private router = inject(Router)
 
   emailEmpresa = ''; // Email empresarial
   loading = false; // Estado de envío

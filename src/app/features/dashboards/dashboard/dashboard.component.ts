@@ -23,8 +23,8 @@ export default class DashboardComponent implements OnInit {
   hora: any;
   favoritos: UsuarioFavoritos[] = [];
 
-  favoritoService = inject(FavoritesService)
-  accesoService = inject(AccesoService)
+  private favoritoService = inject(FavoritesService)
+  private accesoService = inject(AccesoService)
 
   constructor() {
     this.getNameLastName()
