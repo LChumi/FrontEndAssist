@@ -42,6 +42,11 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/importacion/procesos/carga-solicitud/carga-solicitud.component'),
                 data: {breadcrumb: 'Carga solicitud '}
               },
+              {
+                path: 'visualizar-solicitud',
+                loadComponent: () => import('./features/importacion/procesos/visualizacion-carga/visualizacion-carga.component'),
+                data: {breadcrumb: 'Visualizar solicitud'}
+              },
             ]
           },
           {path: 'contabilidad',
