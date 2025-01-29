@@ -232,6 +232,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     this.seleccionComprobante = event.visible;
     this.fileService.confirmarSolicitud(event.request).subscribe({
       next: (response) => {
+        this.observacion = ''
         this.messageService.add({severity: 'success', summary: 'CREADO', detail: 'SOLICITUD DE IMPORTACIÓN: '+ response, life: 3000});
       },
       error: (error: ErrorResponse) => {
