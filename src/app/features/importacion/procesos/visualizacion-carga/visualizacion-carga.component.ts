@@ -4,10 +4,13 @@ import {SolicitudCompraImportacionService} from "@services/api/solicitud-compra-
 import {SolicitudCompraImportacionDto} from "@models/dto/solicitud-compra-importacion-dto";
 import {ActivatedRoute} from "@angular/router";
 import {DfacturaDto} from "@models/dto/dfactura-dto";
+import {DecimalPipe} from "@angular/common";
 
 @Component({
   standalone: true,
-  imports: [],
+  imports: [
+    DecimalPipe
+  ],
   templateUrl: './visualizacion-carga.component.html',
   styles: ``
 })
@@ -19,22 +22,18 @@ export default class VisualizacionCargaComponent implements OnInit {
   protected sci : SolicitudCompraImportacionDto = {} as SolicitudCompraImportacionDto;
 
   protected empresa: any
-  protected documento: any;
   protected cantidadTotal: any;
+  protected subtotal: any;
 
   ngOnInit(): void {
     const nombre =getSessionItem('nombreEmpresa')
-    const doc = getSessionItem('SCI')
-    if (nombre && doc) {
+    if (nombre) {
       this.empresa = nombre;
-      this.documento = doc;
     }
     this.route.queryParams.subscribe((params) => {
       const cco = params['cco'];
-      const doc = params['documento'];
-      if (cco && doc) {
+      if (cco) {
         this.getSci(cco)
-        this.documento = doc;
       }
     })
   }
@@ -44,11 +43,16 @@ export default class VisualizacionCargaComponent implements OnInit {
       next: data => {
         this.sci = data;
         this.cantidadTotal = this.calcularCantidadTotal(data.items);
+        this.subtotal = this.calcularPrecioTotal(data.items);
       }
     })
   }
 
   calcularCantidadTotal(items: DfacturaDto[]): number {
     return items.reduce((total, item) => total + item.cantidad, 0);
+  }
+
+  calcularPrecioTotal(items: DfacturaDto[]): number {
+    return items.reduce((total, item) => total + item.precio, 0);
   }
 }
