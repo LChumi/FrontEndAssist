@@ -21,6 +21,7 @@ import {
 import {getSessionItem, setSessionItem} from "@utils/index";
 import {SeleccionBodegasComponent} from "@features/shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
+import {Router} from "@angular/router";
 
 @Component({
   standalone: true,
@@ -57,13 +58,14 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
     })
   }
 
-  idEmpresa: any
+  private idEmpresa: any
   usrId: any
-  uploadFiles: any[] = []; // Archivos seleccionados
+  protected uploadFiles: any[] = []; // Archivos seleccionados
 
   private messageService = inject(MessageService);
   private fileService = inject(FileService)
   private imagenService = inject(ImagenService)
+  private route = inject(Router)
 
   listItems: Items[] = []
   item: Items = {} as Items;
@@ -235,6 +237,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
         this.observacion = ''
         this.messageService.add({severity: 'success', summary: 'CREADO', detail: 'SOLICITUD DE IMPORTACIÓN: '+ response, life: 3000});
         setSessionItem("SCI", response);
+        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: '100000000000000000004599851', documento:'SCI-00-10-000036'}}).then(r => {})
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
