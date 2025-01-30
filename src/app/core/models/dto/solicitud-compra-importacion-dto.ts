@@ -6,7 +6,7 @@ export interface SolicitudCompraImportacionDto {
   almacenId: string;
   fecha:     Date;
   sigla:     string;
-  docuento:  string;
+  documento:  string;
   concepto:  string;
   items:     DfacturaDto[];
 }
