@@ -11,7 +11,7 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './consultas-importacion.component.html',
   styles: ``
 })
-export class ConsultasImportacionComponent {
+export default class ConsultasImportacionComponent {
 
   periodo:  any;
   fecha:    any;
