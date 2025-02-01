@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Items} from "@models/record/items";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
+import {SciResponse} from "@models/record/sci-response";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class FileService {
     return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData)
   }
 
-  confirmarSolicitud(request: SolicitudRequestDTO): Observable<string> {
-    return this.http.post(`${this.baseUrl}/confirmar/solicitud`, request, { responseType: 'text' });
+  confirmarSolicitud(request: SolicitudRequestDTO): Observable<SciResponse> {
+    return this.http.post<SciResponse>(`${this.baseUrl}/confirmar/solicitud`, request);
   }
 
 }
