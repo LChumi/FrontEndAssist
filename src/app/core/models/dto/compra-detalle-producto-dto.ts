@@ -1,7 +1,7 @@
 import {DfacturaDto} from "@models/dto/dfactura-dto";
 import {ClienteDto} from "@models/dto/cliente-dto";
 
-export interface SolicitudCompraImportacionDto {
+export interface CompraDetalleProductoDto {
   cco:         number;
   almacen:     string;
   almacenId:   string;
