@@ -236,7 +236,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
       next: (response) => {
         this.observacion = ''
         this.messageService.add({severity: 'success', summary: 'CREADO', detail: 'SOLICITUD DE IMPORTACIÓN: '+ response, life: 3000});
-        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: '100000000000000000004599851'}}).then(r => {})
+        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {})
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
