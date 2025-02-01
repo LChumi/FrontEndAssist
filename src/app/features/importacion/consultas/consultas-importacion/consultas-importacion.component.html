@@ -3,22 +3,38 @@
   <div class="grid p-fluid">
       <div class="grid formgrid">
         <div class="col-12 lg:col-4 field">
-          <input pInputText type="text" placeholder="Año" label="Periodo" [(ngModel)]="periodo">
+          <input pInputText type="number" placeholder="Año" label="Periodo" [(ngModel)]="periodo">
         </div>
         <div class="col-12 lg:col-4 field">
-          <input pInputText type="text" placeholder="Fecha" label="fecha" [(ngModel)]="fecha">
+          <p-calendar dateFormat="dd-mm-yy" placeholder="fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
         </div>
         <div class="col-12 lg:col-4 field">
           <input pInputText type="text" placeholder="Sigla" label="sigla" [(ngModel)]="sigla">
         </div>
         <div class="col-12 lg:col-4 field">
-          <input pInputText type="text" placeholder="Almacen" label="almacen" [(ngModel)]="almacen">
+          <p-dropdown inputId="almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
+                      optionLabel="almId" (onChange)="onAlmacenChange($event)">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center">
+                <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                     [style.background-color]="'#5676e1'"></div>
+                <div>{{ almacenSelected.almId }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-alm pTemplate="item">
+              <div class="flex align-items-center">
+                <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                     [style.background-color]="'#5676e1'"></div>
+                <div>{{ alm.almId }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
         </div>
         <div class="col-12 lg:col-4 field">
-          <input pInputText type="text" placeholder="Serie" label="serie" [(ngModel)]="serie">
+          <input pInputText type="number" placeholder="Serie" label="serie" [(ngModel)]="serie">
         </div>
         <div class="col-12 lg:col-4 field">
-          <input pInputText type="text" placeholder="Numero" label="numero" [(ngModel)]="numero">
+          <input pInputText type="number" placeholder="Numero" label="numero" [(ngModel)]="numero">
         </div>
       </div>
   </div>
