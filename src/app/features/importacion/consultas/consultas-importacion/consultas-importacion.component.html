@@ -3,10 +3,10 @@
   <div class="grid p-fluid">
       <div class="grid formgrid">
         <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Año" label="Periodo" [(ngModel)]="periodo">
+          <p-calendar [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Año" />
         </div>
         <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Mes" label="Mes" [(ngModel)]="mes">
+          <p-calendar [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
         </div>
         <div class="col-12 lg:col-2 field">
           <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
