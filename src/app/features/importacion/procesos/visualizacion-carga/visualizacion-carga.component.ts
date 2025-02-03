@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {getSessionItem} from "@utils/storage-utils";
-import {ComprobanteDetalleProductoService} from "@services/api/comprobante-detalle-producto.service";
+import {ComprobanteDetalleService} from "@services/api/comprobante-detalle.service";
 import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
 import {ActivatedRoute} from "@angular/router";
 import {DfacturaDto} from "@models/dto/dfactura-dto";
@@ -16,7 +16,7 @@ import {DecimalPipe} from "@angular/common";
 })
 export default class VisualizacionCargaComponent implements OnInit {
 
-  private sCiService = inject(ComprobanteDetalleProductoService);
+  private comprobanteDetalleService = inject(ComprobanteDetalleService);
   private route = inject(ActivatedRoute);
 
   protected sci : CompraDetalleProductoDto = {} as CompraDetalleProductoDto;
@@ -39,7 +39,7 @@ export default class VisualizacionCargaComponent implements OnInit {
   }
 
   getSci(cco: any){
-    this.sCiService.verSci(cco).subscribe({
+    this.comprobanteDetalleService.verSci(cco).subscribe({
       next: data => {
         this.sci = data;
         this.cantidadTotal = this.calcularCantidadTotal(data.items);

@@ -9,7 +9,6 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {CtipocomService} from "@services/api/ctipocom.service";
 import {AlmacenService} from "@services/api/almacen.service";
 import {getSessionItem} from "@utils/storage-utils";
-import {PrimeNGConfig} from "primeng/api";
 
 @Component({
   standalone: true,
@@ -89,7 +88,11 @@ export default class ConsultasImportacionComponent implements OnInit {
   }
 
   save(){
-    console.log(this.sigla);
-    console.log(this.almacenSelected);
+    console.log('Sigla ' , this.sigla);
+    console.log('Almacen seleccionado ' ,this.almacenSelected);
+    console.log('mes', this.mes)
+    console.log('año ', this.periodo)
+    console.log('serie', this.serie);
+    console.log('numero', this.numero);
   }
 }
