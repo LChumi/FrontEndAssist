@@ -16,3 +16,11 @@ export function getCurrentTime(): string {
   const formattedHours = (hours % 12 || 12).toString().padStart(2, '0'); // Convierte 0 a 12
   return `${formattedHours}:${minutes} ${ampm}`;
 }
+
+export function getMontFormattedDate(mes:any): number{
+  return mes ? mes.getMonth() + 1 : null
+}
+
+export function getYearFormattedDate(year:any): number{
+  return year ? year.getFullYear() : null;
+}
