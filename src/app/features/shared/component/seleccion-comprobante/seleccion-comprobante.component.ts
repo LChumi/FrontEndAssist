@@ -3,7 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {ChipsModule} from "primeng/chips";
-import {getCurrentDate, getSessionItem} from "@utils/index";
+import {getCurrentDateNow, getSessionItem} from "@utils/index";
 import {DtipodocService} from "@services/api/dtipodoc.service";
 import {Dtipodoc} from "@models/entities/dtipodoc";
 import {FormsModule} from "@angular/forms";
@@ -73,7 +73,7 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
 
   initializeModal(): void {
     this.empresa = getSessionItem("empresa");
-    this.date = getCurrentDate()
+    this.date = getCurrentDateNow()
     this.getDocumento()
     this.getAlmacen()
     this.getPuntoventaDefecto()

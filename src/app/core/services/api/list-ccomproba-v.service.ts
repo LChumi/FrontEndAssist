@@ -27,8 +27,7 @@ export class ListCcomprobaVService {
     referencia?: string,
     estado?: number,
     tipodoc?: number,
-  ):Observable<ListCcomprobaV[]>{
-
+  ): Observable<ListCcomprobaV[]> {
     let params = new HttpParams();
     if (empresa) params = params.set('empresa', empresa);
     if (periodo) params = params.set('periodo', periodo);
@@ -39,9 +38,9 @@ export class ListCcomprobaVService {
     if (serie) params = params.set('serie', serie);
     if (numero) params = params.set('numero', numero);
     if (concepto) params = params.set('concepto', concepto);
-    if (referencia) params = params.set('numero', referencia);
-    if (estado) params = params.set('numero', estado);
-    if (tipodoc) params = params.set('estado', tipodoc);
-    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/buscar/ccocomproba-v`,{params})
+    if (referencia) params = params.set('referencia', referencia); // Asegúrate de que el nombre del parámetro sea correcto
+    if (estado) params = params.set('estado', estado); // Asegúrate de que el nombre del parámetro sea correcto
+    if (tipodoc) params = params.set('tipodoc', tipodoc); // Asegúrate de que el nombre del parámetro sea correcto
+    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/buscar/ccocomproba-v`, { params });
   }
 }

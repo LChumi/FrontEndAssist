@@ -3,7 +3,7 @@ import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {getCurrentDate, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
+import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
 import {AccesoService} from "@services/api/acceso.service";
 
 @Component({
@@ -47,7 +47,7 @@ export default class DashboardComponent implements OnInit {
   }
 
   getDate() {
-    this.fecha = getCurrentDate();
+    this.fecha = getCurrentDateNow();
     this.hora = getCurrentTime();
 
   }
