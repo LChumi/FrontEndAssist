@@ -10,6 +10,8 @@ import {CtipocomService} from "@services/api/ctipocom.service";
 import {AlmacenService} from "@services/api/almacen.service";
 import {getSessionItem} from "@utils/storage-utils";
 import {Ripple} from "primeng/ripple";
+import {Tipodoc} from "@models/entities/tipodoc";
+import {TipodocService} from "@services/api/tipodoc.service";
 
 @Component({
   standalone: true,
@@ -28,6 +30,7 @@ export default class ConsultasImportacionComponent implements OnInit {
 
   private ctipocomService = inject(CtipocomService);
   private almacenService = inject(AlmacenService);
+  private tipodocService = inject(TipodocService);
 
   private empresa: any;
   protected periodo: any;
@@ -39,8 +42,8 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected numero!: number;
   protected concepto!: string;
   protected referencia!: string;
-  protected estado!: number;
-  protected tipodoc!: number;
+  protected estado!: any;
+  protected tipodoc!: any;
   protected estados: any;
 
   mostrarFiltros = false;
@@ -48,6 +51,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
   protected filteredCountries: Ctipocom[] = [];
+  protected tipoDocs: Tipodoc[] = [];
 
   protected almacenSelected: Almacen = {} as Almacen;
 
@@ -55,12 +59,13 @@ export default class ConsultasImportacionComponent implements OnInit {
     this.empresa = getSessionItem("empresa");
     this.getAlmacenes()
     this.getSiglas()
+    this.getDocs()
     this.estados = [
-      {name: 'En Proceso', value: 0},
-      {name: 'Grabado', value: 1},
-      {name: 'Mayorizado', value: 2},
-      {name: 'Aut. Final', value: 3},
-      {name: 'Anulados', value: 9},
+      {name: 'En Proceso', code: 0},
+      {name: 'Grabado', code: 1},
+      {name: 'Mayorizado', code: 2},
+      {name: 'Aut. Final', code: 3},
+      {name: 'Anulados', code: 9},
     ]
   }
 
@@ -80,6 +85,8 @@ export default class ConsultasImportacionComponent implements OnInit {
     }
     this.filteredCountries = filtered;
   }
+
+
 
   getAlmacenes() {
     if (this.empresa) {
@@ -101,14 +108,23 @@ export default class ConsultasImportacionComponent implements OnInit {
     }
   }
 
+  getDocs(){
+    this.tipodocService.listarTipoDocs().subscribe({
+      next: (result) => {
+        this.tipoDocs = result;
+      }
+    })
+  }
+
   save() {
-    console.log('Sigla ', this.sigla);
-    console.log('Almacen seleccionado ', this.almacenSelected);
+    console.log('Sigla ', this.sigla.codigo);
+    console.log('Almacen seleccionado ', this.almacenSelected.codigo);
     console.log('mes', this.mes)
     console.log('año ', this.periodo)
     console.log('serie', this.serie);
     console.log('numero', this.numero);
-    console.log('estado', this.estado);
+    console.log('estado', this.estado.code);
+    console.log('tipodoc', this.tipodoc.id);
   }
 
   toggleMasFiltros() {

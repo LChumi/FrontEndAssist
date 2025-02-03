@@ -53,7 +53,10 @@
           <p-dropdown inputId="dropdown" placeholder="Estado" [options]="estados" [(ngModel)]="estado" optionLabel="name"></p-dropdown>
         </div>
         <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Concepto" label="concepto" [(ngModel)]="concepto">
+          <p-dropdown inputId="dropdown" placeholder="Tipo Documento" [options]="tipoDocs" [(ngModel)]="tipodoc" optionLabel="tpdId"></p-dropdown>
+        </div>
+        <div class="col-12 lg:col-2 field">
+          <input pInputText type="text" placeholder="Concepto" label="concepto" [(ngModel)]="concepto">
         </div>
       }
 
