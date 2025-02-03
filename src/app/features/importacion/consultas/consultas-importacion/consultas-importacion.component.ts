@@ -9,6 +9,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {CtipocomService} from "@services/api/ctipocom.service";
 import {AlmacenService} from "@services/api/almacen.service";
 import {getSessionItem} from "@utils/storage-utils";
+import {Ripple} from "primeng/ripple";
 
 @Component({
   standalone: true,
@@ -17,7 +18,8 @@ import {getSessionItem} from "@utils/storage-utils";
     FormsModule,
     CalendarModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    Ripple
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
@@ -27,40 +29,52 @@ export default class ConsultasImportacionComponent implements OnInit {
   private ctipocomService = inject(CtipocomService);
   private almacenService = inject(AlmacenService);
 
-  protected periodo:  any;
-  protected fecha:    any;
-  protected mes:      any;
-  protected sigla:    any;
-  protected almacen:  any;
-  protected serie:    any;
-  protected numero!:  number;
-  private   empresa:  any;
+  private empresa: any;
+  protected periodo: any;
+  protected fecha: any;
+  protected mes: any;
+  protected sigla: any;
+  protected almacen: any;
+  protected serie: any;
+  protected numero!: number;
+  protected concepto!: string;
+  protected referencia!: string;
+  protected estado!: number;
+  protected tipodoc!: number;
+  protected estados: any;
+
+  mostrarFiltros = false;
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
   protected filteredCountries: Ctipocom[] = [];
 
   protected almacenSelected: Almacen = {} as Almacen;
-  protected siglaSelectedSelected: Ctipocom = {} as Ctipocom;
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
     this.getAlmacenes()
     this.getSiglas()
+    this.estados = [
+      {name: 'En Proceso', value: 0},
+      {name: 'Grabado', value: 1},
+      {name: 'Mayorizado', value: 2},
+      {name: 'Aut. Final', value: 3},
+      {name: 'Anulados', value: 9},
+    ]
   }
-
 
   onAlmacenChange(event: any) {
     this.almacenSelected = event.value;
   }
 
-  searchSigla(event: any){
-    const filtered: any[] =[]
+  searchSigla(event: any) {
+    const filtered: any[] = []
     const query = event.query;
 
     for (let i = 0; i < this.siglas.length; i++) {
       const sig = this.siglas[i];
-      if (sig.ctiId.toLowerCase().indexOf(query.toLowerCase()) == 0){
+      if (sig.ctiId.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(sig);
       }
     }
@@ -87,12 +101,17 @@ export default class ConsultasImportacionComponent implements OnInit {
     }
   }
 
-  save(){
-    console.log('Sigla ' , this.sigla);
-    console.log('Almacen seleccionado ' ,this.almacenSelected);
+  save() {
+    console.log('Sigla ', this.sigla);
+    console.log('Almacen seleccionado ', this.almacenSelected);
     console.log('mes', this.mes)
     console.log('año ', this.periodo)
     console.log('serie', this.serie);
     console.log('numero', this.numero);
+    console.log('estado', this.estado);
+  }
+
+  toggleMasFiltros() {
+    this.mostrarFiltros = !this.mostrarFiltros;
   }
 }
