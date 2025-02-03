@@ -22,7 +22,11 @@ export class ListCcomprobaVService {
     sigla?: number,
     almacen?: number,
     serie?: number,
-    numero?: number
+    numero?: number,
+    concepto?: string,
+    referencia?: string,
+    estado?: number,
+    tipodoc?: number,
   ):Observable<ListCcomprobaV[]>{
 
     let params = new HttpParams();
@@ -34,7 +38,10 @@ export class ListCcomprobaVService {
     if (almacen) params = params.set('almacen', almacen);
     if (serie) params = params.set('serie', serie);
     if (numero) params = params.set('numero', numero);
-
-    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/buscar`,{params})
+    if (concepto) params = params.set('concepto', concepto);
+    if (referencia) params = params.set('numero', referencia);
+    if (estado) params = params.set('numero', estado);
+    if (tipodoc) params = params.set('estado', tipodoc);
+    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/buscar/ccocomproba-v`,{params})
   }
 }

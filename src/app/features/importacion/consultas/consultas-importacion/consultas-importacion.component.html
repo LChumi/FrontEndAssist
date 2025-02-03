@@ -1,49 +1,68 @@
 <div class="card">
   <span class="block text-900 font-bold text-xl mb-4">Consulta de documentos</span>
+
+  <!-- Filtros iniciales -->
   <div class="grid p-fluid">
-      <div class="grid formgrid">
+    <div class="grid formgrid">
+      <div class="col-1 field">
+        <button pButton pRipple type="button" title="Mostrar filtros" [icon]="mostrarFiltros ? 'pi pi-filter-slash' : 'pi pi-filter'" (click)="toggleMasFiltros()" class="p-button-rounded"></button>
+      </div>
+      <div class="col-12 lg:col-2 field">
+        <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
+      </div>
+      <div class="col-12 lg:col-2 field">
+        <p-autoComplete inputId="sigla" placeholder="Sigla" [(ngModel)]="sigla" [suggestions]="filteredCountries"
+                        (completeMethod)="searchSigla($event)" field="ctiId">
+        </p-autoComplete>
+      </div>
+      <div class="col-12 lg:col-3 field">
+        <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
+                    optionLabel="almId" (onChange)="onAlmacenChange($event)">
+          <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center">
+              <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                   [style.background-color]="'#5676e1'"></div>
+              <div>{{ almacenSelected.nombre }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-alm pTemplate="item">
+            <div class="flex align-items-center">
+              <div class="mr-2">{{ alm.almId }}</div>
+              <div>{{ alm.nombre }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="col-12 lg:col-2 field">
+        <input pInputText type="number" placeholder="Serie" label="serie" [(ngModel)]="serie">
+      </div>
+      <div class="col-12 lg:col-2 field">
+        <input pInputText type="number" placeholder="Numero" label="numero" [(ngModel)]="numero">
+      </div>
+      @if (mostrarFiltros) {
         <div class="col-12 lg:col-2 field">
-          <p-calendar [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Año" />
+          <p-calendar [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Periodo" />
         </div>
         <div class="col-12 lg:col-2 field">
           <p-calendar [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
         </div>
         <div class="col-12 lg:col-2 field">
-          <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
+          <input pInputText type="number" placeholder="Referencia" label="referencia" [(ngModel)]="referencia">
         </div>
         <div class="col-12 lg:col-2 field">
-          <p-autoComplete inputId="sigla" placeholder="Sigla" [(ngModel)]="sigla" [suggestions]="filteredCountries"
-                          (completeMethod)="searchSigla($event)" field="ctiId">
-          </p-autoComplete>
-        </div>
-        <div class="col-12 lg:col-3 field">
-          <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
-                      optionLabel="almId" (onChange)="onAlmacenChange($event)">
-            <ng-template pTemplate="selectedItem">
-              <div class="flex align-items-center">
-                <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
-                     [style.background-color]="'#5676e1'"></div>
-                <div>{{ almacenSelected.nombre }}</div>
-              </div>
-            </ng-template>
-            <ng-template let-alm pTemplate="item">
-              <div class="flex align-items-center">
-                <div class="mr-2">{{ alm.almId }}</div>
-                <div>{{ alm.nombre }}</div>
-              </div>
-            </ng-template>
-          </p-dropdown>
+          <p-dropdown inputId="dropdown" placeholder="Estado" [options]="estados" [(ngModel)]="estado" optionLabel="name"></p-dropdown>
         </div>
         <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Serie" label="serie" [(ngModel)]="serie">
+          <input pInputText type="number" placeholder="Concepto" label="concepto" [(ngModel)]="concepto">
         </div>
-        <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Numero" label="numero" [(ngModel)]="numero">
-        </div>
-      </div>
+      }
+
+    </div>
+
   </div>
 
-  <button type="button" (click)="save()">
-    save
+  <button type="button" (click)="save()" class="p-button p-component">
+    <span class="p-button-icon p-button-icon-left pi pi-search"></span>
+    <span class="p-button-label">Buscar</span>
   </button>
 </div>
