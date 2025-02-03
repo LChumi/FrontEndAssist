@@ -64,8 +64,34 @@
 
   </div>
 
-  <button type="button" (click)="save()" class="p-button p-component">
+  <button type="button" (click)="find()" class="p-button p-component">
     <span class="p-button-icon p-button-icon-left pi pi-search"></span>
     <span class="p-button-label">Buscar</span>
   </button>
+
+  <div>
+    <p-table
+      #cco
+      [value]="listaComprobantes" dataKey="ccoCodigo" [rows]="5" [loading]="loading" [rowHover]="true"
+      [paginator]="true" [responsiveLayout]="'scroll'" [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
+      currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
+      <!-- Encabezado de la Tabla -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th pSortableColumn="nombre">
+            Nombre
+            <p-sortIcon field="nombre"></p-sortIcon>
+          </th>
+          <th pSortableColumn="rucCedula">
+            Ruc Cedula
+            <p-sortIcon field="rucCedula"></p-sortIcon>
+          </th>
+          <th pSortableColumn="telefono">Teléfono</th>
+          <th pSortableColumn="mail">Correo</th>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
 </div>

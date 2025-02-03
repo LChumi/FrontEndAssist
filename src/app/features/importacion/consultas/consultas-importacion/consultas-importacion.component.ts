@@ -12,6 +12,10 @@ import {getSessionItem} from "@utils/storage-utils";
 import {Ripple} from "primeng/ripple";
 import {Tipodoc} from "@models/entities/tipodoc";
 import {TipodocService} from "@services/api/tipodoc.service";
+import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@utils/index";
+import {ListCcomprobaVService} from "@services/api/list-ccomproba-v.service";
+import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
+import {TableModule} from "primeng/table";
 
 @Component({
   standalone: true,
@@ -21,7 +25,8 @@ import {TipodocService} from "@services/api/tipodoc.service";
     CalendarModule,
     DropdownModule,
     AutoCompleteModule,
-    Ripple
+    Ripple,
+    TableModule
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
@@ -31,6 +36,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   private ctipocomService = inject(CtipocomService);
   private almacenService = inject(AlmacenService);
   private tipodocService = inject(TipodocService);
+  private listCcomprobaService = inject(ListCcomprobaVService)
 
   private empresa: any;
   protected periodo: any;
@@ -47,11 +53,13 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected estados: any;
 
   mostrarFiltros = false;
+  loading = false;
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
   protected filteredCountries: Ctipocom[] = [];
   protected tipoDocs: Tipodoc[] = [];
+  protected listaComprobantes: ListCcomprobaV[] =[]
 
   protected almacenSelected: Almacen = {} as Almacen;
 
@@ -116,15 +124,49 @@ export default class ConsultasImportacionComponent implements OnInit {
     })
   }
 
-  save() {
-    console.log('Sigla ', this.sigla.codigo);
-    console.log('Almacen seleccionado ', this.almacenSelected.codigo);
-    console.log('mes', this.mes)
-    console.log('año ', this.periodo)
-    console.log('serie', this.serie);
-    console.log('numero', this.numero);
-    console.log('estado', this.estado.code);
-    console.log('tipodoc', this.tipodoc.id);
+  find() {
+    this.loading = true;
+    const formattedMonth = getMonthFormattedDate(this.mes);
+    const formattedYear = getYearFormattedDate(this.periodo);
+    const formattedDate = getCurrentDate(this.fecha)
+
+    const sigla = this.sigla ? this.sigla.codigo : null;
+    const almacen: any = this.almacenSelected ? this.almacenSelected.codigo : null;
+    const estado = this.estado ? this.estado.code : null;
+    const tipodoc = this.tipodoc ? this.tipodoc.id : null;
+
+    console.log('Sigla', sigla);
+    console.log('Almacen seleccionado', almacen);
+    console.log('Mes', formattedMonth);
+    console.log('Año', formattedYear);
+    console.log('Serie', this.serie);
+    console.log('Numero', this.numero);
+    console.log('Estado', estado);
+    console.log('Tipodoc', tipodoc);
+
+    this.listCcomprobaService.buscar(
+      this.empresa,
+      formattedYear,
+      formattedDate,
+      formattedMonth,
+      sigla,
+      almacen,
+      this.serie,
+      this.numero,
+      this.concepto,
+      this.referencia,
+      estado,
+      tipodoc
+    ).subscribe({
+      next: (result) => {
+        this.listaComprobantes = result;
+        console.log(result)
+        this.loading = false;
+      }, error: err => {
+        this.loading = false;
+        this.listaComprobantes = []
+    }
+    });
   }
 
   toggleMasFiltros() {
