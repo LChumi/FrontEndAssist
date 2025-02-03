@@ -7,7 +7,7 @@ import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto"
 @Injectable({
   providedIn: 'root'
 })
-export class ComprobanteDetalleProductoService {
+export class ComprobanteDetalleService {
 
   private baseUrl = environment.apiUrlBase + 'models';
   private http = inject(HttpClient);
@@ -15,6 +15,6 @@ export class ComprobanteDetalleProductoService {
   constructor() { }
 
   verSci(cco: any): Observable<CompraDetalleProductoDto>{
-    return this.http.get<CompraDetalleProductoDto>(`${this.baseUrl}/ver-sci/${cco}`)
+    return this.http.get<CompraDetalleProductoDto>(`${this.baseUrl}/comprobante-detalle/${cco}/productos`)
   }
 }
