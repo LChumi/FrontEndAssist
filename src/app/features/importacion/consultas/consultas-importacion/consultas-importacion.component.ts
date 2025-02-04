@@ -61,7 +61,6 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected estados: any;
   usrId: any
 
-  mostrarFiltros = false;
   loading = false;
   visibleSidebarFilters = false;
 
@@ -201,10 +200,4 @@ export default class ConsultasImportacionComponent implements OnInit {
     }
     });
   }
-
-  toggleMasFiltros() {
-    this.mostrarFiltros = !this.mostrarFiltros;
-  }
-
-  protected readonly document = document;
 }
