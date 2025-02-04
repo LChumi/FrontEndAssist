@@ -50,12 +50,13 @@
         </div>
       </div>
       <div class="flex gap-2 sm:ml-auto">
-        <button pButton pRipple type="button" label="Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+        <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
       </div>
     </div>
     <!-- Tabla de documentos -->
     <div>
       <p-table
+        styleClass="p-datatable-gridlines"
         [value]="listaComprobantes" dataKey="ccoCodigo" [rows]="10" [loading]="loading" [rowHover]="true"
         [paginator]="true" [responsiveLayout]="'scroll'" [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
@@ -81,15 +82,15 @@
         <!-- Cuerpo de la tabla -->
         <ng-template pTemplate="body" let-documento>
           <tr>
-            <td style="width:25%; min-width: 25rem;">
+            <td style="width:20%; min-width: 20rem;">
               <span class="p-column-title">Comprobante</span>
               {{documento.dspComproba}}
             </td>
-            <td style="width:10%; min-width: 10rem;">
+            <td style="width:5%; min-width: 2rem;">
               <span class="p-column-title">Periodo</span>
               {{documento.periodo}}
             </td>
-            <td style="width:15%; min-width: 15rem;">
+            <td style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Fecha</span>
               {{documento.fecha}}
             </td>
@@ -97,11 +98,11 @@
               <span class="p-column-title">Concepto</span>
               {{documento.concepto}}
             </td>
-            <td style="width:15%; min-width: 15rem;">
+            <td style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Referencia</span>
               {{documento.doctran}}
             </td>
-            <td style="width:15%; min-width: 15rem;">
+            <td style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Documento</span>
               {{documento.tpdId}}
             </td>

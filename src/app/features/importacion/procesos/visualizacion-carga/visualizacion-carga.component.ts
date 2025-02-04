@@ -5,11 +5,13 @@ import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto"
 import {ActivatedRoute} from "@angular/router";
 import {DfacturaDto} from "@models/dto/dfactura-dto";
 import {DecimalPipe} from "@angular/common";
+import {TableModule} from "primeng/table";
 
 @Component({
   standalone: true,
   imports: [
-    DecimalPipe
+    DecimalPipe,
+    TableModule
   ],
   templateUrl: './visualizacion-carga.component.html',
   styles: ``
