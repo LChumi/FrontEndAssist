@@ -7,19 +7,19 @@ import {OrderListModule} from "primeng/orderlist";
 import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
 import {ErrorResponse} from "@models/error/error-response";
-import {ModalclienteComponent} from "@features/shared/component/modalcliente/modalcliente.component";
+import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 import {DialogModule} from "primeng/dialog";
 import {ChipsModule} from "primeng/chips";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {ImagenService} from "@services/api/images/imagen.service";
 import {ScrollTopModule} from "primeng/scrolltop";
-import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
+import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {
   SeleccionComprobanteComponent
-} from "@features/shared/component/seleccion-comprobante/seleccion-comprobante.component";
-import {getSessionItem, setSessionItem} from "@utils/index";
-import {SeleccionBodegasComponent} from "@features/shared/component/seleccion-bodegas/seleccion-bodegas.component";
+} from "@shared/component/seleccion-comprobante/seleccion-comprobante.component";
+import {getSessionItem} from "@utils/index";
+import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {Router} from "@angular/router";
 

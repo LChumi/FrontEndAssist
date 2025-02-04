@@ -17,7 +17,7 @@ import {ListCcomprobaVService} from "@services/api/list-ccomproba-v.service";
 import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {TableModule} from "primeng/table";
 import {TooltipModule} from "primeng/tooltip";
-import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
+import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {SidebarModule} from "primeng/sidebar";
 
 @Component({
