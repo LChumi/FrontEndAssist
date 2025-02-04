@@ -9,19 +9,21 @@
   (onHide)="visible=false"
 >
   <!-- Toolbar -->
-  <div class="mb-4">
-    <p-toolbar>
-      <ng-template pTemplate="left">
-      </ng-template>
-      <ng-template pTemplate="right">
-        <p-dropdown [hidden]="isVisibleDropdown"
-                    [options]="sortTipoCli"
-                    placeholder="Clasificar por Tipo"
-                    (onChange)="onSortChange($event)">
-        </p-dropdown>
-      </ng-template>
-    </p-toolbar>
-  </div>
+  @if (isVisibleDropdown){
+    <div class="mb-4">
+      <p-toolbar>
+        <ng-template pTemplate="left">
+        </ng-template>
+        <ng-template pTemplate="right">
+          <p-dropdown
+                      [options]="sortTipoCli"
+                      placeholder="Clasificar por Tipo"
+                      (onChange)="onSortChange($event)">
+          </p-dropdown>
+        </ng-template>
+      </p-toolbar>
+    </div>
+  }
 
   <!-- Tabla -->
   <div>
@@ -36,8 +38,7 @@
       [responsiveLayout]="'scroll'"
       [globalFilterFields]="['nombre', 'rucCedula']"
       [(selection)]="selectedClient"
-      selectionMode="single"
-      currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
+      selectionMode="single">
 
       <!-- Barra de Búsqueda -->
       <ng-template pTemplate="caption">

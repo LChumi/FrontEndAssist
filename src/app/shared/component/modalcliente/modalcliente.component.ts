@@ -31,7 +31,7 @@ export class ModalclienteComponent implements OnInit {
 
   public tipoCliente = input.required<string>();
   @Input() visible: boolean = false
-  @Input() isVisibleDropdown: boolean = true
+  @Input() isVisibleDropdown: boolean = false
   @Output() onBtnClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() onChangeProv: EventEmitter<string> = new EventEmitter<string>();
 

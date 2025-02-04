@@ -10,7 +10,8 @@
       "@layout/*": ["./src/app/layout/*"],
       "@features/*": ["./src/app/features/*"],
       "@interceptors/*": ["./src/app/core/interceptors/*"],
-      "@utils/*": ["./src/app/core/utils/*"]
+      "@utils/*": ["./src/app/core/utils/*"],
+      "@shared/*": ["./src/app/shared/*"],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
