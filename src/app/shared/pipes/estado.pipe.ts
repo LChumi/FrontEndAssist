@@ -8,13 +8,13 @@ export class EstadoPipe implements PipeTransform {
 
   transform(value: number): string {
     switch (value) {
-      case 0: return 'En proceso';
-      case 1: return 'Grabado';
-      case 2: return 'Mayorizado';
-      case 3: return 'Aut Final';
-      case 4: return 'Pend Contab';
-      case 9: return 'Anulado';
-      default: return 'Desconocido';
+      case 0: return 'EN PROCESO';
+      case 1: return 'GRABADO';
+      case 2: return 'MAYORIZADO';
+      case 3: return 'AUT FINAL';
+      case 4: return 'PEND CONTAB';
+      case 9: return 'ANULADO';
+      default: return 'DESCONOCIDO';
     }
   }
 

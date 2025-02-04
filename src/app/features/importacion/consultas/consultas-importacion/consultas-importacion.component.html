@@ -9,7 +9,8 @@
       <div class="grid p-fluid">
         <div class="grid formgrid">
           <div class="col-12 lg:col-2 field">
-            <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
+            <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha"
+                        [(ngModel)]="fecha"></p-calendar>
           </div>
           <div class="col-12 lg:col-2 field uppercase">
             <p-autoComplete
@@ -49,7 +50,8 @@
             <input pInputText type="number" placeholder="Numero" [(ngModel)]="numero">
           </div>
           <div class="col-12 lg:col-2 field">
-            <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+            <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter"
+                    (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
           </div>
 
         </div>
@@ -95,31 +97,31 @@
           <tr>
             <td class="p-text-center" style="width:15%; min-width: 15rem;">
               <span class="p-column-title">Comprobante</span>
-              {{documento.dspComproba}}
+              {{ documento.dspComproba }}
             </td>
             <td class="p-text-center" style="width:5%; min-width: 2rem;">
               <span class="p-column-title">Periodo</span>
-              {{documento.periodo}}
+              {{ documento.periodo }}
             </td>
             <td class="p-text-center" style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Fecha</span>
-              {{documento.fecha}}
+              {{ documento.fecha }}
             </td>
             <td class="p-text-center" style="width:25%; min-width: 25rem;">
               <span class="p-column-title">Concepto</span>
-              {{documento.concepto}}
+              {{ documento.concepto }}
             </td>
             <td class="p-text-center" style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Referencia</span>
-              {{documento.doctran}}
+              {{ documento.doctran }}
             </td>
             <td class="p-text-center" style="width:8%; min-width: 8rem;">
               <span class="p-column-title">Documento</span>
-              {{documento.tpdId}}
+              {{ documento.tpdId }}
             </td>
             <td class="p-text-center" style="width:5%; min-width: 5rem;">
               <span class="p-column-title">Estado</span>
-              {{documento.estado | estado}}
+              {{ documento.estado | estado }}
             </td>
           </tr>
         </ng-template>
@@ -130,7 +132,8 @@
 
 </div>
 
-<p-sidebar [(visible)]="visibleSidebarFilters" position="right" [baseZIndex]="10000" [style]="{width: '90vw', maxWidth: '500px'}">
+<p-sidebar [(visible)]="visibleSidebarFilters" position="right" [baseZIndex]="10000"
+           [style]="{width: '90vw', maxWidth: '500px'}">
   <ng-template pTemplate="header">
     <span class="text-900 font-semibold text-xl">Filtros</span>
   </ng-template>
@@ -139,13 +142,13 @@
       <div class="col-12 md:col-6 field">
         <label for="periodo" class="text-900 font-semibold">Periodo</label>
         <span class="p-input-icon-left">
-          <p-calendar id="periodo" showIcon [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Periodo" />
+          <p-calendar id="periodo" showIcon [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Periodo"/>
         </span>
       </div>
       <div class="col-12 md:col-6 field">
         <label for="mes" class="text-900 font-semibold">Mes</label>
         <span class="p-input-icon-left">
-          <p-calendar id="mes" showIcon  [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
+          <p-calendar id="mes" showIcon [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
         </span>
       </div>
       <div class="col-12 md:col-6 field">
@@ -165,17 +168,20 @@
       <div class="col-12 md:col-6 field">
         <label for="estado" class="text-900 font-semibold">Estado</label>
         <span class="p-input-icon-left">
-          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estado" optionLabel="name"></p-dropdown>
+          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estado"
+                      optionLabel="name"></p-dropdown>
         </span>
       </div>
       <div class="col-12 md:col-6 field">
         <label for="documento" class="text-900 font-semibold">Documento</label>
         <span class="p-input-icon-left">
-          <p-dropdown id="documento" placeholder="Tipo Documento" [options]="tipoDocs" [(ngModel)]="tipodoc" optionLabel="tpdId"></p-dropdown>
+          <p-dropdown id="documento" placeholder="Tipo Documento" [options]="tipoDocs" [(ngModel)]="tipodoc"
+                      optionLabel="tpdId"></p-dropdown>
         </span>
       </div>
     </div>
-    <button pButton pRipple type="button" label="Aplicar" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
+    <button pButton pRipple type="button" label="Aplicar" title="Buscar" icon="pi pi-search" (click)="find()"
+            class="p-button-rounded"></button>
   </ng-template>
 
 </p-sidebar>
