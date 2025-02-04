@@ -19,6 +19,7 @@ import {TableModule} from "primeng/table";
 import {TooltipModule} from "primeng/tooltip";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {SidebarModule} from "primeng/sidebar";
+import {EstadoPipe} from "@shared/pipes/estado.pipe";
 
 @Component({
   standalone: true,
@@ -32,7 +33,8 @@ import {SidebarModule} from "primeng/sidebar";
     TableModule,
     TooltipModule,
     FavoriteComponent,
-    SidebarModule
+    SidebarModule,
+    EstadoPipe
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
