@@ -16,6 +16,9 @@ import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@util
 import {ListCcomprobaVService} from "@services/api/list-ccomproba-v.service";
 import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {TableModule} from "primeng/table";
+import {TooltipModule} from "primeng/tooltip";
+import {FavoriteComponent} from "@features/shared/component/favorite/favorite.component";
+import {SidebarModule} from "primeng/sidebar";
 
 @Component({
   standalone: true,
@@ -26,7 +29,10 @@ import {TableModule} from "primeng/table";
     DropdownModule,
     AutoCompleteModule,
     Ripple,
-    TableModule
+    TableModule,
+    TooltipModule,
+    FavoriteComponent,
+    SidebarModule
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
@@ -51,9 +57,11 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected estado!: any;
   protected tipodoc!: any;
   protected estados: any;
+  usrId: any
 
   mostrarFiltros = false;
   loading = false;
+  visibleSidebarFilters = false;
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
@@ -64,6 +72,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected almacenSelected: Almacen = {} as Almacen;
 
   ngOnInit(): void {
+    this.usrId= getSessionItem('usrId')
     this.empresa = getSessionItem("empresa");
     this.getAlmacenes()
     this.getSiglas()
@@ -135,14 +144,22 @@ export default class ConsultasImportacionComponent implements OnInit {
     const estado = this.estado ? this.estado.code : null;
     const tipodoc = this.tipodoc ? this.tipodoc.id : null;
 
-    console.log('Sigla', sigla);
-    console.log('Almacen seleccionado', almacen);
-    console.log('Mes', formattedMonth);
-    console.log('Año', formattedYear);
-    console.log('Serie', this.serie);
-    console.log('Numero', this.numero);
-    console.log('Estado', estado);
-    console.log('Tipodoc', tipodoc);
+    let count = 0;
+    if (sigla) count++;
+    if (almacen) count++;
+    if (estado) count++;
+    if (tipodoc) count++;
+    if (formattedYear) count++;
+    if (formattedMonth) count++;
+    if (this.serie) count++;
+    if (this.numero) count++;
+
+    // Verificar que al menos dos parámetros estén presentes
+    if (count < 2) {
+      alert('Por favor, completa al menos dos campos');
+      this.loading = false;
+      return;
+    }
 
     this.listCcomprobaService.buscar(
       this.empresa,
@@ -172,4 +189,6 @@ export default class ConsultasImportacionComponent implements OnInit {
   toggleMasFiltros() {
     this.mostrarFiltros = !this.mostrarFiltros;
   }
+
+  protected readonly document = document;
 }

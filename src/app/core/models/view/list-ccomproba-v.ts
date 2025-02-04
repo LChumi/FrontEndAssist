@@ -3,7 +3,7 @@ export interface ListCcomprobaV {
   dspComproba:    string;
   fecha:          string;
   empresa:        number;
-  ccoPeriodo:     number;
+  periodo:     number;
   sigla:          number;
   almacen:        number;
   ccoSerie:       number;

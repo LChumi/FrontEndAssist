@@ -1,97 +1,168 @@
 <div class="card">
-  <span class="block text-900 font-bold text-xl mb-4">Consulta de documentos</span>
-
-  <!-- Filtros iniciales -->
-  <div class="grid p-fluid">
-    <div class="grid formgrid">
-      <div class="col-1 field">
-        <button pButton pRipple type="button" title="Mostrar filtros" [icon]="mostrarFiltros ? 'pi pi-filter-slash' : 'pi pi-filter'" (click)="toggleMasFiltros()" class="p-button-rounded"></button>
-      </div>
-      <div class="col-12 lg:col-2 field">
-        <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
-      </div>
-      <div class="col-12 lg:col-2 field">
-        <p-autoComplete inputId="sigla" placeholder="Sigla" [(ngModel)]="sigla" [suggestions]="filteredCountries"
-                        (completeMethod)="searchSigla($event)" field="ctiId">
-        </p-autoComplete>
-      </div>
-      <div class="col-12 lg:col-3 field">
-        <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
-                    optionLabel="almId" (onChange)="onAlmacenChange($event)">
-          <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center">
-              <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
-                   [style.background-color]="'#5676e1'"></div>
-              <div>{{ almacenSelected.nombre }}</div>
-            </div>
-          </ng-template>
-          <ng-template let-alm pTemplate="item">
-            <div class="flex align-items-center">
-              <div class="mr-2">{{ alm.almId }}</div>
-              <div>{{ alm.nombre }}</div>
-            </div>
-          </ng-template>
-        </p-dropdown>
-      </div>
-      <div class="col-12 lg:col-2 field">
-        <input pInputText type="number" placeholder="Serie" label="serie" [(ngModel)]="serie">
-      </div>
-      <div class="col-12 lg:col-2 field">
-        <input pInputText type="number" placeholder="Numero" label="numero" [(ngModel)]="numero">
-      </div>
-      @if (mostrarFiltros) {
-        <div class="col-12 lg:col-2 field">
-          <p-calendar [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Periodo" />
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <p-calendar [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Referencia" label="referencia" [(ngModel)]="referencia">
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <p-dropdown inputId="dropdown" placeholder="Estado" [options]="estados" [(ngModel)]="estado" optionLabel="name"></p-dropdown>
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <p-dropdown inputId="dropdown" placeholder="Tipo Documento" [options]="tipoDocs" [(ngModel)]="tipodoc" optionLabel="tpdId"></p-dropdown>
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <input pInputText type="text" placeholder="Concepto" label="concepto" [(ngModel)]="concepto">
-        </div>
-      }
-
-    </div>
-
+  <div class="col-12">
+    <app-favorite titulo="Consulta de documentos" [usrId]="usrId"></app-favorite>
   </div>
 
-  <button type="button" (click)="find()" class="p-button p-component">
-    <span class="p-button-icon p-button-icon-left pi pi-search"></span>
-    <span class="p-button-label">Buscar</span>
-  </button>
+  <div class="card">
+    <!-- Filtros iniciales -->
+    <div class="grid p-fluid">
+      <div class="grid formgrid">
+        <div class="col-12 lg:col-2 field">
+          <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
+        </div>
+        <div class="col-12 lg:col-2 field">
+          <p-autoComplete inputId="sigla" placeholder="Sigla" [(ngModel)]="sigla" [suggestions]="filteredCountries"
+                          (completeMethod)="searchSigla($event)" field="ctiId">
+          </p-autoComplete>
+        </div>
+        <div class="col-12 lg:col-3 field">
+          <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
+                      optionLabel="almId" (onChange)="onAlmacenChange($event)">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center">
+                <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                     [style.background-color]="'#5676e1'"></div>
+                <div>{{ almacenSelected.nombre }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-alm pTemplate="item">
+              <div class="flex align-items-center">
+                <div class="mr-2">{{ alm.almId }}</div>
+                <div>{{ alm.nombre }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-12 lg:col-2 field">
+          <input pInputText type="number" placeholder="Serie" [(ngModel)]="serie">
+        </div>
+        <div class="col-12 lg:col-2 field">
+          <input pInputText type="number" placeholder="Numero" [(ngModel)]="numero">
+        </div>
 
-  <div>
-    <p-table
-      #cco
-      [value]="listaComprobantes" dataKey="ccoCodigo" [rows]="5" [loading]="loading" [rowHover]="true"
-      [paginator]="true" [responsiveLayout]="'scroll'" [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
-      currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
-      <!-- Encabezado de la Tabla -->
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="width: 3rem"></th>
-          <th pSortableColumn="nombre">
-            Nombre
-            <p-sortIcon field="nombre"></p-sortIcon>
-          </th>
-          <th pSortableColumn="rucCedula">
-            Ruc Cedula
-            <p-sortIcon field="rucCedula"></p-sortIcon>
-          </th>
-          <th pSortableColumn="telefono">Teléfono</th>
-          <th pSortableColumn="mail">Correo</th>
-        </tr>
-      </ng-template>
-    </p-table>
+      </div>
+    </div>
+
+    <div class="flex flex-column sm:flex-row align-items-center gap-4">
+      <div class="flex flex-column sm:flex-row align-items-center gap-3">
+        <div class="flex flex-column align-items-center sm:align-items-start">
+        <button pButton pRipple type="button" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
+        </div>
+      </div>
+      <div class="flex gap-2 sm:ml-auto">
+        <button pButton pRipple type="button" label="Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+      </div>
+    </div>
+    <!-- Tabla de documentos -->
+    <div>
+      <p-table
+        [value]="listaComprobantes" dataKey="ccoCodigo" [rows]="10" [loading]="loading" [rowHover]="true"
+        [paginator]="true" [responsiveLayout]="'scroll'" [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
+        <!-- Encabezado de la Tabla -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="comprobante">
+              Comprobante
+              <p-sortIcon field="comprobante"></p-sortIcon>
+            </th>
+            <th pSortableColumn="periodo">
+              Periodo
+              <p-sortIcon field="periodo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fecha">Fecha</th>
+            <th pSortableColumn="concepto">Concepto</th>
+            <th pSortableColumn="referencia">Referencia</th>
+            <th pSortableColumn="tpdId">Documento</th>
+            <th pSortableColumn="estado">Estado</th>
+          </tr>
+        </ng-template>
+
+        <!-- Cuerpo de la tabla -->
+        <ng-template pTemplate="body" let-documento>
+          <tr>
+            <td style="width:25%; min-width: 25rem;">
+              <span class="p-column-title">Comprobante</span>
+              {{documento.dspComproba}}
+            </td>
+            <td style="width:10%; min-width: 10rem;">
+              <span class="p-column-title">Periodo</span>
+              {{documento.periodo}}
+            </td>
+            <td style="width:15%; min-width: 15rem;">
+              <span class="p-column-title">Fecha</span>
+              {{documento.fecha}}
+            </td>
+            <td style="width:25%; min-width: 25rem;">
+              <span class="p-column-title">Concepto</span>
+              {{documento.concepto}}
+            </td>
+            <td style="width:15%; min-width: 15rem;">
+              <span class="p-column-title">Referencia</span>
+              {{documento.doctran}}
+            </td>
+            <td style="width:15%; min-width: 15rem;">
+              <span class="p-column-title">Documento</span>
+              {{documento.tpdId}}
+            </td>
+            <td style="width:10%; min-width: 10rem;">
+              <span class="p-column-title">Estado</span>
+              {{documento.estado}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 
 </div>
+
+<p-sidebar [(visible)]="visibleSidebarFilters" position="right" [baseZIndex]="10000" [style]="{width: '90vw', maxWidth: '500px'}">
+  <ng-template pTemplate="header">
+    <span class="text-900 font-semibold text-xl">Filtros</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="grid p-fluid formgrid">
+      <div class="col-12 md:col-6 field">
+        <label for="periodo" class="text-900 font-semibold">Periodo</label>
+        <span class="p-input-icon-left">
+          <p-calendar id="periodo" showIcon [(ngModel)]="periodo" view="year" dateFormat="yy" placeholder="Periodo" />
+        </span>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <label for="mes" class="text-900 font-semibold">Mes</label>
+        <span class="p-input-icon-left">
+          <p-calendar id="mes" showIcon  [(ngModel)]="mes" view="month" dateFormat="MM" placeholder="Mes"/>
+        </span>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <label for="referencia" class="text-900 font-semibold">Referencia</label>
+        <span class="p-input-icon-left">
+          <i class="pi pi-bookmark"></i>
+          <input id="referencia" pInputText type="number" placeholder="Referencia" [(ngModel)]="referencia">
+        </span>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <label for="concepto" class="text-900 font-semibold">Concepto</label>
+        <span class="p-input-icon-left">
+          <i class="pi pi-bookmark"></i>
+          <input pInputText type="text" placeholder="Concepto" id="concepto" [(ngModel)]="concepto">
+        </span>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <label for="estado" class="text-900 font-semibold">Estado</label>
+        <span class="p-input-icon-left">
+          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estado" optionLabel="name"></p-dropdown>
+        </span>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <label for="documento" class="text-900 font-semibold">Documento</label>
+        <span class="p-input-icon-left">
+          <p-dropdown id="documento" placeholder="Tipo Documento" [options]="tipoDocs" [(ngModel)]="tipodoc" optionLabel="tpdId"></p-dropdown>
+        </span>
+      </div>
+    </div>
+    <button pButton pRipple type="button" label="Aplicar" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
+  </ng-template>
+
+</p-sidebar>
