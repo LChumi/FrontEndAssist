@@ -24,7 +24,7 @@
             </p-autoComplete>
 
           </div>
-          <div class="col-12 lg:col-3 field">
+          <div class="col-12 lg:col-2 field">
             <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
                         optionLabel="almId" (onChange)="onAlmacenChange($event)">
               <ng-template pTemplate="selectedItem">
@@ -48,19 +48,13 @@
           <div class="col-12 lg:col-2 field">
             <input pInputText type="number" placeholder="Numero" [(ngModel)]="numero">
           </div>
+          <div class="col-12 lg:col-2 field">
+            <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+          </div>
 
         </div>
       </div>
-      <div class="flex flex-column sm:flex-row align-items-center gap-4">
-        <div class="flex flex-column sm:flex-row align-items-center gap-3">
-          <div class="flex flex-column align-items-center sm:align-items-start">
-            <button pButton pRipple type="button" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
-          </div>
-        </div>
-        <div class="flex gap-2 sm:ml-auto">
-          <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
-        </div>
-      </div>
+
     </div>
     <!-- Tabla de documentos -->
     <div>
