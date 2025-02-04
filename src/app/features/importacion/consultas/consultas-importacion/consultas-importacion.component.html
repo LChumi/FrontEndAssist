@@ -1,118 +1,136 @@
 <div class="card">
-  <div class="col-12">
+  <!--<div class="col-12">
     <app-favorite titulo="Consulta de documentos" [usrId]="usrId"></app-favorite>
-  </div>
+  </div>-->
 
   <div class="card">
-    <!-- Filtros iniciales -->
-    <div class="grid p-fluid">
-      <div class="grid formgrid">
-        <div class="col-12 lg:col-2 field">
-          <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <p-autoComplete inputId="sigla" placeholder="Sigla" [(ngModel)]="sigla" [suggestions]="filteredCountries"
-                          (completeMethod)="searchSigla($event)" field="ctiId">
-          </p-autoComplete>
-        </div>
-        <div class="col-12 lg:col-3 field">
-          <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
-                      optionLabel="almId" (onChange)="onAlmacenChange($event)">
-            <ng-template pTemplate="selectedItem">
-              <div class="flex align-items-center">
-                <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
-                     [style.background-color]="'#5676e1'"></div>
-                <div>{{ almacenSelected.nombre }}</div>
-              </div>
-            </ng-template>
-            <ng-template let-alm pTemplate="item">
-              <div class="flex align-items-center">
-                <div class="mr-2">{{ alm.almId }}</div>
-                <div>{{ alm.nombre }}</div>
-              </div>
-            </ng-template>
-          </p-dropdown>
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Serie" [(ngModel)]="serie">
-        </div>
-        <div class="col-12 lg:col-2 field">
-          <input pInputText type="number" placeholder="Numero" [(ngModel)]="numero">
-        </div>
+    <div (keydown.enter)="find()">
+      <!-- Filtros iniciales -->
+      <div class="grid p-fluid">
+        <div class="grid formgrid">
+          <div class="col-12 lg:col-2 field">
+            <p-calendar dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha" [(ngModel)]="fecha"></p-calendar>
+          </div>
+          <div class="col-12 lg:col-2 field uppercase">
+            <p-autoComplete
+              inputId="sigla"
+              placeholder="Sigla"
+              [(ngModel)]="sigla"
+              [suggestions]="filteredSiglas"
+              (completeMethod)="searchSigla($event)"
+              field="ctiId"
+              (onBlur)="selectClosestMatch()"
+              (input)="convertToUpperCase($event)">
+            </p-autoComplete>
 
-      </div>
-    </div>
+          </div>
+          <div class="col-12 lg:col-3 field">
+            <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
+                        optionLabel="almId" (onChange)="onAlmacenChange($event)">
+              <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center">
+                  <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
+                       [style.background-color]="'#5676e1'"></div>
+                  <div>{{ almacenSelected.nombre }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-alm pTemplate="item">
+                <div class="flex align-items-center">
+                  <div class="mr-2">{{ alm.almId }}</div>
+                  <div>{{ alm.nombre }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="col-12 lg:col-2 field">
+            <input pInputText type="number" placeholder="Serie" [(ngModel)]="serie">
+          </div>
+          <div class="col-12 lg:col-2 field">
+            <input pInputText type="number" placeholder="Numero" [(ngModel)]="numero">
+          </div>
 
-    <div class="flex flex-column sm:flex-row align-items-center gap-4">
-      <div class="flex flex-column sm:flex-row align-items-center gap-3">
-        <div class="flex flex-column align-items-center sm:align-items-start">
-        <button pButton pRipple type="button" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
         </div>
       </div>
-      <div class="flex gap-2 sm:ml-auto">
-        <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+      <div class="flex flex-column sm:flex-row align-items-center gap-4">
+        <div class="flex flex-column sm:flex-row align-items-center gap-3">
+          <div class="flex flex-column align-items-center sm:align-items-start">
+            <button pButton pRipple type="button" title="Buscar" icon="pi pi-search" (click)="find()" class="p-button-rounded"></button>
+          </div>
+        </div>
+        <div class="flex gap-2 sm:ml-auto">
+          <button pButton pRipple type="button" label="Mas Filtros" title="Mostrar filtros" icon="pi pi-filter" (click)="visibleSidebarFilters=true" class="p-button-rounded"></button>
+        </div>
       </div>
     </div>
     <!-- Tabla de documentos -->
     <div>
       <p-table
         styleClass="p-datatable-gridlines"
-        [value]="listaComprobantes" dataKey="ccoCodigo" [rows]="10" [loading]="loading" [rowHover]="true"
-        [paginator]="true" [responsiveLayout]="'scroll'" [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
-        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas">
+        [value]="listaComprobantes"
+        dataKey="ccoCodigo"
+        [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]"
+        [loading]="loading"
+        [rowHover]="true"
+        [paginator]="true"
+        [responsiveLayout]="'scroll'"
+        [globalFilterFields]="['fecha', 'dspComproba', 'doctran']"
+        class="my-3 p-p-3"
+      >
         <!-- Encabezado de la Tabla -->
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="comprobante">
+            <th pSortableColumn="comprobante" class="p-text-center">
               Comprobante
               <p-sortIcon field="comprobante"></p-sortIcon>
             </th>
-            <th pSortableColumn="periodo">
+            <th pSortableColumn="periodo" class="p-text-center">
               Periodo
               <p-sortIcon field="periodo"></p-sortIcon>
             </th>
-            <th pSortableColumn="fecha">Fecha</th>
-            <th pSortableColumn="concepto">Concepto</th>
-            <th pSortableColumn="referencia">Referencia</th>
-            <th pSortableColumn="tpdId">Documento</th>
-            <th pSortableColumn="estado">Estado</th>
+            <th pSortableColumn="fecha" class="p-text-center">Fecha</th>
+            <th pSortableColumn="concepto" class="p-text-center">Concepto</th>
+            <th pSortableColumn="referencia" class="p-text-center">Referencia</th>
+            <th pSortableColumn="tpdId" class="p-text-center">Documento</th>
+            <th pSortableColumn="estado" class="p-text-center">Estado</th>
           </tr>
         </ng-template>
 
-        <!-- Cuerpo de la tabla -->
+        <!-- Cuerpo de la Tabla -->
         <ng-template pTemplate="body" let-documento>
           <tr>
-            <td style="width:20%; min-width: 20rem;">
+            <td class="p-text-center" style="width:15%; min-width: 15rem;">
               <span class="p-column-title">Comprobante</span>
               {{documento.dspComproba}}
             </td>
-            <td style="width:5%; min-width: 2rem;">
+            <td class="p-text-center" style="width:5%; min-width: 2rem;">
               <span class="p-column-title">Periodo</span>
               {{documento.periodo}}
             </td>
-            <td style="width:10%; min-width: 10rem;">
+            <td class="p-text-center" style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Fecha</span>
               {{documento.fecha}}
             </td>
-            <td style="width:25%; min-width: 25rem;">
+            <td class="p-text-center" style="width:25%; min-width: 25rem;">
               <span class="p-column-title">Concepto</span>
               {{documento.concepto}}
             </td>
-            <td style="width:10%; min-width: 10rem;">
+            <td class="p-text-center" style="width:10%; min-width: 10rem;">
               <span class="p-column-title">Referencia</span>
               {{documento.doctran}}
             </td>
-            <td style="width:10%; min-width: 10rem;">
+            <td class="p-text-center" style="width:8%; min-width: 8rem;">
               <span class="p-column-title">Documento</span>
               {{documento.tpdId}}
             </td>
-            <td style="width:10%; min-width: 10rem;">
+            <td class="p-text-center" style="width:5%; min-width: 5rem;">
               <span class="p-column-title">Estado</span>
               {{documento.estado}}
             </td>
           </tr>
         </ng-template>
       </p-table>
+
     </div>
   </div>
 

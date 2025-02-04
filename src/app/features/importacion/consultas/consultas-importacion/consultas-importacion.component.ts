@@ -65,7 +65,7 @@ export default class ConsultasImportacionComponent implements OnInit {
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
-  protected filteredCountries: Ctipocom[] = [];
+  protected filteredSiglas: Ctipocom[] = [];
   protected tipoDocs: Tipodoc[] = [];
   protected listaComprobantes: ListCcomprobaV[] =[]
 
@@ -100,10 +100,22 @@ export default class ConsultasImportacionComponent implements OnInit {
         filtered.push(sig);
       }
     }
-    this.filteredCountries = filtered;
+    this.filteredSiglas = filtered;
   }
 
+  selectClosestMatch() {
+    if (this.filteredSiglas.length > 0) {
+      this.sigla = this.filteredSiglas[0];
+    } else {
+      this.sigla = null;
+    }
+  }
 
+  convertToUpperCase(event: any) {
+    const input = event.target;
+    input.value = input.value.toUpperCase();
+    this.sigla = input.value;
+  }
 
   getAlmacenes() {
     if (this.empresa) {
@@ -134,6 +146,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   }
 
   find() {
+    this.visibleSidebarFilters=false
     this.loading = true;
     const formattedMonth = getMonthFormattedDate(this.mes);
     const formattedYear = getYearFormattedDate(this.periodo);
@@ -153,6 +166,7 @@ export default class ConsultasImportacionComponent implements OnInit {
     if (formattedMonth) count++;
     if (this.serie) count++;
     if (this.numero) count++;
+    if (formattedDate) count++;
 
     // Verificar que al menos dos parámetros estén presentes
     if (count < 2) {
