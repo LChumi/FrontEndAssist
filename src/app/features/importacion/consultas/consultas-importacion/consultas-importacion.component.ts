@@ -68,12 +68,12 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected siglas: Ctipocom[] = [];
   protected filteredSiglas: Ctipocom[] = [];
   protected tipoDocs: Tipodoc[] = [];
-  protected listaComprobantes: ListCcomprobaV[] =[]
+  protected listaComprobantes: ListCcomprobaV[] = []
 
   protected almacenSelected: Almacen = {} as Almacen;
 
   ngOnInit(): void {
-    this.usrId= getSessionItem('usrId')
+    this.usrId = getSessionItem('usrId')
     this.empresa = getSessionItem("empresa");
     this.getAlmacenes()
     this.getSiglas()
@@ -138,7 +138,7 @@ export default class ConsultasImportacionComponent implements OnInit {
     }
   }
 
-  getDocs(){
+  getDocs() {
     this.tipodocService.listarTipoDocs().subscribe({
       next: (result) => {
         this.tipoDocs = result;
@@ -147,7 +147,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   }
 
   find() {
-    this.visibleSidebarFilters=false
+    this.visibleSidebarFilters = false
     this.loading = true;
     const formattedMonth = getMonthFormattedDate(this.mes);
     const formattedYear = getYearFormattedDate(this.periodo);
@@ -197,7 +197,7 @@ export default class ConsultasImportacionComponent implements OnInit {
       }, error: err => {
         this.loading = false;
         this.listaComprobantes = []
-    }
+      }
     });
   }
 }
