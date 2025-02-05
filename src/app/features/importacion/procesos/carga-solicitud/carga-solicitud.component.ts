@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService, PrimeTemplate} from "primeng/api";
 import {FileService} from "@services/api/file.service";
@@ -45,18 +45,10 @@ import {Router} from "@angular/router";
   templateUrl: './carga-solicitud.component.html',
   styles: ``
 })
-export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
+export default class CargaSolicitudComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @HostListener('window:beforeunload', ['$event'])
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
-
-  ngAfterViewInit() {
-    this.modalcliente.onBtnClick.subscribe(visible => {
-      this.modalVisible = visible
-    })
-    this.modalcliente.onChangeProv.subscribe(prov => {
-      this.proveedor = prov
-    })
-  }
 
   private idEmpresa: any
   usrId: any
@@ -88,13 +80,33 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
   fobAnterior = 0;
   cbmAnterior = 0;
 
+  ngAfterViewInit() {
+    this.modalcliente.onBtnClick.subscribe(visible => {
+      this.modalVisible = visible
+    })
+    this.modalcliente.onChangeProv.subscribe(prov => {
+      this.proveedor = prov
+    })
+  }
+
   ngOnInit(): void {
+    window.addEventListener('beforeunload', this.unloadNotification)
     const empresa = getSessionItem('empresa')
     const usrId: any = getSessionItem('usrId')
     if (empresa && usrId) {
       this.idEmpresa = Number(empresa)
       this.usrId = Number(usrId)
     }
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.unloadNotification)
+  }
+
+  unloadNotification($event: any){
+    const message = 'Tienes cambios sin guardar. ¿Estas seguro que quieres sali?';
+    $event.returnValue = message;
+    return message;
   }
 
   onUpload(event: any) {
@@ -240,6 +252,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit {
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
+        return;
       }
     })
     this.cargarNuevo()
