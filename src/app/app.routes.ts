@@ -3,6 +3,7 @@ import {LayoutComponent} from "@layout/components/layout/layout.component";
 import {NotFoundComponent} from "@features/error/not-found/not-found.component";
 import DeunaComponent from "@features/payments/deuna/deuna.component";
 import {PrivacyPolicyComponent} from "@features/privacy-policy/privacy-policy.component";
+import {returnGuard} from "./core/guards/return.guard";
 
 export const routes: Routes = [
   {
@@ -40,7 +41,8 @@ export const routes: Routes = [
               {
                 path:'carga-solicitud',
                 loadComponent: () => import('./features/importacion/procesos/carga-solicitud/carga-solicitud.component'),
-                data: {breadcrumb: 'Carga solicitud '}
+                data: {breadcrumb: 'Carga solicitud '},
+                canDeactivate: [returnGuard]
               },
               {
                 path: 'visualizar-solicitud',
