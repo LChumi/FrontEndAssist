@@ -1,4 +1,4 @@
-import { CanDeactivateFn } from '@angular/router';
+import {CanDeactivateFn} from '@angular/router';
 import {inject} from "@angular/core";
 import {ConfirmationService, MessageService} from "primeng/api";
 

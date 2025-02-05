@@ -39,7 +39,8 @@ export default class CargaDocumentosComponent implements OnInit {
   ngOnInit(): void {
     this.id_usuario = getSessionItem('usrId')
     if (this.id_usuario == '') {
-      this.router.navigate(['/assist', 'auth', 'login']).then(r => {})
+      this.router.navigate(['/assist', 'auth', 'login']).then(r => {
+      })
     }
     this.obtenerCorreoEmpresarial()
   }
