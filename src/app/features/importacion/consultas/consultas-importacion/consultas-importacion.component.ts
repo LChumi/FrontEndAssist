@@ -192,7 +192,6 @@ export default class ConsultasImportacionComponent implements OnInit {
     ).subscribe({
       next: (result) => {
         this.listaComprobantes = result;
-        console.log(result)
         this.loading = false;
       }, error: err => {
         this.loading = false;

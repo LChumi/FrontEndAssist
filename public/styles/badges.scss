@@ -58,6 +58,11 @@
     color: var(--yellow-800);
   }
 
+  &.status-registrado {
+    background: var(--blue-200);
+    color: var(--blue-800);
+  }
+
   &.status-proceso {
     background: var(--orange-200);
     color: var(--orange-800);
