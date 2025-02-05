@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {LayoutComponent} from "@layout/components/layout/layout.component";
 import {NotFoundComponent} from "@features/error/not-found/not-found.component";
 import DeunaComponent from "@features/payments/deuna/deuna.component";
@@ -10,36 +10,37 @@ export const routes: Routes = [
     path: 'assist',
     children: [
       {
-        path:'auth',
-        children:[
+        path: 'auth',
+        children: [
           {
-            path:'login',
+            path: 'login',
             loadComponent: () => import('./features/auth/login/login.component')
           },
           {
-            path:'forgotpassword',
+            path: 'forgotpassword',
             loadComponent: () => import('./features/auth/forgotpassword/forgotpassword.component')
           },
           {
-            path:'empresas',
+            path: 'empresas',
             loadComponent: () => import('./features/empresa/empresa.component')
           },
           {path: '', redirectTo: 'login', pathMatch: "full"}
         ]
       },
       {
-        path:'inicio', component: LayoutComponent,
-        children:[
+        path: 'inicio', component: LayoutComponent,
+        children: [
           {
             path: 'dashboard',
             data: {breadcrumb: 'Inicio Dashboard'},
             loadComponent: () => import('./features/dashboards/dashboard/dashboard.component')
           },
-          {path: 'importaciones',
+          {
+            path: 'importaciones',
             data: {breadcrumb: 'Importacion'},
-            children:[
+            children: [
               {
-                path:'carga-solicitud',
+                path: 'carga-solicitud',
                 loadComponent: () => import('./features/importacion/procesos/carga-solicitud/carga-solicitud.component'),
                 data: {breadcrumb: 'Carga solicitud '},
                 canDeactivate: [returnGuard]
@@ -52,7 +53,7 @@ export const routes: Routes = [
               {
                 path: 'consultas',
                 data: {breadcrumb: 'Consultas'},
-                children:[
+                children: [
                   {
                     path: 'documentos',
                     loadComponent: () => import('./features/importacion/consultas/consultas-importacion/consultas-importacion.component'),
@@ -62,9 +63,10 @@ export const routes: Routes = [
               },
             ]
           },
-          {path: 'contabilidad',
+          {
+            path: 'contabilidad',
             data: {breadcrumb: 'Contabilidad'},
-            children:[
+            children: [
               {
                 path: 'carga-documentos',
                 loadComponent: () => import('./features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
@@ -78,8 +80,8 @@ export const routes: Routes = [
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
-  {path:'deuna/:id/:empresa', component: DeunaComponent},
-  {path:'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
+  {path: 'deuna/:id/:empresa', component: DeunaComponent},
+  {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
   {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];

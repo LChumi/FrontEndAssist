@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {PrimeNGConfig} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
@@ -11,9 +11,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  private primengConfig= inject(PrimeNGConfig)
+  private primengConfig = inject(PrimeNGConfig)
 
   ngOnInit() {
     this.primengConfig.ripple = true;

@@ -103,7 +103,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
     window.removeEventListener('beforeunload', this.unloadNotification)
   }
 
-  unloadNotification($event: any){
+  unloadNotification($event: any) {
     const message = 'Tienes cambios sin guardar. ¿Estas seguro que quieres sali?';
     $event.returnValue = message;
     return message;
@@ -247,11 +247,22 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
     this.fileService.confirmarSolicitud(event.request).subscribe({
       next: (response) => {
         this.observacion = ''
-        this.messageService.add({severity: 'success', summary: 'CREADO', detail: 'SOLICITUD DE IMPORTACIÓN: '+ response, life: 3000});
-        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {})
+        this.messageService.add({
+          severity: 'success',
+          summary: 'CREADO',
+          detail: 'SOLICITUD DE IMPORTACIÓN: ' + response,
+          life: 3000
+        });
+        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {
+        })
       },
       error: (error: ErrorResponse) => {
-        this.messageService.add({severity: 'error', summary: 'Error', detail: 'No se pudo crear la solicitud de importación ' + error.message, life: 3000});
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo crear la solicitud de importación ' + error.message,
+          life: 3000
+        });
         return;
       }
     })
