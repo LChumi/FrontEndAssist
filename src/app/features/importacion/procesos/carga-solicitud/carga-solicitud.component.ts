@@ -242,6 +242,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
+    this.loading = true
     event.request.items = this.listItems
     this.seleccionComprobante = event.visible;
     this.fileService.confirmarSolicitud(event.request).subscribe({
@@ -253,8 +254,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
           detail: 'SOLICITUD DE IMPORTACIÓN: ' + response,
           life: 3000
         });
-        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {
-        })
+        this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {this.loading = false})
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({
