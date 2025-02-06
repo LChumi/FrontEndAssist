@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {getSessionItem} from "@utils/storage-utils";
 import {ComprobanteDetalleService} from "@services/api/comprobante-detalle.service";
 import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
@@ -9,6 +9,7 @@ import {TableModule} from "primeng/table";
 
 @Component({
   standalone: true,
+  selector: "app-visualizacion-doc",
   imports: [
     DecimalPipe,
     TableModule
@@ -17,6 +18,7 @@ import {TableModule} from "primeng/table";
   styles: ``
 })
 export default class VisualizacionCargaComponent implements OnInit {
+  @Input() ccoCodigo!: string ;
 
   private comprobanteDetalleService = inject(ComprobanteDetalleService);
   private route = inject(ActivatedRoute);
@@ -38,6 +40,9 @@ export default class VisualizacionCargaComponent implements OnInit {
         this.getSci(cco)
       }
     })
+    if (this.ccoCodigo){
+      this.getSci(this.ccoCodigo)
+    }
   }
 
   getSci(cco: any){

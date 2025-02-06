@@ -20,6 +20,10 @@ import {TooltipModule} from "primeng/tooltip";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {SidebarModule} from "primeng/sidebar";
 import {EstadoPipe} from "@shared/pipes/estado.pipe";
+import {Router} from "@angular/router";
+import {DialogModule} from "primeng/dialog";
+import VisualizacionCargaComponent
+  from "@features/importacion/procesos/visualizacion-carga/visualizacion-carga.component";
 
 @Component({
   standalone: true,
@@ -34,7 +38,9 @@ import {EstadoPipe} from "@shared/pipes/estado.pipe";
     TooltipModule,
     FavoriteComponent,
     SidebarModule,
-    EstadoPipe
+    EstadoPipe,
+    DialogModule,
+    VisualizacionCargaComponent
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
@@ -45,6 +51,7 @@ export default class ConsultasImportacionComponent implements OnInit {
   private almacenService = inject(AlmacenService);
   private tipodocService = inject(TipodocService);
   private listCcomprobaService = inject(ListCcomprobaVService)
+  private route = inject(Router);
 
   private empresa: any;
   protected periodo: any;
@@ -63,6 +70,7 @@ export default class ConsultasImportacionComponent implements OnInit {
 
   loading = false;
   visibleSidebarFilters = false;
+  displayDialog = false;
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
@@ -198,5 +206,10 @@ export default class ConsultasImportacionComponent implements OnInit {
         this.listaComprobantes = []
       }
     });
+  }
+
+  getCcoDetail(cco: any){
+    this.displayDialog= true
+    //this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: cco}}).then(r => {})
   }
 }

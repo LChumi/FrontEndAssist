@@ -76,6 +76,7 @@
         <!-- Encabezado de la Tabla -->
         <ng-template pTemplate="header">
           <tr>
+            <th></th>
             <th pSortableColumn="comprobante" class="p-text-center">
               Comprobante
               <p-sortIcon field="comprobante"></p-sortIcon>
@@ -95,6 +96,18 @@
         <!-- Cuerpo de la Tabla -->
         <ng-template pTemplate="body" let-documento>
           <tr>
+            <td>
+              @if (documento.modId === 'FAC' || documento.modId === 'COM' ){
+                <button type="button" pButton pRipple
+                        class="p-button-text p-button-rounded p-button-plain"
+                        label="Ver"
+                        (click)="getCcoDetail(documento.ccoCodigo)"
+                        [icon]=" 'pi pi-eye'"></button>
+                <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
+                  <app-visualizacion-doc [ccoCodigo]="documento.ccoCodigo"></app-visualizacion-doc>
+                </p-dialog>
+              }
+            </td>
             <td class="p-text-center" style="width:15%; min-width: 15rem;">
               <span class="p-column-title">Comprobante</span>
               {{ documento.dspComproba }}
@@ -185,3 +198,5 @@
   </ng-template>
 
 </p-sidebar>
+
+
