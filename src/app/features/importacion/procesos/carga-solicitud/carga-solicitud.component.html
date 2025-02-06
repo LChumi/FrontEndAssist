@@ -44,7 +44,16 @@
         @if (listItems.length > 0) {
           <div class="mt-1">
             <div class="card">
-              <p-table [value]="listItems" dataKey="nombre" responsiveLayout="scroll">
+              <p-table
+                [value]="listItems"
+                dataKey="nombre"
+                [responsiveLayout]="'scroll'"
+                [paginator]="true"
+                [rows]="10"
+                class="my-3 p-p-3"
+                styleClass="p-datatable-gridlines"
+                [rowsPerPageOptions]="[5,10,20]"
+              >
                 <ng-template pTemplate="caption">
                   <h5>Lista de Items</h5>
                   <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -55,79 +64,64 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                   <tr>
-                    <th style="width: 1rem"></th>
+                    <th></th>
                     <th pSortableColumn="id">Barra</th>
-                    <th pSortableColumn="nombre">Nombre</th>
-                    <th pSortableColumn="item">Item</th>
+                    <th pSortableColumn="nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+                    <th pSortableColumn="item">Item<p-sortIcon field="item"></p-sortIcon></th>
                     <th pSortableColumn="cantidad">Cantidad</th>
-                    <th pSortableColumn="cbm">CXB</th>
+                    <th pSortableColumn="cxb">CXB</th>
                     <th pSortableColumn="fob">FOB</th>
                     <th pSortableColumn="cbm">CBM</th>
-                    <th pSortableColumn="cbm">Cantidad Total</th>
-                    <th pSortableColumn="cbm">CBM Total</th>
-                    <th pSortableColumn="cbm">FOB Total</th>
-                    <th pSortableColumn="cbm">Trancito</th>
+                    <th pSortableColumn="cantidadTotal">Cantidad Total</th>
+                    <th pSortableColumn="cbmTotal">CBM Total</th>
+                    <th pSortableColumn="fobTotal">FOB Total</th>
+                    <th pSortableColumn="trancito">Tránsito</th>
                     <th style="position: sticky; right: 0; top: 0; z-index: 1;"></th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-expanded="expanded">
                   <tr>
-                    <td style="width: 1rem">
+                    <td>
                       @if (item.trancitos) {
                         <button type="button" pButton pRipple [pRowToggler]="item"
                                 class="p-button-text p-button-rounded p-button-plain"
                                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                       }
                     </td>
-                    <td>
-                      <div class="border-round m-2 p-2 text-left" style="display: block;">
-                        <div class="font-medium">{{ item.id }}</div>
-                        <small class="mt-1" style="font-size: 10px"
-                               [class]="'item-badge status-' + item.status.toLowerCase()">
-                          {{ item.status }}
-                        </small>
-                      </div>
-                    </td>
-
-                    <td style="min-width: 8rem;">{{ item.nombre }}</td>
-                    <td style="min-width: 10rem;">{{ item.item }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cantidad }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cxb }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.fob | number:'1.4-4' }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cbm | number:'1.2-2' }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cantidadTotal }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cbmTotal | number:'1.2-2' }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.fobTotal | number:'1.4-4' }}</td>
-                    <td class="text-right" style="min-width: 10rem;">{{ item.cantidadTrancito }}</td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.item }}</td>
+                    <td>{{ item.item }}</td>
+                    <td class="text-right">{{ item.cantidad }}</td>
+                    <td class="text-right">{{ item.cxb }}</td>
+                    <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
+                    <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.cantidadTotal }}</td>
+                    <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
+                    <td class="text-right">{{ item.trancito }}</td>
                     <td style="position: sticky; right: 0; top: 0; z-index: 1;">
-                      <div class="flex">
+                      <span class="flex">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
                                 (click)="editItem(item)"></button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
                                 (click)="deleteItem(item)"></button>
-                      </div>
+                      </span>
                     </td>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-item>
                   <tr>
-                    <td colspan="8">
+                    <td colspan="13">
                       <div class="p-3">
                         <p-table [value]="item.trancitos" dataKey="id" responsiveLayout="scroll">
                           <ng-template pTemplate="header">
                             <tr>
-                              <th pSortableColumn="fecha">Fecha
-                                <p-sortIcon field="fecha"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="nroComprobante">Numero Comprobante
-                                <p-sortIcon field="nroComprobante"></p-sortIcon>
-                              </th>
+                              <th pSortableColumn="fecha">Fecha<p-sortIcon field="fecha"></p-sortIcon></th>
+                              <th pSortableColumn="nroComprobante">Numero Comprobante<p-sortIcon field="nroComprobante"></p-sortIcon></th>
                               <th pSortableColumn="observacion">Observación</th>
-                              <th pSortableColumn="cantidadPedida">Cantidad Pedida
-                                <p-sortIcon field="cantidadPedida"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="fob">FOB</th>
-                              <th pSortableColumn="fobTotal">FOB Total</th>
+                              <th pSortableColumn="cantidadPedida">Cantidad Pedida<p-sortIcon field="cantidadPedida"></p-sortIcon></th>
+                              <th pSortableColumn="fob">FOB<p-sortIcon field="fob"></p-sortIcon></th>
+                              <th pSortableColumn="fobTotal">FOB Total<p-sortIcon field="fobTotal"></p-sortIcon></th>
                               <th pSortableColumn="tipoDoc">Tipo Documento</th>
                             </tr>
                           </ng-template>
@@ -136,13 +130,9 @@
                               <td>{{ trancito.fecha }}</td>
                               <td>{{ trancito.nroComprobante }}</td>
                               <td>{{ trancito.observacion }}</td>
-                              <td class="text-right"
-                                  style="min-width: 10rem;">{{ trancito.cantidadPedida | number:'1.2-2' }}
-                              </td>
-                              <td class="text-right" style="min-width: 10rem;">{{ trancito.fob | number:'1.4-4' }}</td>
-                              <td class="text-right"
-                                  style="min-width: 10rem;">{{ trancito.fobTotal | number:'1.4-4' }}
-                              </td>
+                              <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
+                              <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
+                              <td class="text-right">{{ trancito.fobTotal | number:'1.4-4' }}</td>
                               <td>{{ trancito.tipoDoc }}</td>
                             </tr>
                           </ng-template>
@@ -152,6 +142,7 @@
                   </tr>
                 </ng-template>
               </p-table>
+
               <button pButton pRipple label="Confirmar" icon="pi pi-check" (click)="confirmDialog=true"></button>
               <p-dialog [(visible)]="confirmDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
                 <div class="flex align-items-center justify-content-center">
