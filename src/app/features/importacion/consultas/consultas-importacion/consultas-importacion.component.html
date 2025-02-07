@@ -1,0 +1,44 @@
+<div class="card">
+  <!--<div class="col-12">
+    <app-favorite titulo="Consulta de documentos" [usrId]="usrId"></app-favorite>
+  </div>-->
+
+  <div class="card">
+    <div class="grid p-fluid">
+      <div class="grid formgrid">
+        <div class="col-12 md:col-6 field">
+          <label for="nroComprobante" class="text-900 font-semibold">NroComprobante</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-bookmark"></i>
+            <input id="nroComprobante" pInputText type="text" placeholder="NroComprobante" [(ngModel)]="nroComprobante">
+          </span>
+        </div>
+
+        <div class="col-12 md:col-6 field">
+          <label for="observacion" class="text-900 font-semibold">Observación</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-bookmark"></i>
+            <input id="observacion" pInputText type="text" placeholder="observacion" >
+          </span>
+        </div>
+
+        <div class="col-12 md:col-6 field">
+          <label for="fecha" class="text-900 font-semibold">Observación</label>
+          <span class="p-input-icon-left">
+            <p-calendar id="fecha" dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha"
+                        [(ngModel)]="fecha"></p-calendar>
+          </span>
+        </div>
+
+        <div class="col-12 md:col-6 field">
+          <label for="estado" class="text-900 font-semibold">Estado</label>
+          <span class="p-input-icon-left">
+          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estados"
+                      optionLabel="name"></p-dropdown>
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
