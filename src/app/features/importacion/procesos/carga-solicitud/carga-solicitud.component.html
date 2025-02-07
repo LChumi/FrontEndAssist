@@ -46,10 +46,10 @@
             <div class="card">
               <p-table
                 [value]="listItems"
-                dataKey="nombre"
                 [responsiveLayout]="'scroll'"
                 [paginator]="true"
                 [rows]="10"
+                dataKey="secuencia"
                 class="my-3 p-p-3"
                 styleClass="p-datatable-gridlines"
                 [rowsPerPageOptions]="[5,10,20]"
@@ -69,6 +69,7 @@
                     <th pSortableColumn="nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
                     <th pSortableColumn="item">Item<p-sortIcon field="item"></p-sortIcon></th>
                     <th pSortableColumn="cantidad">Cantidad</th>
+                    <th pSortableColumn="id">Codigo Fabrica</th>
                     <th pSortableColumn="cxb">CXB</th>
                     <th pSortableColumn="fob">FOB</th>
                     <th pSortableColumn="cbm">CBM</th>
@@ -91,7 +92,8 @@
                     <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
                     <td style="white-space: nowrap; min-width: 12rem;">{{ item.item }}</td>
                     <td>{{ item.item }}</td>
-                    <td class="text-right">{{ item.cantidad }}</td>
+                    <td class="text-right">{{ item.cantidad }}
+                    <td class="text-right">{{ item.codFabrica }}</td>
                     <td class="text-right">{{ item.cxb }}</td>
                     <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
                     <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
@@ -113,7 +115,10 @@
                   <tr>
                     <td colspan="13">
                       <div class="p-3">
-                        <p-table [value]="item.trancitos" dataKey="id" responsiveLayout="scroll">
+                        <p-table
+                          [value]="item.trancitos"
+                          dataKey="id"
+                          responsiveLayout="scroll">
                           <ng-template pTemplate="header">
                             <tr>
                               <th pSortableColumn="fecha">Fecha<p-sortIcon field="fecha"></p-sortIcon></th>
