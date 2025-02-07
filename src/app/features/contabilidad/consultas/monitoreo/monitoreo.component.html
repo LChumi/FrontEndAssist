@@ -101,11 +101,8 @@
                 <button type="button" pButton pRipple
                         class="p-button-text p-button-rounded p-button-plain"
                         label="Ver"
-                        (click)="getCcoDetail(documento.ccoCodigo)"
+                        (click)="verDocumento(documento.ccoCodigo)"
                         [icon]=" 'pi pi-eye'"></button>
-                <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
-                  <app-detalle-producto-cco [ccoCodigo]="documento.ccoCodigo"></app-detalle-producto-cco>
-                </p-dialog>
               }
             </td>
             <td class="p-text-center" style="width:15%; min-width: 15rem;">
@@ -198,5 +195,9 @@
   </ng-template>
 
 </p-sidebar>
-
+@if (displayDialog && cco.length>0){
+  <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
+    <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
+  </p-dialog>
+}
 

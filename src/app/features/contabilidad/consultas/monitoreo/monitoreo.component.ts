@@ -66,6 +66,7 @@ export default class MonitoreoComponent implements OnInit {
   protected tipodoc!: any;
   protected estados: any;
   usrId: any
+  cco:any
 
   loading = false;
   visibleSidebarFilters = false;
@@ -207,8 +208,10 @@ export default class MonitoreoComponent implements OnInit {
     });
   }
 
-  getCcoDetail(cco: any){
-    this.displayDialog= true
-    //this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: cco}}).then(r => {})
+  verDocumento(cco:any){
+    if (cco.length>0){
+      this.cco = cco;
+      this.displayDialog = true;
+    }
   }
 }

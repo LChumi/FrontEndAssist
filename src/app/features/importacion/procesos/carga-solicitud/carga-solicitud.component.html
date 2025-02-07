@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-12">
-      <span class="text-900 block font-bold text-xl">Carga de archivo solicitud de Importacion</span>
+      <span class="text-900 block font-bold text-xl">Carga de archivo solicitud de Importación</span>
     </div>
 
     <div class="col-12">
@@ -271,5 +271,8 @@
     [observacion]="observacion"
     (saveRequest)="handleSaveRequest($event)"
   ></app-seleccion-comprobante>
+  <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}">
+    <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
+  </p-dialog>
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>
