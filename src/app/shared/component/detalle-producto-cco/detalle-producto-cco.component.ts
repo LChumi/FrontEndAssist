@@ -1,23 +1,25 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
-import {getSessionItem} from "@utils/storage-utils";
-import {ComprobanteDetalleService} from "@services/api/comprobante-detalle.service";
-import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
-import {ActivatedRoute} from "@angular/router";
-import {DfacturaDto} from "@models/dto/dfactura-dto";
+import {Component, inject, Input} from '@angular/core';
 import {DecimalPipe} from "@angular/common";
+import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
+import {ComprobanteDetalleService} from "@services/api/comprobante-detalle.service";
+import {ActivatedRoute} from "@angular/router";
+import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
+import {getSessionItem} from "@utils/storage-utils";
+import {DfacturaDto} from "@models/dto/dfactura-dto";
 
 @Component({
+  selector: 'app-detalle-producto-cco',
   standalone: true,
-  selector: "app-visualizacion-doc",
-  imports: [
-    DecimalPipe,
-    TableModule
-  ],
-  templateUrl: './visualizacion-carga.component.html',
+    imports: [
+        DecimalPipe,
+        PrimeTemplate,
+        TableModule
+    ],
+  templateUrl: './detalle-producto-cco.component.html',
   styles: ``
 })
-export default class VisualizacionCargaComponent implements OnInit {
+export class DetalleProductoCcoComponent {
   @Input() ccoCodigo!: string ;
 
   private comprobanteDetalleService = inject(ComprobanteDetalleService);

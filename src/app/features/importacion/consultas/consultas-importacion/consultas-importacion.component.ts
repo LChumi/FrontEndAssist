@@ -22,8 +22,7 @@ import {SidebarModule} from "primeng/sidebar";
 import {EstadoPipe} from "@shared/pipes/estado.pipe";
 import {Router} from "@angular/router";
 import {DialogModule} from "primeng/dialog";
-import VisualizacionCargaComponent
-  from "@features/importacion/procesos/visualizacion-carga/visualizacion-carga.component";
+import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 
 @Component({
   standalone: true,
@@ -40,7 +39,7 @@ import VisualizacionCargaComponent
     SidebarModule,
     EstadoPipe,
     DialogModule,
-    VisualizacionCargaComponent
+    DetalleProductoCcoComponent,
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``

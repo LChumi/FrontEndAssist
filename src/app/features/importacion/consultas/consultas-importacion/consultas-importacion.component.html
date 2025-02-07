@@ -104,7 +104,7 @@
                         (click)="getCcoDetail(documento.ccoCodigo)"
                         [icon]=" 'pi pi-eye'"></button>
                 <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
-                  <app-visualizacion-doc [ccoCodigo]="documento.ccoCodigo"></app-visualizacion-doc>
+                  <app-detalle-producto-cco [ccoCodigo]="documento.ccoCodigo"></app-detalle-producto-cco>
                 </p-dialog>
               }
             </td>
