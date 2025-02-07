@@ -16,7 +16,6 @@ import {CtipocomService} from "@services/api/ctipocom.service";
 import {AlmacenService} from "@services/api/almacen.service";
 import {TipodocService} from "@services/api/tipodoc.service";
 import {ListCcomprobaVService} from "@services/api/list-ccomproba-v.service";
-import {Router} from "@angular/router";
 import {Almacen} from "@models/entities/almacen";
 import {Ctipocom} from "@models/dto/ctipocom";
 import {Tipodoc} from "@models/entities/tipodoc";
@@ -50,7 +49,6 @@ export default class MonitoreoComponent implements OnInit {
   private almacenService = inject(AlmacenService);
   private tipodocService = inject(TipodocService);
   private listCcomprobaService = inject(ListCcomprobaVService)
-  private route = inject(Router);
 
   private empresa: any;
   protected periodo: any;
@@ -112,13 +110,6 @@ export default class MonitoreoComponent implements OnInit {
     this.filteredSiglas = filtered;
   }
 
-  selectClosestMatch() {
-    if (this.filteredSiglas.length > 0) {
-      this.sigla = this.filteredSiglas[0];
-    } else {
-      this.sigla = null;
-    }
-  }
 
   convertToUpperCase(event: any) {
     const input = event.target;
