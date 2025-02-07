@@ -7,6 +7,7 @@
       "@environments/*": ["./src/environments/*"],
       "@models/*": ["./src/app/core/models/*"],
       "@services/*": ["./src/app/core/services/*"],
+      "@guards/*": ["./src/app/core/guards/*"],
       "@layout/*": ["./src/app/layout/*"],
       "@features/*": ["./src/app/features/*"],
       "@interceptors/*": ["./src/app/core/interceptors/*"],

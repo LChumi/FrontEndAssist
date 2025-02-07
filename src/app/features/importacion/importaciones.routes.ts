@@ -1,5 +1,5 @@
 import {Routes} from '@angular/router'
-import {returnGuard} from "../../core/guards/return.guard";
+import {returnGuard} from "@guards/return.guard";
 
 export const importacionesRoutes: Routes = [
   {
