@@ -22,7 +22,7 @@ export const routes: Routes = [
           },
           {
             path: 'empresas',
-            loadComponent: () => import('./features/empresa/empresa.component')
+            loadComponent: () => import('@features/auth/empresa/empresa.component')
           },
           {path: '', redirectTo: 'login', pathMatch: "full"}
         ]
