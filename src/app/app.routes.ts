@@ -4,6 +4,7 @@ import {NotFoundComponent} from "@features/error/not-found/not-found.component";
 import DeunaComponent from "@features/payments/deuna/deuna.component";
 import {PrivacyPolicyComponent} from "@features/privacy-policy/privacy-policy.component";
 import {returnGuard} from "./core/guards/return.guard";
+import {importacionesRoutes} from "@features/importacion/importaciones.routes";
 
 export const routes: Routes = [
   {
@@ -38,30 +39,7 @@ export const routes: Routes = [
           {
             path: 'importaciones',
             data: {breadcrumb: 'Importacion'},
-            children: [
-              {
-                path: 'carga-solicitud',
-                loadComponent: () => import('./features/importacion/procesos/carga-solicitud/carga-solicitud.component'),
-                data: {breadcrumb: 'Carga solicitud '},
-                canDeactivate: [returnGuard]
-              },
-              {
-                path: 'visualizar-solicitud',
-                loadComponent: () => import('./features/importacion/procesos/visualizacion-carga/visualizacion-carga.component'),
-                data: {breadcrumb: 'Visualizar solicitud'}
-              },
-              {
-                path: 'consultas',
-                data: {breadcrumb: 'Consultas'},
-                children: [
-                  {
-                    path: 'documentos',
-                    loadComponent: () => import('./features/importacion/consultas/consultas-importacion/consultas-importacion.component'),
-                    data: {breadcrumb: 'Documentos'},
-                  }
-                ]
-              },
-            ]
+            children: importacionesRoutes
           },
           {
             path: 'contabilidad',
