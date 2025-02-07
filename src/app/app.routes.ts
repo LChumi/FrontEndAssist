@@ -4,6 +4,8 @@ import {NotFoundComponent} from "@features/error/not-found/not-found.component";
 import DeunaComponent from "@features/payments/deuna/deuna.component";
 import {PrivacyPolicyComponent} from "@features/privacy-policy/privacy-policy.component";
 import {importacionesRoutes} from "@features/importacion/importaciones.routes";
+import {authRoutes} from "@features/auth/auth.routes";
+import {contabilidadRoutes} from "@features/contabilidad/contabilidad.routes";
 
 export const routes: Routes = [
   {
@@ -11,21 +13,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'auth',
-        children: [
-          {
-            path: 'login',
-            loadComponent: () => import('@features/auth/login/login.component')
-          },
-          {
-            path: 'forgotpassword',
-            loadComponent: () => import('@features/auth/forgotpassword/forgotpassword.component')
-          },
-          {
-            path: 'empresas',
-            loadComponent: () => import('@features/auth/empresa/empresa.component')
-          },
-          {path: '', redirectTo: 'login', pathMatch: "full"}
-        ]
+        children: authRoutes
       },
       {
         path: 'inicio', component: LayoutComponent,
@@ -43,13 +31,7 @@ export const routes: Routes = [
           {
             path: 'contabilidad',
             data: {breadcrumb: 'Contabilidad'},
-            children: [
-              {
-                path: 'carga-documentos',
-                loadComponent: () => import('@features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
-                data: {breadcrumb: 'Carga Documentos '},
-              }
-            ]
+            children: contabilidadRoutes
           },
           {path: '', redirectTo: 'dashboard', pathMatch: "full"}
         ]
