@@ -1,6 +1,7 @@
 import {Trancito} from "@models/record/trancito";
 
 export interface Items {
+  secuencia:          number;
   id:                 string;
   item:               string;
   nombre:             string;
@@ -13,5 +14,6 @@ export interface Items {
   fobTotal:           number;
   cantidadTrancito:   number;
   status:             string;
+  codFabrica:         string;
   trancitos?:         Trancito[];
 }
