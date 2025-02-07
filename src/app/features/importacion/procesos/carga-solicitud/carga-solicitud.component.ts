@@ -21,7 +21,7 @@ import {
 import {getSessionItem} from "@utils/index";
 import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
-import {Router} from "@angular/router";
+import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 
 @Component({
   standalone: true,
@@ -40,7 +40,8 @@ import {Router} from "@angular/router";
     ScrollTopModule,
     FavoriteComponent,
     SeleccionComprobanteComponent,
-    SeleccionBodegasComponent
+    SeleccionBodegasComponent,
+    DetalleProductoCcoComponent
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
@@ -57,7 +58,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private messageService = inject(MessageService);
   private fileService = inject(FileService)
   private imagenService = inject(ImagenService)
-  private route = inject(Router)
 
   listItems: Items[] = []
   item: Items = {} as Items;
@@ -66,6 +66,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   imageUrl: string | null = ''
 
   observacion: string = ''
+  cco: any
 
   modalVisible = false;
   loading = false
@@ -74,6 +75,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   confirmDialog = false
   submitted = false
   seleccionComprobante = false
+  displayDialog: boolean = false;
 
   cantidadAnterior = 0;
   cxbAnterior = 0;
@@ -254,7 +256,9 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
           detail: 'SOLICITUD DE IMPORTACIÓN: ' + response,
           life: 3000
         });
-        //this.route.navigate(['/assist', 'inicio', 'importaciones', 'visualizar-solicitud'], {queryParams: {cco: response.cco}}).then(r => {this.loading = false})
+        this.cargarNuevo()
+        this.displayDialog = true
+        this.cco = response.cco
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({
@@ -266,6 +270,5 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
         return;
       }
     })
-    this.cargarNuevo()
   }
 }

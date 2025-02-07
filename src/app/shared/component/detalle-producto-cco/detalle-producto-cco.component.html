@@ -1,111 +1,115 @@
 <div class="card py-8 px-6 md:px-8 overflow-auto">
-  @if (sci){
-    <div class="flex flex-column align-items-start md:flex-row md:align-items-center md:justify-content-between border-bottom-1 surface-border pb-5 min-w-max">
-      <div class="flex flex-column">
-        <svg width="48" height="50" viewBox="0 0 48 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M33.1548 9.65956L23.9913 4.86169L5.54723 14.5106L0.924465 12.0851L23.9913 0L37.801 7.23403L33.1548 9.65956ZM23.9931 19.3085L42.4255 9.65955L47.0717 12.0851L23.9931 24.1595L10.1952 16.9361L14.8297 14.5106L23.9931 19.3085ZM4.6345 25.8937L0 23.4681V37.9149L23.0669 50V45.1489L4.6345 35.4894V25.8937ZM18.4324 28.2658L0 18.6169V13.7658L23.0669 25.8403V40.2977L18.4324 37.8615V28.2658ZM38.7301 23.468V18.6169L24.9205 25.8403V49.9999L29.555 47.5743V28.2659L38.7301 23.468ZM43.3546 35.4892V16.1914L48.0008 13.7659V37.9148L34.1912 45.1488V40.2977L43.3546 35.4892Z"
-                fill="var(--primary-color)"/>
-        </svg>
-        <div class="my-3 text-2xl font-bold text-900">{{ sci.comprobante }}</div>
-        <span class="mb-2">{{sci.sigla}}</span>
-        <span class="font-semibold">{{sci.documento}}</span>
-      </div>
-
-      <div class="flex flex-column mt-5 md:mt-0">
-        <div class="font-semibold text-left md:text-right mb-3 uppercase">Comprobante</div>
+    @if (sci){
+      <div class="flex flex-column align-items-start md:flex-row md:align-items-center md:justify-content-between border-bottom-1 surface-border pb-5 min-w-max">
         <div class="flex flex-column">
-          <div class="flex justify-content-between align-items-center mb-2">
-            <span class="font-semibold mr-6">FECHA</span>
-            <span>{{sci.fecha}}</span>
-          </div>
-          <div class="flex justify-content-between align-items-center mb-2">
-            <span class="font-semibold mr-6">Código</span>
-            <span>{{sci.cco}}</span>
-          </div>
-          <div class="flex justify-content-between align-items-center mb-2">
-            <span class="font-semibold mr-6">Almacén</span>
-            <span>{{sci.almacenId}} {{sci.almacen}}</span>
-          </div>
+          <svg width="48" height="50" viewBox="0 0 48 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M33.1548 9.65956L23.9913 4.86169L5.54723 14.5106L0.924465 12.0851L23.9913 0L37.801 7.23403L33.1548 9.65956ZM23.9931 19.3085L42.4255 9.65955L47.0717 12.0851L23.9931 24.1595L10.1952 16.9361L14.8297 14.5106L23.9931 19.3085ZM4.6345 25.8937L0 23.4681V37.9149L23.0669 50V45.1489L4.6345 35.4894V25.8937ZM18.4324 28.2658L0 18.6169V13.7658L23.0669 25.8403V40.2977L18.4324 37.8615V28.2658ZM38.7301 23.468V18.6169L24.9205 25.8403V49.9999L29.555 47.5743V28.2659L38.7301 23.468ZM43.3546 35.4892V16.1914L48.0008 13.7659V37.9148L34.1912 45.1488V40.2977L43.3546 35.4892Z"
+                  fill="var(--primary-color)"/>
+          </svg>
+          <div class="my-3 text-2xl font-bold text-900">{{ sci.comprobante }}</div>
+          <span class="mb-2">{{sci.sigla}}</span>
+          <span class="font-semibold">{{sci.documento}}</span>
         </div>
-      </div>
-    </div>
 
-    @if (sci.cliente){
-      <div class="mt-2 mb-2 grid grid-nogutter">
-        <div class="col-12 md:col-6 mb-2">
-          <span class="font-bold">Nombre:</span> {{sci.cliente.nombre}}
-        </div>
-        <div class="col-12 md:col-6 mb-2">
-          <span class="font-bold">Cédula:</span> {{sci.cliente.cedula}}
-        </div>
-        <div class="col-12 md:col-6 mb-2">
-          <span class="font-bold">Dirección:</span> {{sci.cliente.direccion}}
-        </div>
-        <div class="col-12 md:col-6 mb-2">
-          <span class="font-bold">Correo:</span> {{sci.cliente.mail}}
-        </div>
-        <div class="col-12 md:col-6 mb-2">
-          <span class="font-bold">Teléfono:</span> {{sci.cliente.telefono}}
+        <div class="flex flex-column mt-5 md:mt-0">
+          <div class="font-semibold text-left md:text-right mb-3 uppercase">Comprobante</div>
+          <div class="flex flex-column">
+            <div class="flex justify-content-between align-items-center mb-2">
+              <span class="font-semibold mr-6">FECHA</span>
+              <span>{{sci.fecha}}</span>
+            </div>
+            <div class="flex justify-content-between align-items-center mb-2">
+              <span class="font-semibold mr-6">Código</span>
+              <span>{{sci.cco}}</span>
+            </div>
+            <div class="flex justify-content-between align-items-center mb-2">
+              <span class="font-semibold mr-6">Almacén</span>
+              <span>{{sci.almacenId}} {{sci.almacen}}</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      @if (sci.cliente){
+        <div class="mt-2 mb-2 grid grid-nogutter">
+          <div class="col-12 md:col-6 mb-2">
+            <span class="font-bold">Nombre:</span> {{sci.cliente.nombre}}
+          </div>
+          <div class="col-12 md:col-6 mb-2">
+            <span class="font-bold">Cédula:</span> {{sci.cliente.cedula}}
+          </div>
+          <div class="col-12 md:col-6 mb-2">
+            <span class="font-bold">Dirección:</span> {{sci.cliente.direccion}}
+          </div>
+          <div class="col-12 md:col-6 mb-2">
+            <span class="font-bold">Correo:</span> {{sci.cliente.mail}}
+          </div>
+          <div class="col-12 md:col-6 mb-2">
+            <span class="font-bold">Teléfono:</span> {{sci.cliente.telefono}}
+          </div>
+        </div>
+      }
+
+      <div class="mt-4 mb-6">
+        <div class="mb-3 text-xl font-medium">Concepto</div> {{sci.concepto}}
+      </div>
+
+      <!-- Tabla de productos -->
+      @if (sci.items) {
+        <div class="overflow-x-auto">
+          <p-table
+            styleClass="p-datatable-gridlines"
+            [value]="sci.items"
+            dataKey="cco"
+            [rows]="15"
+            [paginator]="true"
+            [rowHover]="true"
+            [responsiveLayout]="'scroll'"
+            class="my-3 p-p-3"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="n" class="p-text-center">N°</th>
+                <th pSortableColumn="n" class="p-text-center">Barra</th>
+                <th pSortableColumn="producto" class="p-text-center">Producto</th>
+                <th class="p-text-center">Referencia</th>
+                <th pSortableColumn="estado" class="p-text-center">Cantidad</th>
+                <th pSortableColumn="fecha" class="p-text-center">Precio</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-prod>
+              <tr>
+                <td class="p-text-center p-col-1 p-col-fixed">{{ prod.secuencia }}</td>
+                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.barra }}</td>
+                <td class="p-text-center p-col-3 p-col-fixed">{{ prod.producto }}</td>
+                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.item }}</td>
+                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.cantidad }}</td>
+                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.precio | number: '1.4-4' }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr>
+                <td colspan="6">
+                  <div class="flex justify-content-end mt-5">
+                    <div class="flex flex-column">
+                      <div class="flex justify-content-between align-items-center mb-2">
+                        <span class="font-semibold mr-6 uppercase">Cantidad Items</span>
+                        <span>{{cantidadTotal}}</span>
+                      </div>
+                      <div class="flex justify-content-between align-items-center mb-2">
+                        <span class="font-semibold mr-6 uppercase">SUBTOTAL</span>
+                        <span>{{subtotal | number:'1.4-4'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      }
+    } @else {
+      <span>Sin datos</span>
     }
-
-    <div class="mt-4 mb-6">
-      <div class="mb-3 text-xl font-medium">Concepto</div> {{sci.concepto}}
-    </div>
-
-    <!-- Tabla de productos -->
-    <div class="overflow-x-auto">
-      <p-table
-        styleClass="p-datatable-gridlines"
-        [value]="sci.items"
-        dataKey="cco"
-        [rows]="15"
-        [paginator]="true"
-        [rowHover]="true"
-        [responsiveLayout]="'scroll'"
-        class="my-3 p-p-3"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="n" class="p-text-center">N°</th>
-            <th pSortableColumn="n" class="p-text-center">Barra</th>
-            <th pSortableColumn="producto" class="p-text-center">Producto</th>
-            <th class="p-text-center">Referencia</th>
-            <th pSortableColumn="estado" class="p-text-center">Cantidad</th>
-            <th pSortableColumn="fecha" class="p-text-center">Precio</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-prod>
-          <tr>
-            <td class="p-text-center p-col-1 p-col-fixed">{{ prod.secuencia }}</td>
-            <td class="p-text-center p-col-2 p-col-fixed">{{ prod.barra }}</td>
-            <td class="p-text-center p-col-3 p-col-fixed">{{ prod.producto }}</td>
-            <td class="p-text-center p-col-2 p-col-fixed">{{ prod.item }}</td>
-            <td class="p-text-center p-col-2 p-col-fixed">{{ prod.cantidad }}</td>
-            <td class="p-text-center p-col-2 p-col-fixed">{{ prod.precio | number: '1.4-4' }}</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="footer">
-          <tr>
-            <td colspan="6">
-              <div class="flex justify-content-end mt-5">
-                <div class="flex flex-column">
-                  <div class="flex justify-content-between align-items-center mb-2">
-                    <span class="font-semibold mr-6 uppercase">Cantidad Items</span>
-                    <span>{{cantidadTotal}}</span>
-                  </div>
-                  <div class="flex justify-content-between align-items-center mb-2">
-                    <span class="font-semibold mr-6 uppercase">SUBTOTAL</span>
-                    <span>{{subtotal | number:'1.4-4'}}</span>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  }
-</div>
+  </div>
