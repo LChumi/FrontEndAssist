@@ -14,11 +14,11 @@ export const routes: Routes = [
         children: [
           {
             path: 'login',
-            loadComponent: () => import('./features/auth/login/login.component')
+            loadComponent: () => import('@features/auth/login/login.component')
           },
           {
             path: 'forgotpassword',
-            loadComponent: () => import('./features/auth/forgotpassword/forgotpassword.component')
+            loadComponent: () => import('@features/auth/forgotpassword/forgotpassword.component')
           },
           {
             path: 'empresas',
@@ -33,7 +33,7 @@ export const routes: Routes = [
           {
             path: 'dashboard',
             data: {breadcrumb: 'Inicio Dashboard'},
-            loadComponent: () => import('./features/dashboards/dashboard/dashboard.component')
+            loadComponent: () => import('@features/dashboards/dashboard/dashboard.component')
           },
           {
             path: 'importaciones',
@@ -46,7 +46,7 @@ export const routes: Routes = [
             children: [
               {
                 path: 'carga-documentos',
-                loadComponent: () => import('./features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
+                loadComponent: () => import('@features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
                 data: {breadcrumb: 'Carga Documentos '},
               }
             ]
