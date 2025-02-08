@@ -4,7 +4,7 @@
   </div>-->
 
   <div class="card">
-    <div class="grid p-fluid">
+    <div class="grid p-fluid" (keydown.enter)="find()">
       <div class="grid formgrid">
         <div class="col-12 md:col-6 field">
           <label for="nroComprobante" class="text-900 font-semibold">NroComprobante</label>
@@ -18,27 +18,84 @@
           <label for="observacion" class="text-900 font-semibold">Observación</label>
           <span class="p-input-icon-left">
             <i class="pi pi-bookmark"></i>
-            <input id="observacion" pInputText type="text" placeholder="observacion" >
+            <input id="observacion" pInputText type="text" placeholder="observacion" [(ngModel)]="observacion" >
           </span>
         </div>
 
         <div class="col-12 md:col-6 field">
-          <label for="fecha" class="text-900 font-semibold">Observación</label>
+          <label for="fecha" class="text-900 font-semibold">Fecha</label>
           <span class="p-input-icon-left">
             <p-calendar id="fecha" dateFormat="dd-mm-yy" placeholder="Fecha" [required]="true" inputId="fecha"
-                        [(ngModel)]="fecha"></p-calendar>
+                        showIcon [(ngModel)]="fecha"></p-calendar>
           </span>
         </div>
 
         <div class="col-12 md:col-6 field">
           <label for="estado" class="text-900 font-semibold">Estado</label>
           <span class="p-input-icon-left">
-          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estados"
+          <p-dropdown id="estado" placeholder="Estado" [options]="estados" [(ngModel)]="estado"
                       optionLabel="name"></p-dropdown>
         </span>
         </div>
       </div>
     </div>
+
+    <!--Tabla de contenidos -->
+    <div>
+      <p-table
+        styleClass="p-datatble-gridlines"
+        [value]="impProdTrancitos"
+        dataKey="id"
+        [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]"
+        [loading]="loading"
+        [rowHover]="true"
+        [paginator]="true"
+        [responsiveLayout]="'scroll'"
+        class="my-3 p-p3"
+      >
+        <!--Encabezado de la tabla -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nroComprobante" class="p-text-center">
+              NroComprobante
+              <p-sortIcon field="nroComprobante"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th pSortableColumn="proId">Barra</th>
+            <th pSortableColumn="proId1">Item</th>
+            <th pSortableColumn="proNombre">Producto</th>
+            <th pSortableColumn="observacion">Observacion</th>
+            <th pSortableColumn="cantPedida">Cant. Pedida</th>
+            <th pSortableColumn="canLlegada">Cant. Llegada</th>
+            <th pSortableColumn="fob">FOB</th>
+            <th pSortableColumn="fobTotal">FOB Total</th>
+            <th pSortableColumn="estado">Estado</th>
+            <th pSortableColumn="tipoDoc">Tipo Documento</th>
+          </tr>
+        </ng-template>
+
+        <!--Cuerpo de la tabla -->
+        <ng-template pTemplate="body" let-documento>
+          <tr>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.nroComprobante}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fecha}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.proId}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.proId1}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.proNombre}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.observacion}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.cantidadPedida}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.cantLlegada}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fob}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fobTotal}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.estado}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{documento.tipoDoc}}</td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+
   </div>
 
 </div>
