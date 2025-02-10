@@ -30,22 +30,30 @@ import {getSessionItem} from "@utils/storage-utils";
 export class ModalclienteComponent implements OnInit {
 
   public tipoCliente = input.required<string>();
-  @Input() visible: boolean = false
+  private _visible = false;
   @Input() isVisibleDropdown: boolean = false
   @Output() onBtnClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() onChangeProv: EventEmitter<string> = new EventEmitter<string>();
+  @Output() visibleChange = new EventEmitter<boolean>();
+  @Input() set visible(val: boolean) {
+    this._visible = val;
+  }
+
+  get visible(): boolean {
+    return this._visible;
+  }
 
 
-  loading = false;
+  protected loading = false;
 
   sortTipoCli: SelectItem[] = []
   clientes: Cliente[] = []
   selectedClient!: Cliente
 
-  selectionService = inject(SelectionService)
-  clienteService = inject(ClienteService)
+  private selectionService = inject(SelectionService)
+  private clienteService = inject(ClienteService)
 
-  empresa = 0;
+  protected empresa = 0;
 
   constructor() {
   }
@@ -91,5 +99,9 @@ export class ModalclienteComponent implements OnInit {
     this.visible = false
   }
 
+  close(){
+    this.visible = false
+    this.visibleChange.emit(false)
+  }
 
 }

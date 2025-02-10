@@ -1,12 +1,13 @@
 <p-dialog
   [(visible)]="visible"
+  (visibleChange) = "visible =$event"
   [modal]="true"
   [style]="{width: '90vw', maxWidth: '900px'}"
   [breakpoints]="{'960px': '90vw', '640px': '100vw'}"
   class="p-fluid"
   [header]="tipoCliente()"
   [closable]="true"
-  (onHide)="visible=false"
+  (onHide)="close()"
 >
   <!-- Toolbar -->
   @if (isVisibleDropdown){
