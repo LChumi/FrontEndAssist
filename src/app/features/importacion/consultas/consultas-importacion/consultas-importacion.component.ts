@@ -67,11 +67,6 @@ export default class ConsultasImportacionComponent implements OnInit {
       return;
     }
 
-    console.log(nroComprobante)
-    console.log(formattedDate)
-    console.log(observacion)
-    console.log(estado)
-
     this.impProdTrancitoService.buscar(
       this.empresa,
       nroComprobante,
@@ -83,7 +78,6 @@ export default class ConsultasImportacionComponent implements OnInit {
       next: (result) => {
         this.loading = false;
         this.impProdTrancitos = result;
-        console.log(result)
       }
     })
   }

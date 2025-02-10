@@ -1,9 +1,10 @@
 export interface Trancito {
-  nroComprobante: string;
-  fecha:          Date;
-  observacion:    string;
-  cantidadPedida: number;
-  fob:            number;
-  fobTotal:       number;
-  tipoDoc:        string;
+  nroComprobante:   string;
+  fecha:            string;
+  observacion:      string;
+  cantidadPedida:   number;
+  fob:              number;
+  fobTotalPedido:    number;
+  fobTotalAprobado: number;
+  tipoDoc:          string;
 }
