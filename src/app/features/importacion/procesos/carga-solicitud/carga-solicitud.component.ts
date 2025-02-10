@@ -63,7 +63,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   item: Items = {} as Items;
 
   proveedor = ''
-  imageUrl: string | null = ''
+  protected imageUrl: string | null = ''
 
   observacion: string = ''
   cco: any

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ImpProdTrancitoService} from "@services/api/imp-prod-trancito.service";
 import {ChipsModule} from "primeng/chips";
 import {FormsModule} from "@angular/forms";
@@ -8,6 +8,9 @@ import {getCurrentDate} from "@utils/date-utils";
 import {getSessionItem} from "@utils/storage-utils";
 import {ImpProdTrancitoVw} from "@models/view/imp-prod-trancito-vw";
 import {TableModule} from "primeng/table";
+import {Ripple} from "primeng/ripple";
+import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
+import {SelectionService} from "@services/state/selection.service";
 
 @Component({
   standalone: true,
@@ -16,14 +19,18 @@ import {TableModule} from "primeng/table";
     FormsModule,
     CalendarModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    Ripple,
+    ModalclienteComponent
   ],
   templateUrl: './consultas-importacion.component.html',
   styles: ``
 })
-export default class ConsultasImportacionComponent implements OnInit {
+export default class ConsultasImportacionComponent implements OnInit, AfterViewInit{
+  @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
 
   private impProdTrancitoService = inject(ImpProdTrancitoService);
+  private seleccionService = inject(SelectionService)
 
   protected impProdTrancitos: ImpProdTrancitoVw[] = []
 
@@ -34,7 +41,8 @@ export default class ConsultasImportacionComponent implements OnInit {
   protected estado: any
   protected estados: any
   protected loading : boolean = false;
-  protected prov : any
+  protected proveedor = ''
+  protected modalVisible = false;
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
@@ -50,6 +58,10 @@ export default class ConsultasImportacionComponent implements OnInit {
 
   find(){
     this.loading = true;
+    let prov!: number;
+    this.seleccionService.clienteSeleccionado$.subscribe(id =>{
+      prov = id
+    })
     const formattedDate = getCurrentDate(this.fecha);
     const nroComprobante = this.nroComprobante ? this.nroComprobante : '';
     const observacion = this.observacion ? this.observacion : '';
@@ -60,6 +72,7 @@ export default class ConsultasImportacionComponent implements OnInit {
     if (observacion) count++;
     if (estado) count++;
     if (formattedDate) count++;
+    if (prov) count++;
 
     if (count < 1){
       alert('No se ha seleccionado ningun campo')
@@ -71,7 +84,7 @@ export default class ConsultasImportacionComponent implements OnInit {
       this.empresa,
       nroComprobante,
       observacion,
-      this.prov,
+      prov,
       formattedDate,
       estado,
     ).subscribe({
@@ -82,4 +95,25 @@ export default class ConsultasImportacionComponent implements OnInit {
     })
   }
 
+  getButtonLabel(): string {
+    if (this.proveedor == '') {
+      return 'Seleccionar Proveedor'
+    } else {
+      return this.proveedor
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.modalcliente.onBtnClick.subscribe(visible => {
+      this.modalVisible = visible
+    })
+    this.modalcliente.onChangeProv.subscribe(prov => {
+      this.proveedor = prov
+      this.find()
+    })
+  }
+
+  abrirModal() {
+    this.modalVisible = !this.modalVisible;
+  }
 }
