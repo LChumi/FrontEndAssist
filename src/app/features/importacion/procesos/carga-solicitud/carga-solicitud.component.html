@@ -124,9 +124,10 @@
                               <th pSortableColumn="fecha">Fecha<p-sortIcon field="fecha"></p-sortIcon></th>
                               <th pSortableColumn="nroComprobante">Numero Comprobante<p-sortIcon field="nroComprobante"></p-sortIcon></th>
                               <th pSortableColumn="observacion">Observación</th>
-                              <th pSortableColumn="cantidadPedida">Cantidad Pedida<p-sortIcon field="cantidadPedida"></p-sortIcon></th>
-                              <th pSortableColumn="fob">FOB<p-sortIcon field="fob"></p-sortIcon></th>
-                              <th pSortableColumn="fobTotal">FOB Total<p-sortIcon field="fobTotal"></p-sortIcon></th>
+                              <th pSortableColumn="cantidadPedida">Cantidad Pedida</th>
+                              <th pSortableColumn="fob">FOB</th>
+                              <th pSortableColumn="fobTotal">FOB Total Pedido</th>
+                              <th pSortableColumn="fobTotal">FOB Total Aprobado</th>
                               <th pSortableColumn="tipoDoc">Tipo Documento</th>
                             </tr>
                           </ng-template>
@@ -137,7 +138,8 @@
                               <td>{{ trancito.observacion }}</td>
                               <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
                               <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
-                              <td class="text-right">{{ trancito.fobTotal | number:'1.4-4' }}</td>
+                              <td class="text-right">{{ trancito.fobTotalPedido | number:'1.4-4' }}</td>
+                              <td class="text-right">{{ trancito.fobTotalAprobado | number:'1.4-4' }}</td>
                               <td>{{ trancito.tipoDoc }}</td>
                             </tr>
                           </ng-template>
