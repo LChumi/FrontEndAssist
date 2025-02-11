@@ -18,13 +18,14 @@
           <label for="observacion" class="text-900 font-semibold">Observación</label>
           <span class="p-input-icon-left">
             <i class="pi pi-bookmark"></i>
-            <input id="observacion" pInputText type="text" placeholder="observacion" [(ngModel)]="observacion" >
+            <input id="observacion" pInputText type="text" placeholder="observacion" [(ngModel)]="observacion">
           </span>
         </div>
 
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <label for="proveedor" class="text-900 font-semibold">Proveedor</label>
-          <button pButton pRipple [label]="getButtonLabel()" id="proveedor" icon="pi pi-search" class="p-button-outlined p-button-secondary"
+          <button pButton pRipple [label]="getButtonLabel()" id="proveedor" icon="pi pi-search"
+                  class="p-button-outlined p-button-secondary"
                   (click)="abrirModal()"></button>
         </div>
 
@@ -67,7 +68,9 @@
               NroComprobante
               <p-sortIcon field="nroComprobante"></p-sortIcon>
             </th>
-            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th pSortableColumn="fecha">Fecha
+              <p-sortIcon field="fecha"></p-sortIcon>
+            </th>
             <th pSortableColumn="proId">Barra</th>
             <th pSortableColumn="proId1">Item</th>
             <th pSortableColumn="proNombre">Producto</th>
@@ -85,19 +88,28 @@
         <!--Cuerpo de la tabla -->
         <ng-template pTemplate="body" let-documento>
           <tr>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{documento.nroComprobante}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 10rem;">{{documento.fecha}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.proId}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:20%; min-width: 20rem;">{{documento.proId1}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:30%; min-width: 30rem;">{{documento.proNombre}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:25%; min-width: 25rem;">{{documento.observacion}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.cantidadPedida}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.cantLlegada}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fob}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fobTotalPedido}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.fobTotalAprobado}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{documento.estado}}</td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{documento.tipoDoc}}</td>
+            <td class="p-text-center p-col-1 p-col-fixed"
+                style="width:15%; min-width: 15rem;">{{ documento.nroComprobante }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 10rem;">{{ documento.fecha }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.proId }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:20%; min-width: 20rem;">{{ documento.proId1 }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed"
+                style="width:30%; min-width: 30rem;">{{ documento.proNombre }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed"
+                style="width:25%; min-width: 25rem;">{{ documento.observacion }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.cantidadPedida }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.cantLlegada }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fob }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fobTotalPedido }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fobTotalAprobado }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{ documento.estado }}
+            </td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.tipoDoc }}</td>
           </tr>
         </ng-template>
 

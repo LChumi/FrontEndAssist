@@ -96,7 +96,7 @@
         <ng-template pTemplate="body" let-documento>
           <tr>
             <td>
-              @if (documento.modId === 'FAC' || documento.modId === 'COM' ){
+              @if (documento.modId === 'FAC' || documento.modId === 'COM') {
                 <button type="button" pButton pRipple
                         class="p-button-text p-button-rounded p-button-plain"
                         label="Ver"
@@ -194,7 +194,7 @@
   </ng-template>
 
 </p-sidebar>
-@if (displayDialog && cco.length>0){
+@if (displayDialog && cco.length > 0) {
   <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
     <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
   </p-dialog>

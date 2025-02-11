@@ -26,7 +26,7 @@ import {SelectionService} from "@services/state/selection.service";
   templateUrl: './consultas-importacion.component.html',
   styles: ``
 })
-export default class ConsultasImportacionComponent implements OnInit, AfterViewInit{
+export default class ConsultasImportacionComponent implements OnInit, AfterViewInit {
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
 
   private impProdTrancitoService = inject(ImpProdTrancitoService);
@@ -40,13 +40,13 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   protected fecha: any;
   protected estado: any
   protected estados: any
-  protected loading : boolean = false;
+  protected loading: boolean = false;
   protected proveedor = ''
   protected modalVisible = false;
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
-    this.estados =[
+    this.estados = [
       {name: 'LIQUIDADO'},
       {name: 'EN PROCESO'},
       {name: 'PRELIQUIDADO PARCIAL'},
@@ -56,10 +56,10 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
     ]
   }
 
-  find(){
+  find() {
     this.loading = true;
     let prov!: number;
-    this.seleccionService.clienteSeleccionado$.subscribe(id =>{
+    this.seleccionService.clienteSeleccionado$.subscribe(id => {
       prov = id
     })
     const formattedDate = getCurrentDate(this.fecha);
@@ -74,7 +74,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
     if (formattedDate) count++;
     if (prov) count++;
 
-    if (count < 1){
+    if (count < 1) {
       alert('No se ha seleccionado ningun campo')
       this.loading = false;
       return;
