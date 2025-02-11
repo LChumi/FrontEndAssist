@@ -25,21 +25,21 @@ import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@util
 
 @Component({
   standalone: true,
-    imports: [
-        AutoCompleteModule,
-        ButtonDirective,
-        CalendarModule,
-        DetalleProductoCcoComponent,
-        DialogModule,
-        DropdownModule,
-        EstadoPipe,
-        FormsModule,
-        InputTextModule,
-        PrimeTemplate,
-        Ripple,
-        SidebarModule,
-        TableModule
-    ],
+  imports: [
+    AutoCompleteModule,
+    ButtonDirective,
+    CalendarModule,
+    DetalleProductoCcoComponent,
+    DialogModule,
+    DropdownModule,
+    EstadoPipe,
+    FormsModule,
+    InputTextModule,
+    PrimeTemplate,
+    Ripple,
+    SidebarModule,
+    TableModule
+  ],
   templateUrl: './monitoreo.component.html',
   styles: ``
 })
@@ -64,7 +64,7 @@ export default class MonitoreoComponent implements OnInit {
   protected tipodoc!: any;
   protected estados: any;
   usrId: any
-  cco:any
+  cco: any
 
   loading = false;
   visibleSidebarFilters = false;
@@ -199,8 +199,8 @@ export default class MonitoreoComponent implements OnInit {
     });
   }
 
-  verDocumento(cco:any){
-    if (cco.length>0){
+  verDocumento(cco: any) {
+    if (cco.length > 0) {
       this.cco = cco;
       this.displayDialog = true;
     }
