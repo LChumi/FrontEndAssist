@@ -29,12 +29,6 @@ export class ImpProdTrancitoService {
     if (proveedor) params = params.set('proveedor', proveedor);
     if (fecha) params = params.set('fecha', fecha);
     if (estado) params = params.set('estado', estado);
-    console.log(empresa)
-    console.log(nroComprobante)
-    console.log(observacion)
-    console.log(proveedor)
-    console.log(fecha)
-    console.log(estado)
     return this.http.get<ImpProdTrancitoVw[]>(`${this.baseUrl}/buscar/prodtrancitos-v`, { params });
   }
 }

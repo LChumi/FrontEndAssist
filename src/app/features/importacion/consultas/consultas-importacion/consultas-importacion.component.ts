@@ -43,6 +43,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   protected loading: boolean = false;
   protected proveedor = ''
   protected modalVisible = false;
+  protected proveedorId : any;
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
@@ -58,14 +59,12 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
 
   find() {
     this.loading = true;
-    let prov!: number;
-    this.seleccionService.clienteSeleccionado$.subscribe(id => {
-      prov = id
-    })
+
     const formattedDate = getCurrentDate(this.fecha);
     const nroComprobante = this.nroComprobante ? this.nroComprobante : '';
     const observacion = this.observacion ? this.observacion : '';
     const estado = this.estado ? this.estado : null;
+    const prov = this.proveedor ? this.proveedorId : null;
 
     let count = 0;
     if (nroComprobante) count++;
@@ -91,6 +90,8 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
       next: (result) => {
         this.loading = false;
         this.impProdTrancitos = result;
+        this.proveedorId = null;
+        this.proveedor = ''
       }
     })
   }
@@ -109,6 +110,9 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
     })
     this.modalcliente.onChangeProv.subscribe(prov => {
       this.proveedor = prov
+      this.seleccionService.clienteSeleccionado$.subscribe(id => {
+        this.proveedorId = id
+      })
       this.find()
     })
   }
