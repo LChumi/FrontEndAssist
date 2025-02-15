@@ -43,7 +43,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   protected loading: boolean = false;
   protected proveedor = ''
   protected modalVisible = false;
-  protected proveedorId : any;
+  protected proveedorId: any;
 
   ngOnInit(): void {
     this.empresa = getSessionItem("empresa");
