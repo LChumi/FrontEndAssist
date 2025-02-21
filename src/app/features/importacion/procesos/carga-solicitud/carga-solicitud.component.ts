@@ -115,11 +115,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
     this.loading = true
     const files = event.files
     if (files.length === 0) {
-      this.messageService.add({
-        severity: 'warm',
-        summary: 'Error',
-        detail: 'No hay archivos para enviar'
-      });
+      this.message('warn', 'Error', 'No hay archivos para enviar')
       return
     }
 
