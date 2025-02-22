@@ -81,6 +81,7 @@
                     <th pSortableColumn="cbmTotal">CBM Total</th>
                     <th pSortableColumn="fobTotal">FOB Total</th>
                     <th pSortableColumn="trancito">Tránsito</th>
+                    <th pSortableColumn="trancito">Estado</th>
                     <th style="position: sticky; right: 0; top: 0; z-index: 1;"></th>
                   </tr>
                 </ng-template>
@@ -93,8 +94,8 @@
                                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                       }
                     </td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
                     <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
-                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.item }}</td>
                     <td>{{ item.item }}</td>
                     <td class="text-right">{{ item.cantidad }}
                     <td class="text-right">{{ item.codFabrica }}</td>
@@ -105,6 +106,11 @@
                     <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
                     <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
                     <td class="text-right">{{ item.trancito }}</td>
+                    <td class="text-right">
+                      <span [class]="'item-badge status-' + item.status.toLowerCase()">
+                        {{ item.status }}
+                      </span>
+                    </td>
                     <td style="position: sticky; right: 0; top: 0; z-index: 1;">
                       <span class="flex">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"

@@ -4,7 +4,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
 
 export const returnGuard: CanDeactivateFn<unknown> = (component, currentRoute, currentState, nextState) => {
   const confirmationService = inject(ConfirmationService);
-  const toastService = inject(MessageService);
 
   return new Promise<boolean>((resolve) => {
     confirmationService.confirm({
