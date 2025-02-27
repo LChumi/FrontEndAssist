@@ -13,5 +13,6 @@ export const authRoutes: Routes = [
     path: 'empresas',
     loadComponent: () => import('@features/auth/empresa/empresa.component')
   },
-  {path: '', redirectTo: 'login', pathMatch: "full"}
+  {path: '', redirectTo: 'login', pathMatch: "full"},
+  {path: '**', redirectTo: 'login', pathMatch: "full"}
 ]

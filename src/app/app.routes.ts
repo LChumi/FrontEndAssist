@@ -6,6 +6,7 @@ import {PrivacyPolicyComponent} from "@features/privacy-policy/privacy-policy.co
 import {importacionesRoutes} from "@features/importacion/importaciones.routes";
 import {authRoutes} from "@features/auth/auth.routes";
 import {contabilidadRoutes} from "@features/contabilidad/contabilidad.routes";
+import {sessionGuard} from "@guards/session.guard";
 
 export const routes: Routes = [
   {
@@ -17,6 +18,8 @@ export const routes: Routes = [
       },
       {
         path: 'inicio', component: LayoutComponent,
+        canActivate:[sessionGuard],
+        canActivateChild:[sessionGuard],
         children: [
           {
             path: 'dashboard',
