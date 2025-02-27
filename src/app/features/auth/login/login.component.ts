@@ -11,7 +11,7 @@ import {UsuarioService} from "@services/api/usuario.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
-import {setSessionItem} from "@utils/index";
+import {getSessionItem, setSessionItem} from "@utils/index";
 
 @Component({
   standalone: true,
@@ -41,6 +41,7 @@ export default class LoginComponent implements OnInit {
   private messageService = inject(MessageService)
 
   ngOnInit(): void {
+    this.getSession()
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
       password: ['', Validators.required]
@@ -65,7 +66,7 @@ export default class LoginComponent implements OnInit {
         setSessionItem('nombre', user.nombre)
         setSessionItem('username', user.username)
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
-        this.goToDashboard()
+        this.goToEmpresas()
       }, error: (error: ErrorResponse) => {
         this.messageService.add({
           severity: 'warn',
@@ -76,8 +77,18 @@ export default class LoginComponent implements OnInit {
     })
   }
 
-  goToDashboard() {
+  goToEmpresas() {
     this.router.navigate(['/assist', 'auth', 'empresas']).then(r => {})
+  }
+
+  private getSession(){
+    setTimeout(() => {
+      const usrId = getSessionItem("usrId")
+      if (usrId){
+        this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: 'Sesión iniciada', life: 2000})
+        this.goToEmpresas()
+      }
+    },500)
   }
 
 }
