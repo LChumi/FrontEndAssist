@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrlBase: `http://assist.cumpleanos.com.ec/api/`,
+  apiUrlBase: `https://assist.cumpleanos.com.ec/api/`,
   production: true
 };
