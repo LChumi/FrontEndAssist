@@ -13,20 +13,24 @@
                         [(ngModel)]="fecha"></p-calendar>
           </div>
           <div class="col-12 lg:col-2 field uppercase">
-            <p-autoComplete
+            <p-dropdown
               inputId="sigla"
               placeholder="Sigla"
               [(ngModel)]="sigla"
-              [suggestions]="filteredSiglas"
-              (completeMethod)="searchSigla($event)"
-              field="ctiId"
-              (input)="convertToUpperCase($event)">
-            </p-autoComplete>
+              [options]="siglas"
+              optionLabel="ctiId"
+            >
+            </p-dropdown>
 
           </div>
           <div class="col-12 lg:col-2 field">
-            <p-dropdown inputId="almacen" placeholder="Almacen" [options]="almacenes" [(ngModel)]="almacenSelected"
-                        optionLabel="almId" (onChange)="onAlmacenChange($event)">
+            <p-dropdown
+              inputId="almacen"
+              placeholder="Almacen"
+              [options]="almacenes"
+              [(ngModel)]="almacenSelected"
+              optionLabel="almId"
+              (onChange)="onAlmacenChange($event)">
               <ng-template pTemplate="selectedItem">
                 <div class="flex align-items-center">
                   <div class="flex-shrink-0 w-1rem h-1rem mr-2 border-circle"
