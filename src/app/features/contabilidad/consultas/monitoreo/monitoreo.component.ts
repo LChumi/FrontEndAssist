@@ -72,7 +72,6 @@ export default class MonitoreoComponent implements OnInit {
 
   protected almacenes: Almacen[] = [];
   protected siglas: Ctipocom[] = [];
-  protected filteredSiglas: Ctipocom[] = [];
   protected tipoDocs: Tipodoc[] = [];
   protected listaComprobantes: ListCcomprobaV[] = []
 
@@ -95,26 +94,6 @@ export default class MonitoreoComponent implements OnInit {
 
   onAlmacenChange(event: any) {
     this.almacenSelected = event.value;
-  }
-
-  searchSigla(event: any) {
-    const filtered: any[] = []
-    const query = event.query;
-
-    for (let i = 0; i < this.siglas.length; i++) {
-      const sig = this.siglas[i];
-      if (sig.ctiId.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(sig);
-      }
-    }
-    this.filteredSiglas = filtered;
-  }
-
-
-  convertToUpperCase(event: any) {
-    const input = event.target;
-    input.value = input.value.toUpperCase();
-    this.sigla = input.value;
   }
 
   getAlmacenes() {
