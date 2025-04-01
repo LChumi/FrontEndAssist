@@ -40,7 +40,7 @@ export default class DeunaComponent implements OnInit {
       this.empresa = params.get('empresa')
     })
     this.parameterIsNumeric(this.usrLiquida)
-    this.obtenerQr()
+    this.verificarPago()
   }
 
   parameterIsNumeric(data: string) {
@@ -64,10 +64,22 @@ export default class DeunaComponent implements OnInit {
     })
   }
 
+  verificarPago() {
+    this.deunaService.verificarPago(this.usrLiquida, this.empresa).subscribe({
+      next: data => {
+        if (data.status){
+          this.confirm()
+        }else{
+          this.obtenerQr()
+        }
+      }
+    })
+  }
+
   validarQr() {
     this.value = 0;
     const intervalTime = 2000; // 2 segundos
-    const maxTime = 60000; // 1 1/2 minuto
+    const maxTime = 90000; // 1 1/2 minuto
     const steps = maxTime / intervalTime;
     const increment = 100 / steps;
 
