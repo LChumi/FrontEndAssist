@@ -79,7 +79,7 @@ export default class DeunaComponent implements OnInit {
   validarQr() {
     this.value = 0;
     const intervalTime = 2000; // 2 segundos
-    const maxTime = 90000; // 1 1/2 minuto
+    const maxTime = 180000; // 1 1/2 minuto
     const steps = maxTime / intervalTime;
     const increment = 100 / steps;
 
