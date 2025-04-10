@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {PaymentResponse} from "@models/record/payment-response";
 import {InfoResponse} from "@models/record/info-response";
-import {ResponseRecord} from "@models/record/response-record";
+import {ServiceResponse} from "@models/record/service-response";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class DeunaService {
     return this.http.get<InfoResponse>(`${this.baseUrl}/validar-pago/${usrLiq}/${empresa}`)
   }
 
-  verificarPago(usrLiq: number, empresa: number): Observable<ResponseRecord> {
-    return this.http.get<ResponseRecord>(`${this.baseUrl}/verificar-pago-existente/${usrLiq}/${empresa}`)
+  verificarPago(usrLiq: number, empresa: number): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(`${this.baseUrl}/verificar-pago-existente/${usrLiq}/${empresa}`)
   }
 }

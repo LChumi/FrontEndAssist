@@ -67,7 +67,8 @@ export default class DeunaComponent implements OnInit {
   verificarPago() {
     this.deunaService.verificarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
-        if (data.status){
+        if (data.success){
+          console.log(data.success)
           this.confirm()
         }else{
           this.obtenerQr()
