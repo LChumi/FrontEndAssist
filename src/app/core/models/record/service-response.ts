@@ -1,4 +1,4 @@
 export interface ServiceResponse {
   message: string;
-  success: boolean;
+  success:  boolean;
 }
