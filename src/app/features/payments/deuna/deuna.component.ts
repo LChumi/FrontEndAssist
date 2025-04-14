@@ -80,12 +80,13 @@ export default class DeunaComponent implements OnInit {
   validarQr() {
     this.value = 0;
     const intervalTime = 2000; // 2 segundos
-    const maxTime = 180000; // 1 1/2 minuto
+    const maxTime = 36000; // 3 minuto
     const steps = maxTime / intervalTime;
     const increment = 100 / steps;
 
     this.subscription = interval(intervalTime).subscribe(() => {
       this.value += increment;
+      console.log(this.value)
       if (this.value >= 100) {
         this.subscription?.unsubscribe();
       }
