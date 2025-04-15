@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
-import {BodegaDto} from "@models/dto/bodega-dto";
+import {UsrDto} from "@models/dto/usr-dto";
 import {FormsModule} from "@angular/forms";
 import {UsrBodService} from "@services/api/usr-bod.service";
 import {SelectionService} from "@services/state/selection.service";
@@ -18,8 +18,8 @@ import {getSessionItem} from "@utils/storage-utils";
 })
 export class SeleccionBodegasComponent implements OnInit {
 
-  bodegas: BodegaDto[] =[]
-  bodegaSelected: BodegaDto ={} as BodegaDto;
+  bodegas: UsrDto[] =[]
+  bodegaSelected: UsrDto ={} as UsrDto;
 
   usrBodService = inject(UsrBodService)
   seleccionService = inject(SelectionService)

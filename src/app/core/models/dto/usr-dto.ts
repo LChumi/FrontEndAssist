@@ -1,4 +1,4 @@
-export interface BodegaDto {
+export interface UsrDto {
   empresa:    number;
   codigo:     number;
   bodId:      string;

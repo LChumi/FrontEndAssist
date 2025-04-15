@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from "@environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {BodegaDto} from "@models/dto/bodega-dto";
+import {UsrDto} from "@models/dto/usr-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UsrBodService {
 
   constructor() { }
 
-  listBodegas(usrId: number, empresa: number): Observable<BodegaDto[]> {
-    return this.http.get<BodegaDto[]>(`${this.baseUrl}/bodegas/usuario/${usrId}/${empresa}`, {})
+  listBodegas(usrId: number, empresa: number): Observable<UsrDto[]> {
+    return this.http.get<UsrDto[]>(`${this.baseUrl}/bodegas/usuario/${usrId}/${empresa}`, {})
   }
 }
