@@ -1,0 +1,23 @@
+import { Component } from '@angular/core';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ImageModule} from "primeng/image";
+import {ProgressBarModule} from "primeng/progressbar";
+import {ToastModule} from "primeng/toast";
+
+@Component({
+  standalone: true,
+  imports: [
+    ConfirmDialogModule,
+    ImageModule,
+    ProgressBarModule,
+    ToastModule
+  ],
+  templateUrl: './jep-faster.component.html',
+  styles: ``
+})
+export class JepFasterComponent {
+
+  private static base64= 'data:image/png;base64,'
+  private static prueba ='iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAIAAAAHjs1qAAAEw0lEQVR42u3aQVLDQBAEQf//0/ABDgTsdI+0WWeQsZTi0LGfL+maPm6BcJdwl3CXcJdwl3CXcJdwl3CXcJdwF+4S7hLuEu4S7hLuEu4S7hLuEu4S7sJdwl3C/afLVfvN3zP3TU/91qkrz93D7jPFHXfccccdd9xxxx133HHHHXfczyKY+6wkneQ33Xafn/JZuOOOO+6444477rjjjjvuuOOOe3JkPAWlO2h2X79tzxR33HHHHXfccccdd9xxxx133HF/E/fuZ83BTV4Hd9xxxx133HHHHXfccccdd9xxx/1vf+F+yslvijvuuOOOO+6444477rjjjjvuuL+b+xNfrSTK7rfY/0xxxx133HHHHXfccccdd9xxxx33/4xfyVHPz2w++pZ8aXH3M7jj7mdwx93P4I477rjjjvsN3J9Ycpqce413Hsla96xxxx133HHHHXfccccdd9xxx/3V3E/R2Xa0K/kt9g9/yfkSd9xxxx133HHHHXfccccdd9xxP/sCdMF1X+zut+g+i+QEjDvuuOOOO+6444477rjjjjvud3JPTlRz4+Dcw+se7UoePtuAG3fccccdd9xxxx133HHHHXfccU9Ob9ugJAfNuetsm0pxxx133HHHHXfccccdd9xxxx33PPfkjLXt4SXn3e40aYjEHXfccccdd9xxxx133HHHHfdpKF24ySNZSZTdOXXbPyzccccdd9xxxx133HHHHXfcccd9ww3dNqd258vuQTfccccdd9xxxx133HHHHXfcccf9udxPXXnbgac5Xt3P6l4Zd9xxxx133HHHHXfccccdd9zv5L5tMkserkpeOXkUb+6fCO6444477rjjjjvuuOOOO+64476T8jY6T0TwCbbtnwjuuOOOO+6444477rjjjjvuuN/JvXuQqztNdqEkp8ltdwN33HHHHXfccccdd9xxxx133HF/0/SWnMzm4Havs3OaxB133HHHHXfccccdd9xxxx3327gnX5s5TN0pMEl523iKO+6444477rjjjjvuuOOOO+64P2WInHshk6Pezglv4h7mXwDccccdd9xxxx133HHHHXfccX8392TdY1Ldw1XJ79WdU3HHHXfccccdd9xxxx133HHHHfc3wZ37rblR7+bpFnfccccdd9xxxx133HHHHXfccT8Ld+6G7p/e7plccccdd9xxxx133HHHHXfccccd96cMkd2J84nj6dwUmLwb07hxxx133HHHHXfccccdd9xxx/027tumru74lQTXnYl3zo6444477rjjjjvuuOOOO+6444578uElh7ZTn9XFlLw/K4Zp3HHHHXfccccdd9xxxx133HG/nvvc4aouwe7EOXdArftZuOOOO+6444477rjjjjvuuOOO+3O5dwe7/S9/9xAb7rjjjjvuuOOOO+6444477rjjjntynkuOcXP3J/my4Y477rjjjjvuuOOOO+6444477tO3OPlqJa+8/7hV9/7kwx133HHHHXfccccdd9xxxx3327h3B7tT49fcdZL3OTkgdu8P7rjjjjvuuOOOO+6444477rjfyV3aHO7CXcJdwl3CXcJdwl3CXcJdwl3CXcJduEu4S7hLuEu4S7hLuEu4S7hLuEu4C3cJd+klfQP2N9Mi5A0gdgAAAABJRU5ErkJggg=='
+  protected imageBase64: string | null = JepFasterComponent.base64+JepFasterComponent.prueba;
+}

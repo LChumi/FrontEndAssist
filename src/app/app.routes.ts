@@ -7,6 +7,7 @@ import {importacionesRoutes} from "@features/importacion/importaciones.routes";
 import {authRoutes} from "@features/auth/auth.routes";
 import {contabilidadRoutes} from "@features/contabilidad/contabilidad.routes";
 import {sessionGuard} from "@guards/session.guard";
+import {JepFasterComponent} from "@features/payments/jep-faster/jep-faster.component";
 
 export const routes: Routes = [
   {
@@ -43,6 +44,7 @@ export const routes: Routes = [
   },
   {path: 'notFound', component: NotFoundComponent},
   {path: 'deuna/:id/:empresa', component: DeunaComponent},
+  {path: 'jep-faster/:id/:empresa', component: JepFasterComponent},
   {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
   {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
