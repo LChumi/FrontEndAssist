@@ -8,6 +8,7 @@ import {ToastModule} from "primeng/toast";
 import {FileUploadModule} from "primeng/fileupload";
 import {interval, Subscription} from "rxjs";
 import {ErrorResponse} from "@models/error/error-response";
+import { parameterIsNumeric } from "@utils/index";
 
 @Component({
   standalone: true,
@@ -39,16 +40,12 @@ export default class DeunaComponent implements OnInit {
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')
     })
-    this.parameterIsNumeric(this.usrLiquida)
+   if(parameterIsNumeric(this.usrLiquida)){
+     return;
+   }
     this.verificarPago()
   }
 
-  parameterIsNumeric(data: string) {
-    if (data && !/^\d+$/.test(data)) {
-      console.error('El ID debe ser un numero')
-      return;
-    }
-  }
 
   obtenerQr() {
     this.deunaService.generarPago(this.usrLiquida, this.empresa).subscribe({
