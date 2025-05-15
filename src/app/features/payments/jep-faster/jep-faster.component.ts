@@ -38,12 +38,13 @@ export class JepFasterComponent implements OnInit{
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')
     })
-    if (parameterIsNumeric(this.usrLiquida)){
+    if (!parameterIsNumeric(this.usrLiquida)){
       return;
     }
+    this.verificarPagoJep()
   }
 
-  verificarPago() {
+  verificarPagoJep() {
     this.jepService.verificarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
         if (data.success){
@@ -52,6 +53,8 @@ export class JepFasterComponent implements OnInit{
         }else{
           this.obtenerQr()
         }
+      }, error: err => {
+        this.error(err.message, err.message)
       }
     })
   }

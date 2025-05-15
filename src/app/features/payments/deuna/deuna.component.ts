@@ -40,7 +40,7 @@ export default class DeunaComponent implements OnInit {
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')
     })
-   if(parameterIsNumeric(this.usrLiquida)){
+   if(!parameterIsNumeric(this.usrLiquida)){
      return;
    }
     this.verificarPago()
@@ -70,6 +70,9 @@ export default class DeunaComponent implements OnInit {
         }else{
           this.obtenerQr()
         }
+      },
+      error: err => {
+        this.error(err.message, err.message)
       }
     })
   }
