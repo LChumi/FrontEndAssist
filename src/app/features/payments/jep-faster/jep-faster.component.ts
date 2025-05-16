@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ActivatedRoute} from "@angular/router";
 import {ImageModule} from "primeng/image";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ToastModule} from "primeng/toast";
-import {ActivatedRoute} from "@angular/router";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {JepfasterService} from "@services/api/jepFasterServices/jepfaster.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
@@ -23,12 +23,11 @@ export class JepFasterComponent implements OnInit{
 
   private route = inject(ActivatedRoute);
   private jepService = inject(JepfasterService);
-  private confirmationService = inject(ConfirmationService);
+  private confirmacionService = inject(ConfirmationService);
   private toast = inject(MessageService);
 
   protected usrLiquida: any;
   protected empresa: any;
-
 
   private static base64= 'data:image/png;base64,'
   protected imageBase64: string | null = null
@@ -48,13 +47,14 @@ export class JepFasterComponent implements OnInit{
     this.jepService.verificarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
         if (data.success){
-          console.log(data.success)
           this.confirm()
         }else{
           this.obtenerQr()
         }
-      }, error: err => {
+      },
+      error: err => {
         this.error(err.message, err.message)
+        return;
       }
     })
   }
@@ -89,7 +89,8 @@ export class JepFasterComponent implements OnInit{
   }
 
   confirm() {
-    this.confirmationService.confirm({
+    this.confirmacionService.confirm({
+      key: 'jepFast',
       message: 'El pago fue realizado exitosamente por favor cierre la ventana',
       header: 'Confirmacion',
       icon: 'pi pi-window-minimize',
@@ -105,9 +106,10 @@ export class JepFasterComponent implements OnInit{
   }
 
   error(error: any, message: string) {
-    this.confirmationService.confirm({
+    this.confirmacionService.confirm({
+      key: 'jepFast',
       message: message,
-      header: 'Confirmacion',
+      header: 'Advertencia',
       icon: 'pi pi-exclamation-circle',
       accept: () => {
         this.toast.add({key: 'tst', severity: 'warn', summary: error, detail: 'Cierre la ventana por favor'})
