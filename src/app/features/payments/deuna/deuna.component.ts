@@ -65,7 +65,6 @@ export default class DeunaComponent implements OnInit {
     this.deunaService.verificarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
         if (data.success){
-          console.log(data.success)
           this.confirm()
         }else{
           this.obtenerQr()
@@ -109,6 +108,7 @@ export default class DeunaComponent implements OnInit {
 
   confirm() {
     this.confirmatioService.confirm({
+      key: 'deuna',
       message: 'El pago fue realizado exitosamente por favor cierre la ventana',
       header: 'Confirmacion',
       icon: 'pi pi-window-minimize',
@@ -125,6 +125,7 @@ export default class DeunaComponent implements OnInit {
 
   error(error: any, message: string) {
     this.confirmatioService.confirm({
+      key: 'deuna',
       message: message,
       header: 'Confirmacion',
       icon: 'pi pi-exclamation-circle',
