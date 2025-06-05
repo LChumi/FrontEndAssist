@@ -91,6 +91,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
         this.loading = false;
         this.impProdTrancitos = result;
         this.proveedorId = null;
+        this.estado = null;
         this.proveedor = 'Seleccionar Proveedor'
       }
     })
