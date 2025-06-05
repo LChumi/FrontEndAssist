@@ -63,7 +63,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
     const formattedDate = getCurrentDate(this.fecha);
     const nroComprobante = this.nroComprobante ? this.nroComprobante : '';
     const observacion = this.observacion ? this.observacion : '';
-    const estado = this.estado ? this.estado : null;
+    const estado = this.estado.name ? this.estado.name : null;
     const prov = this.proveedor ? this.proveedorId : null;
 
     let count = 0;
