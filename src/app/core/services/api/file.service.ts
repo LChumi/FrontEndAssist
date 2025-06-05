@@ -22,11 +22,11 @@ export class FileService {
     formData.append('file', file);
     formData.append('empresa', empresa);
 
-    return this.http.post<Items[]>(`${this.baseUrl}/excel/solicitud`, formData)
+    return this.http.post<Items[]>(`${this.baseUrl}/importaciones/excel/solicitud`, formData)
   }
 
   confirmarSolicitud(request: SolicitudRequestDTO): Observable<SciResponse> {
-    return this.http.post<SciResponse>(`${this.baseUrl}/confirmar/solicitud`, request);
+    return this.http.post<SciResponse>(`${this.baseUrl}/importaciones/confirmar/solicitud`, request);
   }
 
 }
