@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {getSessionItem} from "@utils/index";
+import {ErrorResponse} from "@models/error/error-response";
 
 @Component({
   standalone: true,
@@ -57,39 +58,24 @@ export default class CargaDocumentosComponent implements OnInit {
       return;
     }
 
-    let successCount = 0;
-    let errorCount = 0;
-
     files.forEach((file: File) => {
       this.contabilidadService.sendFile(file, this.emailEmpresa).subscribe({
-        next: success => {
-          if (success) {
-            successCount++;
+        next: response => {
+          if (response.success) {
+            this.messageService.add({severity: 'success', summary: 'Envio completado', detail: response.message});
+            this.loading = false;
           } else {
-            errorCount++;
+            this.messageService.add({severity: 'warn', summary: 'Advertencia', detail: response.message});
+            this.loading = false;
           }
-          this.checkBatchCompletion(successCount, errorCount, files.length);
         },
-        error: error => {
+        error: (error: ErrorResponse) => {
           console.error('Error enviando archivo:', file.name, error);
-          errorCount++;
-          this.checkBatchCompletion(successCount, errorCount, files.length);
+          this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
+          this.loading = false;
         }
       });
     });
-  }
-
-  checkBatchCompletion(successCount: number, errorCount: number, totalFiles: number) {
-    if (successCount + errorCount === totalFiles) {
-      this.loading = false;
-
-      const summary = `${successCount} archivo(s) enviado(s) exitosamente, ${errorCount} error(es).`;
-      this.messageService.add({
-        severity: errorCount > 0 ? 'warn' : 'success',
-        summary: 'Envío completado',
-        detail: summary
-      });
-    }
   }
 
   onFilesSelected(event: any) {
