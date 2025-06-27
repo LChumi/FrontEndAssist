@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {getSessionItem} from "@utils/index";
 import {ErrorResponse} from "@models/error/error-response";
+import {forkJoin, Observable} from "rxjs";
+import {ServiceResponse} from "@models/record/service-response";
 
 @Component({
   standalone: true,
@@ -50,32 +52,35 @@ export default class CargaDocumentosComponent implements OnInit {
     this.loading = true;
     const files = event.files;
     if (files.length === 0) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Error',
-        detail: 'No hay archivos para enviar'
-      });
+      this.messageService.add({severity: 'warn', summary: 'Error', detail: 'No hay archivos para enviar'});
+      this.loading = false;
       return;
     }
 
-    files.forEach((file: File) => {
-      this.contabilidadService.sendFile(file, this.emailEmpresa).subscribe({
-        next: response => {
+    const requests: Observable<ServiceResponse>[] = files.map((file: File) =>
+      this.contabilidadService.sendFile(file, this.emailEmpresa)
+    );
+
+    forkJoin(requests).subscribe({
+      next: (responses: ServiceResponse[]) => {
+        responses.forEach((response) => {
           if (response.success) {
-            this.messageService.add({severity: 'success', summary: 'Envio completado', detail: response.message});
-            this.loading = false;
+            this.messageService.add({severity: 'success', summary: 'Envío completado', detail: response.message});
           } else {
             this.messageService.add({severity: 'warn', summary: 'Advertencia', detail: response.message});
-            this.loading = false;
           }
-        },
-        error: (error: ErrorResponse) => {
-          console.error('Error enviando archivo:', file.name, error);
-          this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
-          this.loading = false;
-        }
-      });
+        });
+        this.loading = false;
+      },
+      error: (error: ErrorResponse) => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      }
     });
+
   }
 
   onFilesSelected(event: any) {

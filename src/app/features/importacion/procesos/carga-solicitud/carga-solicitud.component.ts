@@ -22,6 +22,7 @@ import {getSessionItem} from "@utils/index";
 import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
+import {forkJoin, Observable} from "rxjs";
 
 @Component({
   standalone: true,
@@ -114,30 +115,40 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   onUpload(event: any) {
     this.loading = true
     const files = event.files
+
     if (files.length === 0) {
       this.message('warn', 'Error', 'No hay archivos para enviar')
+      this.loading = false
       return
     }
 
-    files.forEach((file: File) => {
-      this.fileService.sendExcel(file, this.idEmpresa).subscribe({
-        next: (response) => {
-          if (response.length == 0) {
-            this.message('warn', 'Advertencia', 'El archivo esta vacio')
-            this.loading = false
-            this.listItems = []
+    const requests: Observable<Items[]>[] = files.map((file: File) =>
+      this.fileService.sendExcel(file, this.idEmpresa)
+    );
+
+    forkJoin(requests).subscribe({
+      next: (responses: Items[][]) => {
+        responses.forEach((response) => {
+          if (response.length === 0) {
+            this.message('warn', 'Advertencia', 'El archivo está vacío');
+          } else {
+            this.message('success', 'Envío completo', 'Archivo enviado exitosamente');
           }
-          this.message('success', 'Envio completo', 'archivo enviado exitosamente')
-          this.listItems = response
-          this.loading = false
-        },
-        error: (error: ErrorResponse) => {
-          this.message('error', 'Error', error.message)
-          this.listItems = []
-          this.loading = false
-        },
-      });
-    })
+        });
+
+        this.listItems = responses.flat();
+        this.loading = false;
+      },
+      error: (error: ErrorResponse) => {
+        this.message('error', 'Error', error.message);
+        this.listItems = [];
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
+
   }
 
   message(severity: string, summary: string, detail: string) {
