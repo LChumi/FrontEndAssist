@@ -3,6 +3,7 @@ import {environment} from "@environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
 import {Empleado} from "@models/entities/empleado";
+import {ServiceResponse} from "@models/record/service-response";
 
 @Injectable({
   providedIn: 'root'
@@ -19,27 +20,15 @@ export class ContabilidadService {
     return this.http.get<Empleado>(`${this.baseUrl}models/empleado/id-usuario/${usuarioId}`)
   }
 
-  sendString(data: string, email: string): Observable<boolean> {
+  sendString(data: string, email: string): Observable<ServiceResponse> {
     const params = new HttpParams().set('email', email);
-    return this.http.post<boolean>(`${this.baseUrl}recp/string`, data, {params})
-      .pipe(
-        catchError(error => {
-          console.error('Error sending string:', error);
-          return of(false); // Retorna false en caso de error
-        })
-      );
+    return this.http.post<ServiceResponse>(`${this.baseUrl}recp/string`, data, {params})
   }
 
-  sendFile(file: File, email: string): Observable<boolean> {
+  sendFile(file: File, email: string): Observable<ServiceResponse> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('email', email);
-    return this.http.post<boolean>(`${this.baseUrl}recp/file`, formData)
-      .pipe(
-        catchError(error => {
-          console.error('Error sending file:', error);
-          return of(false); // Retorna false en caso de error
-        })
-      );
+    return this.http.post<ServiceResponse>(`${this.baseUrl}recp/file`, formData)
   }
 }
