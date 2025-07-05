@@ -1,0 +1,29 @@
+User-agent: *
+Disallow: /assist/auth/
+Disallow: /assist/inicio/
+Disallow: /deuna/
+Disallow: /jep-faster/
+Disallow: /notFound
+
+Allow: /cumpleanos/politica-privacidad
+
+User-agent: EtaoSpider
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GoogleAgent-Mariner
+Disallow: /
+
+User-agent: GoogleAgent-Shopping
+Disallow: /
