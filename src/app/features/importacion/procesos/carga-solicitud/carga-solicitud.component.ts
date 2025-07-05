@@ -107,7 +107,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   }
 
   unloadNotification($event: any) {
-    const message = 'Tienes cambios sin guardar. ¿Estas seguro que quieres sali?';
+    const message = 'Tienes cambios sin guardar. ¿Estas seguro que quieres salir?';
     $event.returnValue = message;
     return message;
   }
