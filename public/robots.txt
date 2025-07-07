@@ -1,11 +1,15 @@
 User-agent: *
 Disallow: /assist/auth/
-Disallow: /assist/inicio/
+Disallow: /notFound
 Disallow: /deuna/
 Disallow: /jep-faster/
-Disallow: /notFound
-
+Allow: /assist/inicio/
+Allow: /assist/inicio/dashboard/
+Allow: /assist/inicio/importaciones/
+Allow: /assist/inicio/contabilidad/
 Allow: /cumpleanos/politica-privacidad
+
+Sitemap: https://assist.cumpleanos.com.ec/sitemap.xml
 
 User-agent: EtaoSpider
 Disallow: /
