@@ -22,6 +22,7 @@ export default class DashboardComponent implements OnInit {
   fecha: any;
   hora: any;
   favoritos: UsuarioFavoritos[] = [];
+  layout: any = 'grid';
 
   private favoritoService = inject(FavoritesService)
   private accesoService = inject(AccesoService)

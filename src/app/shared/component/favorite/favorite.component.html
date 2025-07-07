@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="flex gap-2 sm:ml-auto">
-    <button type="button" pButton pTooltip="Marcar como Favorito" tooltipPosition="bottom"
+    <button type="button" pButton pTooltip="Marcar como Favorito" tooltipPosition="bottom" aria-label="Marcar como Favorito"
             [icon]="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
             class="p-button-rounded p-button-outlined"
             (click)="toggleFavorite()"></button>
