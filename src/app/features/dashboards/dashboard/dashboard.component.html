@@ -6,7 +6,10 @@
           <img [src]="imageUsr" class="w-4rem h-4rem flex-shrink-0" alt="profileUser">
         }
         <div class="flex flex-column align-items-center sm:align-items-start">
-          <span class="text-900 font-bold text-2xl uppercase">Bienvenido {{ nombre }} </span>
+          <h1 class="text-800 font-bold text-2xl uppercase">
+            Bienvenido {{ nombre || '' }}
+          </h1>
+
           <p class="text-600 m-0">{{ fecha }} {{ hora }}</p>
         </div>
       </div>
@@ -14,11 +17,31 @@
   </div>
   <div class="col-12">
     <h5>Favoritos</h5>
-    <p-dataView #fv [value]="favoritos" [paginator]="true" [rows]="9" filterBy="name" layout="grid"
+    <p-dataView #fv [value]="favoritos" [paginator]="true" [rows]="9" filterBy="name" [layout]="layout"
                 [emptyMessage]="'No tienes paginas agregadas a favoritos'">
       <ng-template pTemplate="header">
         <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
-          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="p-button p-button-icon-only"
+              aria-label="Vista de lista"
+              [class.p-highlight]="layout === 'list'"
+              (click)="layout = 'list'"
+            >
+              <i class="pi pi-bars" aria-hidden="true"></i>
+            </button>
+
+            <button
+              type="button"
+              class="p-button p-button-icon-only"
+              aria-label="Vista de cuadrícula"
+              [class.p-highlight]="layout === 'grid'"
+              (click)="layout = 'grid'"
+            >
+              <i class="pi pi-th-large" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </ng-template>
 

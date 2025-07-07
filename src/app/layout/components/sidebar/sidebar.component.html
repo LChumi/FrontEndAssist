@@ -1,7 +1,7 @@
 <div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <div class="sidebar-header">
     <a [routerLink]="['/assist/inicio/dashboard']" class="app-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" class="app-logo-normal">
+      <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" class="app-logo-normal" aria-label="Home">
         <!-- Imagen -->
         <image href="/images/logos/logo_assist.webp" x="0" y="0" height="75" width="75"/>
         <!-- Texto ASSIST -->
@@ -11,7 +11,7 @@
       </svg>
       <img ngSrc="/images/logos/logoAssist.webp" class="app-logo-small" alt="Logo" height="34" width="32">
     </a>
-    <button class="layout-sidebar-anchor p-link z-2 mb-2" type="button" (click)="anchor()"></button>
+    <button class="layout-sidebar-anchor p-link z-2 mb-2" aria-label="anchor" type="button" (click)="anchor()"></button>
   </div>
 
 

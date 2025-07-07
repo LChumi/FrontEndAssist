@@ -27,7 +27,8 @@ import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
       <div *ngIf="root && item.visible !== false" class="layout-menuitem-root-text">{{ item.label }}</div>
       <a
         *ngIf="(!item.routerLink || item.items) && item.visible !== false"
-        [attr.href]="item.url"
+        href="javascript:void(0);"
+        role="button"
         (click)="itemClick($event)"
         (mouseenter)="onMouseEnter()"
         [ngClass]="item.class"
@@ -36,6 +37,7 @@ import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
         pRipple
         [pTooltip]="item.label"
         [tooltipDisabled]="!(isSlim && root && !active)"
+        [attr.aria-label]="item.label"
       >
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span class="layout-menuitem-text">{{ item.label }}</span>
@@ -61,6 +63,7 @@ import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
         pRipple
         [pTooltip]="item.label"
         [tooltipDisabled]="!(isSlim && root)"
+        [attr.aria-label]="item.label"
       >
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span class="layout-menuitem-text">{{ item.label }}</span>
