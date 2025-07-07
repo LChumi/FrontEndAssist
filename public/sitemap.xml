@@ -30,5 +30,10 @@
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://assist.cumpleanos.com.ec/assist/auth/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>

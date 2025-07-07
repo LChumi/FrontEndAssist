@@ -1,8 +1,8 @@
 User-agent: *
-Disallow: /assist/auth/
 Disallow: /notFound
 Disallow: /deuna/
 Disallow: /jep-faster/
+Allow: /assist/auth/
 Allow: /assist/inicio/
 Allow: /assist/inicio/dashboard/
 Allow: /assist/inicio/importaciones/
