@@ -7,6 +7,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {JepfasterService} from "@services/api/jepFasterServices/jepfaster.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   standalone: true,
@@ -25,6 +26,8 @@ export class JepFasterComponent implements OnInit{
   private jepService = inject(JepfasterService);
   private confirmacionService = inject(ConfirmationService);
   private toast = inject(MessageService);
+  private titleService = inject(Title)
+  private metaService = inject(Meta)
 
   protected usrLiquida: any;
   protected empresa: any;
@@ -33,6 +36,11 @@ export class JepFasterComponent implements OnInit{
   protected imageBase64: string | null = null
 
   ngOnInit(): void {
+    this.titleService.setTitle("JEPFaster");
+    this.metaService.updateTag({
+      name: 'description',
+      content: 'JEPFaster compra y paga desde tu celular',
+    })
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')
