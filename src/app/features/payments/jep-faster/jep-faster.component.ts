@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ImageModule} from "primeng/image";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ToastModule} from "primeng/toast";
@@ -7,7 +7,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {JepfasterService} from "@services/api/jepFasterServices/jepfaster.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
-import {Meta, Title} from "@angular/platform-browser";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -26,8 +28,10 @@ export class JepFasterComponent implements OnInit{
   private jepService = inject(JepfasterService);
   private confirmacionService = inject(ConfirmationService);
   private toast = inject(MessageService);
-  private titleService = inject(Title)
-  private metaService = inject(Meta)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private seoService = inject(SeoService);
+  private domain = environment.apiUrlBase;
 
   protected usrLiquida: any;
   protected empresa: any;
@@ -36,11 +40,13 @@ export class JepFasterComponent implements OnInit{
   protected imageBase64: string | null = null
 
   ngOnInit(): void {
-    this.titleService.setTitle("JEPFaster");
-    this.metaService.updateTag({
-      name: 'description',
-      content: 'JEPFaster compra y paga desde tu celular',
-    })
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const titleJep='JEPFaster'
+    const descriptionJep='JEPFaster compra y paga desde tu celular'
+    this.seoService.update(titleJep, descriptionJep);
+
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')

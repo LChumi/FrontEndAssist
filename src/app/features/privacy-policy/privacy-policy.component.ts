@@ -1,5 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Meta, Title} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -9,16 +12,19 @@ import {Meta, Title} from "@angular/platform-browser";
 })
 export class PrivacyPolicyComponent implements OnInit {
 
-  titleService = inject(Title);
-  metaService = inject(Meta);
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private seoService = inject(SeoService);
+  private domain = environment.apiUrlBase;
 
   protected emailInfo: string='info@cumpleanos.com.ec';
 
   ngOnInit(): void {
-    this.titleService.setTitle('Politica de Privacidad');
-    this.metaService.updateTag({
-      name: 'description',
-      content: 'Nuestra Politica de privacidad'
-    });
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Politica de Privacidad'
+    const description='Nuestra Politica de privacidad'
+    this.seoService.update(title, description);
   }
 }

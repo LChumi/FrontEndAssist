@@ -2,11 +2,14 @@ import {Component, inject, OnInit} from '@angular/core';
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {ConfigComponent} from "@layout/config/config.component";
 import {ServiceResponse} from "@models/record/service-response";
 import {UsuarioService} from "@services/api/usuario.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {environment} from "@environments/environment";
+import {CanonicalService} from "@services/state/canonical.service";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -30,10 +33,20 @@ export default class ForgotpasswordComponent implements OnInit {
   loading = false;
   serviceResponse: ServiceResponse = {} as ServiceResponse
 
-  private usuarioService = inject(UsuarioService)
   private fb = inject(FormBuilder)
+  private usuarioService = inject(UsuarioService)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private domain = environment.apiUrlBase;
+  private seoService = inject(SeoService)
 
   ngOnInit(): void {
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Recuperacion de clave'
+    this.seoService.update(title, title);
+
     this.resendForm = this.fb.group({
       usuario: ['', Validators.required]
     })

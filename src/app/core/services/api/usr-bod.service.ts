@@ -9,7 +9,7 @@ import {UsrDto} from "@models/dto/usr-dto";
 })
 export class UsrBodService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient);
 
   constructor() { }

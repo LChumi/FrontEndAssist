@@ -9,7 +9,7 @@ import {ImpProdTrancitoVw} from "@models/view/imp-prod-trancito-vw";
 })
 export class ImpProdTrancitoService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
 
   constructor() { }

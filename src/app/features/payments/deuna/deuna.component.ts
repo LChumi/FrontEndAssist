@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ImageModule} from "primeng/image";
 import {DeunaService} from "@services/api/deUnaServices/deuna.service";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -9,7 +9,9 @@ import {FileUploadModule} from "primeng/fileupload";
 import {interval, Subscription} from "rxjs";
 import {ErrorResponse} from "@models/error/error-response";
 import { parameterIsNumeric } from "@utils/index";
-import {Meta, Title} from "@angular/platform-browser";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -29,8 +31,10 @@ export default class DeunaComponent implements OnInit {
   private deunaService = inject(DeunaService);
   private confirmatioService = inject(ConfirmationService)
   private toast = inject(MessageService);
-  private titleService = inject(Title)
-  private metaService = inject(Meta)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private seoService = inject(SeoService);
+  private domain = environment.apiUrlBase;
 
   private subscription: Subscription | null = null;
 
@@ -40,11 +44,12 @@ export default class DeunaComponent implements OnInit {
   private value = 0;
 
   ngOnInit(): void {
-    this.titleService.setTitle("Pagos DeUna!");
-    this.metaService.updateTag({
-      name: 'description',
-      content: 'Tu app de pagos fácil y segura',
-    })
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Pagos DeUna!'
+    const description='Tu app de pagos fácil y segura'
+    this.seoService.update(title, description);
 
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')

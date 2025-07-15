@@ -11,7 +11,7 @@ import {UserResponse} from "@models/record/user-response";
 })
 export class UsuarioService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
 
   constructor() {

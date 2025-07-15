@@ -9,7 +9,7 @@ import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto"
 })
 export class ComprobanteDetalleService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient);
 
   constructor() { }

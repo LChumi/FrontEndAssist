@@ -9,7 +9,7 @@ import {Puntoventa} from "@models/entities/puntoventa";
 })
 export class PuntoventaService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient)
 
   constructor() { }

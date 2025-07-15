@@ -22,6 +22,10 @@ import {Tipodoc} from "@models/entities/tipodoc";
 import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {getSessionItem} from "@utils/storage-utils";
 import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@utils/date-utils";
+import {Router} from "@angular/router";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -49,6 +53,10 @@ export default class MonitoreoComponent implements OnInit {
   private almacenService = inject(AlmacenService);
   private tipodocService = inject(TipodocService);
   private listCcomprobaService = inject(ListCcomprobaVService)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private domain = environment.apiUrlBase;
+  private seoService = inject(SeoService);
 
   private empresa: any;
   protected periodo: any;
@@ -78,6 +86,13 @@ export default class MonitoreoComponent implements OnInit {
   protected almacenSelected: Almacen = {} as Almacen;
 
   ngOnInit(): void {
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Monitoreo'
+    const description='Monitoreo de Documento'
+    this.seoService.update(title, description);
+
     this.usrId = getSessionItem('usrId')
     this.empresa = getSessionItem("empresa");
     this.getAlmacenes()

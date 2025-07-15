@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CtipocomService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient);
 
   constructor() { }

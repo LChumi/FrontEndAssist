@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class AlmacenService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient)
 
   constructor() { }

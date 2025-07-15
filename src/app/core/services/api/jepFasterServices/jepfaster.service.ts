@@ -10,7 +10,7 @@ import {ServiceResponse} from "@models/record/service-response";
 })
 export class JepfasterService {
 
-  private baseUrl = environment.apiUrlBase + 'pos';
+  private baseUrl = environment.apiUrlBase + '/pos';
   private http = inject(HttpClient)
 
   constructor() { }
