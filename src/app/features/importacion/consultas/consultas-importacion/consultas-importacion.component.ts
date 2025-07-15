@@ -37,7 +37,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   private seleccionService = inject(SelectionService);
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService);
 
   protected impProdTrancitos: ImpProdTrancitoVw[] = []

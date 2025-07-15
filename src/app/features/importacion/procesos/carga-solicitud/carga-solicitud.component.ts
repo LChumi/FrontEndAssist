@@ -65,7 +65,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private imagenService = inject(ImagenService)
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService)
 
   listItems: Items[] = []

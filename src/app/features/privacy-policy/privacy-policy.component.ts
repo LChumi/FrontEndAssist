@@ -15,7 +15,7 @@ export class PrivacyPolicyComponent implements OnInit {
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
   private seoService = inject(SeoService);
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
 
   protected emailInfo: string='info@cumpleanos.com.ec';
 

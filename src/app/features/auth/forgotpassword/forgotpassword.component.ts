@@ -37,7 +37,7 @@ export default class ForgotpasswordComponent implements OnInit {
   private usuarioService = inject(UsuarioService)
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService)
 
   ngOnInit(): void {

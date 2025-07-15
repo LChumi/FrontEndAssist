@@ -36,7 +36,7 @@ export default class CargaDocumentosComponent implements OnInit {
   private contabilidadService = inject(ContabilidadService);
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService);
 
   emailEmpresa = ''; // Email empresarial

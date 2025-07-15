@@ -31,7 +31,7 @@ export default class DashboardComponent implements OnInit {
   private accesoService = inject(AccesoService)
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService);
 
   constructor() {

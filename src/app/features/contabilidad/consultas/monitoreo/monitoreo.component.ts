@@ -55,7 +55,7 @@ export default class MonitoreoComponent implements OnInit {
   private listCcomprobaService = inject(ListCcomprobaVService)
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService);
 
   private empresa: any;
