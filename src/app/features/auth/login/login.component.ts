@@ -42,7 +42,7 @@ export default class LoginComponent implements OnInit {
   private router = inject(Router)
   private messageService = inject(MessageService)
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
   private seoService = inject(SeoService)
 
   ngOnInit(): void {

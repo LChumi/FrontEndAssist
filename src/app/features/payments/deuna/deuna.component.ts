@@ -34,7 +34,7 @@ export default class DeunaComponent implements OnInit {
   private router = inject(Router)
   private canonicalService = inject(CanonicalService)
   private seoService = inject(SeoService);
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
 
   private subscription: Subscription | null = null;
 

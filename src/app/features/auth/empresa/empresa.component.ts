@@ -27,7 +27,7 @@ export default class EmpresaComponent implements OnInit {
   private seoService = inject(SeoService)
 
   private canonicalService = inject(CanonicalService)
-  private domain = environment.apiUrlBase;
+  private domain = environment.domain;
 
   listasEmpresa: Empresa[] = []
 
