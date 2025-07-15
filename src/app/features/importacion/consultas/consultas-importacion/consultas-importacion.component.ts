@@ -11,6 +11,10 @@ import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
 import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 import {SelectionService} from "@services/state/selection.service";
+import {Router} from "@angular/router";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -30,7 +34,11 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
 
   private impProdTrancitoService = inject(ImpProdTrancitoService);
-  private seleccionService = inject(SelectionService)
+  private seleccionService = inject(SelectionService);
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private domain = environment.apiUrlBase;
+  private seoService = inject(SeoService);
 
   protected impProdTrancitos: ImpProdTrancitoVw[] = []
 
@@ -46,6 +54,13 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   protected proveedorId: any;
 
   ngOnInit(): void {
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Consultas Importacion'
+    const description='Consulta de Tramites de importacion'
+    this.seoService.update(title, description);
+
     this.empresa = getSessionItem("empresa");
     this.estados = [
       {name: 'LIQUIDADO'},

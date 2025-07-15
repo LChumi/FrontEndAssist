@@ -23,6 +23,10 @@ import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/sel
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {forkJoin, Observable} from "rxjs";
+import {Router} from "@angular/router";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -59,6 +63,10 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private messageService = inject(MessageService);
   private fileService = inject(FileService)
   private imagenService = inject(ImagenService)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private domain = environment.apiUrlBase;
+  private seoService = inject(SeoService)
 
   listItems: Items[] = []
   item: Items = {} as Items;
@@ -93,6 +101,13 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   }
 
   ngOnInit(): void {
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Solicitud Importacion'
+    const description='Carga de solicitud de importaciones 1 fase'
+    this.seoService.update(title, description);
+
     window.addEventListener('beforeunload', this.unloadNotification)
     const empresa = getSessionItem('empresa')
     const usrId: any = getSessionItem('usrId')

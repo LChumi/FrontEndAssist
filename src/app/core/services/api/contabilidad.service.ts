@@ -17,18 +17,18 @@ export class ContabilidadService {
   }
 
   getEmpleado(usuarioId: string): Observable<Empleado> {
-    return this.http.get<Empleado>(`${this.baseUrl}models/empleado/id-usuario/${usuarioId}`)
+    return this.http.get<Empleado>(`${this.baseUrl}/models/empleado/id-usuario/${usuarioId}`)
   }
 
   sendString(data: string, email: string): Observable<ServiceResponse> {
     const params = new HttpParams().set('email', email);
-    return this.http.post<ServiceResponse>(`${this.baseUrl}recp/string`, data, {params})
+    return this.http.post<ServiceResponse>(`${this.baseUrl}/recp/string`, data, {params})
   }
 
   sendFile(file: File, email: string): Observable<ServiceResponse> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('email', email);
-    return this.http.post<ServiceResponse>(`${this.baseUrl}recp/file`, formData)
+    return this.http.post<ServiceResponse>(`${this.baseUrl}/recp/file`, formData)
   }
 }

@@ -9,7 +9,7 @@ import {Dtipodoc} from "@models/entities/dtipodoc";
 })
 export class DtipodocService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient)
 
   constructor() { }

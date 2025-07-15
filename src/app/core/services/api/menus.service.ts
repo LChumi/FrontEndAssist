@@ -10,7 +10,7 @@ import {Empresa} from "@models/entities/empresa";
 })
 export class MenusService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
 
   constructor() {

@@ -2,9 +2,12 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
 import {AccesoService} from "@services/api/acceso.service";
+import {CanonicalService} from "@services/state/canonical.service";
+import {environment} from "@environments/environment";
+import {SeoService} from "@services/state/seo.service";
 
 @Component({
   standalone: true,
@@ -26,8 +29,19 @@ export default class DashboardComponent implements OnInit {
 
   private favoritoService = inject(FavoritesService)
   private accesoService = inject(AccesoService)
+  private router = inject(Router)
+  private canonicalService = inject(CanonicalService)
+  private domain = environment.apiUrlBase;
+  private seoService = inject(SeoService);
 
   constructor() {
+    const currentUrl = `${this.domain}${this.router.url}`
+    this.canonicalService.updateCanonical(currentUrl);
+
+    const title='Dashboard'
+    const description='Dashboard'
+    this.seoService.update(title, description);
+
     this.getNameLastName()
     this.getDate()
   }

@@ -11,7 +11,7 @@ import {SciResponse} from "@models/record/sci-response";
 })
 export class FileService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
 
   constructor() {

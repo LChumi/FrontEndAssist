@@ -9,7 +9,7 @@ import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 })
 export class ListCcomprobaVService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
 
   constructor() { }

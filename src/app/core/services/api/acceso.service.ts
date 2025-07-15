@@ -9,7 +9,7 @@ import {Acceso} from "@models/entities/acceso";
 })
 export class AccesoService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient)
 
   constructor() { }

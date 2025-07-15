@@ -10,7 +10,7 @@ import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 })
 export class FavoritesService {
 
-  private baseUrl = environment.apiUrlBase + 'assist'
+  private baseUrl = environment.apiUrlBase + '/assist'
 
   private http = inject(HttpClient)
 

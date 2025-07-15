@@ -9,7 +9,7 @@ import {Cliente} from "@models/entities/cliente";
 })
 export class ClienteService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient)
 
   constructor() {

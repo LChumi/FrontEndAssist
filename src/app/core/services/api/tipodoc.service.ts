@@ -9,7 +9,7 @@ import {Tipodoc} from "@models/entities/tipodoc";
 })
 export class TipodocService {
 
-  private baseUrl = environment.apiUrlBase + 'models';
+  private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient);
 
   constructor() { }
