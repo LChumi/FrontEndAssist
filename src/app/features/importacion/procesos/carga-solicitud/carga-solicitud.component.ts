@@ -24,7 +24,6 @@ import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {forkJoin, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -64,7 +63,6 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private fileService = inject(FileService)
   private imagenService = inject(ImagenService)
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService)
 
@@ -102,7 +100,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Solicitud Importacion'
     const description='Carga de solicitud de importaciones 1 fase'

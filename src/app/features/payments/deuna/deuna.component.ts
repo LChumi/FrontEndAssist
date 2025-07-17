@@ -9,7 +9,6 @@ import {FileUploadModule} from "primeng/fileupload";
 import {interval, Subscription} from "rxjs";
 import {ErrorResponse} from "@models/error/error-response";
 import { parameterIsNumeric } from "@utils/index";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -32,7 +31,6 @@ export default class DeunaComponent implements OnInit {
   private confirmatioService = inject(ConfirmationService)
   private toast = inject(MessageService);
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private seoService = inject(SeoService);
   private domain = environment.domain;
 
@@ -45,7 +43,7 @@ export default class DeunaComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Pagos DeUna!'
     const description='Tu app de pagos fácil y segura'

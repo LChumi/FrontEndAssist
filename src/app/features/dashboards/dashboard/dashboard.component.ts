@@ -5,7 +5,6 @@ import {DataViewModule} from "primeng/dataview";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
 import {AccesoService} from "@services/api/acceso.service";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -30,13 +29,12 @@ export default class DashboardComponent implements OnInit {
   private favoritoService = inject(FavoritesService)
   private accesoService = inject(AccesoService)
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService);
 
   constructor() {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Dashboard'
     const description='Dashboard'

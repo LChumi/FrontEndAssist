@@ -11,7 +11,6 @@ import {getSessionItem} from "@utils/index";
 import {ErrorResponse} from "@models/error/error-response";
 import {forkJoin, Observable} from "rxjs";
 import {ServiceResponse} from "@models/record/service-response";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -35,7 +34,6 @@ export default class CargaDocumentosComponent implements OnInit {
   private messageService = inject(MessageService);
   private contabilidadService = inject(ContabilidadService);
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService);
 
@@ -47,7 +45,7 @@ export default class CargaDocumentosComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Documentos Sri'
     const description='Carga de documentos enviados del SRI'

@@ -12,7 +12,6 @@ import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
 import {getSessionItem, setSessionItem} from "@utils/index";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -41,13 +40,12 @@ export default class LoginComponent implements OnInit {
   private usuarioService = inject(UsuarioService)
   private router = inject(Router)
   private messageService = inject(MessageService)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService)
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Login'
     const description='Inicio de sesion'

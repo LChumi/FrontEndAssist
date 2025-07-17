@@ -12,7 +12,6 @@ import {Ripple} from "primeng/ripple";
 import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 import {SelectionService} from "@services/state/selection.service";
 import {Router} from "@angular/router";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -36,7 +35,6 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   private impProdTrancitoService = inject(ImpProdTrancitoService);
   private seleccionService = inject(SelectionService);
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService);
 
@@ -55,7 +53,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Consultas Importacion'
     const description='Consulta de Tramites de importacion'

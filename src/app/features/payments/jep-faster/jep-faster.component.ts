@@ -7,7 +7,6 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {JepfasterService} from "@services/api/jepFasterServices/jepfaster.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -29,7 +28,6 @@ export class JepFasterComponent implements OnInit{
   private confirmacionService = inject(ConfirmationService);
   private toast = inject(MessageService);
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private seoService = inject(SeoService);
   private domain = environment.domain;
 
@@ -41,7 +39,7 @@ export class JepFasterComponent implements OnInit{
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const titleJep='JEPFaster'
     const descriptionJep='JEPFaster compra y paga desde tu celular'
