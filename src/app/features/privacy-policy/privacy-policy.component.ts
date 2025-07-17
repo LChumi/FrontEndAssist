@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -13,7 +12,6 @@ import {SeoService} from "@services/state/seo.service";
 export class PrivacyPolicyComponent implements OnInit {
 
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private seoService = inject(SeoService);
   private domain = environment.domain;
 
@@ -21,7 +19,7 @@ export class PrivacyPolicyComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Politica de Privacidad'
     const description='Nuestra Politica de privacidad'

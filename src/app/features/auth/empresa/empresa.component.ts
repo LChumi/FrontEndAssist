@@ -6,7 +6,6 @@ import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
 import {Router} from "@angular/router";
 import {getSessionItem, setSessionItem} from "@utils/index";
-import {CanonicalService} from "@services/state/canonical.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 
@@ -26,14 +25,13 @@ export default class EmpresaComponent implements OnInit {
   private router = inject(Router)
   private seoService = inject(SeoService)
 
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
 
   listasEmpresa: Empresa[] = []
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Empresa'
     const description='Seleccion de empresas'

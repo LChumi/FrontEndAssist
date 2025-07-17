@@ -8,7 +8,6 @@ import {ServiceResponse} from "@models/record/service-response";
 import {UsuarioService} from "@services/api/usuario.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {environment} from "@environments/environment";
-import {CanonicalService} from "@services/state/canonical.service";
 import {SeoService} from "@services/state/seo.service";
 
 @Component({
@@ -36,13 +35,12 @@ export default class ForgotpasswordComponent implements OnInit {
   private fb = inject(FormBuilder)
   private usuarioService = inject(UsuarioService)
   private router = inject(Router)
-  private canonicalService = inject(CanonicalService)
   private domain = environment.domain;
   private seoService = inject(SeoService)
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
-    this.canonicalService.updateCanonical(currentUrl);
+    this.seoService.updateCanonical(currentUrl);
 
     const title='Recuperacion de clave'
     this.seoService.update(title, title);
