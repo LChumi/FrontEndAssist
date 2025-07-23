@@ -11,6 +11,12 @@ export const importacionesRoutes: Routes = [
         loadComponent: () => import('./procesos/carga-solicitud/carga-solicitud.component'),
         data: {breadcrumb: 'Carga solicitud '},
         canDeactivate: [returnGuard],
+      },
+      {
+        path: 'carga-orden-compra',
+        loadComponent: () => import('./procesos/carga-orden-compra/carga-orden-compra.component'),
+        data: { breadcrumb: 'Carga Orden de compra'},
+        canDeactivate: [returnGuard]
       }
     ]
   },
