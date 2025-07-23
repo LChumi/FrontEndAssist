@@ -1,1 +1,199 @@
-<p>carga-orden-compra works!</p>
+<div class="card">
+  <div class="grid grid-nogutter">
+    <!--<div class="col-12">
+      <app-favorite titulo="Importaciones" [usrId]="usrId"></app-favorite>
+    </div>-->
+
+    <div class="col-12">
+      <span class="text-900 block font-bold text-xl">Carga de archivo Orden de compra</span>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card col-12">
+      <h5>Ingrese el archivo</h5>
+      <p-fileUpload name="products[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                    (onUpload)="onUpload($event)"
+                    [multiple]="false"
+                    accept=".xlsx"
+                    chooseLabel="Seleccionar"
+                    uploadLabel="Subir"
+                    cancelLabel="Cancelar"
+                    [maxFileSize]="20971520"> <!--20MB-->
+        <ng-template pTemplate="content">
+          @if (uploadedFiles.length) {
+            <ul>
+              @for (file of uploadedFiles; track $index) {
+                <li>
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              }
+            </ul>
+          }
+        </ng-template>
+      </p-fileUpload>
+
+        <div class="grid">
+          @if (listaOrdenes.listWhitSci.length > 0 ) {
+            <div class="col-12 md:col-6" [ngClass]="{'md:col-12': !(listaOrdenes.listNotSci && listaOrdenes.listNotSci.length > 0)}">
+              <p-table
+                [value]="listaOrdenes.listWhitSci"
+                dataKey="secuencia"
+                [rows]="30"
+                class="my-3 p-p3"
+                styleClass="p-datatable-gridlines"
+                [rowsPerPageOptions]="[10,30,50,100]"
+                responsiveLayout="scroll">
+
+                <ng-template pTemplate="caption">
+                  <h5>Ordenes con SCI</h5>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th></th>
+                    <th>Barra</th>
+                    <th>Nombre</th>
+                    <th>Item</th>
+                    <th>Cantidad</th>
+                    <th>Codigo Fabrica</th>
+                    <th>CXB</th>
+                    <th>FOB</th>
+                    <th>CBM</th>
+                    <th>Cantidad Total</th>
+                    <th>CBM Total</th>
+                    <th>FOB Total</th>
+                    <th>Tránsito</th>
+                    <th>Estado</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-expanded="expanded">
+                  <tr>
+                    <td>
+                      @if (item.trancitos) {
+                        <button type="button" pButton pRipple [pRowToggler]="item"
+                                class="p-button-text p-button-rounded p-button-plain"
+                                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                      }
+                    </td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
+                    <td>{{ item.item }}</td>
+                    <td class="text-right">{{ item.cantidad }}
+                    <td class="text-right">{{ item.codFabrica }}</td>
+                    <td class="text-right">{{ item.cxb }}</td>
+                    <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
+                    <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.cantidadTotal }}</td>
+                    <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
+                    <td class="text-right">{{ item.trancito }}</td>
+                    <td class="text-right">
+                      <span [class]="'item-badge status-' + item.status.toLowerCase()">
+                        {{ item.status }}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="rowexpansion" let-item>
+                  <tr>
+                    <td colspan="13">
+                      <div class="p-3">
+                        <p-table
+                          [value]="item.trancitos"
+                          dataKey="id"
+                          responsiveLayout="scroll">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th pSortableColumn="fecha">Fecha
+                                <p-sortIcon field="fecha"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="nroComprobante">Numero Comprobante
+                                <p-sortIcon field="nroComprobante"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="observacion">Observación</th>
+                              <th pSortableColumn="cantidadPedida">Cantidad Pedida</th>
+                              <th pSortableColumn="fob">FOB</th>
+                              <th pSortableColumn="fobTotal">FOB Total Pedido</th>
+                              <th pSortableColumn="fobTotal">FOB Total Aprobado</th>
+                              <th pSortableColumn="tipoDoc">Tipo Documento</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-trancito>
+                            <tr>
+                              <td>{{ trancito.fecha }}</td>
+                              <td>{{ trancito.nroComprobante }}</td>
+                              <td>{{ trancito.observacion }}</td>
+                              <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
+                              <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
+                              <td class="text-right">{{ trancito.fobTotalPedido | number:'1.4-4' }}</td>
+                              <td class="text-right">{{ trancito.fobTotalAprobado | number:'1.4-4' }}</td>
+                              <td>{{ trancito.tipoDoc }}</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+
+              </p-table>
+            </div>
+          }
+          @if (listaOrdenes.listNotSci.length > 0 ) {
+            <div class="col-12 md:col-6" [ngClass]="{'md:col-12': !(listaOrdenes.listWhitSci && listaOrdenes.listWhitSci.length > 0)}">
+              <p-table
+                [value]="listaOrdenes.listNotSci"
+                dataKey="secuencia"
+                [rows]="30"
+                class="my-3 p-p3"
+                styleClass="p-datatable-gridlines"
+                [rowsPerPageOptions]="[10,30,50,100]"
+                responsiveLayout="scroll">
+
+                <ng-template pTemplate="caption">
+                  <h5>Ordenes sin Solicitudes</h5>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Barra</th>
+                    <th>Nombre</th>
+                    <th>Item</th>
+                    <th>Cantidad</th>
+                    <th>Codigo Fabrica</th>
+                    <th>CXB</th>
+                    <th>FOB</th>
+                    <th>CBM</th>
+                    <th>Cantidad Total</th>
+                    <th>CBM Total</th>
+                    <th>FOB Total</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-expanded="expanded">
+                  <tr>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
+                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
+                    <td>{{ item.item }}</td>
+                    <td class="text-right">{{ item.cantidad }}
+                    <td class="text-right">{{ item.codFabrica }}</td>
+                    <td class="text-right">{{ item.cxb }}</td>
+                    <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
+                    <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.cantidadTotal }}</td>
+                    <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
+                  </tr>
+                </ng-template>
+
+              </p-table>
+            </div>
+          }
+        </div>
+
+    </div>
+  </div>
+</div>
