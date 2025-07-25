@@ -11,6 +11,8 @@ import {ErrorResponse} from "@models/error/error-response";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
+import {ToggleButtonModule} from "primeng/togglebutton";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   standalone: true,
@@ -19,7 +21,9 @@ import {Ripple} from "primeng/ripple";
     NgClass,
     TableModule,
     Ripple,
-    DecimalPipe
+    DecimalPipe,
+    ToggleButtonModule,
+    FormsModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -40,6 +44,8 @@ export default class CargaOrdenCompraComponent implements OnInit {
   listaOrdenes : OrdenComrpaListDTO = { listNotSci : [] , listWhitSci : []} as OrdenComrpaListDTO;
   proveedor = ''
   loading = false;
+
+  novedadFrozen = false;
 
   ngOnInit(): void {
     const currentURL = `${this.domain}${this.route.url}`
