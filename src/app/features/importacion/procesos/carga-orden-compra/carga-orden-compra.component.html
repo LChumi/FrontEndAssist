@@ -164,6 +164,12 @@
 
               <ng-template pTemplate="caption">
                 <h5>Ordenes sin Solicitudes</h5>
+                <button pButton pRipple type="button" class="p-button-raised p-button-secondary" [disabled]="loadingSci">
+                  <span class="flex align-items-center gap-2">
+                    <i class="pi pi-spin pi-sync"></i>
+                    <span>Generar SCI</span>
+                  </span>
+                </button>
               </ng-template>
 
               <ng-template pTemplate="header">

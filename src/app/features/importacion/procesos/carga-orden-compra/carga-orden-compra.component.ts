@@ -46,6 +46,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   loading = false;
 
   novedadFrozen = false;
+  loadingSci = false;
 
   ngOnInit(): void {
     const currentURL = `${this.domain}${this.route.url}`
