@@ -13,6 +13,10 @@ import {TableModule} from "primeng/table";
 import {Ripple} from "primeng/ripple";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FormsModule} from "@angular/forms";
+import {SeleccionComprobanteComponent} from "@shared/component/seleccion-comprobante/seleccion-comprobante.component";
+import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
+import {DialogModule} from "primeng/dialog";
+import {InputTextModule} from "primeng/inputtext";
 
 @Component({
   standalone: true,
@@ -23,7 +27,10 @@ import {FormsModule} from "@angular/forms";
     Ripple,
     DecimalPipe,
     ToggleButtonModule,
-    FormsModule
+    FormsModule,
+    SeleccionComprobanteComponent,
+    DialogModule,
+    InputTextModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -39,11 +46,14 @@ export default class CargaOrdenCompraComponent implements OnInit {
 
   private idEmpresa: any
   usrId: any;
+  seleccionComprobante = false
+  observacion: string = "";
 
   uploadedFiles: any[] = [];
   listaOrdenes : OrdenComrpaListDTO = { listNotSci : [] , listWhitSci : []} as OrdenComrpaListDTO;
   proveedor = ''
   loading = false;
+  modalSci = false;
 
   novedadFrozen = false;
   loadingSci = false;
@@ -94,6 +104,15 @@ export default class CargaOrdenCompraComponent implements OnInit {
       summary: summary,
       detail: detail
     });
+  }
+
+  generarSCi(event: { request: SolicitudRequestDTO , visible: boolean }) {
+    this.loadingSci = true;
+  }
+
+  acceptDialog() {
+    this.seleccionComprobante = true;
+    this.modalSci = false;
   }
 
 }
