@@ -47,11 +47,12 @@ export default class CargaOrdenCompraComponent implements OnInit {
   private idEmpresa: any
   usrId: any;
   seleccionComprobante = false
-  observacion: string = "";
+  observacion = '';
 
   uploadedFiles: any[] = [];
   listaOrdenes : OrdenComrpaListDTO = { listNotSci : [] , listWhitSci : []} as OrdenComrpaListDTO;
   proveedor = ''
+  listOrders = false
   loading = false;
   modalSci = false;
 
@@ -87,6 +88,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     this.fileService.sendOrder(file, this.idEmpresa).subscribe({
       next: data => {
         this.listaOrdenes = data;
+        this.listOrders = true;
         this.message('info', 'Envío completo', 'Archivo procesado correctamente');
       },
       error: (error: ErrorResponse) => {
@@ -111,6 +113,10 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   acceptDialog() {
+    if (this.observacion === ''){
+      this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
+      return
+    }
     this.seleccionComprobante = true;
     this.modalSci = false;
   }
