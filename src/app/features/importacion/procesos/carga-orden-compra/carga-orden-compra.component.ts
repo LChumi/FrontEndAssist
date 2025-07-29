@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
@@ -17,6 +17,8 @@ import {SeleccionComprobanteComponent} from "@shared/component/seleccion-comprob
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DialogModule} from "primeng/dialog";
 import {InputTextModule} from "primeng/inputtext";
+import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
+import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 
 @Component({
   standalone: true,
@@ -30,12 +32,16 @@ import {InputTextModule} from "primeng/inputtext";
     FormsModule,
     SeleccionComprobanteComponent,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    SeleccionBodegasComponent,
+    ModalclienteComponent
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
 })
-export default class CargaOrdenCompraComponent implements OnInit {
+export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
 
   private route = inject(Router);
   private seoService = inject(SeoService);
@@ -48,13 +54,15 @@ export default class CargaOrdenCompraComponent implements OnInit {
   usrId: any;
   seleccionComprobante = false
   observacion = '';
+  tipoDoc: number = 120;
 
   uploadedFiles: any[] = [];
-  listaOrdenes : OrdenComrpaListDTO = { listNotSci : [] , listWhitSci : []} as OrdenComrpaListDTO;
+  listaOrdenes: OrdenComrpaListDTO = {listNotSci: [], listWhitSci: []} as OrdenComrpaListDTO;
   proveedor = ''
   listOrders = false
   loading = false;
   modalSci = false;
+  modalVisible = false;
 
   novedadFrozen = false;
   loadingSci = false;
@@ -70,6 +78,15 @@ export default class CargaOrdenCompraComponent implements OnInit {
     const context = this.sessionService.getSessionContext();
     this.idEmpresa = context.idEmpresa;
     this.usrId = context.usrId;
+  }
+
+  ngAfterViewInit(): void {
+    this.modalcliente.onBtnClick.subscribe(visible => {
+      this.modalVisible = visible
+    })
+    this.modalcliente.onChangeProv.subscribe(prov => {
+      this.proveedor = prov
+    })
   }
 
   onUpload(event: any) {
@@ -108,17 +125,39 @@ export default class CargaOrdenCompraComponent implements OnInit {
     });
   }
 
-  generarSCi(event: { request: SolicitudRequestDTO , visible: boolean }) {
+  handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
     this.loadingSci = true;
+    this.seleccionComprobante = event.visible
+    console.log(event)
+
   }
 
-  acceptDialog() {
-    if (this.observacion === ''){
+  acceptDialogSci() {
+    if (this.observacion === '') {
       this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
       return
     }
+    this.tipoDoc = 119
     this.seleccionComprobante = true;
     this.modalSci = false;
   }
 
+  accepDialogOrder() {
+    this.tipoDoc = 120
+    this.seleccionComprobante = true;
+  }
+
+  getButtonLabel(): string {
+    if (this.proveedor == '') {
+      return 'Seleccionar Proveedor'
+    } else {
+      return this.proveedor
+    }
+  }
+
+  abrirModal() {
+    this.modalVisible = !this.modalVisible;
+  }
+
+  protected readonly document = document;
 }
