@@ -285,8 +285,9 @@
     [(visible)]="seleccionComprobante"
     [tipoDoc]="119"
     [observacion]="observacion"
-    (saveRequest)="handleSaveRequest($event)"
-  ></app-seleccion-comprobante>
+    (saveRequest)="handleSaveRequest($event)">
+  </app-seleccion-comprobante>
+
   <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}">
     <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
   </p-dialog>

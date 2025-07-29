@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
@@ -30,7 +30,8 @@ import {MessageService} from "primeng/api";
   templateUrl: './seleccion-comprobante.component.html',
   styles: ``
 })
-export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
+export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChanges {
+
   private _visible = false;
   public tipoDoc = input.required<number>();
   public observacion = input.required<string>();
@@ -71,6 +72,10 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
     this.initializeModal()
   }
 
+  ngOnChanges(): void {
+    this.initializeModal()
+  }
+
   initializeModal(): void {
     this.empresa = getSessionItem("empresa");
     this.date = getCurrentDateNow()
@@ -94,6 +99,7 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy {
   }
 
   getAlmacen() {
+    this.almacenes = []
     const almacen = Number(getSessionItem("almId"))
     if (this.empresa && almacen) {
       this.seleccionService.actualizarAlmacenSeleccionado(almacen);

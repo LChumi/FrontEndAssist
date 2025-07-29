@@ -1,5 +1,6 @@
 export interface Trancito {
   nroComprobante:   string;
+  ccomproba:        string;
   fecha:            string;
   observacion:      string;
   cantidadPedida:   number;
