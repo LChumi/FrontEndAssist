@@ -15,10 +15,10 @@ export class PuntoventaService {
   constructor() { }
 
   listPventas(empresa: number, almacen:number): Observable<Puntoventa[]> {
-    return this.http.get<Puntoventa[]>(`${this.baseUrl}/pve/listar/${empresa}/${almacen}`)
+    return this.http.get<Puntoventa[]>(`${this.baseUrl}/punto-venta/listar/${empresa}/${almacen}`)
   }
 
   getPventa(empresa: number, almacen: number, secuencia: number): Observable<Puntoventa> {
-    return this.http.get<Puntoventa>(`${this.baseUrl}/pve/get/${empresa}/${almacen}/${secuencia}`)
+    return this.http.get<Puntoventa>(`${this.baseUrl}/punto-venta/get/${empresa}/${almacen}/${secuencia}`)
   }
 }

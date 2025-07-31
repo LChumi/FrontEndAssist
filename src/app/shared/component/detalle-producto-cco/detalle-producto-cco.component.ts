@@ -2,7 +2,7 @@ import {Component, inject, Input, OnInit} from '@angular/core';
 import {DecimalPipe} from "@angular/common";
 import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
-import {ComprobanteDetalleService} from "@services/api/comprobante-detalle.service";
+import {ComprobanteDetalleService} from "@services/api/models/comprobante-detalle.service";
 import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
 import {getSessionItem} from "@utils/storage-utils";
 import {DfacturaDto} from "@models/dto/dfactura-dto";

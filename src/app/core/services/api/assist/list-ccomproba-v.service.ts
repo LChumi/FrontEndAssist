@@ -41,6 +41,6 @@ export class ListCcomprobaVService {
     if (referencia) params = params.set('referencia', referencia); // Asegúrate de que el nombre del parámetro sea correcto
     if (estado) params = params.set('estado', estado); // Asegúrate de que el nombre del parámetro sea correcto
     if (tipodoc) params = params.set('tipodoc', tipodoc); // Asegúrate de que el nombre del parámetro sea correcto
-    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/buscar/ccocomproba-v`, { params });
+    return this.http.get<ListCcomprobaV[]>(`${this.baseUrl}/list-ccomprobav/buscar`, { params });
   }
 }

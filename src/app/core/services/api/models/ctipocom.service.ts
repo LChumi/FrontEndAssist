@@ -15,6 +15,6 @@ export class CtipocomService {
   constructor() { }
 
   listar(empresa: any): Observable<Ctipocom[]> {
-    return this.http.get<Ctipocom[]>(`${this.baseUrl}/listar/ctipocom/${empresa}`)
+    return this.http.get<Ctipocom[]>(`${this.baseUrl}/ctipocom/listar/${empresa}`)
   }
 }

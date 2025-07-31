@@ -5,7 +5,7 @@ import {SeoService} from "@services/state/seo.service";
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService} from "primeng/api";
 import {OrdenComrpaListDTO} from "@models/entities/orden-comrpa-list-dto";
-import {FileService} from "@services/api/file.service";
+import {ImportacionesService} from "@services/api/assist/importaciones.service";
 import {SessionService} from "@services/state/session.service";
 import {ErrorResponse} from "@models/error/error-response";
 import {DecimalPipe, NgClass} from "@angular/common";
@@ -46,7 +46,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   private route = inject(Router);
   private seoService = inject(SeoService);
   private messageService = inject(MessageService);
-  private fileService = inject(FileService)
+  private fileService = inject(ImportacionesService)
   private sessionService = inject(SessionService);
   private domain = environment.domain;
 

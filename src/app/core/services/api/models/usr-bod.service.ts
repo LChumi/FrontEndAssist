@@ -2,19 +2,19 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from "@environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Tipodoc} from "@models/entities/tipodoc";
+import {UsrDto} from "@models/dto/usr-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TipodocService {
+export class UsrBodService {
 
   private baseUrl = environment.apiUrlBase + '/models';
   private http = inject(HttpClient);
 
   constructor() { }
 
-  listarTipoDocs(): Observable<Tipodoc[]> {
-    return this.http.get<Tipodoc[]>(`${this.baseUrl}/listar/tipodoc`);
+  listBodegas(usrId: number, empresa: number): Observable<UsrDto[]> {
+    return this.http.get<UsrDto[]>(`${this.baseUrl}/usrbod/bodegas/${usrId}/${empresa}`, {})
   }
 }

@@ -4,7 +4,7 @@ import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
-import {AccesoService} from "@services/api/acceso.service";
+import {AccesoService} from "@services/api/models/acceso.service";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 

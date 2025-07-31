@@ -7,7 +7,7 @@ import {Ripple} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {ConfigComponent} from "@layout/config/config.component";
 import {PasswordModule} from "primeng/password";
-import {UsuarioService} from "@services/api/usuario.service";
+import {AuthService} from "@services/api/assist/auth.service";
 import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
@@ -37,7 +37,7 @@ export default class LoginComponent implements OnInit {
   loginForm!: FormGroup
 
   private fb = inject(FormBuilder)
-  private usuarioService = inject(UsuarioService)
+  private usuarioService = inject(AuthService)
   private router = inject(Router)
   private messageService = inject(MessageService)
   private domain = environment.domain;

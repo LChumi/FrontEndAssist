@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {ImpProdTrancitoService} from "@services/api/imp-prod-trancito.service";
+import {ImpProdTrancitoService} from "@services/api/assist/imp-prod-trancito.service";
 import {ChipsModule} from "primeng/chips";
 import {FormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/calendar";

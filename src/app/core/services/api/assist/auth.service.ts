@@ -9,7 +9,7 @@ import {UserResponse} from "@models/record/user-response";
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class AuthService {
 
   private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
@@ -18,11 +18,11 @@ export class UsuarioService {
   }
 
   temporalLogin(request: AuthenticationRequest): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.baseUrl}/login`, request)
+    return this.http.post<UserResponse>(`${this.baseUrl}/auth/login`, request)
   }
 
   recoveryPassword(userId: string): Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(`${this.baseUrl}/forgot-password/${userId}`)
+    return this.http.get<ServiceResponse>(`${this.baseUrl}/auth/forgot-password/${userId}`)
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Empresa} from "@models/entities/empresa";
-import {MenusService} from "@services/api/menus.service";
+import {AccesoService} from "@services/api/assist/menus.service";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
@@ -21,7 +21,7 @@ import {SeoService} from "@services/state/seo.service";
 })
 export default class EmpresaComponent implements OnInit {
 
-  private menuService = inject(MenusService)
+  private menuService = inject(AccesoService)
   private router = inject(Router)
   private seoService = inject(SeoService)
 
