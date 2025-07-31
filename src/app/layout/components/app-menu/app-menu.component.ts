@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MenuitemComponent} from "@layout/components/menu-item/menuitem.component";
-import {MenusService} from "@services/api/menus.service";
+import {AccesoService} from "@services/api/assist/menus.service";
 import {getSessionItem} from "@utils/storage-utils";
 
 @Component({
@@ -14,7 +14,7 @@ import {getSessionItem} from "@utils/storage-utils";
 })
 export class AppMenuComponent implements OnInit {
 
-  private menuService = inject(MenusService)
+  private menuService = inject(AccesoService)
 
   protected model: any[] = [];
 

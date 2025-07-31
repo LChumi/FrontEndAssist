@@ -8,7 +8,7 @@ import {Empresa} from "@models/entities/empresa";
 @Injectable({
   providedIn: 'root'
 })
-export class MenusService {
+export class AccesoService {
 
   private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)
@@ -17,11 +17,11 @@ export class MenusService {
   }
 
   getMenus(usuario: number, empresa: number): Observable<MenuPrincipal[]> {
-    return this.http.get<MenuPrincipal[]>(`${this.baseUrl}/menus/${usuario}/${empresa}`)
+    return this.http.get<MenuPrincipal[]>(`${this.baseUrl}/acceso-rol/menus/${usuario}/${empresa}`)
   }
 
   getEmpresas(usuario: number): Observable<Empresa[]> {
-    return this.http.get<Empresa[]>(`${this.baseUrl}/empresas/${usuario}`)
+    return this.http.get<Empresa[]>(`${this.baseUrl}/acceso-rol/empresas/${usuario}`)
   }
 
 }

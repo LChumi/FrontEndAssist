@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {UsrDto} from "@models/dto/usr-dto";
 import {FormsModule} from "@angular/forms";
-import {UsrBodService} from "@services/api/usr-bod.service";
+import {UsrBodService} from "@services/api/models/usr-bod.service";
 import {SelectionService} from "@services/state/selection.service";
 import {getSessionItem} from "@utils/storage-utils";
 

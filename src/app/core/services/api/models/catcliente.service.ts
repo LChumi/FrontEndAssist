@@ -16,6 +16,6 @@ export class CatclienteService {
   }
 
   getCategoriaByEmpresa(empresa: number): Observable<Catcliente[]> {
-    return this.http.get<Catcliente[]>(`${this.baseUrl}/categorias/${empresa}`)
+    return this.http.get<Catcliente[]>(`${this.baseUrl}/catcliente/${empresa}`)
   }
 }

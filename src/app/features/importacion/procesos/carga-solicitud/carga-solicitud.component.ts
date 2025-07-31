@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, HostListener, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService, PrimeTemplate} from "primeng/api";
-import {FileService} from "@services/api/file.service";
+import {ImportacionesService} from "@services/api/assist/importaciones.service";
 import {Items} from "@models/record/items";
 import {OrderListModule} from "primeng/orderlist";
 import {TableModule} from "primeng/table";
@@ -60,7 +60,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   protected uploadFiles: any[] = []; // Archivos seleccionados
 
   private messageService = inject(MessageService);
-  private fileService = inject(FileService)
+  private fileService = inject(ImportacionesService)
   private imagenService = inject(ImagenService)
   private router = inject(Router)
   private domain = environment.domain;

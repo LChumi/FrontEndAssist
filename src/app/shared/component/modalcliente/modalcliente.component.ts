@@ -3,7 +3,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {SelectItem} from "primeng/api";
 import {ToolbarModule} from "primeng/toolbar";
 import {SelectionService} from "@services/state/selection.service";
-import {ClienteService} from "@services/api/cliente.service";
+import {ClienteService} from "@services/api/models/cliente.service";
 import {Cliente} from "@models/entities/cliente";
 import {Table, TableModule} from "primeng/table";
 import {ButtonDirective} from "primeng/button";

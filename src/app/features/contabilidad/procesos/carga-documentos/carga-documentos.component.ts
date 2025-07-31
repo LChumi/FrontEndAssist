@@ -3,7 +3,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {MessageService} from "primeng/api";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {Ripple} from "primeng/ripple";
-import {ContabilidadService} from "@services/api/contabilidad.service";
+import {ContabilidadService} from "@services/api/assist/contabilidad.service";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";

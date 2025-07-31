@@ -10,7 +10,7 @@ import {OrdenComrpaListDTO} from "@models/entities/orden-comrpa-list-dto";
 @Injectable({
   providedIn: 'root'
 })
-export class FileService {
+export class ImportacionesService {
 
   private baseUrl = environment.apiUrlBase + '/assist'
   private http = inject(HttpClient)

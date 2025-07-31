@@ -5,7 +5,7 @@ import {Ripple} from "primeng/ripple";
 import {Router, RouterLink} from "@angular/router";
 import {ConfigComponent} from "@layout/config/config.component";
 import {ServiceResponse} from "@models/record/service-response";
-import {UsuarioService} from "@services/api/usuario.service";
+import {AuthService} from "@services/api/assist/auth.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
@@ -33,7 +33,7 @@ export default class ForgotpasswordComponent implements OnInit {
   serviceResponse: ServiceResponse = {} as ServiceResponse
 
   private fb = inject(FormBuilder)
-  private usuarioService = inject(UsuarioService)
+  private usuarioService = inject(AuthService)
   private router = inject(Router)
   private domain = environment.domain;
   private seoService = inject(SeoService)
