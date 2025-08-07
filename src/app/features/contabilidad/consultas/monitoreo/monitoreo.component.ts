@@ -159,6 +159,7 @@ export default class MonitoreoComponent implements OnInit {
     if (this.serie) count++;
     if (this.numero) count++;
     if (formattedDate) count++;
+    if (this.concepto) count++;
 
     // Verificar que al menos dos parámetros estén presentes
     if (count < 2) {

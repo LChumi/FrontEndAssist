@@ -7,15 +7,21 @@
     <div class="col-12">
       <span class="text-900 block font-bold text-xl mb-4">Carga de archivo Orden de compra</span>
 
-      <span class="text-900 block font-bold gap-2 mb-4">Seleccione una bodega</span>
-      <div class="grid">
-        <app-seleccion-bodegas></app-seleccion-bodegas>
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined"
-                  (click)="abrirModal()"></button>
+      @if (sciSelected) {
+        <span class="text-900 block font-bold gap-2 mb-4">Seleccione una bodega</span>
+        <div class="grid">
+          <app-seleccion-bodegas></app-seleccion-bodegas>
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined"
+                    (click)="abrirModal()"></button>
+          </div>
         </div>
-      </div>
-      <app-modalcliente [tipoCliente]="'Proveedor'" [(visible)]="modalVisible"></app-modalcliente>
+        <app-modalcliente [tipoCliente]="'Proveedor'" [(visible)]="modalVisible"></app-modalcliente>
+      }
+      <span class="text-900 block font-bold gap-2 mb-4">Seleccione la Solicitud</span>
+      <input pInputText id="solicitud" class="flex-auto" autocomplete="off" [(ngModel)]="solicitud"/>
+      <button pButton pRipple label="Buscar" icon="pi pi-search" class="p-button-icon" aria-label="Buscar" (click)="findSCi()"></button>
+
     </div>
   </div>
 </div>

@@ -19,6 +19,7 @@ import {DialogModule} from "primeng/dialog";
 import {InputTextModule} from "primeng/inputtext";
 import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
+import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.service";
 
 @Component({
   standalone: true,
@@ -48,24 +49,31 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   private messageService = inject(MessageService);
   private fileService = inject(ImportacionesService)
   private sessionService = inject(SessionService);
+  private listCcomprobaService = inject(ListCcomprobaVService)
   private domain = environment.domain;
+
+  uploadedFiles: any[] = [];
+  listCco: any[] =[];
+  listaOrdenes: OrdenComrpaListDTO = {listNotSci: [], listWhitSci: []} as OrdenComrpaListDTO;
 
   private idEmpresa: any
   usrId: any;
-  seleccionComprobante = false
-  observacion = '';
+  sciSelected : any
+
   tipoDoc: number = 120;
 
-  uploadedFiles: any[] = [];
-  listaOrdenes: OrdenComrpaListDTO = {listNotSci: [], listWhitSci: []} as OrdenComrpaListDTO;
-  proveedor = ''
+  proveedor = '';
+  observacion = '';
+  solicitud = '';
+
+  seleccionComprobante = false
   listOrders = false
   loading = false;
   modalSci = false;
   modalVisible = false;
-
   novedadFrozen = false;
   loadingSci = false;
+  modalSelectSci = false;
 
   ngOnInit(): void {
     const currentURL = `${this.domain}${this.route.url}`
@@ -157,6 +165,29 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
 
   abrirModal() {
     this.modalVisible = !this.modalVisible;
+  }
+
+  findSCi(){
+    if (this.solicitud === ''){
+      this.message('warn', 'Sin solicitud a buscar', 'Ingrese una solicitud a buscar')
+      return
+    }
+
+    const sigla = 10003347
+
+    this.listCcomprobaService.buscar(
+      this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
+      next: data => {
+        for (let doc of data) {
+          this.listCco.push({
+            id: doc.ccoCodigo,
+            description: doc.concepto,
+            comprobante: doc.dspComproba
+          });
+        }
+        console.log(this.listCco)
+      }
+    })
   }
 
   protected readonly document = document;
