@@ -7,7 +7,19 @@
     <div class="col-12">
       <span class="text-900 block font-bold text-xl mb-4">Carga de archivo Orden de compra</span>
 
-      @if (sciSelected) {
+      @if (!sciSelected) {
+        <div class="col-12 lg:col-6">
+          <div class="flex align-items-center gap-2">
+          <span>
+            <label for="sciSearch" class="p-sr-only">Solicitud</label>
+            <input id="sciSearch" type="text" pInputText placeholder="Buscar Tramite" autocomplete="off"
+                   pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud">
+          </span>
+            <button pButton pRipple type="button" label="Buscar" icon="pi pi-search" pTooltip="Click para buscar"
+                    (click)="heandleSearch($event)"></button>
+          </div>
+        </div>
+      } @else {
         <span class="text-900 block font-bold gap-2 mb-4">Seleccione una bodega</span>
         <div class="grid">
           <app-seleccion-bodegas></app-seleccion-bodegas>
@@ -18,9 +30,6 @@
         </div>
         <app-modalcliente [tipoCliente]="'Proveedor'" [(visible)]="modalVisible"></app-modalcliente>
       }
-      <span class="text-900 block font-bold gap-2 mb-4">Seleccione la Solicitud</span>
-      <input pInputText id="solicitud" class="flex-auto" autocomplete="off" [(ngModel)]="solicitud"/>
-      <button pButton pRipple label="Buscar" icon="pi pi-search" class="p-button-icon" aria-label="Buscar" (click)="findSCi()"></button>
 
     </div>
   </div>
@@ -252,6 +261,25 @@
     <p-button label="Aceptar" (click)="acceptDialogSci()"/>
   </div>
 </p-dialog>
+
+<p-overlayPanel #sciSelect [showCloseIcon]="true" [style]="{width: '450px'}">
+  <ng-template pTemplate>
+    <p-table [value]="listCco" selectionMode="single" [(selection)]="sciSelected" [paginator]="true" [rows]="5" (onRowSelect)="handleRowSelect($event)" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 12rem" pSortableColumn="comprobante">Comprobante<p-sortIcon field="comprobante"></p-sortIcon></th>
+          <th style="min-width: 5rem">Description</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-tramite>
+        <tr [pSelectableRow]="rowData">
+          <td>{{tramite.comprobante}}</td>
+          <td>{{tramite.description}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-overlayPanel>
 
 <app-seleccion-comprobante
   [(visible)]="seleccionComprobante"
