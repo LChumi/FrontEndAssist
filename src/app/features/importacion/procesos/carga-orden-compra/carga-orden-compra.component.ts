@@ -20,6 +20,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/seleccion-bodegas.component";
 import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.service";
+import {TooltipModule} from "primeng/tooltip";
+import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 
 @Component({
   standalone: true,
@@ -35,7 +37,9 @@ import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.servi
     DialogModule,
     InputTextModule,
     SeleccionBodegasComponent,
-    ModalclienteComponent
+    ModalclienteComponent,
+    TooltipModule,
+    OverlayPanelModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -43,6 +47,7 @@ import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.servi
 export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit {
 
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
+  @ViewChild('sciSelect') sciSelect!: OverlayPanel;
 
   private route = inject(Router);
   private seoService = inject(SeoService);
@@ -168,6 +173,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   }
 
   findSCi(){
+    this.listCco = [];
     if (this.solicitud === ''){
       this.message('warn', 'Sin solicitud a buscar', 'Ingrese una solicitud a buscar')
       return
@@ -185,10 +191,25 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
             comprobante: doc.dspComproba
           });
         }
-        console.log(this.listCco)
       }
     })
   }
 
-  protected readonly document = document;
+  heandleSearch(event: Event){
+    if (this.sciSelected){
+      if (this.solicitud.includes(this.solicitud)){
+        console.log('Input coincide con el concepto del comprobante')
+        this.sciSelect.toggle(event)
+      }
+    } else {
+      this.findSCi();
+      this.sciSelect.toggle(event)
+    }
+  }
+
+  handleRowSelect(event: any): void {
+    this.sciSelect.hide();
+    this.sciSelected = event.data;
+  }
+
 }
