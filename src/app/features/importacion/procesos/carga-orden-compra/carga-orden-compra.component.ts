@@ -22,6 +22,8 @@ import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente
 import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.service";
 import {TooltipModule} from "primeng/tooltip";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
+import {ClienteService} from "@services/api/models/cliente.service";
+import {SelectionService} from "@services/state/selection.service";
 
 @Component({
   standalone: true,
@@ -55,6 +57,8 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   private fileService = inject(ImportacionesService)
   private sessionService = inject(SessionService);
   private listCcomprobaService = inject(ListCcomprobaVService)
+  private selectionService = inject(SelectionService)
+  private clienteService = inject(ClienteService);
   private domain = environment.domain;
 
   uploadedFiles: any[] = [];
@@ -184,11 +188,13 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     this.listCcomprobaService.buscar(
       this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
       next: data => {
+        console.log(data)
         for (let doc of data) {
           this.listCco.push({
             id: doc.ccoCodigo,
             description: doc.concepto,
-            comprobante: doc.dspComproba
+            comprobante: doc.dspComproba,
+            proveedor: doc.codclipro
           });
         }
       }
@@ -210,6 +216,14 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   handleRowSelect(event: any): void {
     this.sciSelect.hide();
     this.sciSelected = event.data;
+    this.message('success', 'SCI Seleccionado', this.sciSelected.comprobante)
+    this.clienteService.getClienteById(this.idEmpresa,this.sciSelected.proveedor).subscribe({
+      next: data => {
+        this.proveedor = data.nombre
+        this.selectionService.actualizarAlmacenSeleccionado(data.codigo)
+        this.getButtonLabel()
+      }
+    })
   }
 
 }

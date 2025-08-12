@@ -16,7 +16,11 @@ export class ClienteService {
   }
 
   getClienteXTipo(empresa: number, tipo: number): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.baseUrl}/cliente/${empresa}/${tipo}`)
+    return this.http.get<Cliente[]>(`${this.baseUrl}/cliente/list/${empresa}/${tipo}`)
+  }
+
+  getClienteById(empresa: number, codigo: number): Observable<Cliente>{
+    return this.http.get<Cliente>(`${this.baseUrl}/cliente/get/${codigo}/${empresa}`)
   }
 
 }
