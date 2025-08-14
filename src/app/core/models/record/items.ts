@@ -16,4 +16,7 @@ export interface Items {
   status:             string;
   codFabrica:         string;
   trancitos?:         Trancito[];
+  novedad:            string;
+  ccoOrigen:          any;
+  ccoDestino:         any;
 }

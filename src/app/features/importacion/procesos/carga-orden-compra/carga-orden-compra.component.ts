@@ -24,6 +24,10 @@ import {TooltipModule} from "primeng/tooltip";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 import {ClienteService} from "@services/api/models/cliente.service";
 import {SelectionService} from "@services/state/selection.service";
+import {DividerModule} from "primeng/divider";
+import {CheckboxModule} from "primeng/checkbox";
+import {Items} from "@models/record/items";
+import {Trancito} from "@models/record/trancito";
 
 @Component({
   standalone: true,
@@ -39,9 +43,10 @@ import {SelectionService} from "@services/state/selection.service";
     DialogModule,
     InputTextModule,
     SeleccionBodegasComponent,
-    ModalclienteComponent,
     TooltipModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    DividerModule,
+    CheckboxModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -82,7 +87,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   modalVisible = false;
   novedadFrozen = false;
   loadingSci = false;
-  modalSelectSci = false;
 
   ngOnInit(): void {
     const currentURL = `${this.domain}${this.route.url}`
@@ -119,8 +123,9 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
 
     const file = files[0]; // solo tomamos el primero si multiple = false
 
-    this.fileService.sendOrder(file, this.idEmpresa).subscribe({
+    this.fileService.sendOrder(file, this.idEmpresa, this.sciSelected.id).subscribe({
       next: data => {
+        console.log(data);
         this.listaOrdenes = data;
         this.listOrders = true;
         this.message('info', 'Envío completo', 'Archivo procesado correctamente');
@@ -149,12 +154,11 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
 
   }
 
-  acceptDialogSci() {
+  acceptDialogOrder() {
     if (this.observacion === '') {
       this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
       return
     }
-    this.tipoDoc = 119
     this.seleccionComprobante = true;
     this.modalSci = false;
   }
@@ -172,10 +176,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     }
   }
 
-  abrirModal() {
-    this.modalVisible = !this.modalVisible;
-  }
-
   findSCi(){
     this.listCco = [];
     if (this.solicitud === ''){
@@ -188,7 +188,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     this.listCcomprobaService.buscar(
       this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
       next: data => {
-        console.log(data)
         for (let doc of data) {
           this.listCco.push({
             id: doc.ccoCodigo,
@@ -201,7 +200,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     })
   }
 
-  heandleSearch(event: Event){
+  handleSearch(event: Event){
     if (this.sciSelected){
       if (this.solicitud.includes(this.solicitud)){
         console.log('Input coincide con el concepto del comprobante')
@@ -225,5 +224,29 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
       }
     })
   }
+
+  asignarCCoOrigen(item: Items, tran: Trancito) {
+    const estabaSeleccionado = tran.seleccionado;
+
+    if (estabaSeleccionado) {
+      item.trancitos?.forEach(tr => tr.seleccionado = false);
+      item.ccoOrigen = null;
+    } else {
+      item.trancitos?.forEach(tr => tr.seleccionado = false);
+      tran.seleccionado = true;
+      item.ccoOrigen = tran.ccomproba;
+    }
+  }
+
+
+  limpiarAsignaciones(items: Items[]): void {
+    items.forEach(item => {
+      item.trancitos?.forEach(tr => tr.seleccionado = false);
+      item.ccoOrigen = null;
+    });
+    console.log('Todas las asignaciones han sido limpiadas');
+  }
+
+
 
 }

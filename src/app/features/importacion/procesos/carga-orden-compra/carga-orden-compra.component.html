@@ -5,7 +5,7 @@
     </div>-->
 
     <div class="col-12">
-      <span class="text-900 block font-bold text-xl mb-4">Carga de archivo Orden de compra</span>
+      <span class="text-900 text-2xl gap-2 mb-4">Orden Compra</span>
 
       @if (!sciSelected) {
         <div class="col-12 lg:col-6">
@@ -13,22 +13,33 @@
           <span>
             <label for="sciSearch" class="p-sr-only">Solicitud</label>
             <input id="sciSearch" type="text" pInputText placeholder="Buscar Tramite" autocomplete="off"
-                   pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud">
+                   pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud" (keydown.enter)="handleSearch($event)">
           </span>
             <button pButton pRipple type="button" label="Buscar" icon="pi pi-search" pTooltip="Click para buscar"
-                    (click)="heandleSearch($event)"></button>
+                    (click)="handleSearch($event)"></button>
           </div>
         </div>
       } @else {
-        <span class="text-900 block font-bold gap-2 mb-4">Seleccione una bodega</span>
+        <div class="surface-card grid grid-nogutter border-round shadow-2 mb-6">
+          <div class="col-12 flex p-2 surface-100 border-round-top">
+            <div class="p-2 flex-auto text-center md:text-left">
+              <span class="text-700 block">Solicitud</span>
+              <span class="text-900 font-medium block mt-2">{{sciSelected.comprobante}}</span>
+            </div>
+            <p-divider align="center" layout="vertical" styleClass="h-full mx-0 lg:mx-3 surface-border"></p-divider>
+            <div class="p-2 flex-auto text-center md:text-left">
+              <span class="text-700 block">Descripción</span>
+              <span class="text-900 font-medium block mt-2">{{sciSelected.description}}</span>
+            </div>
+          </div>
+        </div>
+        <span class="text-700 block gap-2 mb-2">Seleccione una bodega</span>
         <div class="grid">
           <app-seleccion-bodegas></app-seleccion-bodegas>
           <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-search" class="p-button-outlined"
-                    (click)="abrirModal()"></button>
+            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-check-circle" class="p-button-outlined"></button>
           </div>
         </div>
-        <app-modalcliente [tipoCliente]="'Proveedor'" [(visible)]="modalVisible"></app-modalcliente>
       }
 
     </div>
@@ -81,7 +92,7 @@
                   responsiveLayout="scroll">
 
                   <ng-template pTemplate="caption">
-                    <h5>Ordenes con Solicitud</h5>
+                    <h5>Productos pertenecientes a la Solicitud <i class="pi true-icon pi-check-circle text-green-500"></i></h5>
                     <p-toggleButton [(ngModel)]="novedadFrozen" [onIcon]="'pi pi-eye'" offIcon="pi pi-eye-slash"
                                     [onLabel]="'Observaciones'" offLabel="Observaciones"
                                     [style]="{'width' : '12rem'}"></p-toggleButton>
@@ -198,18 +209,12 @@
                   responsiveLayout="scroll">
 
                   <ng-template pTemplate="caption">
-                    <h5>Ordenes sin Solicitudes</h5>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-secondary"
-                            [disabled]="loadingSci" (click)="modalSci = true">
-                  <span class="flex align-items-center gap-2">
-                    <i class="pi pi-spin pi-sync"></i>
-                    <span>Generar SCI</span>
-                  </span>
-                    </button>
+                    <h5>Productos sin Solicitud o en varias Solicitudes <i class="pi false-icon pi-times-circle text-pink-500"></i> </h5>
                   </ng-template>
 
                   <ng-template pTemplate="header">
                     <tr>
+                      <th></th>
                       <th>Barra</th>
                       <th>Nombre</th>
                       <th>Item</th>
@@ -225,6 +230,13 @@
                   </ng-template>
                   <ng-template pTemplate="body" let-item let-expanded="expanded">
                     <tr>
+                      <td pFrozenColumn>
+                        @if (item.trancitos) {
+                          <button type="button" pButton pRipple [pRowToggler]="item"
+                                  class="p-button-text p-button-rounded p-button-plain"
+                                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                        }
+                      </td>
                       <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
                       <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
                       <td>{{ item.item }}</td>
@@ -239,6 +251,58 @@
                     </tr>
                   </ng-template>
 
+                  <ng-template pTemplate="rowexpansion" let-item>
+                    <tr>
+                      <td colspan="13">
+                        <div class="p-3">
+                          <p-table
+                            [value]="item.trancitos"
+                            dataKey="id"
+                            responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th></th>
+                                <th pSortableColumn="fecha">Fecha
+                                  <p-sortIcon field="fecha"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="nroComprobante">Numero Comprobante
+                                  <p-sortIcon field="nroComprobante"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="observacion">Observación</th>
+                                <th pSortableColumn="cantidadPedida">Cantidad Pedida</th>
+                                <th pSortableColumn="fob">FOB</th>
+                                <th pSortableColumn="fobTotal">FOB Total Pedido</th>
+                                <th pSortableColumn="fobTotal">FOB Total Aprobado</th>
+                                <th pSortableColumn="tipoDoc">Tipo Documento</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-trancito>
+                              <tr>
+                                <td>
+                                  <p-checkbox
+                                    binary="true"
+                                    [(ngModel)]="trancito.seleccionado"
+                                    (onChange)="asignarCCoOrigen(item, trancito)"
+                                    [inputId]="trancito.nroComprobante">
+
+                                  </p-checkbox>
+                                </td>
+                                <td>{{ trancito.fecha }}</td>
+                                <td>{{ trancito.nroComprobante }}</td>
+                                <td>{{ trancito.observacion }}</td>
+                                <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
+                                <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
+                                <td class="text-right">{{ trancito.fobTotalPedido | number:'1.4-4' }}</td>
+                                <td class="text-right">{{ trancito.fobTotalAprobado | number:'1.4-4' }}</td>
+                                <td>{{ trancito.tipoDoc }}</td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+
                 </p-table>
               </div>
             }
@@ -250,7 +314,7 @@
   </div>
 </div>
 
-<p-dialog header="Generar SCI" [modal]="true" [(visible)]="modalSci" [style]="{ width: '25rem' }">
+<p-dialog header="Generar Orden Compra" [modal]="true" [(visible)]="modalSci" [style]="{ width: '25rem' }">
   <span class="p-text-secondary block mb-4">Se generara un nuevo SCI con los productos.</span>
   <div class="flex items-center gap-4 mb-4">
     <label for="observacion" class="font-semibold w-24">Observacion</label>
@@ -258,7 +322,7 @@
   </div>
   <div class="flex justify-content-end gap-2">
     <p-button label="Cancelar" severity="secondary" (click)="modalSci=false"/>
-    <p-button label="Aceptar" (click)="acceptDialogSci()"/>
+    <p-button label="Aceptar" (click)="acceptDialogOrder()"/>
   </div>
 </p-dialog>
 

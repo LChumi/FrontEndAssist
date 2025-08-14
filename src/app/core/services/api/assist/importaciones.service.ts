@@ -30,10 +30,11 @@ export class ImportacionesService {
     return this.http.post<SciResponse>(`${this.baseUrl}/importaciones/confirmar/solicitud`, request);
   }
 
-  sendOrder(file: File, empresa: string): Observable<OrdenComrpaListDTO> {
+  sendOrder(file: File, empresa: string, cco: any): Observable<OrdenComrpaListDTO> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('empresa', empresa);
+    formData.append('cco', cco)
 
     return this.http.post<OrdenComrpaListDTO>(`${this.baseUrl}/importaciones/excel/orden_compra`, formData)
   }
