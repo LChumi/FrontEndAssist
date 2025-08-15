@@ -8,5 +8,5 @@ export interface Trancito {
   fobTotalPedido:    number;
   fobTotalAprobado:  number;
   tipoDoc:           string;
-  seleccionado?:     boolean;
+  seleccionado:     boolean;
 }

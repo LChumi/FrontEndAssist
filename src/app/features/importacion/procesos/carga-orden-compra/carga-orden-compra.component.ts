@@ -225,18 +225,19 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     })
   }
 
-  asignarCCoOrigen(item: Items, tran: Trancito) {
-    const estabaSeleccionado = tran.seleccionado;
+  asignarCCoOrigen(item: Items, tranSeleccionado: Trancito) {
+    // Desmarcar todos los tránsitos
+    item.trancitos?.forEach(tran => {
+      tran.seleccionado = false;
+    });
 
-    if (estabaSeleccionado) {
-      item.trancitos?.forEach(tr => tr.seleccionado = false);
-      item.ccoOrigen = null;
-    } else {
-      item.trancitos?.forEach(tr => tr.seleccionado = false);
-      tran.seleccionado = true;
-      item.ccoOrigen = tran.ccomproba;
-    }
+    // Marcar solo el seleccionado
+    tranSeleccionado.seleccionado = true;
+
+    // Asignar el origen al item
+    item.ccoOrigen = tranSeleccionado.ccomproba;
   }
+
 
 
   limpiarAsignaciones(items: Items[]): void {
