@@ -163,11 +163,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     this.modalSci = false;
   }
 
-  accepDialogOrder() {
-    this.tipoDoc = 120
-    this.seleccionComprobante = true;
-  }
-
   getButtonLabel(): string {
     if (this.proveedor == '') {
       return 'Seleccionar Proveedor'
@@ -188,14 +183,22 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     this.listCcomprobaService.buscar(
       this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
       next: data => {
-        for (let doc of data) {
-          this.listCco.push({
-            id: doc.ccoCodigo,
-            description: doc.concepto,
-            comprobante: doc.dspComproba,
-            proveedor: doc.codclipro
-          });
+        if (data.length === 0 ){
+          this.message('warn', 'No se encontraron solicitudes', 'Sin resultados')
+          this.solicitud = ''
+          return
+        } else {
+          for (let doc of data) {
+            this.listCco.push({
+              id: doc.ccoCodigo,
+              description: doc.concepto,
+              comprobante: doc.dspComproba,
+              proveedor: doc.codclipro
+            });
+          }
+          this.solicitud = ''
         }
+
       }
     })
   }
@@ -204,6 +207,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     if (this.sciSelected){
       if (this.solicitud.includes(this.solicitud)){
         console.log('Input coincide con el concepto del comprobante')
+        this.solicitud = ''
         this.sciSelect.toggle(event)
       }
     } else {
@@ -238,16 +242,12 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     item.ccoOrigen = tranSeleccionado.ccomproba;
   }
 
-
-
-  limpiarAsignaciones(items: Items[]): void {
-    items.forEach(item => {
-      item.trancitos?.forEach(tr => tr.seleccionado = false);
-      item.ccoOrigen = null;
-    });
-    console.log('Todas las asignaciones han sido limpiadas');
+  registrarDocumento(){
+    this.sciSelected = null
+    this.listOrders=false
   }
 
+  procesarOrden(){
 
-
+  }
 }
