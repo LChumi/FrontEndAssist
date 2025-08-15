@@ -279,13 +279,11 @@
                             <ng-template pTemplate="body" let-trancito>
                               <tr>
                                 <td>
-                                  <p-checkbox
-                                    binary="true"
-                                    [(ngModel)]="trancito.seleccionado"
-                                    (onChange)="asignarCCoOrigen(item, trancito)"
-                                    [inputId]="trancito.nroComprobante">
-
-                                  </p-checkbox>
+                                  <input
+                                    type="checkbox"
+                                    [checked]="trancito.seleccionado"
+                                    (change)="asignarCCoOrigen(item, trancito)"
+                                  >
                                 </td>
                                 <td>{{ trancito.fecha }}</td>
                                 <td>{{ trancito.nroComprobante }}</td>
