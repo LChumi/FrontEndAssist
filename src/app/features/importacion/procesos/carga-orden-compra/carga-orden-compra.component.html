@@ -13,7 +13,8 @@
           <span>
             <label for="sciSearch" class="p-sr-only">Solicitud</label>
             <input id="sciSearch" type="text" pInputText placeholder="Buscar Tramite" autocomplete="off"
-                   pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud" (keydown.enter)="handleSearch($event)">
+                   pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud"
+                   (keydown.enter)="handleSearch($event)">
           </span>
             <button pButton pRipple type="button" label="Buscar" icon="pi pi-search" pTooltip="Click para buscar"
                     (click)="handleSearch($event)"></button>
@@ -24,12 +25,12 @@
           <div class="col-12 flex p-2 surface-100 border-round-top">
             <div class="p-2 flex-auto text-center md:text-left">
               <span class="text-700 block">Solicitud</span>
-              <span class="text-900 font-medium block mt-2">{{sciSelected.comprobante}}</span>
+              <span class="text-900 font-medium block mt-2">{{ sciSelected.comprobante }}</span>
             </div>
             <p-divider align="center" layout="vertical" styleClass="h-full mx-0 lg:mx-3 surface-border"></p-divider>
             <div class="p-2 flex-auto text-center md:text-left">
               <span class="text-700 block">Descripción</span>
-              <span class="text-900 font-medium block mt-2">{{sciSelected.description}}</span>
+              <span class="text-900 font-medium block mt-2">{{ sciSelected.description }}</span>
             </div>
           </div>
         </div>
@@ -37,7 +38,8 @@
         <div class="grid">
           <app-seleccion-bodegas></app-seleccion-bodegas>
           <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-check-circle" class="p-button-outlined"></button>
+            <button pButton pRipple [label]="getButtonLabel()" icon="pi pi-check-circle"
+                    class="p-button-outlined"></button>
           </div>
         </div>
       }
@@ -74,8 +76,7 @@
             </ng-template>
           </p-fileUpload>
         } @else {
-          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="listOrders=false"
-                  class="p-button-raised mb-4"></button>
+          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="registrarDocumento()" class="p-button-raised mb-4"></button>
 
           <div class="grid">
             @if (listaOrdenes.listWhitSci.length > 0) {
@@ -92,7 +93,8 @@
                   responsiveLayout="scroll">
 
                   <ng-template pTemplate="caption">
-                    <h5>Productos pertenecientes a la Solicitud <i class="pi true-icon pi-check-circle text-green-500"></i></h5>
+                    <h5>Productos pertenecientes a la Solicitud <i
+                      class="pi true-icon pi-check-circle text-green-500"></i></h5>
                     <p-toggleButton [(ngModel)]="novedadFrozen" [onIcon]="'pi pi-eye'" offIcon="pi pi-eye-slash"
                                     [onLabel]="'Observaciones'" offLabel="Observaciones"
                                     [style]="{'width' : '12rem'}"></p-toggleButton>
@@ -146,7 +148,7 @@
                       'text-green-300': item.novedad === 'NUEVO',
                       'text-blue-300': item.novedad === 'NUEVO',
                       'text-yellow-300': item.novedad !== 'REPOSICION' && item.novedad !== 'NUEVO'}"
-                      >{{ item.novedad || 'SIN SCI' }}
+                      >{{ item.novedad || 'SIN NOVEDAD' }}
                       </td>
                     </tr>
                   </ng-template>
@@ -209,7 +211,8 @@
                   responsiveLayout="scroll">
 
                   <ng-template pTemplate="caption">
-                    <h5>Productos sin Solicitud o en varias Solicitudes <i class="pi false-icon pi-times-circle text-pink-500"></i> </h5>
+                    <h5>Productos sin Solicitud o en varias Solicitudes <i
+                      class="pi false-icon pi-times-circle text-pink-500"></i></h5>
                   </ng-template>
 
                   <ng-template pTemplate="header">
@@ -226,6 +229,7 @@
                       <th>Cantidad Total</th>
                       <th>CBM Total</th>
                       <th>FOB Total</th>
+                      <th>Observacion</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-item let-expanded="expanded">
@@ -248,6 +252,14 @@
                       <td class="text-right">{{ item.cantidadTotal }}</td>
                       <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
                       <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
+                      <td class="font-bold"
+                          [ngClass]="{
+                          'text-orange-300': item.novedad === 'REPOSICION',
+                          'text-green-300': item.novedad === 'NUEVO',
+                          'text-blue-300': item.novedad === 'NUEVO',
+                          'text-yellow-300': item.novedad !== 'REPOSICION' && item.novedad !== 'NUEVO'}"
+                      >{{ item.novedad || 'SIN NOVEDAD' }}
+                      </td>
                     </tr>
                   </ng-template>
 
@@ -280,6 +292,7 @@
                               <tr>
                                 <td>
                                   <input
+                                    aria-label="Escoger cco"
                                     type="checkbox"
                                     [checked]="trancito.seleccionado"
                                     (change)="asignarCCoOrigen(item, trancito)"
@@ -305,6 +318,8 @@
               </div>
             }
           </div>
+
+          <button pButton pRipple label="Guardar Orden" severity="primary" (click)="procesarOrden()" class="p-button-raised mb-4"></button>
         }
       }
 
@@ -326,17 +341,20 @@
 
 <p-overlayPanel #sciSelect [showCloseIcon]="true" [style]="{width: '450px'}">
   <ng-template pTemplate>
-    <p-table [value]="listCco" selectionMode="single" [(selection)]="sciSelected" [paginator]="true" [rows]="5" (onRowSelect)="handleRowSelect($event)" responsiveLayout="scroll">
+    <p-table [value]="listCco" selectionMode="single" [(selection)]="sciSelected" [paginator]="true" [rows]="5"
+             (onRowSelect)="handleRowSelect($event)" responsiveLayout="scroll">
       <ng-template pTemplate="header">
         <tr>
-          <th style="min-width: 12rem" pSortableColumn="comprobante">Comprobante<p-sortIcon field="comprobante"></p-sortIcon></th>
+          <th style="min-width: 12rem" pSortableColumn="comprobante">Comprobante
+            <p-sortIcon field="comprobante"></p-sortIcon>
+          </th>
           <th style="min-width: 5rem">Description</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-tramite>
         <tr [pSelectableRow]="rowData">
-          <td>{{tramite.comprobante}}</td>
-          <td>{{tramite.description}}</td>
+          <td>{{ tramite.comprobante }}</td>
+          <td>{{ tramite.description }}</td>
         </tr>
       </ng-template>
     </p-table>
