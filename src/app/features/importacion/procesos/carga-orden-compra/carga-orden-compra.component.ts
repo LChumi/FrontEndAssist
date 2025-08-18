@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 import {FileUploadModule} from "primeng/fileupload";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {OrdenComrpaListDTO} from "@models/entities/orden-comrpa-list-dto";
 import {ImportacionesService} from "@services/api/assist/importaciones.service";
 import {SessionService} from "@services/state/session.service";
@@ -28,6 +28,7 @@ import {DividerModule} from "primeng/divider";
 import {CheckboxModule} from "primeng/checkbox";
 import {Items} from "@models/record/items";
 import {Trancito} from "@models/record/trancito";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @Component({
   standalone: true,
@@ -46,7 +47,8 @@ import {Trancito} from "@models/record/trancito";
     TooltipModule,
     OverlayPanelModule,
     DividerModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -64,6 +66,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   private listCcomprobaService = inject(ListCcomprobaVService)
   private selectionService = inject(SelectionService)
   private clienteService = inject(ClienteService);
+  private confirmatioService = inject(ConfirmationService)
   private domain = environment.domain;
 
   uploadedFiles: any[] = [];
@@ -125,7 +128,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
 
     this.fileService.sendOrder(file, this.idEmpresa, this.sciSelected.id).subscribe({
       next: data => {
-        console.log(data);
         this.listaOrdenes = data;
         this.listOrders = true;
         this.message('info', 'Envío completo', 'Archivo procesado correctamente');
@@ -150,8 +152,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
     this.loadingSci = true;
     this.seleccionComprobante = event.visible
-    console.log(event)
-
   }
 
   acceptDialogOrder() {
@@ -203,10 +203,9 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     })
   }
 
-  handleSearch(event: Event){
+  buscarSCI(event: Event){
     if (this.sciSelected){
       if (this.solicitud.includes(this.solicitud)){
-        console.log('Input coincide con el concepto del comprobante')
         this.solicitud = ''
         this.sciSelect.toggle(event)
       }
@@ -216,9 +215,10 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     }
   }
 
-  handleRowSelect(event: any): void {
+  seleccionarSciOrigen(event: any): void {
     this.sciSelect.hide();
     this.sciSelected = event.data;
+    console.log(event.data)
     this.message('success', 'SCI Seleccionado', this.sciSelected.comprobante)
     this.clienteService.getClienteById(this.idEmpresa,this.sciSelected.proveedor).subscribe({
       next: data => {
@@ -229,25 +229,61 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     })
   }
 
-  asignarCCoOrigen(item: Items, tranSeleccionado: Trancito) {
-    // Desmarcar todos los tránsitos
+  asignarCCoOrigen(item: Items, tranSeleccionado: Trancito, event: Event) {
+
+    const inputElement = event.target as HTMLInputElement;
+
+    const isChecked = inputElement?.checked ?? false;
+    // Desmarcar todos
     item.trancitos?.forEach(tran => {
       tran.seleccionado = false;
     });
 
-    // Marcar solo el seleccionado
-    tranSeleccionado.seleccionado = true;
-
-    // Asignar el origen al item
-    item.ccoOrigen = tranSeleccionado.ccomproba;
+    if (isChecked) {
+      // Marcar el seleccionado y asignar origen
+      tranSeleccionado.seleccionado = true;
+      item.ccoOrigen = tranSeleccionado.ccomproba;
+    } else {
+      // Si se desmarca, limpiar origen
+      item.ccoOrigen = null;
+    }
   }
 
-  registrarDocumento(){
+  //Registra un nuevo documento
+  reiniciarProceso(){
     this.sciSelected = null
     this.listOrders=false
   }
 
   procesarOrden(){
+    const listaSci = this.listaOrdenes.listWhitSci
+    const listaNoSci = this.listaOrdenes.listNotSci
 
+    const listaFusionada = [...listaNoSci, ...listaSci];
+
+    const todosConOrigen = listaFusionada.every(item => !!item.ccoOrigen);
+
+    if (!todosConOrigen) {
+      this.confirmatioService.confirm({
+        key: 'sinsci',
+        message: 'Algunos productos no cuentan con comprobante asignado se asignaran al documento escogido',
+        header: 'Validacion',
+        icon: 'pi pi-sync',
+        accept: () => {
+          listaFusionada.forEach(item => {
+            if (!item.ccoOrigen) {
+              item.ccoOrigen = this.sciSelected.id;
+            }
+          })
+          console.log('Items asignados al cco de Origen predefinido ' + this.sciSelected.id)
+          console.log(listaFusionada)
+        },
+        reject: () => {
+          console.warn('Volviendo a escoger..... ')
+          console.log(listaFusionada)
+          return
+        }
+      })
+    }
   }
 }

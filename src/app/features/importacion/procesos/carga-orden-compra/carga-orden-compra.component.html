@@ -14,10 +14,10 @@
             <label for="sciSearch" class="p-sr-only">Solicitud</label>
             <input id="sciSearch" type="text" pInputText placeholder="Buscar Tramite" autocomplete="off"
                    pTooltip="Ingrese el numero de tramite a buscar" [(ngModel)]="solicitud"
-                   (keydown.enter)="handleSearch($event)">
+                   (keydown.enter)="buscarSCI($event)">
           </span>
             <button pButton pRipple type="button" label="Buscar" icon="pi pi-search" pTooltip="Click para buscar"
-                    (click)="handleSearch($event)"></button>
+                    (click)="buscarSCI($event)"></button>
           </div>
         </div>
       } @else {
@@ -76,7 +76,7 @@
             </ng-template>
           </p-fileUpload>
         } @else {
-          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="registrarDocumento()" class="p-button-raised mb-4"></button>
+          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="reiniciarProceso()" class="p-button-raised mb-4"></button>
 
           <div class="grid">
             @if (listaOrdenes.listWhitSci.length > 0) {
@@ -295,7 +295,7 @@
                                     aria-label="Escoger cco"
                                     type="checkbox"
                                     [checked]="trancito.seleccionado"
-                                    (change)="asignarCCoOrigen(item, trancito)"
+                                    (change)="asignarCCoOrigen(item, trancito,$event)"
                                   >
                                 </td>
                                 <td>{{ trancito.fecha }}</td>
@@ -342,7 +342,7 @@
 <p-overlayPanel #sciSelect [showCloseIcon]="true" [style]="{width: '450px'}">
   <ng-template pTemplate>
     <p-table [value]="listCco" selectionMode="single" [(selection)]="sciSelected" [paginator]="true" [rows]="5"
-             (onRowSelect)="handleRowSelect($event)" responsiveLayout="scroll">
+             (onRowSelect)="seleccionarSciOrigen($event)" responsiveLayout="scroll">
       <ng-template pTemplate="header">
         <tr>
           <th style="min-width: 12rem" pSortableColumn="comprobante">Comprobante
@@ -367,3 +367,5 @@
   [observacion]="observacion"
   (saveRequest)="handleSaveRequest($event)">
 </app-seleccion-comprobante>
+
+<p-confirmDialog key="sinsci" [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Confirmar'" [rejectLabel]="'Regresar'"></p-confirmDialog>
