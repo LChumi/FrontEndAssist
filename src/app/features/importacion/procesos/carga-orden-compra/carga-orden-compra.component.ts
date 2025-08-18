@@ -218,7 +218,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   seleccionarSciOrigen(event: any): void {
     this.sciSelect.hide();
     this.sciSelected = event.data;
-    console.log(event.data)
     this.message('success', 'SCI Seleccionado', this.sciSelected.comprobante)
     this.clienteService.getClienteById(this.idEmpresa,this.sciSelected.proveedor).subscribe({
       next: data => {
@@ -275,12 +274,8 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
               item.ccoOrigen = this.sciSelected.id;
             }
           })
-          console.log('Items asignados al cco de Origen predefinido ' + this.sciSelected.id)
-          console.log(listaFusionada)
         },
         reject: () => {
-          console.warn('Volviendo a escoger..... ')
-          console.log(listaFusionada)
           return
         }
       })
