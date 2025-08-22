@@ -9,6 +9,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -29,7 +30,11 @@ export class JepFasterComponent implements OnInit{
   private toast = inject(MessageService);
   private router = inject(Router)
   private seoService = inject(SeoService);
+  private clarityService = inject(ClarityService);
+
   private domain = environment.domain;
+  private usr= 'Jepfaster';
+  private username = 'Jep Faster Pagos'
 
   protected usrLiquida: any;
   protected empresa: any;
@@ -40,6 +45,7 @@ export class JepFasterComponent implements OnInit{
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
     this.seoService.updateCanonical(currentUrl);
+    this.clarityService.identify(this.usr, this.username)
 
     const titleJep='JEPFaster'
     const descriptionJep='JEPFaster compra y paga desde tu celular'

@@ -24,6 +24,7 @@
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
+    "@microsoft/clarity": "^1.0.0",
     "chart.js": "^4.4.6",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",

@@ -3,6 +3,8 @@ import {RouterOutlet} from '@angular/router';
 import {PrimeNGConfig} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ClarityService} from "@services/state/clarity.service";
+import {environment} from "@environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +15,12 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 })
 export class AppComponent implements OnInit {
 
+  private clarity = inject(ClarityService);
   private primengConfig = inject(PrimeNGConfig)
+  private projectId = environment.clarityId
 
   ngOnInit() {
+    this.clarity.init(this.projectId)
     this.primengConfig.ripple = true;
     this.primengConfig.setTranslation({
       accept: 'Aceptar',

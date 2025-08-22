@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {getSessionItem, setSessionItem} from "@utils/index";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -24,6 +25,7 @@ export default class EmpresaComponent implements OnInit {
   private menuService = inject(AccesoService)
   private router = inject(Router)
   private seoService = inject(SeoService)
+  private clarityService = inject(ClarityService)
 
   private domain = environment.domain;
 
@@ -52,6 +54,8 @@ export default class EmpresaComponent implements OnInit {
     if (empresa) {
       setSessionItem('empresa', String(empresa.id))
       setSessionItem('nombreEmpresa', empresa.nombre)
+      this.clarityService.setTag('nombreEmpresa', empresa.nombre)
+      this.clarityService.setTag('empresa',String(empresa.id))
       this.goToInicio()
     }
   }

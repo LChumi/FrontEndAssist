@@ -14,6 +14,7 @@ import {ErrorResponse} from "@models/error/error-response";
 import {getSessionItem, setSessionItem} from "@utils/index";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -40,8 +41,9 @@ export default class LoginComponent implements OnInit {
   private usuarioService = inject(AuthService)
   private router = inject(Router)
   private messageService = inject(MessageService)
-  private domain = environment.domain;
+  private clarityService = inject(ClarityService)
   private seoService = inject(SeoService)
+  private domain = environment.domain;
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
@@ -75,6 +77,9 @@ export default class LoginComponent implements OnInit {
         setSessionItem('usrId',String(user.id))
         setSessionItem('nombre', user.nombre)
         setSessionItem('username', user.username)
+
+        this.clarityService.trackUser(user)
+
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
         this.goToEmpresas()
       }, error: (error: ErrorResponse) => {
