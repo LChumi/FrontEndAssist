@@ -11,6 +11,7 @@ import {ErrorResponse} from "@models/error/error-response";
 import { parameterIsNumeric } from "@utils/index";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -32,6 +33,8 @@ export default class DeunaComponent implements OnInit {
   private toast = inject(MessageService);
   private router = inject(Router)
   private seoService = inject(SeoService);
+  private clarityService = inject(ClarityService);
+
   private domain = environment.domain;
 
   private subscription: Subscription | null = null;
@@ -40,10 +43,14 @@ export default class DeunaComponent implements OnInit {
   protected empresa: any;
   protected imageBase64: string | null = '';
   private value = 0;
+  private usr= 'DeUna';
+  private username = 'De una Pagos'
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
     this.seoService.updateCanonical(currentUrl);
+
+    this.clarityService.identify(this.usr, this.username)
 
     const title='Pagos DeUna!'
     const description='Tu app de pagos fácil y segura'
