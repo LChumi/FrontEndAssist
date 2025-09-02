@@ -1,4 +1,6 @@
 // Devuelve la fecha actual en formato YYYY-MM-DD
+import {formatDate} from "@angular/common";
+
 export function getCurrentDateNow(): string {
   const fecha = new Date();
   const year = fecha.getFullYear();
@@ -34,4 +36,9 @@ export function getMonthFormattedDate(mes:any): number{
 
 export function getYearFormattedDate(year:any): number{
   return year ? year.getFullYear() : null;
+}
+
+export function getDateFormattedNow(){
+  const date = new Date();
+  return formatDate(date, 'dd-MM-YYYY', 'en-US');
 }

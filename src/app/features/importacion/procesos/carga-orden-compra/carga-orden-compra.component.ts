@@ -53,7 +53,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
 })
-export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit {
+export default class CargaOrdenCompraComponent implements OnInit {
 
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
   @ViewChild('sciSelect') sciSelect!: OverlayPanel;
@@ -87,7 +87,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
   listOrders = false
   loading = false;
   modalSci = false;
-  modalVisible = false;
   novedadFrozen = false;
   loadingSci = false;
 
@@ -102,15 +101,6 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
     const context = this.sessionService.getSessionContext();
     this.idEmpresa = context.idEmpresa;
     this.usrId = context.usrId;
-  }
-
-  ngAfterViewInit(): void {
-    this.modalcliente.onBtnClick.subscribe(visible => {
-      this.modalVisible = visible
-    })
-    this.modalcliente.onChangeProv.subscribe(prov => {
-      this.proveedor = prov
-    })
   }
 
   onUpload(event: any) {
@@ -274,6 +264,7 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
               item.ccoOrigen = this.sciSelected.id;
             }
           })
+          this.seleccionComprobante = true
         },
         reject: () => {
           return
@@ -281,4 +272,5 @@ export default class CargaOrdenCompraComponent implements OnInit, AfterViewInit 
       })
     }
   }
+
 }
