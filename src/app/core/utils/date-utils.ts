@@ -30,15 +30,15 @@ export function getCurrentTime(): string {
   return `${formattedHours}:${minutes} ${ampm}`;
 }
 
-export function getMonthFormattedDate(mes:any): number{
+export function getMonthFormattedDate(mes: any): number {
   return mes ? mes.getMonth() + 1 : null
 }
 
-export function getYearFormattedDate(year:any): number{
+export function getYearFormattedDate(year: any): number {
   return year ? year.getFullYear() : null;
 }
 
-export function getDateFormattedNow(){
+export function getDateFormattedNow() {
   const date = new Date();
   return formatDate(date, 'dd-MM-YYYY', 'en-US');
 }

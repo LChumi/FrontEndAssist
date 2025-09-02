@@ -70,12 +70,12 @@ export default class CargaOrdenCompraComponent implements OnInit {
   private domain = environment.domain;
 
   uploadedFiles: any[] = [];
-  listCco: any[] =[];
+  listCco: any[] = [];
   listaOrdenes: OrdenComrpaListDTO = {listNotSci: [], listWhitSci: []} as OrdenComrpaListDTO;
 
   private idEmpresa: any
   usrId: any;
-  sciSelected : any
+  sciSelected: any
 
   tipoDoc: number = 120;
 
@@ -161,9 +161,9 @@ export default class CargaOrdenCompraComponent implements OnInit {
     }
   }
 
-  findSCi(){
+  findSCi() {
     this.listCco = [];
-    if (this.solicitud === ''){
+    if (this.solicitud === '') {
       this.message('warn', 'Sin solicitud a buscar', 'Ingrese una solicitud a buscar')
       return
     }
@@ -173,7 +173,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     this.listCcomprobaService.buscar(
       this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
       next: data => {
-        if (data.length === 0 ){
+        if (data.length === 0) {
           this.message('warn', 'No se encontraron solicitudes', 'Sin resultados')
           this.solicitud = ''
           return
@@ -193,9 +193,9 @@ export default class CargaOrdenCompraComponent implements OnInit {
     })
   }
 
-  buscarSCI(event: Event){
-    if (this.sciSelected){
-      if (this.solicitud.includes(this.solicitud)){
+  buscarSCI(event: Event) {
+    if (this.sciSelected) {
+      if (this.solicitud.includes(this.solicitud)) {
         this.solicitud = ''
         this.sciSelect.toggle(event)
       }
@@ -209,7 +209,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     this.sciSelect.hide();
     this.sciSelected = event.data;
     this.message('success', 'SCI Seleccionado', this.sciSelected.comprobante)
-    this.clienteService.getClienteById(this.idEmpresa,this.sciSelected.proveedor).subscribe({
+    this.clienteService.getClienteById(this.idEmpresa, this.sciSelected.proveedor).subscribe({
       next: data => {
         this.proveedor = data.nombre
         this.selectionService.actualizarAlmacenSeleccionado(data.codigo)
@@ -239,12 +239,12 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   //Registra un nuevo documento
-  reiniciarProceso(){
+  reiniciarProceso() {
     this.sciSelected = null
-    this.listOrders=false
+    this.listOrders = false
   }
 
-  procesarOrden(){
+  procesarOrden() {
     const listaSci = this.listaOrdenes.listWhitSci
     const listaNoSci = this.listaOrdenes.listNotSci
 
