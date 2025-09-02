@@ -3,7 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {ChipsModule} from "primeng/chips";
-import {getCurrentDateNow, getSessionItem} from "@utils/index";
+import {getCurrentDateNow, getDateFormattedNow, getSessionItem} from "@utils/index";
 import {DtipodocService} from "@services/api/models/dtipodoc.service";
 import {Dtipodoc} from "@models/entities/dtipodoc";
 import {FormsModule} from "@angular/forms";
@@ -50,7 +50,6 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChang
   @Output() saveRequest = new EventEmitter<{ request: SolicitudRequestDTO, visible: boolean }>();
   @Output() visibleChange = new EventEmitter<boolean>();
 
-  date: string = '';
   empresa: any;
   fecha: any
 
@@ -78,7 +77,7 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChang
 
   initializeModal(): void {
     this.empresa = getSessionItem("empresa");
-    this.date = getCurrentDateNow()
+    this.fecha = getDateFormattedNow()
     this.getDocumento()
     this.getAlmacen()
     this.getPuntoventaDefecto()
@@ -141,7 +140,7 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChang
   cleanupModal() {
     this.dTipoDoc = [];
     this.almacenes = [];
-    this.date = '';
+    this.fecha = getDateFormattedNow();
   }
 
   close() {
