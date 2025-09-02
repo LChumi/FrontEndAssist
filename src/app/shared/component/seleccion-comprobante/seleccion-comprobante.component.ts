@@ -3,7 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonDirective} from "primeng/button";
 import {DropdownModule} from "primeng/dropdown";
 import {ChipsModule} from "primeng/chips";
-import {getCurrentDateNow, getDateFormattedNow, getSessionItem} from "@utils/index";
+import {getDateFormattedNow, getSessionItem} from "@utils/index";
 import {DtipodocService} from "@services/api/models/dtipodoc.service";
 import {Dtipodoc} from "@models/entities/dtipodoc";
 import {FormsModule} from "@angular/forms";
@@ -160,8 +160,13 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChang
   }
 
   saveDocumento() {
-    if (!this.fecha){
-      this.messageService.add({severity: 'warn', summary: 'Campos vacios', detail: 'Llene los campos del formulario', life: 3000});
+    if (!this.fecha) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Campos vacios',
+        detail: 'Llene los campos del formulario',
+        life: 3000
+      });
       return
     }
     const usuario = Number(getSessionItem("usrId"));

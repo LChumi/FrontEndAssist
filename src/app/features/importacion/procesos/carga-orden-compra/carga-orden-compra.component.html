@@ -76,7 +76,8 @@
             </ng-template>
           </p-fileUpload>
         } @else {
-          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="reiniciarProceso()" class="p-button-raised mb-4"></button>
+          <button pButton pRipple label="Registrar otro documento" severity="secondary" (click)="reiniciarProceso()"
+                  class="p-button-raised mb-4"></button>
 
           <div class="grid">
             @if (listaOrdenes.listWhitSci.length > 0) {
@@ -319,7 +320,8 @@
             }
           </div>
 
-          <button pButton pRipple label="Guardar Orden" severity="primary" (click)="procesarOrden()" class="p-button-raised mb-4"></button>
+          <button pButton pRipple label="Guardar Orden" severity="primary" (click)="procesarOrden()"
+                  class="p-button-raised mb-4"></button>
         }
       }
 
@@ -368,4 +370,5 @@
   (saveRequest)="handleSaveRequest($event)">
 </app-seleccion-comprobante>
 
-<p-confirmDialog key="sinsci" [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Confirmar'" [rejectLabel]="'Regresar'"></p-confirmDialog>
+<p-confirmDialog key="sinsci" [style]="{width: '50vw'}" [baseZIndex]="100000" [acceptLabel]="'Confirmar'"
+                 [rejectLabel]="'Regresar'"></p-confirmDialog>
