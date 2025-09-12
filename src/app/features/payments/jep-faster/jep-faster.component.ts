@@ -46,6 +46,7 @@ export class JepFasterComponent implements OnInit{
     const currentUrl = `${this.domain}${this.router.url}`
     this.seoService.updateCanonical(currentUrl);
     this.clarityService.identify(this.usr, this.username)
+    this.clarityService.event('Pagos con JepFaster')
 
     const titleJep='JEPFaster'
     const descriptionJep='JEPFaster compra y paga desde tu celular'

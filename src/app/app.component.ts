@@ -20,7 +20,10 @@ export class AppComponent implements OnInit {
   private projectId = environment.clarityId
 
   ngOnInit() {
-    this.clarity.init(this.projectId)
+    if (!this.clarity.initialized) {
+      this.clarity.init(this.projectId);
+    }
+
     this.primengConfig.ripple = true;
     this.primengConfig.setTranslation({
       accept: 'Aceptar',
