@@ -51,6 +51,7 @@ export default class DeunaComponent implements OnInit {
     this.seoService.updateCanonical(currentUrl);
 
     this.clarityService.identify(this.usr, this.username)
+    this.clarityService.event('Pagos con DeUna')
 
     const title='Pagos DeUna!'
     const description='Tu app de pagos fácil y segura'

@@ -79,6 +79,7 @@ export default class LoginComponent implements OnInit {
         setSessionItem('username', user.username)
 
         this.clarityService.trackUser(user)
+        this.clarityService.event('Ingreso Assist')
 
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
         this.goToEmpresas()

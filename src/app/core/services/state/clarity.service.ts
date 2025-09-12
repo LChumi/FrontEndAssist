@@ -12,7 +12,7 @@ export class ClarityService {
   constructor() { }
 
   private router = inject(Router);
-  private initialized = false;
+  initialized = false;
 
   init(projectId: string) {
     if (!this.initialized){
