@@ -142,6 +142,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
     this.loadingSci = true;
     this.seleccionComprobante = event.visible
+
   }
 
   acceptDialogOrder() {
@@ -270,6 +271,8 @@ export default class CargaOrdenCompraComponent implements OnInit {
           return
         }
       })
+    }else{
+      this.seleccionComprobante = true
     }
   }
 
