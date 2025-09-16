@@ -39,4 +39,8 @@ export class ImportacionesService {
     return this.http.post<OrdenComrpaListDTO>(`${this.baseUrl}/importaciones/excel/orden_compra`, formData)
   }
 
+  confirmarOrden(request: SolicitudRequestDTO): Observable<SciResponse> {
+    return this.http.post<SciResponse>(`${this.baseUrl}/importaciones/confirmar/orden`, request);
+  }
+
 }

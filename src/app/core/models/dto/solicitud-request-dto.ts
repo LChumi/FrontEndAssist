@@ -13,4 +13,5 @@ export interface SolicitudRequestDTO {
   bodega:      number;
   observacion: string;
   items:       Items[];
+  ccoRef:      any;
 }

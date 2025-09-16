@@ -191,7 +191,8 @@ export class SeleccionComprobanteComponent implements OnInit, OnDestroy, OnChang
         modulo: this.dTipoDocSelected.modCodigo,
         bodega: bodega,
         observacion: this.observacion(),
-        items: []
+        items: [],
+        ccoRef: null
       }
       this.visible = false;
       this.saveRequest.emit({request: request, visible: false})
