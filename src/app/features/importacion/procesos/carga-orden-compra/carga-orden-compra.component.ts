@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
@@ -72,6 +72,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   uploadedFiles: any[] = [];
   listCco: any[] = [];
   listaOrdenes: OrdenComrpaListDTO = {listNotSci: [], listWhitSci: []} as OrdenComrpaListDTO;
+  listaFinal: Items[] = []
 
   private idEmpresa: any
   usrId: any;
@@ -86,7 +87,6 @@ export default class CargaOrdenCompraComponent implements OnInit {
   seleccionComprobante = false
   listOrders = false
   loading = false;
-  modalSci = false;
   novedadFrozen = false;
   loadingSci = false;
 
@@ -140,18 +140,12 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
+    console.log('inicio', event);
     this.loadingSci = true;
     this.seleccionComprobante = event.visible
 
-  }
+    event.request.items = this.listaFinal
 
-  acceptDialogOrder() {
-    if (this.observacion === '') {
-      this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
-      return
-    }
-    this.seleccionComprobante = true;
-    this.modalSci = false;
   }
 
   getButtonLabel(): string {
@@ -213,7 +207,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     this.clienteService.getClienteById(this.idEmpresa, this.sciSelected.proveedor).subscribe({
       next: data => {
         this.proveedor = data.nombre
-        this.selectionService.actualizarAlmacenSeleccionado(data.codigo)
+        this.selectionService.actualizarClienteSeleccionado(data.codigo)
         this.getButtonLabel()
       }
     })
@@ -246,33 +240,40 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   procesarOrden() {
-    const listaSci = this.listaOrdenes.listWhitSci
-    const listaNoSci = this.listaOrdenes.listNotSci
-
-    const listaFusionada = [...listaNoSci, ...listaSci];
-
-    const todosConOrigen = listaFusionada.every(item => !!item.ccoOrigen);
-
-    if (!todosConOrigen) {
-      this.confirmatioService.confirm({
-        key: 'sinsci',
-        message: 'Algunos productos no cuentan con comprobante asignado se asignaran al documento escogido',
-        header: 'Validacion',
-        icon: 'pi pi-sync',
-        accept: () => {
-          listaFusionada.forEach(item => {
-            if (!item.ccoOrigen) {
-              item.ccoOrigen = this.sciSelected.id;
-            }
-          })
-          this.seleccionComprobante = true
-        },
-        reject: () => {
-          return
-        }
-      })
+    if (this.observacion === '') {
+      this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
+      return
     }else{
-      this.seleccionComprobante = true
+      const listaSci = this.listaOrdenes.listWhitSci
+      const listaNoSci = this.listaOrdenes.listNotSci
+
+      const listaFusionada = [...listaNoSci, ...listaSci];
+
+      const todosConOrigen = listaFusionada.every(item => !!item.ccoOrigen);
+
+      if (!todosConOrigen) {
+        this.confirmatioService.confirm({
+          key: 'sinsci',
+          message: 'Algunos productos no cuentan con comprobante asignado se asignaran al documento escogido',
+          header: 'Validacion',
+          icon: 'pi pi-sync',
+          accept: () => {
+            listaFusionada.forEach(item => {
+              if (!item.ccoOrigen) {
+                item.ccoOrigen = this.sciSelected.id;
+              }
+            })
+            this.seleccionComprobante = true
+            this.listaFinal = listaFusionada
+          },
+          reject: () => {
+            return
+          }
+        })
+      }else{
+        this.seleccionComprobante = true
+        this.listaFinal = listaFusionada
+      }
     }
   }
 
