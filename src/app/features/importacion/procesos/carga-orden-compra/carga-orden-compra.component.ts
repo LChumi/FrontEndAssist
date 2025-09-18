@@ -29,6 +29,8 @@ import {CheckboxModule} from "primeng/checkbox";
 import {Items} from "@models/record/items";
 import {Trancito} from "@models/record/trancito";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
+import {ScrollTopModule} from "primeng/scrolltop";
 
 @Component({
   standalone: true,
@@ -48,7 +50,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     OverlayPanelModule,
     DividerModule,
     CheckboxModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DetalleProductoCcoComponent,
+    ScrollTopModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
@@ -77,6 +81,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   private idEmpresa: any
   usrId: any;
   sciSelected: any
+  cco: any
 
   tipoDoc: number = 120;
 
@@ -89,6 +94,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   loading = false;
   novedadFrozen = false;
   loadingSci = false;
+  displayDialog = false;
 
   ngOnInit(): void {
     const currentURL = `${this.domain}${this.route.url}`
@@ -140,12 +146,25 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
-    console.log('inicio', event);
     this.loadingSci = true;
     this.seleccionComprobante = event.visible
-
     event.request.items = this.listaFinal
-
+    event.request.ccoRef = this.sciSelected.id
+    this.fileService.confirmarOrden(event.request).subscribe({
+      next: data => {
+        if (data){
+          this.messageService.add({
+            severity: 'succes',
+            summary: 'Orden Creada',
+            detail: `Orden de compra de Importacion Creada satisfactoriamente ${data.comprobante}`,
+            life: 3000
+          })
+          this.reiniciarProceso()
+          this.displayDialog = true;
+          this.cco = data.cco;
+        }
+      }
+    })
   }
 
   getButtonLabel(): string {
@@ -237,6 +256,8 @@ export default class CargaOrdenCompraComponent implements OnInit {
   reiniciarProceso() {
     this.sciSelected = null
     this.listOrders = false
+    this.observacion = ''
+    this.listaFinal = []
   }
 
   procesarOrden() {

@@ -273,7 +273,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
         this.messageService.add({
           severity: 'success',
           summary: 'CREADO',
-          detail: 'SOLICITUD DE IMPORTACIÓN: ' + response,
+          detail: 'SOLICITUD DE IMPORTACIÓN: ' + response.comprobante,
           life: 3000
         });
         this.cargarNuevo()
