@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import Clarity from "@microsoft/Clarity";
+import clarity from '@microsoft/clarity';
 import {NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs/operators";
 import {UserResponse} from "@models/record/user-response";
@@ -16,19 +16,19 @@ export class ClarityService {
 
   init(projectId: string) {
     if (!this.initialized){
-      Clarity.init(projectId);
+      clarity.init(projectId);
       this.initialized = true;
       this.trackRoutes();
     }
   }
 
   identify(usrId: any, username: any) {
-    Clarity.identify(usrId, undefined,undefined, username);
+    clarity.identify(usrId, undefined,undefined, username);
   }
 
   setTag(key: string, value: string | null | undefined): void {
     if (value && value.trim() !== '') {
-      Clarity.setTag(key, value);
+      clarity.setTag(key, value);
     }
   }
 
@@ -43,7 +43,7 @@ export class ClarityService {
 
   event(name: string){
     if (name && name.trim() !== '') {
-      Clarity.event(name);
+      clarity.event(name);
     }
   }
 
@@ -51,7 +51,7 @@ export class ClarityService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        Clarity.event(`route:${event.urlAfterRedirects}`);
+        clarity.event(`route:${event.urlAfterRedirects}`);
       });
   }
 
