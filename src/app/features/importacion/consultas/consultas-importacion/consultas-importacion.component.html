@@ -64,13 +64,8 @@
         <!--Encabezado de la tabla -->
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="nroComprobante" class="p-text-center">
-              NroComprobante
-              <p-sortIcon field="nroComprobante"></p-sortIcon>
-            </th>
-            <th pSortableColumn="fecha">Fecha
-              <p-sortIcon field="fecha"></p-sortIcon>
-            </th>
+            <th pSortableColumn="nroComprobante" class="p-text-center">NroComprobante</th>
+            <th pSortableColumn="fecha">Fecha</th>
             <th pSortableColumn="proId">Barra</th>
             <th pSortableColumn="proId1">Item</th>
             <th pSortableColumn="proNombre">Producto</th>
@@ -88,27 +83,18 @@
         <!--Cuerpo de la tabla -->
         <ng-template pTemplate="body" let-documento>
           <tr>
-            <td class="p-text-center p-col-1 p-col-fixed"
-                style="width:15%; min-width: 15rem;">{{ documento.nroComprobante }}
-            </td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 10rem;">{{ documento.fecha }}
-            </td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{ documento.nroComprobante }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 10rem;">{{ documento.fecha }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.proId }}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:20%; min-width: 20rem;">{{ documento.proId1 }}
-            </td>
-            <td class="p-text-center p-col-1 p-col-fixed"
-                style="width:30%; min-width: 30rem;">{{ documento.proNombre }}
-            </td>
-            <td class="p-text-center p-col-1 p-col-fixed"
-                style="width:25%; min-width: 25rem;">{{ documento.observacion }}
-            </td>
-            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.cantidadPedida }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:20%; min-width: 20rem;">{{ documento.proId1 }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:30%; min-width: 30rem;">{{ documento.proNombre }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:25%; min-width: 25rem;">{{ documento.observacion }}</td>
+            <td class="p-text-center p-col-1 p-col-fixed">{{ documento.cantPedida }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.cantLlegada }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fob }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fobTotalPedido }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.fobTotalAprobado }}</td>
-            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{ documento.estado }}
-            </td>
+            <td class="p-text-center p-col-1 p-col-fixed" style="width:15%; min-width: 15rem;">{{ documento.estado }}</td>
             <td class="p-text-center p-col-1 p-col-fixed">{{ documento.tipoDoc }}</td>
           </tr>
         </ng-template>
