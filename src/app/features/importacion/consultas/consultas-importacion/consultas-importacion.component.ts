@@ -55,8 +55,8 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
     const currentUrl = `${this.domain}${this.router.url}`
     this.seoService.updateCanonical(currentUrl);
 
-    const title='Consultas Importacion'
-    const description='Consulta de Tramites de importacion'
+    const title = 'Consultas Importacion'
+    const description = 'Consulta de Tramites de importacion'
     this.seoService.update(title, description);
 
     this.empresa = getSessionItem("empresa");
