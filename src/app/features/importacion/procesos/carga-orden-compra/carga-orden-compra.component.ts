@@ -152,7 +152,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     event.request.ccoRef = this.sciSelected.id
     this.fileService.confirmarOrden(event.request).subscribe({
       next: data => {
-        if (data){
+        if (data) {
           this.messageService.add({
             severity: 'succes',
             summary: 'Orden Creada',
@@ -264,7 +264,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
     if (this.observacion === '') {
       this.message('warn', 'Sci sin observacion', 'Ingrese una observacion o numero de tramite')
       return
-    }else{
+    } else {
       const listaSci = this.listaOrdenes.listWhitSci
       const listaNoSci = this.listaOrdenes.listNotSci
 
@@ -291,7 +291,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
             return
           }
         })
-      }else{
+      } else {
         this.seleccionComprobante = true
         this.listaFinal = listaFusionada
       }

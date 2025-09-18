@@ -22,7 +22,7 @@ import {ClarityService} from "@services/state/clarity.service";
   templateUrl: './jep-faster.component.html',
   styles: ``
 })
-export class JepFasterComponent implements OnInit{
+export class JepFasterComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private jepService = inject(JepfasterService);
@@ -33,13 +33,13 @@ export class JepFasterComponent implements OnInit{
   private clarityService = inject(ClarityService);
 
   private domain = environment.domain;
-  private usr= 'Jepfaster';
+  private usr = 'Jepfaster';
   private username = 'Jep Faster Pagos'
 
   protected usrLiquida: any;
   protected empresa: any;
 
-  private static base64= 'data:image/png;base64,'
+  private static base64 = 'data:image/png;base64,'
   protected imageBase64: string | null = null
 
   ngOnInit(): void {
@@ -48,15 +48,15 @@ export class JepFasterComponent implements OnInit{
     this.clarityService.identify(this.usr, this.username)
     this.clarityService.event('Pagos con JepFaster')
 
-    const titleJep='JEPFaster'
-    const descriptionJep='JEPFaster compra y paga desde tu celular'
+    const titleJep = 'JEPFaster'
+    const descriptionJep = 'JEPFaster compra y paga desde tu celular'
     this.seoService.update(titleJep, descriptionJep);
 
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')
       this.empresa = params.get('empresa')
     })
-    if (!parameterIsNumeric(this.usrLiquida)){
+    if (!parameterIsNumeric(this.usrLiquida)) {
       return;
     }
     this.verificarPagoJep()
@@ -65,9 +65,9 @@ export class JepFasterComponent implements OnInit{
   verificarPagoJep() {
     this.jepService.verificarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
-        if (data.success){
+        if (data.success) {
           this.confirm()
-        }else{
+        } else {
           this.obtenerQr()
         }
       },
@@ -82,7 +82,7 @@ export class JepFasterComponent implements OnInit{
     this.jepService.generarQr(this.usrLiquida, this.empresa).subscribe({
       next: data => {
         if (data.data && data.data.qr) {
-          this.imageBase64 = JepFasterComponent.base64+data.data.qr
+          this.imageBase64 = JepFasterComponent.base64 + data.data.qr
           this.validarQr()
         }
       },
