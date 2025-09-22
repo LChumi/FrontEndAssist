@@ -47,12 +47,26 @@ export class ClarityService {
     }
   }
 
-  private trackRoutes(): void {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        clarity.event(`route:${event.urlAfterRedirects}`);
-      });
+  private trackRoutes() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const currentUrl = event.urlAfterRedirects;
+
+      // Normaliza la ruta para quitar IDs dinámicos
+      const normalizedUrl = currentUrl.replace(/\/\d+\/\d+$/, '');
+
+      // Lista de rutas que quieres excluir
+      const excludedRoutes = ['/jep-faster', '/deuna'];
+
+      const shouldExclude = excludedRoutes.some(route => normalizedUrl.includes(route));
+
+      if (!shouldExclude) {
+        clarity.setTag('ruta', normalizedUrl);
+        clarity.event('Ruta visitada');
+      }
+    });
   }
+
 
 }
