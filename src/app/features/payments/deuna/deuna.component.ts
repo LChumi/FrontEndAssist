@@ -33,7 +33,6 @@ export default class DeunaComponent implements OnInit {
   private toast = inject(MessageService);
   private router = inject(Router)
   private seoService = inject(SeoService);
-  private clarityService = inject(ClarityService);
 
   private domain = environment.domain;
 
@@ -43,8 +42,6 @@ export default class DeunaComponent implements OnInit {
   protected empresa: any;
   protected imageBase64: string | null = '';
   private value = 0;
-  private usr= 'DeUna';
-  private username = 'De una Pagos'
 
   ngOnInit(): void {
     const currentUrl = `${this.domain}${this.router.url}`
