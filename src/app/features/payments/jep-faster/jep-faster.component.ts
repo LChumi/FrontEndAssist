@@ -30,11 +30,8 @@ export class JepFasterComponent implements OnInit {
   private toast = inject(MessageService);
   private router = inject(Router)
   private seoService = inject(SeoService);
-  private clarityService = inject(ClarityService);
 
   private domain = environment.domain;
-  private usr = 'Jepfaster';
-  private username = 'Jep Faster Pagos'
 
   protected usrLiquida: any;
   protected empresa: any;
