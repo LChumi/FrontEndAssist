@@ -78,8 +78,10 @@ export default class LoginComponent implements OnInit {
         setSessionItem('nombre', user.nombre)
         setSessionItem('username', user.username)
 
-        this.clarityService.trackUser(user)
-        this.clarityService.event('Ingreso Assist')
+        setTimeout(() => {
+          this.clarityService.trackUser(user);
+          this.clarityService.event('Ingreso Assist');
+        }, 300);
 
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
         this.goToEmpresas()
@@ -94,6 +96,7 @@ export default class LoginComponent implements OnInit {
   }
 
   goToEmpresas() {
+    this.clarityService.prioritize('login exitoso');
     this.router.navigate(['/assist', 'auth', 'empresas']).then(r => {})
   }
 

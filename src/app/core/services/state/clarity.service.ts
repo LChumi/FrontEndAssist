@@ -47,19 +47,26 @@ export class ClarityService {
     }
   }
 
+  prioritize(reason: string): void {
+    if (reason && reason.trim() !== '') {
+      clarity.upgrade(reason);
+    }
+  }
+
+
   private trackRoutes() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      const currentUrl = event.urlAfterRedirects;
+      const currentUrl = event.urlAfterRedirects.toLowerCase().split('?')[0];
 
-      // Normaliza la ruta para quitar IDs dinámicos
-      const normalizedUrl = currentUrl.replace(/\/\d+\/\d+$/, '');
+      // Normaliza rutas dinámicas
+      const normalizedUrl = this.normalizeRoute(currentUrl);
 
       // Lista de rutas que quieres excluir
-      const excludedRoutes = ['/jep-faster', '/deuna'];
+      const excludedRoutes = ['deuna', 'jep-faster'];
 
-      const shouldExclude = excludedRoutes.some(route => normalizedUrl.includes(route));
+      const shouldExclude = excludedRoutes.includes(normalizedUrl);
 
       if (!shouldExclude) {
         clarity.setTag('ruta', normalizedUrl);
@@ -67,4 +74,21 @@ export class ClarityService {
       }
     });
   }
+
+  private normalizeRoute(url: string): string {
+    const patterns: { regex: RegExp; tag: string }[] = [
+      { regex: /^\/deuna\/\d+\/[^/]+$/, tag: 'deuna' },
+      { regex: /^\/jep-faster\/\d+\/[^/]+$/, tag: 'jep-faster' }
+    ];
+
+    for (const pattern of patterns) {
+      if (pattern.regex.test(url)) {
+        return pattern.tag;
+      }
+    }
+
+    // Si no coincide con ningún patrón, devuelve la ruta original
+    return url.replace(/\/\d+(\/[^/]+)?$/, '');
+  }
+
 }
