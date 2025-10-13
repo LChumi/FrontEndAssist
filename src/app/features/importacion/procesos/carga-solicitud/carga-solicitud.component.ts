@@ -23,9 +23,7 @@ import {SeleccionBodegasComponent} from "@shared/component/seleccion-bodegas/sel
 import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {forkJoin, Observable} from "rxjs";
-import {Router} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -62,9 +60,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private messageService = inject(MessageService);
   private fileService = inject(ImportacionesService)
   private imagenService = inject(ImagenService)
-  private router = inject(Router)
-  private domain = environment.domain;
-  private seoService = inject(SeoService)
+  private seoHelper = inject(SeoHelperService);
 
   listItems: Items[] = []
   item: Items = {} as Items;
@@ -99,12 +95,11 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   }
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Solicitud Importacion'
-    const description='Carga de solicitud de importaciones 1 fase'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Solicitud Importacion | Assist Web',
+      description: 'Carga de solicitud de importaciones primera fase',
+      schemaTitle: 'ContentPage'
+    });
 
     window.addEventListener('beforeunload', this.unloadNotification)
     const empresa = getSessionItem('empresa')

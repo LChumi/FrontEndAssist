@@ -12,9 +12,8 @@ import {AuthenticationRequest} from "@models/auth/authentication-request";
 import {MessageService} from "primeng/api";
 import {ErrorResponse} from "@models/error/error-response";
 import {getSessionItem, setSessionItem} from "@utils/index";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
 import {ClarityService} from "@services/state/clarity.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -42,16 +41,14 @@ export default class LoginComponent implements OnInit {
   private router = inject(Router)
   private messageService = inject(MessageService)
   private clarityService = inject(ClarityService)
-  private seoService = inject(SeoService)
-  private domain = environment.domain;
+  private seoHelper = inject(SeoHelperService)
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Login'
-    const description='Inicio de sesion'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Pagina de Autorizacion | Assist Web',
+      description: 'Pagina de autorizacion para procesos internos del sistema Assist Web',
+      schemaTitle: 'ContentPage'
+    });
 
     this.getSession()
     this.loginForm = this.fb.group({
@@ -97,7 +94,7 @@ export default class LoginComponent implements OnInit {
 
   goToEmpresas() {
     this.clarityService.prioritize('login exitoso');
-    this.router.navigate(['/assist', 'auth', 'empresas']).then(r => {})
+    this.router.navigate(['/auth', 'empresas']).then(r => {})
   }
 
   private getSession(){

@@ -11,41 +11,36 @@ import {JepFasterComponent} from "@features/payments/jep-faster/jep-faster.compo
 
 export const routes: Routes = [
   {
-    path: 'assist',
+    path: 'auth',
+    children: authRoutes
+  },
+  {
+    path: 'inicio', component: LayoutComponent,
+    canActivate:[sessionGuard],
+    canActivateChild:[sessionGuard],
     children: [
       {
-        path: 'auth',
-        children: authRoutes
+        path: 'dashboard',
+        data: {breadcrumb: 'Inicio Dashboard'},
+        loadComponent: () => import('@features/dashboards/dashboard/dashboard.component')
       },
       {
-        path: 'inicio', component: LayoutComponent,
-        canActivate:[sessionGuard],
-        canActivateChild:[sessionGuard],
-        children: [
-          {
-            path: 'dashboard',
-            data: {breadcrumb: 'Inicio Dashboard'},
-            loadComponent: () => import('@features/dashboards/dashboard/dashboard.component')
-          },
-          {
-            path: 'importaciones',
-            data: {breadcrumb: 'Importacion'},
-            children: importacionesRoutes
-          },
-          {
-            path: 'contabilidad',
-            data: {breadcrumb: 'Contabilidad'},
-            children: contabilidadRoutes
-          },
-          {path: '', redirectTo: 'dashboard', pathMatch: "full"}
-        ]
+        path: 'importaciones',
+        data: {breadcrumb: 'Importacion'},
+        children: importacionesRoutes
       },
+      {
+        path: 'contabilidad',
+        data: {breadcrumb: 'Contabilidad'},
+        children: contabilidadRoutes
+      },
+      {path: '', redirectTo: 'dashboard', pathMatch: "full"}
     ]
   },
   {path: 'notFound', component: NotFoundComponent},
   {path: 'deuna/:id/:empresa', component: DeunaComponent},
   {path: 'jep-faster/:id/:empresa', component: JepFasterComponent},
   {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
-  {path: '', redirectTo: '/assist/auth', pathMatch: "full"},
+  {path: '', redirectTo: '/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {ImageModule} from "primeng/image";
 import {DeunaService} from "@services/api/deUnaServices/deuna.service";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -9,9 +9,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {interval, Subscription} from "rxjs";
 import {ErrorResponse} from "@models/error/error-response";
 import { parameterIsNumeric } from "@utils/index";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
-import {ClarityService} from "@services/state/clarity.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -31,10 +29,7 @@ export default class DeunaComponent implements OnInit {
   private deunaService = inject(DeunaService);
   private confirmatioService = inject(ConfirmationService)
   private toast = inject(MessageService);
-  private router = inject(Router)
-  private seoService = inject(SeoService);
-
-  private domain = environment.domain;
+  private seoHelper = inject(SeoHelperService)
 
   private subscription: Subscription | null = null;
 
@@ -44,12 +39,11 @@ export default class DeunaComponent implements OnInit {
   private value = 0;
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Pagos DeUna!'
-    const description='Tu app de pagos fácil y segura'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Pagos DeUna! | Assist Web',
+      description: 'Tu app de pagos fácil y segura escanea tu QR y realiza el pago sin ningun incoveniente',
+      schemaTitle: 'ContentPage'
+    });
 
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')

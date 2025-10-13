@@ -11,8 +11,7 @@ import {getSessionItem} from "@utils/index";
 import {ErrorResponse} from "@models/error/error-response";
 import {forkJoin, Observable} from "rxjs";
 import {ServiceResponse} from "@models/record/service-response";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -34,8 +33,7 @@ export default class CargaDocumentosComponent implements OnInit {
   private messageService = inject(MessageService);
   private contabilidadService = inject(ContabilidadService);
   private router = inject(Router)
-  private domain = environment.domain;
-  private seoService = inject(SeoService);
+  private seoHelper = inject(SeoHelperService);
 
   emailEmpresa = ''; // Email empresarial
   loading = false; // Estado de envío
@@ -44,16 +42,15 @@ export default class CargaDocumentosComponent implements OnInit {
   id_usuario: any;
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Documentos Sri'
-    const description='Carga de documentos enviados del SRI'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Carga de documentos Sri | Assist Web',
+      description: 'Carga de documentos recibidos del Sri y sincronizacion con el sistemas Assist',
+      schemaTitle: 'ContentPage'
+    });
 
     this.id_usuario = getSessionItem('usrId')
     if (this.id_usuario == '') {
-      this.router.navigate(['/assist', 'auth', 'login']).then(r => {
+      this.router.navigate(['/auth', 'login']).then(r => {
       })
     }
     this.obtenerCorreoEmpresarial()

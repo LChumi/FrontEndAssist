@@ -23,8 +23,7 @@ import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {getSessionItem} from "@utils/storage-utils";
 import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@utils/date-utils";
 import {Router} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -53,8 +52,7 @@ export default class MonitoreoComponent implements OnInit {
   private tipodocService = inject(TipodocService);
   private listCcomprobaService = inject(ListCcomprobaVService)
   private router = inject(Router)
-  private domain = environment.domain;
-  private seoService = inject(SeoService);
+  private seoHelper = inject(SeoHelperService);
 
   private empresa: any;
   protected periodo: any;
@@ -84,12 +82,11 @@ export default class MonitoreoComponent implements OnInit {
   protected almacenSelected: Almacen = {} as Almacen;
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Monitoreo'
-    const description='Monitoreo de Documento'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Pagina de consultas monitoreo | Assist web',
+      description: 'Consulta o monitoreo de todos los docuemntos del sistema assist web',
+      schemaTitle: 'ContentPage'
+    });
 
     this.usrId = getSessionItem('usrId')
     this.empresa = getSessionItem("empresa");

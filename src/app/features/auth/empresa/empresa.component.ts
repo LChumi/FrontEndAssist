@@ -6,9 +6,8 @@ import {Ripple} from "primeng/ripple";
 import {ConfigComponent} from "@layout/config/config.component";
 import {Router} from "@angular/router";
 import {getSessionItem, setSessionItem} from "@utils/index";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
 import {ClarityService} from "@services/state/clarity.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -24,20 +23,17 @@ export default class EmpresaComponent implements OnInit {
 
   private menuService = inject(AccesoService)
   private router = inject(Router)
-  private seoService = inject(SeoService)
   private clarityService = inject(ClarityService)
-
-  private domain = environment.domain;
+  private seoHelper = inject(SeoHelperService)
 
   listasEmpresa: Empresa[] = []
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Empresa'
-    const description='Seleccion de empresas'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Seleccion Empresa | Assist Web',
+      description: 'Lista de empresas asignadas al usuario en el sistema assist',
+      schemaTitle: 'ContentPage'
+    });
 
     const usrIdString = getSessionItem('usrId')
     if (usrIdString) {
@@ -61,6 +57,6 @@ export default class EmpresaComponent implements OnInit {
   }
 
   goToInicio() {
-    this.router.navigate(['/assist', 'inicio', 'dashboard']).then(r => {})
+    this.router.navigate(['/inicio', 'dashboard']).then(r => {})
   }
 }

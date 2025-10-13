@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
+
 
 @Component({
   standalone: true,
@@ -11,18 +10,14 @@ import {SeoService} from "@services/state/seo.service";
 })
 export class PrivacyPolicyComponent implements OnInit {
 
-  private router = inject(Router)
-  private seoService = inject(SeoService);
-  private domain = environment.domain;
-
   protected emailInfo: string='info@cumpleanos.com.ec';
+  private seoHelper = inject(SeoHelperService)
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Politica de Privacidad'
-    const description='Nuestra Politica de privacidad'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Politica de Privacidad | Assist Web',
+      description: 'Consulta nuestra politica de privacidad acerca de nuestro sistema',
+      schemaTitle: 'ContentPage'
+    });
   }
 }

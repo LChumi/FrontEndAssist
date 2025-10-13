@@ -5,6 +5,7 @@ import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ClarityService} from "@services/state/clarity.service";
 import {environment} from "@environments/environment";
+import {SchemaService} from "@services/state/schema.service";
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,13 @@ export class AppComponent implements OnInit {
 
   private clarity = inject(ClarityService);
   private primengConfig = inject(PrimeNGConfig)
+  private schemaService = inject(SchemaService);
   private projectId = environment.clarityId
 
   ngOnInit() {
+    const schema = this.schemaService.generateIndexSchema();
+    this.schemaService.injectSchema(schema, 'WebSite');
+
     if (!this.clarity.initialized) {
       this.clarity.init(this.projectId);
     }

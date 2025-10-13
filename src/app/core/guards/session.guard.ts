@@ -19,10 +19,10 @@ export const sessionGuard: CanActivateFn = (route, state) => {
     clarity.setTag('empresa', empresa);
     return true;
   } else if (usrLogged && !empresa) {
-    router.navigate(['/assist', 'auth', 'empresas']).then(r => {});
+    router.navigate(['/auth', 'empresas']).then(r => {});
     return false;
   } else {
-    router.navigate(['/assist', 'auth', 'login']).then(r => {});
+    router.navigate(['/auth', 'login']).then(r => {});
     return false;
   }
 };

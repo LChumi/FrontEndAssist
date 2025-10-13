@@ -1,7 +1,4 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
 import {FileUploadModule} from "primeng/fileupload";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {OrdenComrpaListDTO} from "@models/entities/orden-comrpa-list-dto";
@@ -31,6 +28,7 @@ import {Trancito} from "@models/record/trancito";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {ScrollTopModule} from "primeng/scrolltop";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -62,8 +60,6 @@ export default class CargaOrdenCompraComponent implements OnInit {
   @ViewChild(ModalclienteComponent) modalcliente!: ModalclienteComponent;
   @ViewChild('sciSelect') sciSelect!: OverlayPanel;
 
-  private route = inject(Router);
-  private seoService = inject(SeoService);
   private messageService = inject(MessageService);
   private fileService = inject(ImportacionesService)
   private sessionService = inject(SessionService);
@@ -71,7 +67,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   private selectionService = inject(SelectionService)
   private clienteService = inject(ClienteService);
   private confirmatioService = inject(ConfirmationService)
-  private domain = environment.domain;
+  private seoHelper = inject(SeoHelperService);
 
   uploadedFiles: any[] = [];
   listCco: any[] = [];
@@ -97,12 +93,11 @@ export default class CargaOrdenCompraComponent implements OnInit {
   displayDialog = false;
 
   ngOnInit(): void {
-    const currentURL = `${this.domain}${this.route.url}`
-    this.seoService.updateCanonical(currentURL);
-
-    const title = 'Orden de compra'
-    const description = 'Carga de orden de compra al sistema 1 fase'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Orden de compra | Assist Web',
+      description: 'Carga de orden de compra al sistema segunda fase',
+      schemaTitle: 'ContentPage'
+    });
 
     const context = this.sessionService.getSessionContext();
     this.idEmpresa = context.idEmpresa;
