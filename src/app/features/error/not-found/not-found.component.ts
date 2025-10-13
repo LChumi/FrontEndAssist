@@ -1,8 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
-import {Router, RouterLink} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   standalone: true,
@@ -15,15 +14,13 @@ import {SeoService} from "@services/state/seo.service";
 })
 export class NotFoundComponent implements OnInit {
 
-  private router = inject(Router)
-  private seoService = inject(SeoService)
-  private domain = environment.domain;
+  private seoHelper= inject(SeoHelperService);
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-    const title='Pagina no Encontrada'
-    this.seoService.update(title, title);
+    this.seoHelper.setupPageSeo({
+      title: 'Pagina no Encontrada | Assist Web',
+      description: 'Pagina no Encontrada o no valida sistema Assist web no se encontro lo solicitado',
+      schemaTitle: 'ContentPage'
+    });
   }
-
 }

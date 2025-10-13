@@ -5,8 +5,7 @@ import {DataViewModule} from "primeng/dataview";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
 import {AccesoService} from "@services/api/models/acceso.service";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -28,17 +27,14 @@ export default class DashboardComponent implements OnInit {
 
   private favoritoService = inject(FavoritesService)
   private accesoService = inject(AccesoService)
-  private router = inject(Router)
-  private domain = environment.domain;
-  private seoService = inject(SeoService);
+  private seoHelper = inject(SeoHelperService);
 
   constructor() {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title='Dashboard'
-    const description='Dashboard'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Dashboard | Assist Web',
+      description: 'Dashboard principal del sistema Assist Web',
+      schemaTitle: 'ContentPage'
+    });
 
     this.getNameLastName()
     this.getDate()

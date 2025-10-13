@@ -8,8 +8,7 @@ import {JepfasterService} from "@services/api/jepFasterServices/jepfaster.servic
 import {ConfirmationService, MessageService} from "primeng/api";
 import {parameterIsNumeric} from "@utils/params-utils";
 import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
-import {ClarityService} from "@services/state/clarity.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -28,8 +27,7 @@ export class JepFasterComponent implements OnInit {
   private jepService = inject(JepfasterService);
   private confirmacionService = inject(ConfirmationService);
   private toast = inject(MessageService);
-  private router = inject(Router)
-  private seoService = inject(SeoService);
+  private seoHelper = inject(SeoHelperService);
 
   private domain = environment.domain;
 
@@ -40,12 +38,11 @@ export class JepFasterComponent implements OnInit {
   protected imageBase64: string | null = null
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const titleJep = 'JEPFaster'
-    const descriptionJep = 'JEPFaster compra y paga desde tu celular'
-    this.seoService.update(titleJep, descriptionJep);
+    this.seoHelper.setupPageSeo({
+      title: 'JEPFaster | Assist Web',
+      description: 'JEPFaster compra y paga desde tu celular escanea el QR y realiza el pago sin ningun incoveniente',
+      schemaTitle: 'ContentPage'
+    });
 
     this.route.paramMap.subscribe(params => {
       this.usrLiquida = params.get('id')

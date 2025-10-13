@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Meta, Title} from "@angular/platform-browser";
 import {DOCUMENT} from "@angular/common";
 
@@ -7,30 +7,50 @@ import {DOCUMENT} from "@angular/common";
 })
 export class SeoService {
 
-  private document = inject(DOCUMENT);
-  private titleService = inject(Title);
-  private meta = inject(Meta);
+  constructor(
+    private title: Title,
+    private meta: Meta,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
-  constructor() { }
+  updateMetaTags(config: {
+    title: string;
+    description: string;
+    canonicalUrl: string;
+    og?: { title: string; description: string; url: string; image: string };
+  }): void {
+    this.title.setTitle(config.title);
 
-  update(titleText: string, description: string) {
-    this.titleService.setTitle(titleText);
+    this.updateOrAddTag('name', 'description', config.description);
+    this.updateOrAddTag('name', 'robots', 'index, follow');
+    this.updateCanonical(config.canonicalUrl);
 
-    this.meta.updateTag({
-      name: 'description',
-      content: description
-    })
+    if (config.og) {
+      this.updateOrAddTag('property', 'og:title', config.og.title);
+      this.updateOrAddTag('property', 'og:description', config.og.description);
+      this.updateOrAddTag('property', 'og:url', config.og.url);
+      this.updateOrAddTag('property', 'og:image', config.og.image);
+    }
   }
 
-  updateCanonical(url: string){
-    const link = this.document.querySelector('link[rel="canonical"]');
+  private updateOrAddTag(attr: 'name' | 'property', key: string, value: string): void {
+    const tag = this.meta.getTag(`${attr}="${key}"`);
+    if (tag) {
+      this.meta.updateTag({ [attr]: key, content: value });
+    } else {
+      this.meta.addTag({ [attr]: key, content: value });
+    }
+  }
+
+  private updateCanonical(url: string): void {
+    let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
     if (link) {
       link.setAttribute('href', url);
     } else {
-      const newLink = this.document.createElement('link');
-      newLink.setAttribute('rel', 'canonical');
-      newLink.setAttribute('href', url);
-      this.document.head.appendChild(newLink);
+      link = this.document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      this.document.head.appendChild(link);
     }
   }
 }

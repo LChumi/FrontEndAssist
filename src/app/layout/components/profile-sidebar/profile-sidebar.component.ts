@@ -37,6 +37,6 @@ export class ProfileSidebarComponent {
   signOut(): void {
     clearSessionItems();
     this.visible = false;
-    this.router.navigate(['/assist', 'auth', 'login']);
+    this.router.navigate(['/auth', 'login']).then(r => {});
   }
 }

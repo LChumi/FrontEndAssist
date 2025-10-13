@@ -12,8 +12,7 @@ import {Ripple} from "primeng/ripple";
 import {ModalclienteComponent} from "@shared/component/modalcliente/modalcliente.component";
 import {SelectionService} from "@services/state/selection.service";
 import {Router} from "@angular/router";
-import {environment} from "@environments/environment";
-import {SeoService} from "@services/state/seo.service";
+import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
   standalone: true,
@@ -34,9 +33,7 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
 
   private impProdTrancitoService = inject(ImpProdTrancitoService);
   private seleccionService = inject(SelectionService);
-  private router = inject(Router)
-  private domain = environment.domain;
-  private seoService = inject(SeoService);
+  private seoHelper = inject(SeoHelperService);
 
   protected impProdTrancitos: ImpProdTrancitoVw[] = []
 
@@ -52,12 +49,11 @@ export default class ConsultasImportacionComponent implements OnInit, AfterViewI
   protected proveedorId: any;
 
   ngOnInit(): void {
-    const currentUrl = `${this.domain}${this.router.url}`
-    this.seoService.updateCanonical(currentUrl);
-
-    const title = 'Consultas Importacion'
-    const description = 'Consulta de Tramites de importacion'
-    this.seoService.update(title, description);
+    this.seoHelper.setupPageSeo({
+      title: 'Consultas Importacion | Assist Web',
+      description: 'Consulta de Tramites de importacion ingresados al sistema Assist',
+      schemaTitle: 'ContentPage'
+    });
 
     this.empresa = getSessionItem("empresa");
     this.estados = [
