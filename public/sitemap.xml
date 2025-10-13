@@ -2,25 +2,25 @@
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://assist.cumpleanos.com.ec/assist/inicio/</loc>
+    <loc>https://assist.cumpleanos.com.ec/inicio/</loc>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
-    <loc>https://assist.cumpleanos.com.ec/assist/inicio/dashboard/</loc>
+    <loc>https://assist.cumpleanos.com.ec/inicio/dashboard/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://assist.cumpleanos.com.ec/assist/inicio/importaciones/</loc>
+    <loc>https://assist.cumpleanos.com.ec/inicio/importaciones/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://assist.cumpleanos.com.ec/assist/inicio/contabilidad/</loc>
+    <loc>https://assist.cumpleanos.com.ec/inicio/contabilidad/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -31,7 +31,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://assist.cumpleanos.com.ec/assist/auth/</loc>
+    <loc>https://assist.cumpleanos.com.ec/auth/</loc>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
