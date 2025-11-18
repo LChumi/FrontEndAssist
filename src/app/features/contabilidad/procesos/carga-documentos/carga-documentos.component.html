@@ -16,8 +16,8 @@
             <h4>Cargar archivo</h4>
             <p-fileUpload
               name="doc[]"
-              url="https://www.primefaces.org/cdn/api/upload.php"
-              (onUpload)="uploadFilesDirectly($event)"
+              [customUpload]="true"
+              (uploadHandler)="uploadFilesDirectly($event)"
               (onSelect)="onFilesSelected($event)"
               [multiple]="true"
               [auto]="false"
