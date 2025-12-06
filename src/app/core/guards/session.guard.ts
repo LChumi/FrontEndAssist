@@ -12,7 +12,7 @@ export const sessionGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
   const clarity = inject(ClarityService);
 
-  if (usrLogged && empresa) {
+  if (usrLogged && empresa && username && nombre) {
     clarity.identify(usrLogged, username);
     clarity.setTag('nombre', nombre);
     clarity.setTag('username', username);

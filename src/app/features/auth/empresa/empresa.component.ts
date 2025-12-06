@@ -52,6 +52,7 @@ export default class EmpresaComponent implements OnInit {
       setSessionItem('nombreEmpresa', empresa.nombre)
       this.clarityService.setTag('nombreEmpresa', empresa.nombre)
       this.clarityService.setTag('empresa',String(empresa.id))
+      this.clarityService.event('Seleccion Empresa');
       this.goToInicio()
     }
   }

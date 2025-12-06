@@ -12,7 +12,7 @@ export class ClarityService {
   private router = inject(Router);
   private initialized = false;
 
-  // Rutas que NO deben enviar datos a Clarity
+  // rutas que NO deben enviar datos
   private excludedPatterns: RegExp[] = [
     /^\/deuna\b/,
     /^\/jep-faster\b/,
@@ -20,15 +20,14 @@ export class ClarityService {
 
   init(projectId: string) {
     if (!this.initialized && typeof window !== 'undefined') {
-      clarity.init(projectId);
+      clarity.init(projectId);     // SIEMPRE inicializar
       this.initialized = true;
-      this.trackRoutes();
+      this.trackRoutes();          // Solo trackear rutas permitidas
     }
   }
 
-  /** Excluir rutas */
   private isExcludedRoute(url: string): boolean {
-    return this.excludedPatterns.some(pattern => pattern.test(url));
+    return this.excludedPatterns.some(p => p.test(url));
   }
 
   identify(userId: any, username: string) {
@@ -36,9 +35,7 @@ export class ClarityService {
   }
 
   setTag(key: string, value?: string) {
-    if (value && value.trim() !== '') {
-      clarity.setTag(key, value);
-    }
+    if (value?.trim()) clarity.setTag(key, value);
   }
 
   trackUser(user: UserResponse) {
@@ -59,32 +56,28 @@ export class ClarityService {
     if (reason?.trim()) clarity.upgrade(reason);
   }
 
-  /** Tracking de rutas con exclusión */
   private trackRoutes() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
 
-      const currentUrl = event.urlAfterRedirects.toLowerCase().split('?')[0];
+        const currentUrl = event.urlAfterRedirects.toLowerCase().split('?')[0];
 
-      // No registrar esta ruta
-      if (this.isExcludedRoute(currentUrl)) {
-        // Opcional: logueo para debug
-        console.log(`Clarity: ruta excluida → ${currentUrl}`);
-        return;
-      }
+        //Si la ruta está excluida → NO enviar nada
+        if (this.isExcludedRoute(currentUrl)) {
+          console.log('Clarity: ruta excluida →', currentUrl);
+          return;
+        }
 
-      // Normalización opcional
-      const normalized = this.normalizeRoute(currentUrl);
+        //Normalización opcional
+        const normalized = this.normalizeRoute(currentUrl);
 
-      clarity.setTag('ruta', normalized);
-      clarity.event(`Ruta visitada: ${normalized}`);
-    });
+        clarity.setTag('ruta', normalized);
+      });
   }
 
-  /** Normalizar rutas dinámicas */
   private normalizeRoute(url: string): string {
-    const patterns: { regex: RegExp; tag: string }[] = [
+    const patterns = [
       { regex: /^\/deuna\/\d+\/[^/]+$/, tag: 'deuna' },
       { regex: /^\/jep-faster\/\d+\/[^/]+$/, tag: 'jep-faster' }
     ];
