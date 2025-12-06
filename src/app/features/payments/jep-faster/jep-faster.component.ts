@@ -29,8 +29,6 @@ export class JepFasterComponent implements OnInit {
   private toast = inject(MessageService);
   private seoHelper = inject(SeoHelperService);
 
-  private domain = environment.domain;
-
   protected usrLiquida: any;
   protected empresa: any;
 
