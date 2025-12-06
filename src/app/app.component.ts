@@ -25,9 +25,7 @@ export class AppComponent implements OnInit {
     const schema = this.schemaService.generateIndexSchema();
     this.schemaService.injectSchema(schema, 'WebSite');
 
-    if (!this.clarity.initialized) {
-      this.clarity.init(this.projectId);
-    }
+    this.clarity.init(this.projectId);
 
     this.primengConfig.ripple = true;
     this.primengConfig.setTranslation({

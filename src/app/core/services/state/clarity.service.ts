@@ -20,9 +20,9 @@ export class ClarityService {
 
   init(projectId: string) {
     if (!this.initialized && typeof window !== 'undefined') {
-      clarity.init(projectId);     // SIEMPRE inicializar
+      clarity.init(projectId);
       this.initialized = true;
-      this.trackRoutes();          // Solo trackear rutas permitidas
+      this.trackRoutes();
     }
   }
 
