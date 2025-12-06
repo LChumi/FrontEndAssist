@@ -76,7 +76,6 @@ export default class LoginComponent implements OnInit {
         setSessionItem('username', user.username)
 
         setTimeout(() => {
-          this.clarityService.trackUser(user);
           this.clarityService.event('Ingreso Assist');
         }, 300);
 

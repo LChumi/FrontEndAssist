@@ -55,7 +55,6 @@ export default class DeunaComponent implements OnInit {
     this.verificarPago()
   }
 
-
   obtenerQr() {
     this.deunaService.generarPago(this.usrLiquida, this.empresa).subscribe({
       next: data => {
