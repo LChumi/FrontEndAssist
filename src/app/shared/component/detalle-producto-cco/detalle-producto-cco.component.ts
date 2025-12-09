@@ -6,15 +6,21 @@ import {ComprobanteDetalleService} from "@services/api/models/comprobante-detall
 import {CompraDetalleProductoDto} from "@models/dto/compra-detalle-producto-dto";
 import {getSessionItem} from "@utils/storage-utils";
 import {DfacturaDto} from "@models/dto/dfactura-dto";
+import {SkeletonModule} from "primeng/skeleton";
+import {SpinnerModule} from "primeng/spinner";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @Component({
   selector: 'app-detalle-producto-cco',
   standalone: true,
-    imports: [
-        DecimalPipe,
-        PrimeTemplate,
-        TableModule
-    ],
+  imports: [
+    DecimalPipe,
+    PrimeTemplate,
+    TableModule,
+    SkeletonModule,
+    SpinnerModule,
+    ProgressSpinnerModule
+  ],
   templateUrl: './detalle-producto-cco.component.html',
   styles: ``
 })
