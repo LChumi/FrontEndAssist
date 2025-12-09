@@ -1,8 +1,8 @@
 <div class="card">
   <div class="grid grid-nogutter">
-    <!--<div class="col-12">
+    <div class="col-12">
       <app-favorite titulo="Importaciones" [usrId]="usrId"></app-favorite>
-    </div>-->
+    </div>
 
     <div class="col-12">
       <span class="text-900 text-2xl gap-2 mb-4">Orden Compra</span>
@@ -59,8 +59,9 @@
       @if (proveedor && observacion) {
         @if (!listOrders) {
           <h5>Ingrese el archivo</h5>
-          <p-fileUpload name="products[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                        (onUpload)="onUpload($event)"
+          <p-fileUpload name="products[]"
+                        [customUpload]="true"
+                        (uploadHandler)="onUpload($event)"
                         [multiple]="false"
                         accept=".xlsx"
                         chooseLabel="Seleccionar"

@@ -252,8 +252,8 @@
               } @else {
                 <p-fileUpload
                   name="solicitud[]"
-                  url="https://www.primefaces.org/cdn/api/upload.php"
-                  (onUpload)="onUpload($event)"
+                  [customUpload]="true"
+                  (uploadHandler)="onUpload($event)"
                   [multiple]="false"
                   accept=".xlsx"
                   chooseLabel="Seleccionar"
