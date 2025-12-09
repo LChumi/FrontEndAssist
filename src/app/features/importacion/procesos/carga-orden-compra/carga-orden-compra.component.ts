@@ -29,6 +29,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {SeoHelperService} from "@services/state/seo-helper.service";
+import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 
 @Component({
   standalone: true,
@@ -50,7 +51,8 @@ import {SeoHelperService} from "@services/state/seo-helper.service";
     CheckboxModule,
     ConfirmDialogModule,
     DetalleProductoCcoComponent,
-    ScrollTopModule
+    ScrollTopModule,
+    FavoriteComponent
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``
