@@ -58,57 +58,88 @@
 
       <!-- Tabla de productos -->
       @if (sci.items) {
-        <div class="overflow-x-auto">
-          <p-table
-            styleClass="p-datatable-gridlines"
-            [value]="sci.items"
-            dataKey="cco"
-            [rows]="15"
-            [paginator]="true"
-            [rowHover]="true"
-            [responsiveLayout]="'scroll'"
-            class="my-3 p-p-3"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th pSortableColumn="n" class="p-text-center">N°</th>
-                <th pSortableColumn="n" class="p-text-center">Barra</th>
-                <th pSortableColumn="producto" class="p-text-center">Producto</th>
-                <th class="p-text-center">Referencia</th>
-                <th pSortableColumn="estado" class="p-text-center">Cantidad</th>
-                <th pSortableColumn="fecha" class="p-text-center">Precio</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-prod>
-              <tr>
-                <td class="p-text-center p-col-1 p-col-fixed">{{ prod.secuencia }}</td>
-                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.barra }}</td>
-                <td class="p-text-center p-col-3 p-col-fixed">{{ prod.producto }}</td>
-                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.item }}</td>
-                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.cantidad }}</td>
-                <td class="p-text-center p-col-2 p-col-fixed">{{ prod.precio | number: '1.4-4' }}</td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="footer">
-              <tr>
-                <td colspan="6">
-                  <div class="flex justify-content-end mt-5">
-                    <div class="flex flex-column">
-                      <div class="flex justify-content-between align-items-center mb-2">
-                        <span class="font-semibold mr-6 uppercase">Cantidad Items</span>
-                        <span>{{cantidadTotal}}</span>
-                      </div>
-                      <div class="flex justify-content-between align-items-center mb-2">
-                        <span class="font-semibold mr-6 uppercase">SUBTOTAL</span>
-                        <span>{{subtotal | number:'1.4-4'}}</span>
+        @defer (on interaction) {
+          <div class="overflow-x-auto">
+            <p-table
+              styleClass="p-datatable-gridlines"
+              [value]="sci.items"
+              dataKey="cco"
+              [rows]="15"
+              [paginator]="true"
+              [rowHover]="true"
+              [responsiveLayout]="'scroll'"
+              class="my-3 p-p-3"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="n" class="p-text-center">N°</th>
+                  <th pSortableColumn="n" class="p-text-center">Barra</th>
+                  <th pSortableColumn="producto" class="p-text-center">Producto</th>
+                  <th class="p-text-center">Referencia</th>
+                  <th pSortableColumn="estado" class="p-text-center">Cantidad</th>
+                  <th pSortableColumn="fecha" class="p-text-center">Precio</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-prod>
+                <tr>
+                  <td class="p-text-center p-col-1 p-col-fixed">{{ prod.secuencia }}</td>
+                  <td class="p-text-center p-col-2 p-col-fixed">{{ prod.barra }}</td>
+                  <td class="p-text-center p-col-3 p-col-fixed">{{ prod.producto }}</td>
+                  <td class="p-text-center p-col-2 p-col-fixed">{{ prod.item }}</td>
+                  <td class="p-text-center p-col-2 p-col-fixed">{{ prod.cantidad }}</td>
+                  <td class="p-text-center p-col-2 p-col-fixed">{{ prod.precio | number: '1.4-4' }}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr>
+                  <td colspan="6">
+                    <div class="flex justify-content-end mt-5">
+                      <div class="flex flex-column">
+                        <div class="flex justify-content-between align-items-center mb-2">
+                          <span class="font-semibold mr-6 uppercase">Cantidad Items</span>
+                          <span>{{cantidadTotal}}</span>
+                        </div>
+                        <div class="flex justify-content-between align-items-center mb-2">
+                          <span class="font-semibold mr-6 uppercase">SUBTOTAL</span>
+                          <span>{{subtotal | number:'1.4-4'}}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        } @placeholder (minimum 1000ms){
+          <div class="overflow-x-auto">
+            <p-table [value]="[]">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>N°</th>
+                  <th>Barra</th>
+                  <th>Producto</th>
+                  <th>Referencia</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body">
+                <tr>
+                  <td><p-skeleton /></td>
+                  <td><p-skeleton /></td>
+                  <td><p-skeleton /></td>
+                  <td><p-skeleton /></td>
+                  <td><p-skeleton /></td>
+                  <td><p-skeleton /></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        } @loading {
+          <p-progressSpinner></p-progressSpinner>
+        } @error {
+          <p>Error al cargar la tabla.</p>
+        }
       }
     } @else {
       <span>Sin datos</span>
@@ -136,5 +167,4 @@
   } @error {
     <p>Ocurrió un error al cargar.</p>
   }
-
-  </div>
+</div>
