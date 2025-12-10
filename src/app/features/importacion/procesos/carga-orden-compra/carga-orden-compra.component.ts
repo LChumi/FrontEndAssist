@@ -30,6 +30,9 @@ import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cc
 import {ScrollTopModule} from "primeng/scrolltop";
 import {SeoHelperService} from "@services/state/seo-helper.service";
 import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {SkeletonModule} from "primeng/skeleton";
+import {SpinnerModule} from "primeng/spinner";
 
 @Component({
   standalone: true,
@@ -52,7 +55,10 @@ import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
     ConfirmDialogModule,
     DetalleProductoCcoComponent,
     ScrollTopModule,
-    FavoriteComponent
+    FavoriteComponent,
+    ProgressSpinnerModule,
+    SkeletonModule,
+    SpinnerModule
   ],
   templateUrl: './carga-orden-compra.component.html',
   styles: ``

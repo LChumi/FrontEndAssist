@@ -248,7 +248,7 @@
             <div class="card justify-content-center">
               <span class="text-900 text-2xl block font-medium mb-5">Seleccionar o arrastrar archivo</span>
               @if (loading) {
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #70aeff"></i>
+                <p-progressSpinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
               } @else {
                 <p-fileUpload
                   name="solicitud[]"

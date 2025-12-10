@@ -24,6 +24,7 @@ import {SolicitudRequestDTO} from "@models/dto/solicitud-request-dto";
 import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cco/detalle-producto-cco.component";
 import {forkJoin, Observable} from "rxjs";
 import {SeoHelperService} from "@services/state/seo-helper.service";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @Component({
   standalone: true,
@@ -43,7 +44,8 @@ import {SeoHelperService} from "@services/state/seo-helper.service";
     FavoriteComponent,
     SeleccionComprobanteComponent,
     SeleccionBodegasComponent,
-    DetalleProductoCcoComponent
+    DetalleProductoCcoComponent,
+    ProgressSpinnerModule
   ],
   templateUrl: './carga-solicitud.component.html',
   styles: ``
