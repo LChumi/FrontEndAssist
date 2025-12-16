@@ -21,11 +21,13 @@ export class AppComponent implements OnInit {
   private schemaService = inject(SchemaService);
   private projectId = environment.clarityId
 
+  constructor() {
+    this.clarity.init(this.projectId);
+  }
+
   ngOnInit() {
     const schema = this.schemaService.generateIndexSchema();
     this.schemaService.injectSchema(schema, 'WebSite');
-
-    this.clarity.init(this.projectId);
 
     this.primengConfig.ripple = true;
     this.primengConfig.setTranslation({
