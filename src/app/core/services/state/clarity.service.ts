@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import clarity from '@microsoft/clarity';
 import {NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs/operators";
-import {UserResponse} from "@models/record/user-response";
+import {filter, take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +13,30 @@ export class ClarityService {
 
   // rutas que NO deben enviar datos
   private excludedPatterns: RegExp[] = [
-    /^\/deuna\b/,
-    /^\/jep-faster\b/,
+    /^\/deuna(\/.*)?$/,
+    /^\/jep-faster(\/.*)?$/,
   ];
 
   init(projectId: string) {
-    if (!this.initialized && typeof window !== 'undefined') {
-      clarity.init(projectId);
-      this.initialized = true;
-      this.trackRoutes();
-    }
+    if (this.initialized || typeof window === 'undefined') return;
+
+    this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1),
+      )
+      .subscribe((event: NavigationEnd) => {
+        const url = event.urlAfterRedirects.toLowerCase().split('?')[0];
+
+        if (this.isExcludedRoute(url)) {
+          console.warn(`${url} is excluded route`);
+          return;
+        }
+
+        clarity.init(projectId);
+        this.initialized = true;
+        this.trackRoutes();
+      });
   }
 
   private isExcludedRoute(url: string): boolean {
@@ -38,16 +51,6 @@ export class ClarityService {
     if (value?.trim()) clarity.setTag(key, value);
   }
 
-  trackUser(user: UserResponse) {
-    if (!user) return;
-
-    if (user.id && user.username) {
-      this.identify(user.id, user.username);
-      this.setTag('nombre', user.nombre ?? '');
-      this.setTag('username', user.username ?? '');
-    }
-  }
-
   event(name: string) {
     if (name?.trim()) clarity.event(name);
   }
@@ -58,33 +61,22 @@ export class ClarityService {
 
   private trackRoutes() {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
 
-        const currentUrl = event.urlAfterRedirects.toLowerCase().split('?')[0];
+        const url = event.urlAfterRedirects.toLowerCase().split('?')[0];
 
-        //Si la ruta está excluida → NO enviar nada
-        if (this.isExcludedRoute(currentUrl)) {
-          console.log('Clarity: ruta excluida →', currentUrl);
+        if (this.isExcludedRoute(url)) {
           return;
         }
 
-        //Normalización opcional
-        const normalized = this.normalizeRoute(currentUrl);
-
-        clarity.setTag('ruta', normalized);
+        clarity.setTag('ruta', this.normalizeRoute(url));
       });
   }
 
   private normalizeRoute(url: string): string {
-    const patterns = [
-      { regex: /^\/deuna\/\d+\/[^/]+$/, tag: 'deuna' },
-      { regex: /^\/jep-faster\/\d+\/[^/]+$/, tag: 'jep-faster' }
-    ];
-
-    for (const p of patterns) {
-      if (p.regex.test(url)) return p.tag;
-    }
+    if (/^\/deuna\/\d+/.test(url)) return 'deuna';
+    if (/^\/jep-faster\/\d+/.test(url)) return 'jep-faster';
 
     return url.replace(/\/\d+(\/[^/]+)?$/, '');
   }
