@@ -95,7 +95,6 @@ export default class CargaDocumentosComponent implements OnInit {
     console.log('Archivos seleccionados:', event.files);
   }
 
-
   uploadString(data: string) {
     if (!data.trim()) {
       this.messageService.add({severity: 'warn', summary: 'Error', detail: 'El texto no puede estar vacío'});
