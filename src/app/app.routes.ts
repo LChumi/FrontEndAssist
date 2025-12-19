@@ -34,7 +34,8 @@ export const routes: Routes = [
         data: {breadcrumb: 'Contabilidad'},
         children: contabilidadRoutes
       },
-      {path: '', redirectTo: 'dashboard', pathMatch: "full"}
+      {path: '', redirectTo: 'dashboard', pathMatch: "full"},
+      {path: '**', redirectTo: 'dashboard', pathMatch: "full"}
     ]
   },
   {path: 'notFound', component: NotFoundComponent},

@@ -183,6 +183,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
 
   cargarNuevo() {
     this.listItems = []
+    this.loading = false
   }
 
   editItem(item: Items) {
@@ -261,11 +262,12 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
-    this.loading = true
+    this.loading = true;
     event.request.items = this.listItems
     this.seleccionComprobante = event.visible;
     this.fileService.confirmarSolicitud(event.request).subscribe({
       next: (response) => {
+        console.log(response);
         this.observacion = ''
         this.messageService.add({
           severity: 'success',
@@ -274,8 +276,10 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
           life: 3000
         });
         this.cargarNuevo()
-        this.displayDialog = true
         this.cco = response.cco
+        if (this.cco) {
+          this.displayDialog = true;
+        }
       },
       error: (error: ErrorResponse) => {
         this.messageService.add({

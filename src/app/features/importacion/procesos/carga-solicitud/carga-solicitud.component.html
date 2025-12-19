@@ -39,217 +39,213 @@
         <app-modalcliente [tipoCliente]="'Proveedor'" [(visible)]="modalVisible"></app-modalcliente>
       </div>
 
-
       @if (proveedor) {
-        @if (listItems.length > 0) {
-          <div class="mt-1">
-            <div class="card">
-              <p-table
-                [value]="listItems"
-                [responsiveLayout]="'scroll'"
-                [paginator]="true"
-                [rows]="10"
-                dataKey="secuencia"
-                class="my-3 p-p-3"
-                styleClass="p-datatable-gridlines"
-                [rowsPerPageOptions]="[5,10,20]"
-              >
-                <ng-template pTemplate="caption">
-                  <h5>Lista de Items</h5>
-                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <span class="text-primary font-semibold">Items: {{ listItems.length }} en total</span>
-                    <button pButton pRipple label="Seleccionar Nuevo Archivo" icon="pi pi-check"
-                            class="p-button-outlined" (click)="cargarNuevo()"></button>
-                  </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                  <tr>
-                    <th></th>
-                    <th pSortableColumn="id">Barra</th>
-                    <th pSortableColumn="nombre">Nombre
-                      <p-sortIcon field="nombre"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="item">Item
-                      <p-sortIcon field="item"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="cantidad">Cantidad</th>
-                    <th pSortableColumn="id">Codigo Fabrica</th>
-                    <th pSortableColumn="cxb">CXB</th>
-                    <th pSortableColumn="fob">FOB</th>
-                    <th pSortableColumn="cbm">CBM</th>
-                    <th pSortableColumn="cantidadTotal">Cantidad Total</th>
-                    <th pSortableColumn="cbmTotal">CBM Total</th>
-                    <th pSortableColumn="fobTotal">FOB Total</th>
-                    <th pSortableColumn="trancito">Tránsito</th>
-                    <th pSortableColumn="trancito">Estado</th>
-                    <th style="position: sticky; right: 0; top: 0; z-index: 1;"></th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-item let-expanded="expanded">
-                  <tr>
-                    <td>
-                      @if (item.trancitos) {
-                        <button type="button" pButton pRipple [pRowToggler]="item"
-                                class="p-button-text p-button-rounded p-button-plain"
-                                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                      }
-                    </td>
-                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
-                    <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
-                    <td>{{ item.item }}</td>
-                    <td class="text-right">{{ item.cantidad }}
-                    <td class="text-right">{{ item.codFabrica }}</td>
-                    <td class="text-right">{{ item.cxb }}</td>
-                    <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
-                    <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
-                    <td class="text-right">{{ item.cantidadTotal }}</td>
-                    <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
-                    <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
-                    <td class="text-right">{{ item.trancito }}</td>
-                    <td class="text-right">
+        @if (!loading){
+          @if (listItems.length > 0) {
+            <div class="mt-1">
+              <div class="card">
+                <p-table
+                  [value]="listItems"
+                  [responsiveLayout]="'scroll'"
+                  [paginator]="true"
+                  [rows]="10"
+                  dataKey="secuencia"
+                  class="my-3 p-p-3"
+                  styleClass="p-datatable-gridlines"
+                  [rowsPerPageOptions]="[5,10,20]"
+                >
+                  <ng-template pTemplate="caption">
+                    <h5>Lista de Items</h5>
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                      <span class="text-primary font-semibold">Items: {{ listItems.length }} en total</span>
+                      <button pButton pRipple label="Seleccionar Nuevo Archivo" icon="pi pi-check"
+                              class="p-button-outlined" (click)="cargarNuevo()"></button>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th></th>
+                      <th pSortableColumn="id">Barra</th>
+                      <th pSortableColumn="nombre">Nombre
+                        <p-sortIcon field="nombre"></p-sortIcon>
+                      </th>
+                      <th pSortableColumn="item">Item
+                        <p-sortIcon field="item"></p-sortIcon>
+                      </th>
+                      <th pSortableColumn="cantidad">Cantidad</th>
+                      <th pSortableColumn="id">Codigo Fabrica</th>
+                      <th pSortableColumn="cxb">CXB</th>
+                      <th pSortableColumn="fob">FOB</th>
+                      <th pSortableColumn="cbm">CBM</th>
+                      <th pSortableColumn="cantidadTotal">Cantidad Total</th>
+                      <th pSortableColumn="cbmTotal">CBM Total</th>
+                      <th pSortableColumn="fobTotal">FOB Total</th>
+                      <th pSortableColumn="trancito">Tránsito</th>
+                      <th pSortableColumn="trancito">Estado</th>
+                      <th style="position: sticky; right: 0; top: 0; z-index: 1;"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-item let-expanded="expanded">
+                    <tr>
+                      <td>
+                        @if (item.trancitos) {
+                          <button type="button" pButton pRipple [pRowToggler]="item"
+                                  class="p-button-text p-button-rounded p-button-plain"
+                                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                        }
+                      </td>
+                      <td style="white-space: nowrap; min-width: 12rem;">{{ item.id }}</td>
+                      <td style="white-space: nowrap; min-width: 12rem;">{{ item.nombre }}</td>
+                      <td>{{ item.item }}</td>
+                      <td class="text-right">{{ item.cantidad }}
+                      <td class="text-right">{{ item.codFabrica }}</td>
+                      <td class="text-right">{{ item.cxb }}</td>
+                      <td class="text-right">{{ item.fob | number:'1.4-4' }}</td>
+                      <td class="text-right">{{ item.cbm | number:'1.2-2' }}</td>
+                      <td class="text-right">{{ item.cantidadTotal }}</td>
+                      <td class="text-right">{{ item.cbmTotal | number:'1.2-2' }}</td>
+                      <td class="text-right">{{ item.fobTotal | number:'1.4-4' }}</td>
+                      <td class="text-right">{{ item.trancito }}</td>
+                      <td class="text-right">
                       <span [class]="'item-badge status-' + item.status.toLowerCase()">
                         {{ item.status }}
                       </span>
-                    </td>
-                    <td style="position: sticky; right: 0; top: 0; z-index: 1;">
+                      </td>
+                      <td style="position: sticky; right: 0; top: 0; z-index: 1;">
                       <span class="flex">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
                                 (click)="editItem(item)"></button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
                                 (click)="deleteItem(item)"></button>
                       </span>
-                    </td>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-item>
-                  <tr>
-                    <td colspan="13">
-                      <div class="p-3">
-                        <p-table
-                          [value]="item.trancitos"
-                          dataKey="id"
-                          responsiveLayout="scroll">
-                          <ng-template pTemplate="header">
-                            <tr>
-                              <th pSortableColumn="fecha">Fecha
-                                <p-sortIcon field="fecha"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="nroComprobante">Numero Comprobante
-                                <p-sortIcon field="nroComprobante"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="observacion">Observación</th>
-                              <th pSortableColumn="cantidadPedida">Cantidad Pedida</th>
-                              <th pSortableColumn="fob">FOB</th>
-                              <th pSortableColumn="fobTotal">FOB Total Pedido</th>
-                              <th pSortableColumn="fobTotal">FOB Total Aprobado</th>
-                              <th pSortableColumn="tipoDoc">Tipo Documento</th>
-                            </tr>
-                          </ng-template>
-                          <ng-template pTemplate="body" let-trancito>
-                            <tr>
-                              <td>{{ trancito.fecha }}</td>
-                              <td>{{ trancito.nroComprobante }}</td>
-                              <td>{{ trancito.observacion }}</td>
-                              <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
-                              <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
-                              <td class="text-right">{{ trancito.fobTotalPedido | number:'1.4-4' }}</td>
-                              <td class="text-right">{{ trancito.fobTotalAprobado | number:'1.4-4' }}</td>
-                              <td>{{ trancito.tipoDoc }}</td>
-                            </tr>
-                          </ng-template>
-                        </p-table>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="rowexpansion" let-item>
+                    <tr>
+                      <td colspan="13">
+                        <div class="p-3">
+                          <p-table
+                            [value]="item.trancitos"
+                            dataKey="id"
+                            responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th pSortableColumn="fecha">Fecha
+                                  <p-sortIcon field="fecha"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="nroComprobante">Numero Comprobante
+                                  <p-sortIcon field="nroComprobante"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="observacion">Observación</th>
+                                <th pSortableColumn="cantidadPedida">Cantidad Pedida</th>
+                                <th pSortableColumn="fob">FOB</th>
+                                <th pSortableColumn="fobTotal">FOB Total Pedido</th>
+                                <th pSortableColumn="fobTotal">FOB Total Aprobado</th>
+                                <th pSortableColumn="tipoDoc">Tipo Documento</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-trancito>
+                              <tr>
+                                <td>{{ trancito.fecha }}</td>
+                                <td>{{ trancito.nroComprobante }}</td>
+                                <td>{{ trancito.observacion }}</td>
+                                <td class="text-right">{{ trancito.cantidadPedida | number:'1.2-2' }}</td>
+                                <td class="text-right">{{ trancito.fob | number:'1.4-4' }}</td>
+                                <td class="text-right">{{ trancito.fobTotalPedido | number:'1.4-4' }}</td>
+                                <td class="text-right">{{ trancito.fobTotalAprobado | number:'1.4-4' }}</td>
+                                <td>{{ trancito.tipoDoc }}</td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
 
-              <button pButton pRipple label="Confirmar" icon="pi pi-check" (click)="confirmDialog=true"></button>
-              <p-dialog [(visible)]="confirmDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
-                <div class="flex align-items-center justify-content-center">
-                  <i class="pi pi-exclamation-circle mr-3 text-blue-500" style="font-size: 2rem"></i>
-                  <span>¿Confirmar lista de items?</span>
+                <button pButton pRipple label="Confirmar" icon="pi pi-check" (click)="confirmDialog=true"></button>
+                <p-dialog [(visible)]="confirmDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
+                  <div class="flex align-items-center justify-content-center">
+                    <i class="pi pi-exclamation-circle mr-3 text-blue-500" style="font-size: 2rem"></i>
+                    <span>¿Confirmar lista de items?</span>
+                  </div>
+                  <ng-template pTemplate="footer">
+                    <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-danger" label="No"
+                            (click)="confirmDialog = false"></button>
+                    <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-info" label="Si"
+                            (click)="acceptDialog()"></button>
+                  </ng-template>
+                </p-dialog>
+
+              </div>
+            </div>
+
+            <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalle del item {{item.nombre}}"
+                      [modal]="true" [closable]="false" class="p-fluid uppercase">
+              <ng-template pTemplate="content">
+                @if (imageUrl) {
+                  <img [src]="imageUrl" [alt]="item.nombre" width="150" class="mt-0 mx-auto mb-5 block shadow-2">
+                }
+                <div class="field">
+                  <small class="ng-dirty ng-animating text-">Cantidad anterior {{ cantidadAnterior }}</small>
+                  <input type="text" pInputText id="cantidad" [(ngModel)]="item.cantidad" required autofocus
+                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.cantidad}">
+                  @if (submitted && item.cantidad) {
+                    <small class="ng-dirty ng-invalid">Cantidad es requerida</small>
+                  }
                 </div>
-                <ng-template pTemplate="footer">
-                  <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-danger" label="No"
-                          (click)="confirmDialog = false"></button>
-                  <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-info" label="Si"
-                          (click)="acceptDialog()"></button>
-                </ng-template>
-              </p-dialog>
+                <div class="field">
+                  <small class="ng-dirty ng-animating">FOB anterior {{ fobAnterior }}</small>
+                  <input type="text" pInputText id="fob" [(ngModel)]="item.fob" required autofocus
+                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
+                  @if (submitted && item.fob) {
+                    <small class="ng-dirty ng-invalid">FOB es requerida</small>
+                  }
+                </div>
+                <div class="field">
+                  <small class="ng-dirty ng-animating">CBM anterior {{ cbmAnterior }}</small>
+                  <input type="text" pInputText id="cbm" [(ngModel)]="item.cbm" required autofocus
+                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
+                  @if (submitted && item.cbm) {
+                    <small class="ng-dirty ng-invalid">FOB es requerida</small>
+                  }
+                </div>
+                <div class="field">
+                  <small class="ng-dirty ng-animating">CBM anterior {{ cxbAnterior }}</small>
+                  <input type="text" pInputText id="cxb" [(ngModel)]="item.cxb" required autofocus
+                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
+                  @if (submitted && item.cxb) {
+                    <small class="ng-dirty ng-invalid">FOB es requerida</small>
+                  }
+                </div>
+              </ng-template>
 
-            </div>
-          </div>
+              <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                        (click)="hideDialog()"></button>
+                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+                        (click)="saveItem()"></button>
+              </ng-template>
+            </p-dialog>
 
-          <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalle del item {{item.nombre}}"
-                    [modal]="true" [closable]="false" class="p-fluid uppercase">
-            <ng-template pTemplate="content">
-              @if (imageUrl) {
-                <img [src]="imageUrl" [alt]="item.nombre" width="150" class="mt-0 mx-auto mb-5 block shadow-2">
-              }
-              <div class="field">
-                <small class="ng-dirty ng-animating text-">Cantidad anterior {{ cantidadAnterior }}</small>
-                <input type="text" pInputText id="cantidad" [(ngModel)]="item.cantidad" required autofocus
-                       [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.cantidad}">
-                @if (submitted && item.cantidad) {
-                  <small class="ng-dirty ng-invalid">Cantidad es requerida</small>
-                }
+            <p-dialog [(visible)]="deleteItemDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
+              <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3 text-yellow-800" style="font-size: 2rem"></i>
+                <span>¿Esta seguro de eliminar este item?</span>
               </div>
-              <div class="field">
-                <small class="ng-dirty ng-animating">FOB anterior {{ fobAnterior }}</small>
-                <input type="text" pInputText id="fob" [(ngModel)]="item.fob" required autofocus
-                       [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
-                @if (submitted && item.fob) {
-                  <small class="ng-dirty ng-invalid">FOB es requerida</small>
-                }
-              </div>
-              <div class="field">
-                <small class="ng-dirty ng-animating">CBM anterior {{ cbmAnterior }}</small>
-                <input type="text" pInputText id="cbm" [(ngModel)]="item.cbm" required autofocus
-                       [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
-                @if (submitted && item.cbm) {
-                  <small class="ng-dirty ng-invalid">FOB es requerida</small>
-                }
-              </div>
-              <div class="field">
-                <small class="ng-dirty ng-animating">CBM anterior {{ cxbAnterior }}</small>
-                <input type="text" pInputText id="cxb" [(ngModel)]="item.cxb" required autofocus
-                       [ngClass]="{'ng-invalid ng-dirty' : submitted && !item.fob}">
-                @if (submitted && item.cxb) {
-                  <small class="ng-dirty ng-invalid">FOB es requerida</small>
-                }
-              </div>
-            </ng-template>
-
-            <ng-template pTemplate="footer">
-              <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
-                      (click)="hideDialog()"></button>
-              <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
-                      (click)="saveItem()"></button>
-            </ng-template>
-          </p-dialog>
-
-          <p-dialog [(visible)]="deleteItemDialog" header="Confirmacion" [modal]="true" [style]="{width: '450px'}">
-            <div class="flex align-items-center justify-content-center">
-              <i class="pi pi-exclamation-triangle mr-3 text-yellow-800" style="font-size: 2rem"></i>
-              <span>¿Esta seguro de eliminar este item?</span>
-            </div>
-            <ng-template pTemplate="footer">
-              <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-info" label="No"
-                      (click)="deleteItemDialog = false"></button>
-              <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-danger" label="Si"
-                      (click)="confirmDelete()"></button>
-            </ng-template>
-          </p-dialog>
-        }
-
-        @if (listItems.length == 0 && observacion) {
-          <div class="col-12">
-            <div class="card justify-content-center">
-              <span class="text-900 text-2xl block font-medium mb-5">Seleccionar o arrastrar archivo</span>
-              @if (loading) {
-                <p-progressSpinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
-              } @else {
+              <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text p-button-info" label="No"
+                        (click)="deleteItemDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text p-button-danger" label="Si"
+                        (click)="confirmDelete()"></button>
+              </ng-template>
+            </p-dialog>
+          }
+          @if (listItems.length == 0 && observacion) {
+            <div class="col-12">
+              <div class="card justify-content-center">
+                <span class="text-900 text-2xl block font-medium mb-5">Seleccionar o arrastrar archivo</span>
                 <p-fileUpload
                   name="solicitud[]"
                   [customUpload]="true"
@@ -272,10 +268,11 @@
                     }
                   </ng-template>
                 </p-fileUpload>
-              }
+              </div>
             </div>
-
-          </div>
+          }
+        } @else {
+          <p-progressSpinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
         }
       }
     </div>
@@ -288,8 +285,10 @@
     (saveRequest)="handleSaveRequest($event)">
   </app-seleccion-comprobante>
 
-  <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}">
-    <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
-  </p-dialog>
+  @if (displayDialog && cco.length > 0) {
+    <p-dialog header="Visualización de Carga" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}">
+      <app-detalle-producto-cco [ccoCodigo]="cco"></app-detalle-producto-cco>
+    </p-dialog>
+  }
   <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
 </div>
