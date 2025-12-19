@@ -47,6 +47,10 @@ export class ClarityService {
     clarity.identify(userId, undefined, undefined, username);
   }
 
+  consent(consent: boolean) {
+    clarity.consent(consent);
+  }
+
   setTag(key: string, value?: string) {
     if (value?.trim()) clarity.setTag(key, value);
   }

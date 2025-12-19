@@ -76,7 +76,11 @@ export default class LoginComponent implements OnInit {
         setSessionItem('username', user.username)
 
         setTimeout(() => {
-          this.clarityService.event('Ingreso Assist');
+          this.clarityService.event('Ingreso correcto Assist');
+          this.clarityService.identify(user.id, user.username);
+          this.clarityService.consent(true);
+          this.clarityService.setTag('nombre', user.nombre);
+          this.clarityService.setTag('username', user.username);
         }, 300);
 
         this.messageService.add({severity: 'success', summary: 'Bienvenido', detail: user.nombre, life: 2000})
