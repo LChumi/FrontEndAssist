@@ -97,7 +97,6 @@ export default class CargaOrdenCompraComponent implements OnInit {
   listOrders = false
   loading = false;
   novedadFrozen = false;
-  loadingSci = false;
   displayDialog = false;
 
   ngOnInit(): void {
@@ -149,7 +148,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   }
 
   handleSaveRequest(event: { request: SolicitudRequestDTO, visible: boolean }) {
-    this.loadingSci = true;
+    this.loading = true;
     this.seleccionComprobante = event.visible
     event.request.items = this.listaFinal
     event.request.ccoRef = this.sciSelected.id
@@ -166,6 +165,16 @@ export default class CargaOrdenCompraComponent implements OnInit {
           this.displayDialog = true;
           this.cco = data.cco;
         }
+      },
+      error: (error: ErrorResponse) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo crear la orden de importación ' + error.message,
+          life: 3000
+        });
+        this.loading = false
+        return;
       }
     })
   }
@@ -196,16 +205,17 @@ export default class CargaOrdenCompraComponent implements OnInit {
           return
         } else {
           for (let doc of data) {
-            this.listCco.push({
-              id: doc.ccoCodigo,
-              description: doc.concepto,
-              comprobante: doc.dspComproba,
-              proveedor: doc.codclipro
-            });
+            if (doc.estado == 2) {
+              this.listCco.push({
+                id: doc.ccoCodigo,
+                description: doc.concepto,
+                comprobante: doc.dspComproba,
+                proveedor: doc.codclipro
+              });
+            }
           }
           this.solicitud = ''
         }
-
       }
     })
   }
@@ -259,6 +269,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   reiniciarProceso() {
     this.sciSelected = null
     this.listOrders = false
+    this.loading = false
     this.observacion = ''
     this.listaFinal = []
   }
