@@ -25,6 +25,7 @@ import {DetalleProductoCcoComponent} from "@shared/component/detalle-producto-cc
 import {forkJoin, Observable} from "rxjs";
 import {SeoHelperService} from "@services/state/seo-helper.service";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -63,6 +64,7 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
   private fileService = inject(ImportacionesService)
   private imagenService = inject(ImagenService)
   private seoHelper = inject(SeoHelperService);
+  private clarity = inject(ClarityService)
 
   listItems: Items[] = []
   item: Items = {} as Items;
@@ -275,6 +277,8 @@ export default class CargaSolicitudComponent implements OnInit, AfterViewInit, O
           detail: 'SOLICITUD DE IMPORTACIÓN: ' + response.comprobante,
           life: 3000
         });
+        this.clarity.event("Solicitud Importacion Creado")
+        this.clarity.setTag('SCI creada ', response.comprobante)
         this.cargarNuevo()
         this.cco = response.cco
         if (this.cco) {
