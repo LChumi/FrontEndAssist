@@ -13,7 +13,7 @@ export interface ListCcomprobaV {
   concepto:    string;
   modulo:      number;
   nocontable:  boolean;
-  estado:      boolean;
+  estado:      number;
   descuadre:   boolean;
   adestino:    number;
   pventa:      number;
