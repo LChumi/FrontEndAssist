@@ -12,6 +12,7 @@ import {ErrorResponse} from "@models/error/error-response";
 import {forkJoin, Observable} from "rxjs";
 import {ServiceResponse} from "@models/record/service-response";
 import {SeoHelperService} from "@services/state/seo-helper.service";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -34,6 +35,7 @@ export default class CargaDocumentosComponent implements OnInit {
   private contabilidadService = inject(ContabilidadService);
   private router = inject(Router)
   private seoHelper = inject(SeoHelperService);
+  private clarity = inject(ClarityService);
 
   emailEmpresa = ''; // Email empresarial
   loading = false; // Estado de envío
@@ -74,6 +76,8 @@ export default class CargaDocumentosComponent implements OnInit {
         responses.forEach((response) => {
           if (response.success) {
             this.messageService.add({severity: 'success', summary: 'Envío completado', detail: response.message});
+            this.clarity.event("Archivo SRI sincronizado")
+            this.clarity.setTag('Archivo sincronizado ', response.message)
           } else {
             this.messageService.add({severity: 'warn', summary: 'Advertencia', detail: response.message});
           }

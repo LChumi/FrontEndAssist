@@ -33,6 +33,7 @@ import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {SkeletonModule} from "primeng/skeleton";
 import {SpinnerModule} from "primeng/spinner";
+import {ClarityService} from "@services/state/clarity.service";
 
 @Component({
   standalone: true,
@@ -76,6 +77,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
   private clienteService = inject(ClienteService);
   private confirmatioService = inject(ConfirmationService)
   private seoHelper = inject(SeoHelperService);
+  private clarity= inject(ClarityService)
 
   uploadedFiles: any[] = [];
   listCco: any[] = [];
@@ -162,6 +164,8 @@ export default class CargaOrdenCompraComponent implements OnInit {
             life: 3000
           })
           this.reiniciarProceso()
+          this.clarity.event("Orden Compra Creado")
+          this.clarity.setTag('OCI creado ', data.comprobante)
           this.displayDialog = true;
           this.cco = data.cco;
         }
