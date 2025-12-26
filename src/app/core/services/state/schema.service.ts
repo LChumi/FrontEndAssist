@@ -58,7 +58,7 @@ export class SchemaService {
           "@id": `${this.domain}/#webpage`,
           "url": this.domain,
           "name": "",
-          "description": "Assit web Cumpleanos consulta tus docuemtos con nostros facturas , retenciones ,etc",
+          "description": "Assist web Gestion de procesos Importadora Cumpleaños",
           "inLanguage": "es-EC",
           "isPartOf": { "@id": `${this.domain}/#website` },
           "breadcrumb": { "@id": `${this.domain}/#breadcrumblist` },
@@ -102,7 +102,7 @@ export class SchemaService {
           "@type": "WebPage",
           "@id": `${currentUrl}#webpage`,
           "url": currentUrl,
-          "name": `${pageName} | Assit web Cumpleanos`,
+          "name": `${pageName} | Assist web Cumpleanos`,
           "description": description,
           "inLanguage": "es-EC",
           "isPartOf": { "@id": `${this.domain}/#website` },
@@ -119,8 +119,8 @@ export class SchemaService {
     return {
       "@type": "Organization",
       "@id": `${this.domain}/#organization`,
-      "name": "Assit web Cumpleanos",
-      "description": "Consulta tus comprobantes emitidos aqui ",
+      "name": "Assist web Cumpleanos",
+      "description": "Assist web Gestion de procesos Importadora Cumpleaños",
       "url": this.domain,
       "email": "lchumi@cumpleanos.com.ec",
       "telephone": "+593984980840",
@@ -132,6 +132,34 @@ export class SchemaService {
         "height": 900
       },
       "image": { "@id": `${this.domain}/#organizationLogo` },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Panamericana Sur km 3 1/2",
+        "addressLocality": "Cuenca",
+        "addressRegion": "Azuay",
+        "postalCode": "010106",
+        "addressCountry": "EC"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "9:00",
+          "closes": "13:00"
+        }
+      ],
       "sameAs": [
         "https://www.facebook.com/importadoracumpleanosec/",
         "https://www.instagram.com/importadoracumpleanos/"
@@ -144,9 +172,9 @@ export class SchemaService {
       "@type": "WebSite",
       "@id": `${this.domain}/#website`,
       "url": this.domain,
-      "name": "Assit web Cumpleanos",
-      "alternateName": "Assit web Cumpleanos",
-      "description": "Assit web Cumpleanos consulta tus docuemtos con nostros facturas , retenciones ,etc",
+      "name": "Assist web Cumpleanos",
+      "alternateName": "Assist web Cumpleanos",
+      "description": "Assist web Gestion de procesos Importadora Cumpleaños",
       "inLanguage": "es-EC",
       "publisher": { "@id": `${this.domain}/#organization` },
       "potentialAction": {
