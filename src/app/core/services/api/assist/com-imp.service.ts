@@ -9,12 +9,12 @@ import {ComImpV1} from "@models/view/com-imp-v1";
 })
 export class ComImpService {
 
-  private _url = environment.apiUrlBase + '/compimp';
+  private _url = environment.apiUrlBase + '/assist';
   private _http = inject(HttpClient);
 
   constructor() { }
 
-  getImportacionPen(empresa : number): Observable<ComImpV1>{
-    return this._http.get<ComImpV1>(`${this._url}/${empresa}`)
+  getImportacionPen(empresa : number): Observable<ComImpV1[]>{
+    return this._http.get<ComImpV1[]>(`${this._url}/compimp/${empresa}`)
   }
 }
