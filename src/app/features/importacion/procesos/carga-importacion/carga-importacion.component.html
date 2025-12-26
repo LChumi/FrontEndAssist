@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="grid grid-nogutter">
+    <div class="col-12">
+      <!--
+      <app-favorite titulo="Importaciones" [usrId]="usrId"></app-favorite>
+      -->
+    </div>
+
+    <div class="col-12">
+      <span class="text-900 text-2xl gap-2 mb-4">Ingreso de Importaciones</span>
+
+      @if (imporSelected){
+
+      } @else {
+        <div class="col-12 lg:col-6">
+          <div class="flex align-items-center gap-2">
+            <p-table #im [value]="listImportaciones" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} documentos disponibles"
+                     [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['dspComprobante', 'periodo', 'concepto', 'tipodoc', 'cliNombre', 'impObservaciones', 'estado']">
+              <ng-template pTemplate="caption">
+                <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
+                  <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onGlobalFilter(im, $event)" placeholder="Busqueda Global" class="w-full"/>
+                  </span>
+                </div>
+              </ng-template>
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="dspComprobante" class="white-space-nowrap" style="width:25%">Comprobante <p-sortIcon field="dspComprobante"></p-sortIcon></th>
+                  <th pSortableColumn="periodo" class="white-space-nowrap" style="width:25%">Periodo <p-sortIcon field="periodo"></p-sortIcon></th>
+                  <th pSortableColumn="fecha" class="white-space-nowrap" style="width:25%">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                  <th pSortableColumn="concepto" class="white-space-nowrap" style="width:25%">Concepto<p-sortIcon field="concepto"></p-sortIcon></th>
+                  <th pSortableColumn="impObservaciones" class="white-space-nowrap" style="width:25%">Observaciones <p-sortIcon field="impObservaciones"></p-sortIcon></th>
+                  <th pSortableColumn="estado" class="white-space-nowrap" style="width:25%">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                  <th pSortableColumn="cliId" class="white-space-nowrap" style="width:25%">Id Proveedor <p-sortIcon field="cliId"></p-sortIcon></th>
+                  <th pSortableColumn="cliNombre" class="white-space-nowrap" style="width:25%">Nombre Proveedor <p-sortIcon field="cliNombre"></p-sortIcon></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-doc>
+                <tr (click)="selectedImp(doc)" class="cursor-pointer hover:bg-blue-100">
+                  <td>{{ doc.dspComprobante }}</td>
+                  <td>{{ doc.periodo }}</td>
+                  <td>{{ doc.fecha | date: 'MM/dd/yyyy'}}</td>
+                  <td>{{ doc.concepto }}</td>
+                  <td>{{ doc.impObservaciones }}</td>
+                  <td>{{ doc.estado }}</td>
+                  <td>{{ doc.cliId }}</td>
+                  <td>{{ doc.cliNombre }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
