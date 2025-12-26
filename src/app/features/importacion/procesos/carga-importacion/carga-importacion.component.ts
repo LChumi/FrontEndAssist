@@ -3,20 +3,16 @@ import {ComImpService} from "@services/api/assist/com-imp.service";
 import {SeoHelperService} from "@services/state/seo-helper.service";
 import {ClarityService} from "@services/state/clarity.service";
 import {ComImpV1} from "@models/view/com-imp-v1";
-import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 import {getSessionItem} from "@utils/storage-utils";
 import {Table, TableModule} from "primeng/table";
 import {InputTextModule} from "primeng/inputtext";
-import {ButtonDirective} from "primeng/button";
 import {DatePipe} from "@angular/common";
 
 @Component({
   standalone: true,
   imports: [
-    FavoriteComponent,
     TableModule,
     InputTextModule,
-    ButtonDirective,
     DatePipe
   ],
   templateUrl: './carga-importacion.component.html',
