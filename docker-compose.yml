@@ -1,0 +1,7 @@
+services:
+  angular-assist:
+    image: ghcr.io/lchumi/assist-web:latest
+    container_name: angular-assist
+    ports:
+      - "80:80"
+    restart: unless-stopped
