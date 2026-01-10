@@ -1,6 +1,6 @@
 services:
   angular-assist:
-    image: ghcr.io/lchumi/assist-web:latest
+    image: ghcr.io/lchumi/assist_web:latest
     container_name: angular-assist
     ports:
       - "80:80"
