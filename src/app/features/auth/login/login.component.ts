@@ -96,8 +96,7 @@ export default class LoginComponent implements OnInit {
   }
 
   goToEmpresas() {
-    this.clarityService.prioritize('login exitoso');
-    this.router.navigate(['/auth', 'empresas']).then(r => {})
+    this.router.navigate(['/auth', 'empresas']).then(r => {this.clarityService.prioritize('login exitoso');})
   }
 
   private getSession(){
