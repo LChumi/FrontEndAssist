@@ -9,9 +9,16 @@
     <div class="col-12">
       <span class="text-900 text-2xl gap-2 mb-4">Ingreso de Importaciones</span>
       @if (imporSelected){
-
-      } @else {
         <div class="col-12 lg:col-6">
+          <div class="flex align-items-center gap-2">
+            <span>
+              <label for="orderSearc" class="p-sr-only">Orden de Compra</label>
+
+            </span>
+          </div>
+        </div>
+      } @else {
+        <div class="col-12">
           <div class="flex align-items-center gap-2">
             <p-table #im [value]="listImportaciones" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} documentos disponibles"
                      [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['dspComprobante', 'periodo', 'concepto', 'tipodoc', 'cliNombre', 'impObservaciones', 'estado']">
@@ -25,14 +32,14 @@
               </ng-template>
               <ng-template pTemplate="header">
                 <tr>
-                  <th class="white-space-nowrap" style="width:25%">Comprobante <p-sortIcon field="dspComprobante"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Periodo <p-sortIcon field="periodo"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Concepto<p-sortIcon field="concepto"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Observaciones <p-sortIcon field="impObservaciones"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Estado <p-sortIcon field="estado"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Id Proveedor <p-sortIcon field="cliId"></p-sortIcon></th>
-                  <th class="white-space-nowrap" style="width:25%">Nombre Proveedor <p-sortIcon field="cliNombre"></p-sortIcon></th>
+                  <th class="white-space-nowrap" style="width:25%">Comprobante></th>
+                  <th class="white-space-nowrap" style="width:25%">Periodo</th>
+                  <th class="white-space-nowrap" style="width:25%">Fecha</th>
+                  <th class="white-space-nowrap" style="width:25%">Concepto</th>
+                  <th class="white-space-nowrap" style="width:25%">Observaciones</th>
+                  <th class="white-space-nowrap" style="width:25%">Estado</th>
+                  <th class="white-space-nowrap" style="width:25%">Id Proveedo</th>
+                  <th class="white-space-nowrap" style="width:25%">Nombre Proveedor</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-doc>

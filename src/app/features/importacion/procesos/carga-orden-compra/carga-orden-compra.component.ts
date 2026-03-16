@@ -198,7 +198,7 @@ export default class CargaOrdenCompraComponent implements OnInit {
       return
     }
 
-    const sigla = 10003347
+    const sigla = 10003347 //solicitud de importacion codigo
 
     this.listCcomprobaService.buscar(
       this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
