@@ -14,8 +14,8 @@
             <h5 class="mb-2">Seleccione la Orden perteneciente a la Importacion</h5>
 
             @if (loadingOrder) {
-              <div class="flex justify-content-center">
-                <p-progressSpinner aria-label="Cargando órdenes"></p-progressSpinner>
+              <div class="flex justify-content-start">
+                <p-progressSpinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" aria-label="Cargando ordenes"></p-progressSpinner>
               </div>
             } @else {
               <p-multiSelect

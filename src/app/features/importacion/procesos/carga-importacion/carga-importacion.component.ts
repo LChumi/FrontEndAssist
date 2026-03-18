@@ -113,7 +113,7 @@ export default class CargaImportacionComponent implements OnInit {
       next: data => {
         if (data.length <= 0){
           this.messageService.add({
-            severity: 'warn',
+            severity: 'info',
             summary: 'Orden no encontrada',
             detail: 'No se encontró una orden similar a la importacion listando todas las ordenes',
             life: 3000
@@ -143,4 +143,5 @@ export default class CargaImportacionComponent implements OnInit {
       }
     })
   }
+
 }
