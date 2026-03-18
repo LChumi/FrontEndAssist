@@ -10,13 +10,20 @@ import {DatePipe} from "@angular/common";
 import {ListCcomprobaVService} from "@services/api/assist/list-ccomproba-v.service";
 import {MessageService} from "primeng/api";
 import {extraerNumeroDetalle} from "@utils/validation-util";
+import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
+import {MultiSelectModule} from "primeng/multiselect";
+import {FormsModule} from "@angular/forms";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @Component({
   standalone: true,
   imports: [
     TableModule,
     InputTextModule,
-    DatePipe
+    DatePipe,
+    MultiSelectModule,
+    FormsModule,
+    ProgressSpinnerModule
   ],
   templateUrl: './carga-importacion.component.html',
   styles: ``
@@ -30,10 +37,14 @@ export default class CargaImportacionComponent implements OnInit {
   private messageService = inject(MessageService)
 
   private idEmpresa: any
+  private sigla = 10003348 //orden de compra codigo
 
-  listImportaciones: ComImpV1[] =[]
+  listImportaciones: ComImpV1[] = []
+  listaOredenes:ListCcomprobaV[] = []
+  ordenesCco:any[] = []
   docSelected: ComImpV1 | null = null;
   imporSelected = false;
+  loadingOrder = false;
 
   ngOnInit() {
     const emp =getSessionItem('empresa')
@@ -46,7 +57,6 @@ export default class CargaImportacionComponent implements OnInit {
   getImportaciones(empresa: number){
     this.comimpService.getImportacionPen(empresa).subscribe({
       next: data => {
-        console.log(data)
         this.listImportaciones = data
       }
     })
@@ -59,6 +69,7 @@ export default class CargaImportacionComponent implements OnInit {
   selectedImp(doc: ComImpV1){
     this.docSelected = doc
     this.imporSelected = true;
+    this.findSci()
   }
 
   findSci() {
@@ -73,7 +84,6 @@ export default class CargaImportacionComponent implements OnInit {
       return;
     }
 
-    const sigla = 10003348 //orden de compra codigo
     const ordenDetalle = this.docSelected?.impObservaciones;
 
     if (!ordenDetalle){
@@ -98,8 +108,22 @@ export default class CargaImportacionComponent implements OnInit {
       return;
     }
 
-    this.listCcomprobaService.buscar(this.idEmpresa, sigla, numero).subscribe({
-      next: data => { /* manejar datos */ },
+    this.loadingOrder = true;
+    this.listCcomprobaService.buscar(this.idEmpresa, undefined, undefined,undefined,this.sigla,undefined,undefined,undefined, numero, undefined, 2).subscribe({
+      next: data => {
+        if (data.length <= 0){
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Orden no encontrada',
+            detail: 'No se encontró una orden similar a la importacion listando todas las ordenes',
+            life: 3000
+          });
+          this.listarOrdenes()
+        } else {
+          this.listaOredenes = data
+          this.loadingOrder = false;
+        }
+      },
       error: err => {
         this.messageService.add({
           severity: 'error',
@@ -109,5 +133,14 @@ export default class CargaImportacionComponent implements OnInit {
         });
       }
     });
+  }
+
+  listarOrdenes(){
+    this.listCcomprobaService.buscar(this.idEmpresa, undefined, undefined,undefined,this.sigla,undefined,undefined,undefined, undefined, undefined, 2).subscribe({
+      next: data => {
+        this.listaOredenes = data
+        this.loadingOrder = false;
+      }
+    })
   }
 }

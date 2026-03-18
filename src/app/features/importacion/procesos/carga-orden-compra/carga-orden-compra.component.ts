@@ -201,7 +201,8 @@ export default class CargaOrdenCompraComponent implements OnInit {
     const sigla = 10003347 //solicitud de importacion codigo
 
     this.listCcomprobaService.buscar(
-      this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.solicitud, undefined, undefined, undefined).subscribe({
+      this.idEmpresa, undefined, undefined, undefined, sigla, undefined, undefined, undefined, this.
+        solicitud, undefined, undefined, undefined).subscribe({
       next: data => {
         if (data.length === 0) {
           this.message('warn', 'No se encontraron solicitudes', 'Sin resultados')

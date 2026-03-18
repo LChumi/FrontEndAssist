@@ -10,11 +10,38 @@
       <span class="text-900 text-2xl gap-2 mb-4">Ingreso de Importaciones</span>
       @if (imporSelected){
         <div class="col-12 lg:col-6">
-          <div class="flex align-items-center gap-2">
-            <span>
-              <label for="orderSearc" class="p-sr-only">Orden de Compra</label>
+          <div class="flex flex-column gap-2">
+            <h5 class="mb-2">Seleccione la Orden perteneciente a la Importacion</h5>
 
-            </span>
+            @if (loadingOrder) {
+              <div class="flex justify-content-center">
+                <p-progressSpinner aria-label="Cargando órdenes"></p-progressSpinner>
+              </div>
+            } @else {
+              <p-multiSelect
+                [options]="listaOredenes"
+                [(ngModel)]="ordenesCco"
+                placeholder="Seleccione la orden"
+                optionLabel="concepto"
+                optionValue="ccoCodigo"
+                class="w-full multiselect-custom"
+                display="chip">
+
+                <ng-template let-order pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                    <i class="pi pi-box text-primary"></i>
+                    <span>{{ order.concepto }}</span>
+                  </div>
+                </ng-template>
+
+                <ng-template pTemplate="selectedItem" let-order>
+                  <div class="flex align-items-center gap-2">
+                    <i class="pi pi-check-circle text-success"></i>
+                    <span>{{ order.concepto }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+            }
           </div>
         </div>
       } @else {
