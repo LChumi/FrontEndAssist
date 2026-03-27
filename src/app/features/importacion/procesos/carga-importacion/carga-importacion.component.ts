@@ -14,6 +14,9 @@ import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {MultiSelectModule} from "primeng/multiselect";
 import {FormsModule} from "@angular/forms";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {ButtonDirective} from "primeng/button";
+import {Ripple} from "primeng/ripple";
+import {TagModule} from "primeng/tag";
 
 @Component({
   standalone: true,
@@ -23,7 +26,10 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     DatePipe,
     MultiSelectModule,
     FormsModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ButtonDirective,
+    Ripple,
+    TagModule
   ],
   templateUrl: './carga-importacion.component.html',
   styles: ``
@@ -142,6 +148,10 @@ export default class CargaImportacionComponent implements OnInit {
         this.loadingOrder = false;
       }
     })
+  }
+
+  agregarOrdenes(){
+
   }
 
 }
