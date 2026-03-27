@@ -17,6 +17,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {TagModule} from "primeng/tag";
+import {ImportacionRequest} from "@models/record/importacion-request";
 
 @Component({
   standalone: true,
@@ -151,7 +152,12 @@ export default class CargaImportacionComponent implements OnInit {
   }
 
   agregarOrdenes(){
-
+    if (this.docSelected){
+      const impor : ImportacionRequest = {
+        ccoImportacion: this.docSelected?.cco,
+        ccoOrdenes: this.ordenesCco
+      }
+    }
   }
 
 }
