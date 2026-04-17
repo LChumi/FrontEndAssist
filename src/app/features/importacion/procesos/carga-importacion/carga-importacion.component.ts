@@ -157,6 +157,7 @@ export default class CargaImportacionComponent implements OnInit {
         ccoImportacion: this.docSelected?.cco,
         ccoOrdenes: this.ordenesCco
       }
+      console.log(impor)
     }
   }
 
