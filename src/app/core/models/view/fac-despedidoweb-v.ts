@@ -1,0 +1,32 @@
+export interface FacDespedidowebV {
+  rowid:       string;
+  comprobante: string;
+  empresa:     number;
+  ccoCodigo:   number;
+  dprFecha:    Date;
+  tipodoc:     number;
+  cedulaRuc:   string;
+  secuencia:   number;
+  proCodigo:   number;
+  proId:       string;
+  proId1:      string;
+  proNombre:   string;
+  proPrecio2:  number;
+  hoja:        number;
+  cdigitada:   number;
+  canapr:      number;
+  canemp:      number;
+  observacion: string;
+  bodCodigo:   number;
+  bodId:       string;
+  bodNombre:   string;
+  despachar:   number;
+  cajaEmpaque: string;
+  despachador: string;
+  responsable: string;
+  seccion:     string;
+  cxb:         number;
+  ubiBlt:      string;
+  ubiUni:      string;
+  stock:       number;
+}
