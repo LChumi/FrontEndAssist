@@ -7,6 +7,7 @@ import {FacDespedidowebV} from "@models/view/fac-despedidoweb-v";
 import {
   DespachoDetalleComponent
 } from "@features/inventarios/procesos/pedido-despacho/components/despacho-detalle/despacho-detalle.component";
+import {ServiceResponse} from "@models/record/service-response";
 
 @Component({
   selector: 'app-despacho',
@@ -32,6 +33,10 @@ export default class DespachoComponent implements OnInit{
 
   seleccionarPedido(pedido: FacDespedidowebV){
     this.pedidoSeleccionado = pedido
+  }
+
+  recargar(response: ServiceResponse){
+    this.cerrarDetalle();
   }
 
   cerrarDetalle(){

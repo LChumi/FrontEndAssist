@@ -14,7 +14,10 @@
             (seleccionar)="seleccionarPedido($event)"
           ></app-pendiente-list>
         } @else {
-          <app-despacho-detalle [pedido]="pedidoSeleccionado"></app-despacho-detalle>
+          <app-despacho-detalle
+            [pedido]="pedidoSeleccionado"
+            (finalizar)="recargar($event)"
+          ></app-despacho-detalle>
         }
       </div>
     </div>
