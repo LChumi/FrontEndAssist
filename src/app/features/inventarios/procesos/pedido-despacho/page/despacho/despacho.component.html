@@ -4,7 +4,7 @@
       <!--<app-favorite titulo="Pedidos de Despacho" [usrId]="usrId"></app-favorite>-->
     </div>
     <div class="col-12">
-      <span class="text-900 text-2xl gap-2 mb-4">Pedidos por Despachar</span>
+      <span class="text-900 text-2xl gap-2 mb-4">Despachos</span>
 
       <div class="mt-4">
         @if (!pedidoSeleccionado) {
@@ -14,7 +14,7 @@
             (seleccionar)="seleccionarPedido($event)"
           ></app-pendiente-list>
         } @else {
-          <app-despacho-detalle></app-despacho-detalle>
+          <app-despacho-detalle [pedido]="pedidoSeleccionado"></app-despacho-detalle>
         }
       </div>
     </div>
