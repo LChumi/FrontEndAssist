@@ -31,7 +31,7 @@ export default class DespachoComponent implements OnInit{
   }
 
   seleccionarPedido(pedido: FacDespedidowebV){
-
+    this.pedidoSeleccionado = pedido
   }
 
   cerrarDetalle(){
