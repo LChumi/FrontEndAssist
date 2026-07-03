@@ -5,6 +5,8 @@ import {TableModule} from "primeng/table";
 import {DatePipe} from "@angular/common";
 import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
+import {TooltipModule} from "primeng/tooltip";
+import {TagModule} from "primeng/tag";
 
 @Component({
   selector: 'app-pendiente-list',
@@ -13,7 +15,9 @@ import {Ripple} from "primeng/ripple";
     TableModule,
     DatePipe,
     ButtonDirective,
-    Ripple
+    Ripple,
+    TooltipModule,
+    TagModule
   ],
   templateUrl: './pendiente-list.component.html',
   styles: ``
@@ -39,6 +43,7 @@ export class PendienteListComponent implements OnInit{
     this.despachoService.getPendientes(this.usuarioId(), this.estado()).subscribe({
       next: data => {
         this.pendientes.set(data)
+        console.log(data)
       },
       error: err => console.error('Error cargando pendientes', err)
     })
