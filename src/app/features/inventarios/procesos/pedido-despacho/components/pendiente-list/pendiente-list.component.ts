@@ -43,7 +43,6 @@ export class PendienteListComponent implements OnInit{
     this.despachoService.getPendientes(this.usuarioId(), this.estado()).subscribe({
       next: data => {
         this.pendientes.set(data)
-        console.log(data)
       },
       error: err => console.error('Error cargando pendientes', err)
     })
