@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="grid grid-nogutter">
+    <div class="col-12">
+      <!--<app-favorite titulo="Pedidos de Despacho" [usrId]="usrId"></app-favorite>-->
+    </div>
+    <div class="col-12">
+      <span class="text-900 text-2xl gap-2 mb-4">Pedidos por Despachar</span>
+
+      <div class="mt-4">
+        @if (!pedidoSeleccionado) {
+          <app-pendiente-list
+            [usuarioId]="usrId"
+            [estado]="1"
+            (seleccionar)="seleccionarPedido($event)"
+          ></app-pendiente-list>
+        } @else {
+          <app-despacho-detalle></app-despacho-detalle>
+        }
+      </div>
+    </div>
+  </div>
+</div>

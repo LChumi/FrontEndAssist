@@ -8,6 +8,7 @@ import {authRoutes} from "@features/auth/auth.routes";
 import {contabilidadRoutes} from "@features/contabilidad/contabilidad.routes";
 import {sessionGuard} from "@guards/session.guard";
 import {JepFasterComponent} from "@features/payments/jep-faster/jep-faster.component";
+import {inventariosRoutes} from "@features/inventarios/inventarios.routes";
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
         path: 'contabilidad',
         data: {breadcrumb: 'Contabilidad'},
         children: contabilidadRoutes
+      },
+      {
+        path: 'inventarios',
+        data: {breadcrumb: 'Inventarios'},
+        children: inventariosRoutes
       },
       {path: '', redirectTo: 'dashboard', pathMatch: "full"},
       {path: '**', redirectTo: 'dashboard', pathMatch: "full"}
