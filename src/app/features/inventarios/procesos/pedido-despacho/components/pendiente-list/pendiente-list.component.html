@@ -1,0 +1,44 @@
+<p-table
+  [value]="pendientes()"
+  [paginator]="true"
+  [rows]="10"
+  [rowHover]="true"
+  responsiveLayout="scroll"
+  styleClass="p-datatable-gridlines"
+  [loading]="loading"
+  [rowsPerPageOptions]="[5,10,25]">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="bg-gray-50 text-800 font-bold text-center">Comprobante</th>
+      <th class="bg-gray-50 text-800 font-bold text-center">Cliente</th>
+      <th class="bg-gray-50 text-800 font-bold text-center">Fecha</th>
+      <th class="bg-gray-50 text-800 font-bold text-center">Hoja</th>
+      <th class="bg-gray-50 text-800 font-bold text-center">Responsable</th>
+      <th></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-pedido>
+    <tr>
+      <td class="text-center">{{ pedido.comprobante }}</td>
+      <td class="text-center">{{ pedido.cliente }}</td>
+      <td class="text-center">{{ pedido.fechaAsignacion | date: 'mediumDate' }}</td>
+      <td class="text-center">{{ pedido.hoja }}</td>
+      <td class="text-center">{{ pedido.responsable || '-'}}</td>
+      <td class="text-center">
+        <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-text" (click)="verPedido(pedido)"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" class="text-center py-5 text-500">
+        <i class="pi pi-inbox text-4xl mb-3 block"></i>
+        No se encontraron Pedidos por despachar
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
