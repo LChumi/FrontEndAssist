@@ -20,8 +20,12 @@ export class PedidoDespachoService {
     return this.http.get<FacDespedidowebV[]>(`${this.baseUrl}/despachos/pendientes/${usuario}/${estado}`)
   }
 
-  getProductos(empresa:number, cco: any):Observable<FacDesprodWebV[]>{
-    return this.http.get<FacDesprodWebV[]>(`${this.baseUrl}/despachos/productos/${empresa}/${cco}`)
+  getProductos(empresa: number, cco: any, hoja?: number): Observable<FacDesprodWebV[]> {
+    let url = `${this.baseUrl}/despachos/productos/${empresa}/${cco}`;
+    if (hoja) {
+      url += `?hoja=${hoja}`;
+    }
+    return this.http.get<FacDesprodWebV[]>(url);
   }
 
   addCantidad(producto:FacDesprodWebV):Observable<ServiceResponse>{

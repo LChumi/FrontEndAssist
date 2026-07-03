@@ -1,5 +1,7 @@
-<div #report>
+<div>
   <div class="card py-8 px-6 md:px-8 overflow-auto">
+
+    <!-- Header -->
     <div class="flex flex-column align-items-start md:flex-row md:align-items-center md:justify-content-between border-bottom-1 surface-border pb-5 min-w-max">
       @if (pedido) {
         <div class="flex flex-column">
@@ -9,12 +11,9 @@
                   fill="var(--primary-color)"/>
           </svg>
           <div class="my-3 text-4xl font-bold text-900">Pedido {{ pedido.comprobante }}</div>
-          <span class="mb-2"
-                style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; max-width:250px;">{{ pedido.cliente }}</span>
+          <span class="mb-2" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; max-width:250px;">{{ pedido.cliente }}</span>
           <span>{{ pedido.ciudad }}</span>
-          <span class="ml-3 text-sm text-500">
-           Hoja: {{ pedido.hoja }}
-          </span>
+          <span class="ml-3 text-sm text-500">Hoja: {{ pedido.hoja }}</span>
         </div>
         <div class="flex flex-column mt-5 md:mt-0">
           <div class="text-2xl font-semibold text-left md:text-right mb-3">{{ pedido.bodSolicita || '' }}</div>
@@ -25,118 +24,252 @@
             </div>
             <div class="flex justify-content-between align-items-center">
               <span class="font-semibold mr-6">RESPONSABLE</span>
-              <span> {{ pedido.responsable }}</span>
+              <span>{{ pedido.responsable }}</span>
             </div>
           </div>
         </div>
       }
     </div>
 
-    <div class="card py-8 px-6 md:px-8 overflow-auto">
-      <div class="flex flex-column gap-3">
-        @for (producto of productos(); track $index) {
-          <div class="surface-card border-round-lg shadow-2 p-3 border-1 surface-border hover:surface-100 transition-colors transition-duration-150">
+    <div class="hidden md:block overflow-auto">
 
-            <div class="flex gap-3">
-              <!-- Foto: thumbnail chico, click para ampliar -->
-              <p-image
-                [src]="getUrlImage(producto.proId)"
-                alt="{{ producto.proNombre }}"
-                width="60"
-                styleClass="border-round overflow-hidden flex-shrink-0"
-                [preview]="true">
-              </p-image>
+      <p-table
+        [value]="productos()"
+        [rowHover]="true"
+        [loading]="loading"
+        styleClass="p-datatable-sm">
 
-              <div class="flex-grow-1 w-full min-w-0">
-                <!-- Header: nombre + código + número de fila -->
-                <div class="flex justify-content-between align-items-start gap-2 mb-2">
-                  <div class="min-w-0">
-                <span class="text-900 font-bold block white-space-nowrap overflow-hidden text-overflow-ellipsis">
-                  {{ producto.proNombre }}
-                </span>
-                    <span class="text-600 text-sm block">
-                  {{ producto.proId }} · {{ producto.proId1 }}
-                </span>
-                  </div>
-                  <p-tag [value]="'#' + ($index + 1)" severity="secondary"></p-tag>
+        <ng-template pTemplate="header">
+          <tr class="surface-100">
+            <th class="w-3rem text-center font-semibold">#</th>
+            <th class="font-semibold">Producto</th>
+            <th class="text-center font-semibold">CxB</th>
+            <th class="text-center font-semibold">U. Unidad</th>
+            <th class="text-center font-semibold">U. Bulto</th>
+            <th class="text-right font-semibold">PVD</th>
+            <th class="text-center font-semibold">Stock</th>
+            <th class="text-center font-semibold">Pedida</th>
+            <th class="text-center font-semibold">Despachada</th>
+            <th class="text-center font-semibold w-8rem">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template
+          pTemplate="body"
+          let-producto>
+
+          <tr>
+            <td class="text-center">
+              <span class="text-500 font-medium">
+                  {{ producto.secuencia }}
+              </span>
+            </td>
+
+            <td>
+              <div class="flex align-items-center gap-3">
+                <p-image
+                  [src]="getUrlImage(producto.proId)"
+                  [preview]="true"
+                  width="56"
+                  styleClass="border-round-lg overflow-hidden">
+                </p-image>
+                <div class="flex flex-column gap-1">
+                  <span class="font-bold text-900 text-lg">{{ producto.proNombre }}</span>
+                  <span class="text-600 text-sm">{{ producto.proId }}·{{ producto.proId1 }}</span>
+                  @if(producto.observacion){
+                    <div>
+                      <p-tag
+                        [value]="producto.observacion"
+                        severity="info">
+                      </p-tag>
+                    </div>
+                  }
+
                 </div>
+              </div>
+            </td>
 
-                @if (producto.observacion) {
-                  <p-tag [value]="producto.observacion" severity="info" styleClass="mb-2"></p-tag>
-                }
-              </div>
-            </div>
+            <td class="text-center font-medium">{{ producto.cxb }}</td>
+            <td class="text-center">{{ producto.ubiUni }}</td>
+            <td class="text-center">{{ producto.ubiBlt }}</td>
+            <td class="text-right">
+              <span class="font-bold">
+                {{ producto.proPrecio2 | currency:'USD':'symbol':'1.0-3' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <p-tag
+                [severity]="producto.stock>0 ? 'success':'danger'"
+                [value]="producto.stock>0 ? producto.stock : 'Sin stock'">
+              </p-tag>
+            </td>
 
-            <p-divider styleClass="my-3"></p-divider>
+            <td class="text-center">
+              <span class="font-semibold">{{ producto.cdigitada }}</span>
+            </td>
 
-            <!-- Datos en grid: 2 columnas en mobile, 4 en desktop -->
-            <div class="grid row-gap-3 column-gap-0 text-sm mb-3">
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">CxB</span>
-                <span class="font-semibold">{{ producto.cxb }}</span>
-              </div>
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">Ubi. Unidad</span>
-                <span class="font-semibold">{{ producto.ubiUni }}</span>
-              </div>
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">Ubi. Bulto</span>
-                <span class="font-semibold">{{ producto.ubiBlt }}</span>
-              </div>
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">PVD</span>
-                <span class="font-semibold">{{ producto.proPrecio2 | currency }}</span>
-              </div>
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">Stock</span>
-                <p-tag
-                  [value]="producto.stock > 0 ? producto.stock + ' en stock' : 'Sin stock'"
-                  [severity]="producto.stock > 0 ? 'success' : 'danger'">
-                </p-tag>
-              </div>
-              <div class="col-6 md:col-3">
-                <span class="text-500 block mb-1">Cant. Pedida</span>
-                <span class="font-semibold">{{ producto.canemp }}</span>
-              </div>
-            </div>
+            <td class="text-center">
+              <p-inputNumber
+                [(ngModel)]="producto.canapr"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                decrementButtonClass="p-button-secondary"
+                incrementButtonClass="p-button-secondary"
+                inputStyleClass="text-center w-5rem"
+                [min]="0">
+              </p-inputNumber>
+            </td>
 
-            <p-divider styleClass="my-3"></p-divider>
-
-            <!-- Cantidad despachada + acciones -->
-            <div class="flex flex-column md:flex-row justify-content-between align-items-stretch md:align-items-center gap-3">
-              <div class="flex align-items-center gap-2">
-                <label class="text-600 text-sm white-space-nowrap">Cant. Despachada</label>
-                <p-inputNumber
-                  [(ngModel)]="producto.canapr"
-                  [showButtons]="true"
-                  buttonLayout="horizontal"
-                  inputStyleClass="w-4rem text-center"
-                  decrementButtonClass="p-button-secondary"
-                  incrementButtonClass="p-button-secondary"
-                  [min]="0">
-                </p-inputNumber>
-              </div>
-
-              <div class="flex gap-2 justify-content-end">
+            <td>
+              <div class="flex justify-content-center gap-2">
                 <p-button
-                  label="Agregar"
                   icon="pi pi-plus"
                   severity="secondary"
+                  [rounded]="true"
+                  [outlined]="true"
                   size="small"
-                  [outlined]="true">
+                  pTooltip="Agregar">
                 </p-button>
+
                 <p-button
-                  label="Completo"
                   icon="pi pi-check"
                   severity="success"
-                  size="small">
+                  [rounded]="true"
+                  size="small"
+                  pTooltip="Completo">
                 </p-button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </div>
+
+    <div class="md:hidden flex flex-column gap-4 mt-4">
+
+      @for (producto of productos(); track $index) {
+
+        <div class="surface-card border-1 surface-border border-round-xl shadow-2 p-3">
+
+          <!-- Header -->
+          <div class="flex gap-3 align-items-start">
+
+            <p-image
+              [src]="getUrlImage(producto.proId)"
+              [preview]="true"
+              width="72"
+              styleClass="border-round-lg overflow-hidden flex-shrink-0">
+            </p-image>
+
+            <div class="flex flex-column flex-1 gap-2 min-w-0">
+              <div class="flex justify-content-between align-items-start gap-2">
+                <div class="flex-1 min-w-0">
+                  <div class="font-bold text-900 text-lg line-height-3">
+                    {{ producto.proNombre }}
+                  </div>
+                  <div class="text-600 text-sm">
+                    {{ producto.proId }} · {{ producto.proId1 }}
+                  </div>
+                </div>
+                <p-tag
+                  [value]="'#' + producto.secuencia"
+                  severity="contrast">
+                </p-tag>
+              </div>
+
+              @if(producto.observacion){
+                <div>
+                  <p-tag
+                    [value]="producto.observacion"
+                    severity="info">
+                  </p-tag>
+                </div>
+              }
+            </div>
+          </div>
+          <p-divider></p-divider>
+          <!-- Datos -->
+          <div class="grid text-sm">
+            <div class="col-6">
+              <div class="text-500 mb-2">CxB</div>
+              <div class="font-semibold">
+                {{ producto.cxb }}
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-500 mb-2">Precio</div>
+              <div class="font-bold text-primary">
+                {{ producto.proPrecio2 | currency }}
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-500 mb-2">U. Unidad</div>
+              <div class="font-semibold">
+                {{ producto.ubiUni }}
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-500 mb-2">U. Bulto</div>
+              <div class="font-semibold">
+                {{ producto.ubiBlt }}
               </div>
             </div>
 
+            <div class="col-6">
+              <div class="text-500 mb-2">Stock</div>
+              <p-tag
+                [severity]="producto.stock > 0 ? 'success' : 'danger'"
+                [value]="producto.stock > 0 ? producto.stock + ' disp.' : 'Sin stock'">
+              </p-tag>
+            </div>
+            <div class="col-6">
+              <div class="text-500 mb-2">Pedida</div>
+              <div class="font-bold">
+                {{ producto.cdigitada }}
+              </div>
+            </div>
           </div>
-        }
-      </div>
+
+          <p-divider></p-divider>
+          <!-- Cantidad -->
+          <div class="flex flex-column gap-2">
+            <div class="text-500 text-sm">
+              Cantidad despachada
+            </div>
+            <p-inputNumber
+              [(ngModel)]="producto.canapr"
+              class="w-full"
+              inputStyleClass="w-full text-center"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              [min]="0">
+            </p-inputNumber>
+          </div>
+          <p-divider></p-divider>
+          <!-- Botones -->
+          <div class="flex justify-content-end gap-2">
+            <p-button
+              icon="pi pi-plus"
+              severity="secondary"
+              [rounded]="true"
+              [outlined]="true"
+              pTooltip="Agregar">
+            </p-button>
+            <p-button
+              icon="pi pi-check"
+              severity="success"
+              [rounded]="true"
+              pTooltip="Completo">
+            </p-button>
+          </div>
+
+        </div>
+
+      }
+
     </div>
 
   </div>
