@@ -1,3 +1,4 @@
+<p-confirmDialog key="validarDespacho"/>
 <div>
   <div class="card py-8 px-6 md:px-8 overflow-auto">
 
@@ -30,7 +31,6 @@
         </div>
       }
     </div>
-
     <div class="hidden md:block overflow-auto">
 
       <p-table
@@ -116,6 +116,7 @@
                 decrementButtonClass="p-button-secondary"
                 incrementButtonClass="p-button-secondary"
                 inputStyleClass="text-center w-5rem"
+                (onBlur)="agregarCantidad(producto)"
                 [min]="0">
               </p-inputNumber>
             </td>
@@ -123,6 +124,7 @@
             <td>
               <div class="flex justify-content-center gap-2">
                 <p-button
+                  (click)="agregarCantidad(producto)"
                   icon="pi pi-plus"
                   severity="secondary"
                   [rounded]="true"
@@ -132,6 +134,7 @@
                 </p-button>
 
                 <p-button
+                  (click)="completar(producto)"
                   icon="pi pi-check"
                   severity="success"
                   [rounded]="true"
@@ -245,6 +248,7 @@
               buttonLayout="horizontal"
               decrementButtonClass="p-button-secondary"
               incrementButtonClass="p-button-secondary"
+              (onBlur)="agregarCantidad(producto)"
               [min]="0">
             </p-inputNumber>
           </div>
@@ -252,6 +256,7 @@
           <!-- Botones -->
           <div class="flex justify-content-end gap-2">
             <p-button
+              (click)="agregarCantidad(producto)"
               icon="pi pi-plus"
               severity="secondary"
               [rounded]="true"
@@ -259,6 +264,7 @@
               pTooltip="Agregar">
             </p-button>
             <p-button
+              (click)="completar(producto)"
               icon="pi pi-check"
               severity="success"
               [rounded]="true"
@@ -271,6 +277,12 @@
       }
 
     </div>
-
+    <div class="flex gap-2">
+      <p-button
+        label="Validar Despacho"
+        icon="pi pi-check"
+        size="small"
+        (onClick)="confirmarDespacho()"/>
+    </div>
   </div>
 </div>
