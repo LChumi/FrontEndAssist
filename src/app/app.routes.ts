@@ -17,8 +17,8 @@ export const routes: Routes = [
   },
   {
     path: 'inicio', component: LayoutComponent,
-    canActivate:[sessionGuard],
-    canActivateChild:[sessionGuard],
+    canActivate: [sessionGuard],
+    canActivateChild: [sessionGuard],
     children: [
       {
         path: 'dashboard',

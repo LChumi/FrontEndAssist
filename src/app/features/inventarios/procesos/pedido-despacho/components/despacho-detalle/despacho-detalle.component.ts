@@ -37,7 +37,7 @@ import {PedidoHojaId} from "@models/dto/pedido-hoja-id";
   templateUrl: './despacho-detalle.component.html',
   styles: ``
 })
-export class DespachoDetalleComponent implements OnInit{
+export class DespachoDetalleComponent implements OnInit {
 
   private despachoService = inject(PedidoDespachoService)
   private pedidoHojaSerice = inject(PedidoHojaService)
@@ -55,7 +55,7 @@ export class DespachoDetalleComponent implements OnInit{
     this.getProductosDespacho()
   }
 
-  getProductosDespacho(){
+  getProductosDespacho() {
     this.loading = true
     if (this.pedido.hoja) {
       this.despachoService.getProductos(
@@ -79,11 +79,11 @@ export class DespachoDetalleComponent implements OnInit{
     }
   }
 
-  confirmarDespacho(){
+  confirmarDespacho() {
 
     const productos = this.productos()
 
-    const tieneCero = productos.some( p => p.canapr === 0);
+    const tieneCero = productos.some(p => p.canapr === 0);
 
     const mensaje = tieneCero
       ? '¡Algunos productos tienen cantidad en 0! ¿Desea validar el despacho igualmente?'
@@ -100,18 +100,21 @@ export class DespachoDetalleComponent implements OnInit{
     });
   }
 
-  finalizarDespacho(){
-    const id : PedidoHojaId = {
+  finalizarDespacho() {
+    const id: PedidoHojaId = {
       empresa: this.pedido.empresa,
       ccoComproba: this.pedido.ccoCodigo,
       hoja: this.pedido.hoja
     }
     this.pedidoHojaSerice.updateHojaEstado(id, 2).subscribe({
       next: response => {
-        if (response.success){
+        if (response.success) {
           this.finalizar.emit(response)
           this.messageService.add({
-            summary: 'Despacho Validado', severity: 'info', icon: 'pi pi-check', detail: 'El despacho fue validado con exito'
+            summary: 'Despacho Validado',
+            severity: 'info',
+            icon: 'pi pi-check',
+            detail: 'El despacho fue validado con exito'
           })
         }
       }
