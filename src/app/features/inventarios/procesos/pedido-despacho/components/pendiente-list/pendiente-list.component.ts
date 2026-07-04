@@ -22,7 +22,7 @@ import {TagModule} from "primeng/tag";
   templateUrl: './pendiente-list.component.html',
   styles: ``
 })
-export class PendienteListComponent implements OnInit{
+export class PendienteListComponent implements OnInit {
 
   private despachoService = inject(PedidoDespachoService)
 
@@ -39,7 +39,7 @@ export class PendienteListComponent implements OnInit{
     this.getPendientes();
   }
 
-  getPendientes(){
+  getPendientes() {
     this.despachoService.getPendientes(this.usuarioId(), this.estado()).subscribe({
       next: data => {
         this.pendientes.set(data)
@@ -48,7 +48,7 @@ export class PendienteListComponent implements OnInit{
     })
   }
 
-  verPedido(pedido: FacDespedidowebV){
+  verPedido(pedido: FacDespedidowebV) {
     this.seleccionar.emit(pedido)
   }
 

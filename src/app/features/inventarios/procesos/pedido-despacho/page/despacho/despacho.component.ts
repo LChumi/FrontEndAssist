@@ -19,7 +19,7 @@ import {ServiceResponse} from "@models/record/service-response";
   templateUrl: './despacho.component.html',
   styles: ``
 })
-export default class DespachoComponent implements OnInit{
+export default class DespachoComponent implements OnInit {
 
   usrId: any
   pedidoSeleccionado: FacDespedidowebV | null = null;
@@ -31,15 +31,15 @@ export default class DespachoComponent implements OnInit{
     }
   }
 
-  seleccionarPedido(pedido: FacDespedidowebV){
+  seleccionarPedido(pedido: FacDespedidowebV) {
     this.pedidoSeleccionado = pedido
   }
 
-  recargar(response: ServiceResponse){
+  recargar(response: ServiceResponse) {
     this.cerrarDetalle();
   }
 
-  cerrarDetalle(){
+  cerrarDetalle() {
     this.pedidoSeleccionado = null
   }
 
