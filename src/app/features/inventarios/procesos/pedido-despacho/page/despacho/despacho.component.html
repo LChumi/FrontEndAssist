@@ -7,18 +7,10 @@
       <span class="text-900 text-2xl gap-2 mb-4">Despachos</span>
 
       <div class="mt-4">
-        @if (!pedidoSeleccionado) {
           <app-pendiente-list
             [usuarioId]="usrId"
             [estado]="1"
-            (seleccionar)="seleccionarPedido($event)"
           ></app-pendiente-list>
-        } @else {
-          <app-despacho-detalle
-            [pedido]="pedidoSeleccionado"
-            (finalizar)="recargar($event)"
-          ></app-despacho-detalle>
-        }
       </div>
     </div>
   </div>

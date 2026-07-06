@@ -22,7 +22,6 @@ import {ServiceResponse} from "@models/record/service-response";
 export default class DespachoComponent implements OnInit {
 
   usrId: any
-  pedidoSeleccionado: FacDespedidowebV | null = null;
 
   ngOnInit(): void {
     const username = getSessionItem("username");
@@ -31,16 +30,6 @@ export default class DespachoComponent implements OnInit {
     }
   }
 
-  seleccionarPedido(pedido: FacDespedidowebV) {
-    this.pedidoSeleccionado = pedido
-  }
 
-  recargar(response: ServiceResponse) {
-    this.cerrarDetalle();
-  }
-
-  cerrarDetalle() {
-    this.pedidoSeleccionado = null
-  }
 
 }

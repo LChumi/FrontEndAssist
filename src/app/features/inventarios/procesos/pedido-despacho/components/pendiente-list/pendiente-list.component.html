@@ -1,211 +1,218 @@
-<!-- Card contenedora -->
-<div class="border-round-2xl border-1 surface-border surface-card shadow-2 overflow-hidden">
+@if (!pedidoSeleccionado) {
+  <!-- Card contenedora -->
+  <div class="border-round-2xl border-1 surface-border surface-card shadow-2 overflow-hidden">
 
-  <!-- Desktop: Tabla (oculta en mobile) -->
-  <div class="hidden md:block overflow-x-auto">
-    <p-table
-      [value]="pendientes()"
-      [rowHover]="true"
-      styleClass="p-datatable-sm"
-      [loading]="loading"
-      [sortField]="'fechaAsignacion'"
-      [sortOrder]="-1">
-      <!-- HEADER -->
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="comprobante" class="surface-100 text-700 font-semibold text-center">
-            <div class="flex align-items-center justify-content-center gap-2">
-              Comprobante
-              <p-sortIcon field="comprobante"></p-sortIcon>
-            </div>
-          </th>
+    <!-- Desktop: Tabla (oculta en mobile) -->
+    <div class="hidden md:block overflow-x-auto">
+      <p-table
+        [value]="pendientes()"
+        [rowHover]="true"
+        styleClass="p-datatable-sm"
+        [loading]="loading"
+        [sortField]="'fechaAsignacion'"
+        [sortOrder]="-1">
+        <!-- HEADER -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="comprobante" class="surface-100 text-700 font-semibold text-center">
+              <div class="flex align-items-center justify-content-center gap-2">
+                Comprobante
+                <p-sortIcon field="comprobante"></p-sortIcon>
+              </div>
+            </th>
 
-          <th pSortableColumn="cliente" class="surface-100 text-700 font-semibold">
-            <div class="flex align-items-center gap-2">
-              Cliente
-              <p-sortIcon field="cliente"></p-sortIcon>
-            </div>
-          </th>
+            <th pSortableColumn="cliente" class="surface-100 text-700 font-semibold">
+              <div class="flex align-items-center gap-2">
+                Cliente
+                <p-sortIcon field="cliente"></p-sortIcon>
+              </div>
+            </th>
 
-          <th pSortableColumn="fechaAsignacion" class="surface-100 text-700 font-semibold text-center">
-            <div class="flex align-items-center justify-content-center gap-2">
-              Fecha
-              <p-sortIcon field="fechaAsignacion"></p-sortIcon>
-            </div>
-          </th>
+            <th pSortableColumn="fechaAsignacion" class="surface-100 text-700 font-semibold text-center">
+              <div class="flex align-items-center justify-content-center gap-2">
+                Fecha
+                <p-sortIcon field="fechaAsignacion"></p-sortIcon>
+              </div>
+            </th>
 
-          <th class="surface-100 text-700 font-semibold">
-            Hoja
-          </th>
+            <th class="surface-100 text-700 font-semibold">
+              Hoja
+            </th>
 
-          <th class="surface-100 text-700 font-semibold">
-            Responsable
-          </th>
+            <th class="surface-100 text-700 font-semibold">
+              Responsable
+            </th>
 
-          <th class="surface-100 w-4rem text-center"></th>
-        </tr>
-      </ng-template>
+            <th class="surface-100 w-4rem text-center"></th>
+          </tr>
+        </ng-template>
 
-      <!-- BODY -->
-      <ng-template pTemplate="body" let-pedido>
-        <tr>
-          <!-- Comprobante -->
-          <td class="text-center">
-            <div class="flex flex-column align-items-center gap-2">
+        <!-- BODY -->
+        <ng-template pTemplate="body" let-pedido>
+          <tr>
+            <!-- Comprobante -->
+            <td class="text-center">
+              <div class="flex flex-column align-items-center gap-2">
               <span class="font-semibold white-space-nowrap">
                 {{ pedido.comprobante }}
               </span>
 
-              @if (pedido.urgente === 1) {
-                <p-tag
-                  value="URGENTE"
-                  severity="danger"
-                  [rounded]="true">
-                </p-tag>
-              }
+                @if (pedido.urgente === 1) {
+                  <p-tag
+                    value="URGENTE"
+                    severity="danger"
+                    [rounded]="true">
+                  </p-tag>
+                }
 
-            </div>
-          </td>
+              </div>
+            </td>
 
-          <!-- Cliente -->
-          <td
-            class="max-w-15rem overflow-hidden white-space-nowrap text-overflow-ellipsis"
-            [pTooltip]="pedido.cliente"
-            tooltipPosition="top">
+            <!-- Cliente -->
+            <td
+              class="max-w-15rem overflow-hidden white-space-nowrap text-overflow-ellipsis"
+              [pTooltip]="pedido.cliente"
+              tooltipPosition="top">
+              {{ pedido.cliente }}
+            </td>
+
+            <!-- Fecha -->
+            <td class="text-center">
+              <p-tag
+                [value]="(pedido.fechaAsignacion | date:'dd/MM/yyyy') || undefined"
+                severity="info"
+                [rounded]="true">
+              </p-tag>
+            </td>
+
+            <!-- Hoja -->
+            <td>
+              <div class="flex flex-column">
+              <span class="font-medium">
+                Hoja {{ pedido.hoja }}
+              </span>
+
+                @if (pedido.responsable) {
+                  <small class="text-500">
+                    {{ pedido.responsable }}
+                  </small>
+                }
+              </div>
+            </td>
+
+            <!-- Responsable -->
+            <td
+              class="max-w-12rem overflow-hidden white-space-nowrap text-overflow-ellipsis"
+              [pTooltip]="pedido.usrNombre"
+              tooltipPosition="top">
+              {{ pedido.usrNombre }}
+            </td>
+
+            <!-- Acción -->
+            <td class="text-center w-4rem">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-box"
+                class="p-button-rounded p-button-outlined p-button-primary p-button-sm"
+                pTooltip="Despachar pedido"
+                tooltipPosition="left"
+                (click)="verPedido(pedido)">
+              </button>
+            </td>
+
+          </tr>
+        </ng-template>
+
+        <!-- Sin datos -->
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6" class="text-center py-6">
+
+              <i class="pi pi-inbox text-5xl text-300 mb-3 block"></i>
+
+              <div class="font-semibold text-700">
+                No existen pedidos pendientes
+              </div>
+
+              <small class="text-500">
+                Todos los pedidos ya fueron despachados.
+              </small>
+
+            </td>
+          </tr>
+        </ng-template>
+
+        <!-- Loading -->
+        <ng-template pTemplate="loadingbody">
+          <tr>
+            <td colspan="6" class="text-center py-6">
+
+              <i class="pi pi-spin pi-spinner text-primary text-3xl"></i>
+
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Mobile: Cards (ocultas en desktop) -->
+    <div class="md:hidden">
+      @for (pedido of pendientes(); track $index) {
+        <div class="p-3 border-bottom-1 surface-border hover:surface-100 transition-colors transition-duration-150"
+             (click)="verPedido(pedido)">
+
+          <div class="flex justify-content-between align-items-center mb-2">
+            <span class="font-semibold">{{ pedido.comprobante }}</span>
+            @if (pedido.urgente === 1) {
+              <p-tag value="URGENTE" severity="danger" [rounded]="true"></p-tag>
+            }
+          </div>
+
+          <div class="text-700 overflow-hidden text-overflow-ellipsis white-space-nowrap mb-2">
             {{ pedido.cliente }}
-          </td>
+          </div>
 
-          <!-- Fecha -->
-          <td class="text-center">
+          <div class="flex justify-content-between align-items-center mb-2">
             <p-tag
               [value]="(pedido.fechaAsignacion | date:'dd/MM/yyyy') || undefined"
               severity="info"
               [rounded]="true">
             </p-tag>
-          </td>
+            <span class="text-500 text-sm">Hoja {{ pedido.hoja }}</span>
+            @if (pedido.responsable) {
+              <small class="text-500">
+                {{ pedido.responsable }}
+              </small>
+            }
+          </div>
 
-          <!-- Hoja -->
-          <td>
-            <div class="flex flex-column">
-              <span class="font-medium">
-                Hoja {{ pedido.hoja }}
-              </span>
-
-              @if (pedido.responsable) {
-                <small class="text-500">
-                  {{ pedido.responsable }}
-                </small>
-              }
-            </div>
-          </td>
-
-          <!-- Responsable -->
-          <td
-            class="max-w-12rem overflow-hidden white-space-nowrap text-overflow-ellipsis"
-            [pTooltip]="pedido.usrNombre"
-            tooltipPosition="top">
-            {{ pedido.usrNombre }}
-          </td>
-
-          <!-- Acción -->
-          <td class="text-center w-4rem">
+          <div class="flex justify-content-between align-items-center">
+            <small class="text-500">{{ pedido.usrNombre }}</small>
             <button
-              pButton
-              pRipple
-              type="button"
+              pButton pRipple type="button"
               icon="pi pi-box"
               class="p-button-rounded p-button-outlined p-button-primary p-button-sm"
               pTooltip="Despachar pedido"
-              tooltipPosition="left"
-              (click)="verPedido(pedido)">
+              (click)="verPedido(pedido); $event.stopPropagation()">
             </button>
-          </td>
+          </div>
 
-        </tr>
-      </ng-template>
+        </div>
+      } @empty {
+        <div class="text-center py-6">
+          <i class="pi pi-inbox text-5xl text-300 mb-3 block"></i>
+          <div class="font-semibold text-700">No existen pedidos pendientes</div>
+          <small class="text-500">Todos los pedidos ya fueron despachados.</small>
+        </div>
+      }
+    </div>
 
-      <!-- Sin datos -->
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="6" class="text-center py-6">
-
-            <i class="pi pi-inbox text-5xl text-300 mb-3 block"></i>
-
-            <div class="font-semibold text-700">
-              No existen pedidos pendientes
-            </div>
-
-            <small class="text-500">
-              Todos los pedidos ya fueron despachados.
-            </small>
-
-          </td>
-        </tr>
-      </ng-template>
-
-      <!-- Loading -->
-      <ng-template pTemplate="loadingbody">
-        <tr>
-          <td colspan="6" class="text-center py-6">
-
-            <i class="pi pi-spin pi-spinner text-primary text-3xl"></i>
-
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
   </div>
-
-  <!-- Mobile: Cards (ocultas en desktop) -->
-  <div class="md:hidden">
-    @for (pedido of pendientes(); track $index) {
-      <div class="p-3 border-bottom-1 surface-border hover:surface-100 transition-colors transition-duration-150"
-           (click)="verPedido(pedido)">
-
-        <div class="flex justify-content-between align-items-center mb-2">
-          <span class="font-semibold">{{ pedido.comprobante }}</span>
-          @if (pedido.urgente === 1) {
-            <p-tag value="URGENTE" severity="danger" [rounded]="true"></p-tag>
-          }
-        </div>
-
-        <div class="text-700 overflow-hidden text-overflow-ellipsis white-space-nowrap mb-2">
-          {{ pedido.cliente }}
-        </div>
-
-        <div class="flex justify-content-between align-items-center mb-2">
-          <p-tag
-            [value]="(pedido.fechaAsignacion | date:'dd/MM/yyyy') || undefined"
-            severity="info"
-            [rounded]="true">
-          </p-tag>
-          <span class="text-500 text-sm">Hoja {{ pedido.hoja }}</span>
-          @if (pedido.responsable) {
-            <small class="text-500">
-              {{ pedido.responsable }}
-            </small>
-          }
-        </div>
-
-        <div class="flex justify-content-between align-items-center">
-          <small class="text-500">{{ pedido.usrNombre }}</small>
-          <button
-            pButton pRipple type="button"
-            icon="pi pi-box"
-            class="p-button-rounded p-button-outlined p-button-primary p-button-sm"
-            pTooltip="Despachar pedido"
-            (click)="verPedido(pedido); $event.stopPropagation()">
-          </button>
-        </div>
-
-      </div>
-    } @empty {
-      <div class="text-center py-6">
-        <i class="pi pi-inbox text-5xl text-300 mb-3 block"></i>
-        <div class="font-semibold text-700">No existen pedidos pendientes</div>
-        <small class="text-500">Todos los pedidos ya fueron despachados.</small>
-      </div>
-    }
-  </div>
-
-</div>
+}@else {
+  <app-despacho-detalle
+    [pedido]="pedidoSeleccionado"
+    (finalizar)="recargar($event)"
+  ></app-despacho-detalle>
+}

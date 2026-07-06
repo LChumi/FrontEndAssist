@@ -7,6 +7,11 @@ import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {TooltipModule} from "primeng/tooltip";
 import {TagModule} from "primeng/tag";
+import {
+  DespachoDetalleComponent
+} from "@features/inventarios/procesos/pedido-despacho/components/despacho-detalle/despacho-detalle.component";
+import {ServiceResponse} from "@models/record/service-response";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-pendiente-list',
@@ -17,7 +22,8 @@ import {TagModule} from "primeng/tag";
     ButtonDirective,
     Ripple,
     TooltipModule,
-    TagModule
+    TagModule,
+    DespachoDetalleComponent
   ],
   templateUrl: './pendiente-list.component.html',
   styles: ``
@@ -31,9 +37,8 @@ export class PendienteListComponent implements OnInit {
   usuarioId = input.required<string>();
   estado = input.required<number>();
 
-  @Output() seleccionar = new EventEmitter<FacDespedidowebV>();
-
   loading = false
+  pedidoSeleccionado: FacDespedidowebV | null = null;
 
   ngOnInit() {
     this.getPendientes();
@@ -49,7 +54,18 @@ export class PendienteListComponent implements OnInit {
   }
 
   verPedido(pedido: FacDespedidowebV) {
-    this.seleccionar.emit(pedido)
+    this.pedidoSeleccionado= pedido
+  }
+
+  cerrarDetalle() {
+    this.pedidoSeleccionado = null
+  }
+
+  recargar(response: ServiceResponse) {
+    if (response.success){
+      this.cerrarDetalle();
+      this.getPendientes();
+    }
   }
 
 }
