@@ -149,6 +149,7 @@ export class DespachoDetalleComponent implements OnInit {
   }
 
   agregarCantidad(producto: FacDesprodWebV) {
+    producto.editando = false;
     this.actualizarCantidad(producto, {
       summary: 'Cantidad agregada',
       detail: 'Cantidad agregada correctamente'
@@ -157,10 +158,15 @@ export class DespachoDetalleComponent implements OnInit {
 
   completar(producto: FacDesprodWebV) {
     producto.canapr = producto.cdigitada;
+    producto.editando = false;
     this.actualizarCantidad(producto, {
       summary: 'Cantidad completa',
       detail: 'Producto completado'
     });
+  }
+
+  toggleEditar(producto: any): void {
+    producto.editando = true;
   }
 
   protected readonly getUrlImage = getUrlImage;
