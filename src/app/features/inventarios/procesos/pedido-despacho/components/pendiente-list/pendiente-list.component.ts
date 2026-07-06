@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, OnInit, Output, signal} from '@angular/core';
+import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {PedidoDespachoService} from "@services/api/models/pedido-despacho.service";
 import {FacDespedidowebV} from "@models/view/fac-despedidoweb-v";
 import {TableModule} from "primeng/table";
@@ -11,7 +11,6 @@ import {
   DespachoDetalleComponent
 } from "@features/inventarios/procesos/pedido-despacho/components/despacho-detalle/despacho-detalle.component";
 import {ServiceResponse} from "@models/record/service-response";
-import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-pendiente-list',
@@ -55,7 +54,7 @@ export class PendienteListComponent implements OnInit {
   }
 
   verPedido(pedido: FacDespedidowebV) {
-    this.pedidoSeleccionado= pedido
+    this.pedidoSeleccionado = pedido
   }
 
   cerrarDetalle() {
@@ -63,7 +62,7 @@ export class PendienteListComponent implements OnInit {
   }
 
   recargar(response: ServiceResponse) {
-    if (response.success){
+    if (response.success) {
       this.cerrarDetalle();
       this.getPendientes();
     }
