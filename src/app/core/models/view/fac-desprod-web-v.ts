@@ -29,4 +29,5 @@ export interface FacDesprodWebV {
   ubiBlt:      string;
   ubiUni:      string;
   stock:       number;
+  editando?:   boolean;
 }

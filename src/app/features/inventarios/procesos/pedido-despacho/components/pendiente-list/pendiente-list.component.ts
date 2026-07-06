@@ -3,7 +3,7 @@ import {PedidoDespachoService} from "@services/api/models/pedido-despacho.servic
 import {FacDespedidowebV} from "@models/view/fac-despedidoweb-v";
 import {TableModule} from "primeng/table";
 import {DatePipe} from "@angular/common";
-import {ButtonDirective} from "primeng/button";
+import {Button, ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {TooltipModule} from "primeng/tooltip";
 import {TagModule} from "primeng/tag";
@@ -23,7 +23,8 @@ import {MessageService} from "primeng/api";
     Ripple,
     TooltipModule,
     TagModule,
-    DespachoDetalleComponent
+    DespachoDetalleComponent,
+    Button
   ],
   templateUrl: './pendiente-list.component.html',
   styles: ``
