@@ -258,36 +258,53 @@
             <div class="text-500 text-sm">
               Cantidad despachada
             </div>
-            <p-inputNumber
-              [(ngModel)]="producto.canapr"
-              class="w-full"
-              inputStyleClass="w-full text-center"
-              [showButtons]="true"
-              buttonLayout="horizontal"
-              decrementButtonClass="p-button-secondary"
-              incrementButtonClass="p-button-secondary"
-              (onBlur)="agregarCantidad(producto)"
-              [min]="0">
-            </p-inputNumber>
+            @if (producto.canapr && !producto.editando) {
+              <span class="font-bold text-lg">{{ producto.canapr }}</span>
+            } @else {
+              <p-inputNumber
+                [(ngModel)]="producto.canapr"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                decrementButtonClass="p-button-secondary"
+                incrementButtonClass="p-button-secondary"
+                inputStyleClass="text-center w-5rem"
+                (onBlur)="agregarCantidad(producto)"
+                [min]="0">
+              </p-inputNumber>
+            }
           </div>
           <p-divider></p-divider>
           <!-- Botones -->
           <div class="flex justify-content-end gap-2">
-            <p-button
-              (click)="agregarCantidad(producto)"
-              icon="pi pi-plus"
-              severity="secondary"
-              [rounded]="true"
-              [outlined]="true"
-              pTooltip="Agregar">
-            </p-button>
-            <p-button
-              (click)="completar(producto)"
-              icon="pi pi-check"
-              severity="success"
-              [rounded]="true"
-              pTooltip="Completo">
-            </p-button>
+            @if (!producto.editando && producto.canapr > 0) {
+              <p-button
+                (click)="toggleEditar(producto)"
+                icon="pi pi-pencil"
+                severity="warning"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                pTooltip="Modificar">
+              </p-button>
+            } @else {
+              <p-button
+                (click)="agregarCantidad(producto)"
+                icon="pi pi-plus"
+                severity="secondary"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                pTooltip="Agregar">
+              </p-button>
+              <p-button
+                (click)="completar(producto)"
+                icon="pi pi-check"
+                severity="success"
+                [rounded]="true"
+                size="small"
+                pTooltip="Completo">
+              </p-button>
+            }
           </div>
 
         </div>
