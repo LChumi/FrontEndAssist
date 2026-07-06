@@ -180,11 +180,12 @@
               severity="info"
               [rounded]="true">
             </p-tag>
-            <span class="text-500 text-sm">Hoja {{ pedido.hoja }}</span>
             @if (pedido.responsable) {
               <small class="text-500">
-                {{ pedido.responsable }}
+                <span class="text-500 text-sm">Hoja {{ pedido.hoja }} - {{ pedido.responsable }}</span>
               </small>
+            } @else {
+              <span class="text-500 text-sm">Hoja {{ pedido.hoja }}</span>
             }
           </div>
 
