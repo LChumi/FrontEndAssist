@@ -1,0 +1,103 @@
+<!-- menu-tree.component.html -->
+<p-confirmDialog key="menu"></p-confirmDialog>
+
+<div class="flex justify-content-between align-items-center mb-3">
+  <h3 class="m-0">Estructura de Menús</h3>
+  <p-button label="Nuevo Menú" icon="pi pi-plus" (onClick)="openNew()"></p-button>
+</div>
+
+<p-tree
+  [value]="treeData"
+  selectionMode="single"
+  (onNodeSelect)="onNodeSelect($event)"
+  [style]="{ width: '100%' }">
+  <ng-template let-node pTemplate="default">
+    <div class="flex justify-content-between align-items-center w-full">
+      <span>
+        <span [class.font-bold]="!node.data.isMenuItem">{{ node.label }}</span>
+        @if (node.data.isMenuItem) {
+          <span class="text-color-secondary text-sm ml-2">({{ node.data.path }})</span>
+        }
+      </span>
+      <span>
+        <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(node)"></p-button>
+        <p-button icon="pi pi-trash" [text]="true" severity="danger" size="small" (onClick)="confirmDelete(node)"></p-button>
+      </span>
+    </div>
+  </ng-template>
+</p-tree>
+
+<!-- DIALOG CREAR/EDITAR -->
+<p-dialog header="{{ isEditMode ? 'Editar Menú' : 'Nuevo Menú' }}" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '550px'}" [breakpoints]="{'960px': '90vw'}">
+  <div class="flex flex-column gap-3">
+
+    <div class="field">
+      <label>ID (código único, ej. MEN003)</label>
+      <input pInputText [(ngModel)]="menuForm.mnwId" class="w-full" />
+    </div>
+
+    <div class="field">
+      <label>Nombre</label>
+      <input pInputText [(ngModel)]="menuForm.nombre" class="w-full" />
+    </div>
+
+    <div class="field">
+      <label>Ícono (clase PrimeIcons, ej. pi pi-cog)</label>
+      <input pInputText [(ngModel)]="menuForm.icono" class="w-full" />
+    </div>
+
+    <div class="field">
+      <label>Reporta a (menú padre)</label>
+      <p-dropdown
+        [options]="opcionesPadre"
+        [(ngModel)]="menuForm.reporta"
+        optionLabel="nombre"
+        optionValue="id"
+        [showClear]="true"
+        [filter]="true"
+        filterBy="nombre"
+        placeholder="-- Nodo raíz (sin padre) --"
+        appendTo="body"
+        class="w-full">
+      </p-dropdown>
+    </div>
+
+    <div class="field">
+      <label>Orden</label>
+      <p-inputNumber [(ngModel)]="menuForm.orden" class="w-full"></p-inputNumber>
+    </div>
+
+    <div class="field flex align-items-center gap-2">
+      <p-toggleButton
+        [(ngModel)]="esMenuItem"
+        onLabel="Es Menú Item (navega)"
+        offLabel="Es Cabecera (solo agrupa)">
+      </p-toggleButton>
+    </div>
+
+    @if (esMenuItem) {
+      <div class="field">
+        <label>Programa (UI Route)</label>
+        <p-dropdown
+          [options]="programas"
+          [(ngModel)]="menuForm.programa"
+          optionLabel="nombre"
+          [filter]="true"
+          filterBy="nombre"
+          placeholder="Selecciona el programa"
+          appendTo="body"
+          class="w-full">
+          <ng-template let-prog pTemplate="item">
+            {{ prog.nombre }} — {{ prog.path }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+    }
+
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" [text]="true" (onClick)="dialogVisible = false"></p-button>
+    <p-button label="Guardar" (onClick)="save()"></p-button>
+  </ng-template>
+</p-dialog>
