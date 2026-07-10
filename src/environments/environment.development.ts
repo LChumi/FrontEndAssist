@@ -1,6 +1,6 @@
 export const environment = {
   apiUrlBase: `http://localhost:8081`,
-  domain: `http://localhost`,
+  domain: `https://localhost`,
   production: false,
-  clarityId: 'syvhzq4i3r'
+  clarityId: ''
 };
