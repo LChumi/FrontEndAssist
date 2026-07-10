@@ -9,6 +9,7 @@ import {contabilidadRoutes} from "@features/contabilidad/contabilidad.routes";
 import {sessionGuard} from "@guards/session.guard";
 import {JepFasterComponent} from "@features/payments/jep-faster/jep-faster.component";
 import {inventariosRoutes} from "@features/inventarios/inventarios.routes";
+import {systemAdministratorRoutes} from "@features/system-administrator/system-administrator.routes";
 
 export const routes: Routes = [
   {
@@ -24,6 +25,11 @@ export const routes: Routes = [
         path: 'dashboard',
         data: {breadcrumb: 'Inicio Dashboard'},
         loadComponent: () => import('@features/dashboards/dashboard/dashboard.component')
+      },
+      {
+        path: 'system-administrator',
+        data: {breadcrumb: 'Administracion Sistema'},
+        children: systemAdministratorRoutes
       },
       {
         path: 'importaciones',

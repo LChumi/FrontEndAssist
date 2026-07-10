@@ -13,19 +13,19 @@ export class RolWService {
   private http = inject(HttpClient)
 
   getAll():Observable<RolW[]>{
-    return this.http.get<RolW[]>(`${this.baseUrl}/menuw/all`)
+    return this.http.get<RolW[]>(`${this.baseUrl}/rolw/all`)
   }
 
   getById(id: number):Observable<RolW>{
-    return this.http.get<RolW>(`${this.baseUrl}/menuw/${id}`)
+    return this.http.get<RolW>(`${this.baseUrl}/rolw/${id}`)
   }
 
   create(menu:RolW): Observable<RolW>{
-    return this.http.post<RolW>(`${this.baseUrl}/menuw`,menu)
+    return this.http.post<RolW>(`${this.baseUrl}/rolw`,menu)
   }
 
   update(menu:RolW): Observable<RolW>{
-    return this.http.put<RolW>(`${this.baseUrl}/menuw`,menu)
+    return this.http.put<RolW>(`${this.baseUrl}/rolw`,menu)
   }
 
 }
