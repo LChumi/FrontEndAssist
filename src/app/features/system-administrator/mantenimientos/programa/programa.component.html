@@ -1,1 +1,49 @@
-<p>programa works!</p>
+<!-- programa.component.html -->
+<div class="flex justify-content-between align-items-center mb-3">
+  <h3 class="m-0">Programas (UI Routes)</h3>
+  <p-button label="Nuevo Programa" icon="pi pi-plus" (onClick)="openNew()"></p-button>
+</div>
+
+<p-table [value]="programas" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th><th>Nombre</th><th>Path</th><th>Estado</th><th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-prog>
+    <tr>
+      <td>{{ prog.prwId }}</td>
+      <td>{{ prog.nombre }}</td>
+      <td>{{ prog.path }}</td>
+      <td>
+        <p-tag [severity]="prog.inactivo ? 'danger' : 'success'"
+               [value]="prog.inactivo ? 'Inactivo' : 'Activo'"></p-tag>
+      </td>
+      <td>
+        <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(prog)"></p-button>
+        <p-button [icon]="prog.inactivo ? 'pi pi-check' : 'pi pi-ban'" [text]="true" size="small" (onClick)="toggleInactivo(prog)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="{{ isEditMode ? 'Editar' : 'Nuevo' }} Programa" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="flex flex-column gap-3">
+    <div class="field">
+      <label>ID</label>
+      <input pInputText [(ngModel)]="form.prwId" class="w-full" />
+    </div>
+    <div class="field">
+      <label>Nombre</label>
+      <input pInputText [(ngModel)]="form.nombre" class="w-full" />
+    </div>
+    <div class="field">
+      <label>Path (ruta Angular)</label>
+      <input pInputText [(ngModel)]="form.path" class="w-full" placeholder="/inicio/modulo/vista" />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" [text]="true" (onClick)="dialogVisible = false"></p-button>
+    <p-button label="Guardar" (onClick)="save()"></p-button>
+  </ng-template>
+</p-dialog>

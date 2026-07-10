@@ -1,1 +1,40 @@
-<p>rol works!</p>
+<!-- rol.component.html -->
+<div class="flex justify-content-between align-items-center mb-3">
+  <h3 class="m-0">Roles</h3>
+  <p-button label="Nuevo Rol" icon="pi pi-plus" (onClick)="openNew()"></p-button>
+</div>
+
+<p-table [value]="roles" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th><th>Nombre</th><th>Seguridad</th><th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rol>
+    <tr>
+      <td>{{ rol.rlwId }}</td>
+      <td>{{ rol.nombre }}</td>
+      <td>{{ rol.seguridad.segNombre }}</td>
+      <td>
+        <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(rol)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="{{ isEditMode ? 'Editar' : 'Nuevo' }} Rol" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="flex flex-column gap-3">
+    <div class="field">
+      <label>ID</label>
+      <input pInputText [(ngModel)]="form.rlwId" class="w-full" />
+    </div>
+    <div class="field">
+      <label>Nombre</label>
+      <input pInputText [(ngModel)]="form.nombre" class="w-full" />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" [text]="true" (onClick)="dialogVisible = false"></p-button>
+    <p-button label="Guardar" (onClick)="save()"></p-button>
+  </ng-template>
+</p-dialog>
