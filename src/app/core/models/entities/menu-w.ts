@@ -11,5 +11,4 @@ export interface MenuW {
   orden:     number;
   programa:  ProgramaW | null;
   seguridad: Seguridad;
-  menuW:     MenuW | null;
 }

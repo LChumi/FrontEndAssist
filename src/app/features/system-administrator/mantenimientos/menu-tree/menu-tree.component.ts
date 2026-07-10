@@ -158,7 +158,7 @@ export class MenuTreeComponent implements OnInit{
     if (!this.esMenuItem) {
       this.menuForm.programa = null;
     }
-
+    
     const payload = this.menuForm as MenuW;
     const request$ = this.isEditMode
       ? this.menuService.update(payload)
