@@ -12,20 +12,20 @@ export class RolMenuService {
   private baseUrl = `${environment.apiUrlBase}/assist`
   private http = inject(HttpClient)
 
-  getAll():Observable<RolMenu[]>{
+  getAll(): Observable<RolMenu[]> {
     return this.http.get<RolMenu[]>(`${this.baseUrl}/rol-menu/all`)
   }
 
-  getById(id: number):Observable<RolMenu>{
+  getById(id: number): Observable<RolMenu> {
     return this.http.get<RolMenu>(`${this.baseUrl}/rol-menu/${id}`)
   }
 
-  create(menu:RolMenu): Observable<RolMenu>{
-    return this.http.post<RolMenu>(`${this.baseUrl}/rol-menu`,menu)
+  create(menu: RolMenu): Observable<RolMenu> {
+    return this.http.post<RolMenu>(`${this.baseUrl}/rol-menu`, menu)
   }
 
-  update(menu:RolMenu): Observable<RolMenu>{
-    return this.http.put<RolMenu>(`${this.baseUrl}/rol-menu`,menu)
+  update(menu: RolMenu): Observable<RolMenu> {
+    return this.http.put<RolMenu>(`${this.baseUrl}/rol-menu`, menu)
   }
 
 }

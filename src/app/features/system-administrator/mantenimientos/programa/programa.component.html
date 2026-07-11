@@ -7,7 +7,11 @@
 <p-table [value]="programas" [paginator]="true" [rows]="10">
   <ng-template pTemplate="header">
     <tr>
-      <th>ID</th><th>Nombre</th><th>Path</th><th>Estado</th><th></th>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Path</th>
+      <th>Estado</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-prog>
@@ -21,25 +25,27 @@
       </td>
       <td>
         <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(prog)"></p-button>
-        <p-button [icon]="prog.inactivo ? 'pi pi-check' : 'pi pi-ban'" [text]="true" size="small" (onClick)="toggleInactivo(prog)"></p-button>
+        <p-button [icon]="prog.inactivo ? 'pi pi-check' : 'pi pi-ban'" [text]="true" size="small"
+                  (onClick)="toggleInactivo(prog)"></p-button>
       </td>
     </tr>
   </ng-template>
 </p-table>
 
-<p-dialog header="{{ isEditMode ? 'Editar' : 'Nuevo' }} Programa" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+<p-dialog header="{{ isEditMode ? 'Editar' : 'Nuevo' }} Programa" [(visible)]="dialogVisible" [modal]="true"
+          [style]="{width: '450px'}">
   <div class="flex flex-column gap-3">
     <div class="field">
       <label>ID</label>
-      <input pInputText [(ngModel)]="form.prwId" class="w-full" />
+      <input pInputText [(ngModel)]="form.prwId" class="w-full"/>
     </div>
     <div class="field">
       <label>Nombre</label>
-      <input pInputText [(ngModel)]="form.nombre" class="w-full" />
+      <input pInputText [(ngModel)]="form.nombre" class="w-full"/>
     </div>
     <div class="field">
       <label>Path (ruta Angular)</label>
-      <input pInputText [(ngModel)]="form.path" class="w-full" placeholder="/inicio/modulo/vista" />
+      <input pInputText [(ngModel)]="form.path" class="w-full" placeholder="/inicio/modulo/vista"/>
     </div>
   </div>
   <ng-template pTemplate="footer">

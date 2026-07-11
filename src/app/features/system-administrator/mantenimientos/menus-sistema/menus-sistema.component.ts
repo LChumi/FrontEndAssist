@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TabViewModule} from "primeng/tabview";
 import {MenuTreeComponent} from "@features/system-administrator/mantenimientos/menu-tree/menu-tree.component";
 import {ProgramaComponent} from "@features/system-administrator/mantenimientos/programa/programa.component";

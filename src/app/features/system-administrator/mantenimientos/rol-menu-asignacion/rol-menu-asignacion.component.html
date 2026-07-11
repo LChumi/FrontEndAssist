@@ -5,7 +5,11 @@
 
 <p-table [value]="relaciones" [paginator]="true" [rows]="10">
   <ng-template pTemplate="header">
-    <tr><th>Rol</th><th>Menú</th><th></th></tr>
+    <tr>
+      <th>Rol</th>
+      <th>Menú</th>
+      <th></th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rel>
     <tr>
@@ -18,7 +22,8 @@
   </ng-template>
 </p-table>
 
-<p-dialog header="{{ isEditMode ? 'Editar' : 'Nueva' }} Asignación" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+<p-dialog header="{{ isEditMode ? 'Editar' : 'Nueva' }} Asignación" [(visible)]="dialogVisible" [modal]="true"
+          [style]="{width: '450px'}">
   <div class="flex flex-column gap-3">
     <div class="field">
       <label>Rol</label>

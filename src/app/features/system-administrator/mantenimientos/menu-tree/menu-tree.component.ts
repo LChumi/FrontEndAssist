@@ -31,7 +31,7 @@ import {InputTextModule} from "primeng/inputtext";
   templateUrl: './menu-tree.component.html',
   styles: ``
 })
-export class MenuTreeComponent implements OnInit{
+export class MenuTreeComponent implements OnInit {
 
   private menuService = inject(MenuWService);
   private programaService = inject(ProgramaWService);
@@ -58,7 +58,7 @@ export class MenuTreeComponent implements OnInit{
     return this.flatMenus.filter(m => m.id !== this.menuForm.id);
   }
 
-  getMenus(){
+  getMenus() {
     this.menuService.getAll().subscribe({
       next: data => {
         this.flatMenus = data;
@@ -87,7 +87,7 @@ export class MenuTreeComponent implements OnInit{
     const menu: MenuW = node.data.raw;
     this.isEditMode = true;
     this.esMenuItem = !!menu.programa;
-    this.menuForm = { ...menu, reporta: menu.reporta };
+    this.menuForm = {...menu, reporta: menu.reporta};
     console.log('menuForm.reporta:', this.menuForm.reporta, typeof this.menuForm.reporta);
     console.log('flatMenus ids:', this.flatMenus.map(m => m.id));
     this.dialogVisible = true;
@@ -158,7 +158,7 @@ export class MenuTreeComponent implements OnInit{
     if (!this.esMenuItem) {
       this.menuForm.programa = null;
     }
-    
+
     const payload = this.menuForm as MenuW;
     const request$ = this.isEditMode
       ? this.menuService.update(payload)
@@ -166,12 +166,20 @@ export class MenuTreeComponent implements OnInit{
 
     request$.subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: this.isEditMode ? 'Menú actualizado' : 'Menú creado' });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: this.isEditMode ? 'Menú actualizado' : 'Menú creado'
+        });
         this.dialogVisible = false;
         this.getMenus();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error?.message ?? 'No se pudo guardar' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error?.message ?? 'No se pudo guardar'
+        });
       }
     });
   }
@@ -179,7 +187,11 @@ export class MenuTreeComponent implements OnInit{
   confirmDelete(node: TreeNode) {
     const menu: MenuW = node.data.raw;
     if (node.children && node.children.length > 0) {
-      this.messageService.add({ severity: 'warn', summary: 'No permitido', detail: 'Este menú tiene submenús. Elimínalos primero.' });
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'No permitido',
+        detail: 'Este menú tiene submenús. Elimínalos primero.'
+      });
       return;
     }
     this.confirmationService.confirm({
@@ -187,9 +199,9 @@ export class MenuTreeComponent implements OnInit{
       key: 'menu',
       header: 'Confirmar',
       accept: () => {
-        this.menuService.update({ ...menu, inactivo: true }).subscribe({
+        this.menuService.update({...menu, inactivo: true}).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Menú inactivado' });
+            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Menú inactivado'});
             this.getMenus();
           }
         });
