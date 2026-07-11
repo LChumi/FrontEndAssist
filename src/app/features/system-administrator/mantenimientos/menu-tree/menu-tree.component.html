@@ -21,29 +21,31 @@
       </span>
       <span>
         <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(node)"></p-button>
-        <p-button icon="pi pi-trash" [text]="true" severity="danger" size="small" (onClick)="confirmDelete(node)"></p-button>
+        <p-button icon="pi pi-trash" [text]="true" severity="danger" size="small"
+                  (onClick)="confirmDelete(node)"></p-button>
       </span>
     </div>
   </ng-template>
 </p-tree>
 
 <!-- DIALOG CREAR/EDITAR -->
-<p-dialog header="{{ isEditMode ? 'Editar Menú' : 'Nuevo Menú' }}" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '550px'}" [breakpoints]="{'960px': '90vw'}">
+<p-dialog header="{{ isEditMode ? 'Editar Menú' : 'Nuevo Menú' }}" [(visible)]="dialogVisible" [modal]="true"
+          [style]="{width: '550px'}" [breakpoints]="{'960px': '90vw'}">
   <div class="flex flex-column gap-3">
 
     <div class="field">
       <label>ID (código único, ej. MEN003)</label>
-      <input pInputText [(ngModel)]="menuForm.mnwId" class="w-full" />
+      <input pInputText [(ngModel)]="menuForm.mnwId" class="w-full"/>
     </div>
 
     <div class="field">
       <label>Nombre</label>
-      <input pInputText [(ngModel)]="menuForm.nombre" class="w-full" />
+      <input pInputText [(ngModel)]="menuForm.nombre" class="w-full"/>
     </div>
 
     <div class="field">
       <label>Ícono (clase PrimeIcons, ej. pi pi-cog)</label>
-      <input pInputText [(ngModel)]="menuForm.icono" class="w-full" />
+      <input pInputText [(ngModel)]="menuForm.icono" class="w-full"/>
     </div>
 
     <div class="field">

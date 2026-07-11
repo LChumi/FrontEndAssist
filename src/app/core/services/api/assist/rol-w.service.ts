@@ -12,20 +12,20 @@ export class RolWService {
   private baseUrl = `${environment.apiUrlBase}/assist`
   private http = inject(HttpClient)
 
-  getAll():Observable<RolW[]>{
+  getAll(): Observable<RolW[]> {
     return this.http.get<RolW[]>(`${this.baseUrl}/rolw/all`)
   }
 
-  getById(id: number):Observable<RolW>{
+  getById(id: number): Observable<RolW> {
     return this.http.get<RolW>(`${this.baseUrl}/rolw/${id}`)
   }
 
-  create(menu:RolW): Observable<RolW>{
-    return this.http.post<RolW>(`${this.baseUrl}/rolw`,menu)
+  create(menu: RolW): Observable<RolW> {
+    return this.http.post<RolW>(`${this.baseUrl}/rolw`, menu)
   }
 
-  update(menu:RolW): Observable<RolW>{
-    return this.http.put<RolW>(`${this.baseUrl}/rolw`,menu)
+  update(menu: RolW): Observable<RolW> {
+    return this.http.put<RolW>(`${this.baseUrl}/rolw`, menu)
   }
 
 }

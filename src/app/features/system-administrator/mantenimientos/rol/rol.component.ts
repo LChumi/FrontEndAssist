@@ -34,10 +34,12 @@ export class RolComponent implements OnInit {
   isEditMode = false;
   form: Partial<RolW> = {};
 
-  ngOnInit() { this.getAll(); }
+  ngOnInit() {
+    this.getAll();
+  }
 
   getAll() {
-    this.service.getAll().subscribe({ next: data => this.roles = data });
+    this.service.getAll().subscribe({next: data => this.roles = data});
   }
 
   openNew() {
@@ -48,7 +50,7 @@ export class RolComponent implements OnInit {
 
   openEdit(rol: RolW) {
     this.isEditMode = true;
-    this.form = { ...rol };
+    this.form = {...rol};
     this.dialogVisible = true;
   }
 
@@ -57,12 +59,16 @@ export class RolComponent implements OnInit {
     const request$ = this.isEditMode ? this.service.update(payload) : this.service.create(payload);
     request$.subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Guardado correctamente' });
+        this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Guardado correctamente'});
         this.dialogVisible = false;
         this.getAll();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error?.message ?? 'No se pudo guardar' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error?.message ?? 'No se pudo guardar'
+        });
       }
     });
   }
