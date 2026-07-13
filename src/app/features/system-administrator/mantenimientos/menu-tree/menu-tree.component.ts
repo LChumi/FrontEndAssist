@@ -13,6 +13,7 @@ import {Button} from "primeng/button";
 import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {InputTextModule} from "primeng/inputtext";
+import {PRIME_ICONS, PrimeIcon} from "@shared/mocks/prime-icons.mock";
 
 @Component({
   selector: 'app-menu-tree',
@@ -38,6 +39,7 @@ export class MenuTreeComponent implements OnInit {
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
 
+  icons:PrimeIcon[] = PRIME_ICONS;
   treeData: TreeNode[] = [];
   flatMenus: MenuW[] = [];
   programas: ProgramaW[] = [];
@@ -159,7 +161,16 @@ export class MenuTreeComponent implements OnInit {
       this.menuForm.programa = null;
     }
 
-    const payload = this.menuForm as MenuW;
+    const payload: MenuW = {
+      inactivo: this.menuForm.inactivo ?? false,
+      reporta: this.menuForm.reporta ?? null,
+      orden: this.menuForm.orden ?? 0,
+      programa: this.menuForm.programa ?? null,
+      seguridad: this.menuForm.seguridad!, // usa ! si sabes que siempre estará
+      nombre: this.menuForm.nombre?.toUpperCase() ?? '',
+      mnwId: this.menuForm.mnwId?.toUpperCase() ?? '',
+      icono: this.menuForm.icono?.toUpperCase() ?? ''
+    };
     const request$ = this.isEditMode
       ? this.menuService.update(payload)
       : this.menuService.create(payload);
