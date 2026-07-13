@@ -2,7 +2,7 @@ import {ProgramaW} from "@models/entities/programa-w";
 import {Seguridad} from "@models/entities/seguridad";
 
 export interface MenuW {
-  id:        number;
+  id?:        any;
   mnwId:     string;
   inactivo:  boolean;
   nombre:    string;

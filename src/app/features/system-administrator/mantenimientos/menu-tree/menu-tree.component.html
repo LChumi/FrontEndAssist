@@ -35,17 +35,43 @@
 
     <div class="field">
       <label>ID (código único, ej. MEN003)</label>
-      <input pInputText [(ngModel)]="menuForm.mnwId" class="w-full"/>
+      <input pInputText [(ngModel)]="menuForm.mnwId" class="w-full uppercase" autocapitalize="characters"/>
     </div>
 
     <div class="field">
       <label>Nombre</label>
-      <input pInputText [(ngModel)]="menuForm.nombre" class="w-full"/>
+      <input pInputText [(ngModel)]="menuForm.nombre" class="w-full uppercase" autocapitalize="characters"/>
     </div>
 
     <div class="field">
-      <label>Ícono (clase PrimeIcons, ej. pi pi-cog)</label>
-      <input pInputText [(ngModel)]="menuForm.icono" class="w-full"/>
+      <label>Ícono</label>
+      <p-dropdown
+        [options]="icons"
+        [(ngModel)]="menuForm.icono"
+        optionLabel="name"
+        optionValue="label"
+        [filter]="true"
+        filterBy="name"
+        placeholder="Seleccione un ícono"
+        styleClass="w-full">
+
+        <ng-template let-icon pTemplate="item">
+          <div class="flex align-items-center gap-2">
+            <i [class]="icon.label"></i>
+            <span>{{ icon.label }}</span>
+          </div>
+        </ng-template>
+
+        <ng-template let-selected pTemplate="selectedItem">
+          @if (selected) {
+            <div class="flex align-items-center gap-2">
+              <i [class]="selected.label"></i>
+              <span>{{ selected.label }}</span>
+            </div>
+          }
+        </ng-template>
+
+      </p-dropdown>
     </div>
 
     <div class="field">
@@ -58,9 +84,10 @@
         [showClear]="true"
         [filter]="true"
         filterBy="nombre"
+        autocapitalize="characters"
         placeholder="-- Nodo raíz (sin padre) --"
         appendTo="body"
-        class="w-full">
+        class="w-full uppercase">
       </p-dropdown>
     </div>
 
@@ -88,7 +115,8 @@
           filterBy="nombre"
           placeholder="Selecciona el programa"
           appendTo="body"
-          class="w-full">
+          autocapitalize="characters"
+          class="w-full uppercase">
           <ng-template let-prog pTemplate="item">
             {{ prog.nombre }} — {{ prog.path }}
           </ng-template>
