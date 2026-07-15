@@ -15,6 +15,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {InputTextModule} from "primeng/inputtext";
 import {PRIME_ICONS, PrimeIcon} from "@shared/mocks/prime-icons.mock";
 import {TreeSelectModule} from "primeng/treeselect";
+import {TooltipModule} from "primeng/tooltip";
 
 @Component({
   selector: 'app-menu-tree',
@@ -29,7 +30,8 @@ import {TreeSelectModule} from "primeng/treeselect";
     DialogModule,
     ConfirmDialogModule,
     InputTextModule,
-    TreeSelectModule
+    TreeSelectModule,
+    TooltipModule
   ],
   templateUrl: './menu-tree.component.html',
   styles: ``
