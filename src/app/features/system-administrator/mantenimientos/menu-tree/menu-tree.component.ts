@@ -169,7 +169,7 @@ export class MenuTreeComponent implements OnInit {
       seguridad: this.menuForm.seguridad!, // usa ! si sabes que siempre estará
       nombre: this.menuForm.nombre?.toUpperCase() ?? '',
       mnwId: this.menuForm.mnwId?.toUpperCase() ?? '',
-      icono: this.menuForm.icono?.toUpperCase() ?? ''
+      icono: this.menuForm.icono?.toLowerCase() ?? ''
     };
     const request$ = this.isEditMode
       ? this.menuService.update(payload)
