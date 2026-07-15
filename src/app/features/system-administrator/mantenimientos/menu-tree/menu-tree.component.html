@@ -20,6 +20,7 @@
         }
       </span>
       <span>
+        <p-button icon="pi pi-plus" [text]="true" size="small" (onClick)="openNewChild(node)"></p-button>
         <p-button icon="pi pi-pencil" [text]="true" size="small" (onClick)="openEdit(node)"></p-button>
         <p-button icon="pi pi-trash" [text]="true" severity="danger" size="small"
                   (onClick)="confirmDelete(node)"></p-button>
@@ -76,19 +77,18 @@
 
     <div class="field">
       <label>Reporta a (menú padre)</label>
-      <p-dropdown
-        [options]="opcionesPadre"
-        [(ngModel)]="menuForm.reporta"
-        optionLabel="nombre"
-        optionValue="id"
-        [showClear]="true"
-        [filter]="true"
-        filterBy="nombre"
-        autocapitalize="characters"
-        placeholder="-- Nodo raíz (sin padre) --"
-        appendTo="body"
-        class="w-full uppercase">
-      </p-dropdown>
+      <div class="flex align-items-center gap-2">
+        <p-treeSelect
+          [options]="treeDataPadre"
+          [(ngModel)]="reportaNode"
+          selectionMode="single"
+          placeholder="-- Nodo raíz (sin padre) --"
+          appendTo="body"
+          class="w-full">
+        </p-treeSelect>
+        <p-button icon="pi pi-times" [text]="true" (onClick)="reportaNode = null"
+                  pTooltip="Quitar padre (nodo raíz)"></p-button>
+      </div>
     </div>
 
     <div class="field">

@@ -14,6 +14,7 @@ import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {InputTextModule} from "primeng/inputtext";
 import {PRIME_ICONS, PrimeIcon} from "@shared/mocks/prime-icons.mock";
+import {TreeSelectModule} from "primeng/treeselect";
 
 @Component({
   selector: 'app-menu-tree',
@@ -27,7 +28,8 @@ import {PRIME_ICONS, PrimeIcon} from "@shared/mocks/prime-icons.mock";
     Button,
     DialogModule,
     ConfirmDialogModule,
-    InputTextModule
+    InputTextModule,
+    TreeSelectModule
   ],
   templateUrl: './menu-tree.component.html',
   styles: ``
@@ -39,7 +41,7 @@ export class MenuTreeComponent implements OnInit {
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
 
-  icons:PrimeIcon[] = PRIME_ICONS;
+  icons: PrimeIcon[] = PRIME_ICONS;
   treeData: TreeNode[] = [];
   flatMenus: MenuW[] = [];
   programas: ProgramaW[] = [];
@@ -48,16 +50,22 @@ export class MenuTreeComponent implements OnInit {
   isEditMode = false;
   esMenuItem = false;
 
+  // Nodo seleccionado en el p-treeSelect (objeto TreeNode completo, no un id)
+  reportaNode: TreeNode | null = null;
+
   menuForm: Partial<MenuW> = {};
 
   ngOnInit() {
-    this.getMenus()
+    this.getMenus();
     this.getProgramas();
   }
 
-  get opcionesPadre(): MenuW[] {
-    if (!this.isEditMode) return this.flatMenus;
-    return this.flatMenus.filter(m => m.id !== this.menuForm.id);
+  // Árbol podado: si estás editando, quita el nodo actual y todos sus descendientes
+  // para que no puedas elegirte a ti mismo (o a un hijo tuyo) como padre.
+  get treeDataPadre(): TreeNode[] {
+    if (!this.isEditMode || this.menuForm.id == null) return this.treeData;
+    const excluidos = this.getDescendantIds(this.menuForm.id);
+    return this.pruneTree(this.treeData, excluidos);
   }
 
   getMenus() {
@@ -66,7 +74,7 @@ export class MenuTreeComponent implements OnInit {
         this.flatMenus = data;
         this.treeData = this.buildMenuTree(data);
       }
-    })
+    });
   }
 
   getProgramas() {
@@ -78,6 +86,18 @@ export class MenuTreeComponent implements OnInit {
   openNew() {
     this.isEditMode = false;
     this.esMenuItem = false;
+    this.reportaNode = null;
+    this.menuForm = {
+      inactivo: false,
+      orden: 0
+    };
+    this.dialogVisible = true;
+  }
+
+  openNewChild(node: TreeNode) {
+    this.isEditMode = false;
+    this.esMenuItem = false;
+    this.reportaNode = node; // ya es el TreeNode del padre, preseleccionado
     this.menuForm = {
       inactivo: false,
       orden: 0
@@ -89,9 +109,10 @@ export class MenuTreeComponent implements OnInit {
     const menu: MenuW = node.data.raw;
     this.isEditMode = true;
     this.esMenuItem = !!menu.programa;
-    this.menuForm = {...menu, reporta: menu.reporta};
-    console.log('menuForm.reporta:', this.menuForm.reporta, typeof this.menuForm.reporta);
-    console.log('flatMenus ids:', this.flatMenus.map(m => m.id));
+    this.menuForm = { ...menu };
+    this.reportaNode = menu.reporta != null
+      ? this.findNodeById(this.treeData, menu.reporta)
+      : null;
     this.dialogVisible = true;
   }
 
@@ -162,8 +183,9 @@ export class MenuTreeComponent implements OnInit {
     }
 
     const payload: MenuW = {
+      ...(this.isEditMode ? { id: this.menuForm.id } : {}),
       inactivo: this.menuForm.inactivo ?? false,
-      reporta: this.menuForm.reporta ?? null,
+      reporta: this.reportaNode ? this.reportaNode.data.raw.id : null,
       orden: this.menuForm.orden ?? 0,
       programa: this.menuForm.programa ?? null,
       seguridad: this.menuForm.seguridad!, // usa ! si sabes que siempre estará
@@ -171,6 +193,7 @@ export class MenuTreeComponent implements OnInit {
       mnwId: this.menuForm.mnwId?.toUpperCase() ?? '',
       icono: this.menuForm.icono?.toLowerCase() ?? ''
     };
+
     const request$ = this.isEditMode
       ? this.menuService.update(payload)
       : this.menuService.create(payload);
@@ -210,13 +233,53 @@ export class MenuTreeComponent implements OnInit {
       key: 'menu',
       header: 'Confirmar',
       accept: () => {
-        this.menuService.update({...menu, inactivo: true}).subscribe({
+        this.menuService.update({ ...menu, inactivo: true }).subscribe({
           next: () => {
-            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Menú inactivado'});
+            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Menú inactivado' });
             this.getMenus();
           }
         });
       }
     });
+  }
+
+  // ---------- Helpers para el árbol de padres ----------
+
+  // id del nodo en edición + todos sus hijos/nietos/etc, para excluirlos como padre válido
+  private getDescendantIds(rootId: any): Set<any> {
+    const ids = new Set<any>([rootId]);
+    let changed = true;
+    while (changed) {
+      changed = false;
+      this.flatMenus.forEach(m => {
+        if (m.reporta !== null && ids.has(m.reporta) && !ids.has(m.id)) {
+          ids.add(m.id);
+          changed = true;
+        }
+      });
+    }
+    return ids;
+  }
+
+  // Devuelve una copia podada del árbol sin los nodos cuyo id esté en "excluidos"
+  private pruneTree(nodes: TreeNode[], excluidos: Set<any>): TreeNode[] {
+    return nodes
+      .filter(n => !excluidos.has(n.data.raw.id))
+      .map(n => ({
+        ...n,
+        children: n.children ? this.pruneTree(n.children, excluidos) : []
+      }));
+  }
+
+  // Busca el TreeNode correspondiente a un id dentro del árbol (para preseleccionar en editar)
+  private findNodeById(nodes: TreeNode[], id: any): TreeNode | null {
+    for (const n of nodes) {
+      if (n.data.raw.id === id) return n;
+      if (n.children?.length) {
+        const found = this.findNodeById(n.children, id);
+        if (found) return found;
+      }
+    }
+    return null;
   }
 }
