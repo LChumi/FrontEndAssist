@@ -54,15 +54,26 @@ export class ProgramaComponent implements OnInit {
   }
 
   save() {
-    const payload = this.form as ProgramaW;
-    const request$ = this.isEditMode ? this.service.update(payload) : this.service.create(payload);
-    request$.subscribe({
-      next: () => {
-        this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Guardado correctamente'});
-        this.dialogVisible = false;
-        this.getAll();
+    if (this.form && this.form.nombre && this.form.prwId && this.form.path){
+      const payload  :ProgramaW ={
+        ... (this.isEditMode ? {id: this.form.id} : {}),
+        nombre: this.form.nombre.toUpperCase(),
+        prwId: this.form.prwId.toUpperCase(),
+        path: this.form.path.toLowerCase(),
+        inactivo: false,
       }
-    });
+      const request$ = this.isEditMode ? this.service.update(payload) : this.service.create(payload);
+      request$.subscribe({
+        next: () => {
+          this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Guardado correctamente'});
+          this.dialogVisible = false;
+          this.getAll();
+        }
+      });
+    } else {
+      this.messageService.add({severity: 'warn', summary: 'Formulario Incompleto', detail: 'Ingrese los datos'})
+      return
+    }
   }
 
   toggleInactivo(prog: ProgramaW) {
