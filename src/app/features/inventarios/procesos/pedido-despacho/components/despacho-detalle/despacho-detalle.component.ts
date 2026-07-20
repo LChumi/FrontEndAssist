@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output, signal} from '@angular/core';
-import {PedidoDespachoService} from "@services/api/models/pedido-despacho.service";
+import {GestionPedidosService} from "@services/api/models/gestion-pedidos.service";
 import {ServiceResponse} from "@models/record/service-response";
 import {FacDesprodWebV} from "@models/view/fac-desprod-web-v";
 import {FacDespedidowebV} from "@models/view/fac-despedidoweb-v";
@@ -39,7 +39,7 @@ import {PedidoHojaId} from "@models/dto/pedido-hoja-id";
 })
 export class DespachoDetalleComponent implements OnInit {
 
-  private despachoService = inject(PedidoDespachoService)
+  private gestionPedidoService = inject(GestionPedidosService)
   private pedidoHojaSerice = inject(PedidoHojaService)
   private confirmacionService = inject(ConfirmationService)
   private messageService = inject(MessageService)
@@ -58,7 +58,7 @@ export class DespachoDetalleComponent implements OnInit {
   getProductosDespacho() {
     this.loading = true
     if (this.pedido.hoja) {
-      this.despachoService.getProductos(
+      this.gestionPedidoService.getProductos(
         this.pedido.empresa,
         this.pedido.ccoCodigo,
         this.pedido.hoja
@@ -68,7 +68,7 @@ export class DespachoDetalleComponent implements OnInit {
         complete: () => this.loading = false
       });
     } else {
-      this.despachoService.getProductos(
+      this.gestionPedidoService.getProductos(
         this.pedido.empresa,
         this.pedido.ccoCodigo
       ).subscribe({
@@ -125,7 +125,7 @@ export class DespachoDetalleComponent implements OnInit {
     producto: FacDesprodWebV,
     mensaje: { summary: string; detail: string }
   ) {
-    this.despachoService.addCantidad(producto).subscribe({
+    this.gestionPedidoService.addCantidad(producto).subscribe({
       next: response => {
         if (response.success) {
           this.messageService.add({

@@ -9,7 +9,7 @@ import {ServiceResponse} from "@models/record/service-response";
 @Injectable({
   providedIn: 'root'
 })
-export class PedidoDespachoService {
+export class GestionPedidosService {
 
   private baseUrl = environment.apiUrlBase + '/assist';
   private http = inject(HttpClient);
@@ -17,11 +17,11 @@ export class PedidoDespachoService {
   constructor() { }
 
   getPendientes(usuario:string, estado:number):Observable<FacDespedidowebV[]> {
-    return this.http.get<FacDespedidowebV[]>(`${this.baseUrl}/despachos/pendientes/${usuario}/${estado}`)
+    return this.http.get<FacDespedidowebV[]>(`${this.baseUrl}/pedidos/pendientes/${usuario}/${estado}`)
   }
 
   getProductos(empresa: number, cco: any, hoja?: number): Observable<FacDesprodWebV[]> {
-    let url = `${this.baseUrl}/despachos/productos/${empresa}/${cco}`;
+    let url = `${this.baseUrl}/pedidos/despacho/productos/${empresa}/${cco}`;
     if (hoja) {
       url += `?hoja=${hoja}`;
     }
@@ -29,6 +29,6 @@ export class PedidoDespachoService {
   }
 
   addCantidad(producto:FacDesprodWebV):Observable<ServiceResponse>{
-    return this.http.post<ServiceResponse>(`${this.baseUrl}/despachos/add-cantidad`, producto)
+    return this.http.post<ServiceResponse>(`${this.baseUrl}/pedidos/despacho/add-cantidad`, producto)
   }
 }

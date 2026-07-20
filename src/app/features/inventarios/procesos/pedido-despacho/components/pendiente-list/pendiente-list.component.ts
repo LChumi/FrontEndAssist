@@ -1,5 +1,5 @@
 import {Component, inject, input, OnInit, signal} from '@angular/core';
-import {PedidoDespachoService} from "@services/api/models/pedido-despacho.service";
+import {GestionPedidosService} from "@services/api/models/gestion-pedidos.service";
 import {FacDespedidowebV} from "@models/view/fac-despedidoweb-v";
 import {TableModule} from "primeng/table";
 import {DatePipe} from "@angular/common";
@@ -30,7 +30,7 @@ import {ServiceResponse} from "@models/record/service-response";
 })
 export class PendienteListComponent implements OnInit {
 
-  private despachoService = inject(PedidoDespachoService)
+  private despachoService = inject(GestionPedidosService)
 
   pendientes = signal<FacDespedidowebV[]>([]);
 
