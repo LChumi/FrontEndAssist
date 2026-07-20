@@ -3,12 +3,14 @@ import {getSessionItem} from "@utils/storage-utils";
 import {
   PendienteListComponent
 } from "@features/inventarios/procesos/pedido-despacho/components/pendiente-list/pendiente-list.component";
+import {FavoriteComponent} from "@shared/component/favorite/favorite.component";
 
 @Component({
   selector: 'app-despacho',
   standalone: true,
   imports: [
-    PendienteListComponent
+    PendienteListComponent,
+    FavoriteComponent
   ],
   templateUrl: './despacho.component.html',
   styles: ``
