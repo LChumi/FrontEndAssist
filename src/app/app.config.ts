@@ -7,6 +7,7 @@ import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/ht
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {errorHandlerInterceptor} from "@interceptors/error-handler.interceptor";
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     importProvidersFrom(ToastModule),
     provideHttpClient(withFetch(), withInterceptors([errorHandlerInterceptor])),
-    ConfirmationService
+    ConfirmationService, provideClientHydration()
   ]
 };
