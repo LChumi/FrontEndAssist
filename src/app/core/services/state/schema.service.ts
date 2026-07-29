@@ -22,15 +22,27 @@ export class SchemaService {
    * Inyecta el schema en el <head> del documento
    */
   injectSchema(schema: object, type: string): void {
-    // Elimina cualquier script previo con el mismo tipo
-    this.document.head.querySelectorAll(`script[data-schema-type="${type}"]`)
-      .forEach(script => this.renderer.removeChild(this.document.head, script));
+    // En SSR, buscamos el placeholder y lo reemplazamos
+    const placeholder = this.document.querySelector('#schema-placeholder');
 
-    const script = this.renderer.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(schema, null, 2);
-    script.setAttribute('data-schema-type', type);
-    this.renderer.appendChild(this.document.head, script);
+    if (placeholder) {
+      // Reemplazar placeholder (funciona en SSR y browser)
+      this.renderer.setProperty(placeholder, 'textContent', JSON.stringify(schema, null, 2));
+      this.renderer.removeAttribute(placeholder, 'id');
+      // Agregar data-schema-type para identificarlo
+      this.renderer.setAttribute(placeholder, 'data-schema-type', type);
+    } else {
+      // Si no hay placeholder (navegacion cliente), crear nuevo script
+      // Primero eliminar el anterior del mismo tipo
+      this.document.head.querySelectorAll(`script[data-schema-type="${type}"]`)
+        .forEach(script => this.renderer.removeChild(this.document.head, script));
+
+      const script = this.renderer.createElement('script');
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify(schema, null, 2);
+      script.setAttribute('data-schema-type', type);
+      this.renderer.appendChild(this.document.head, script);
+    }
   }
 
   /**

@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Meta, Title} from "@angular/platform-browser";
 import {DOCUMENT} from "@angular/common";
 
@@ -7,11 +7,9 @@ import {DOCUMENT} from "@angular/common";
 })
 export class SeoService {
 
-  constructor(
-    private title: Title,
-    private meta: Meta,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  private title = inject(Title);
+  private meta = inject(Meta);
+  private document = inject(DOCUMENT);
 
   updateMetaTags(config: {
     title: string;
@@ -19,38 +17,24 @@ export class SeoService {
     canonicalUrl: string;
     og?: { title: string; description: string; url: string; image: string };
   }): void {
+    // Título - funciona en SSR
     this.title.setTitle(config.title);
 
-    this.updateOrAddTag('name', 'description', config.description);
-    this.updateOrAddTag('name', 'robots', 'index, follow');
-    this.updateCanonical(config.canonicalUrl);
+    // Meta tags - updateTag reemplaza los existentes del index.html
+    this.meta.updateTag({name: 'description', content: config.description});
 
+    // Open Graph - reemplazar placeholders
     if (config.og) {
-      this.updateOrAddTag('property', 'og:title', config.og.title);
-      this.updateOrAddTag('property', 'og:description', config.og.description);
-      this.updateOrAddTag('property', 'og:url', config.og.url);
-      this.updateOrAddTag('property', 'og:image', config.og.image);
+      this.meta.updateTag({property: 'og:title', content: config.og.title});
+      this.meta.updateTag({property: 'og:description', content: config.og.description});
+      this.meta.updateTag({property: 'og:url', content: config.og.url});
+      this.meta.updateTag({property: 'og:image', content: config.og.image});
     }
-  }
 
-  private updateOrAddTag(attr: 'name' | 'property', key: string, value: string): void {
-    const tag = this.meta.getTag(`${attr}="${key}"`);
-    if (tag) {
-      this.meta.updateTag({ [attr]: key, content: value });
-    } else {
-      this.meta.addTag({ [attr]: key, content: value });
-    }
-  }
-
-  private updateCanonical(url: string): void {
-    let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
-    if (link) {
-      link.setAttribute('href', url);
-    } else {
-      link = this.document.createElement('link');
-      link.setAttribute('rel', 'canonical');
-      link.setAttribute('href', url);
-      this.document.head.appendChild(link);
+    // Canonical - solo actualizar en browser (en SSR queda el del index.html) actualizado
+    const canonical = this.document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute('href', config.canonicalUrl);
     }
   }
 }

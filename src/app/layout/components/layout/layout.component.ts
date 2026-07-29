@@ -1,7 +1,7 @@
-import {Component, OnDestroy, Renderer2, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, PLATFORM_ID, Renderer2, ViewChild} from '@angular/core';
 import {filter, Subscription} from "rxjs";
 import {NavigationEnd, Router, RouterOutlet} from "@angular/router";
-import {NgClass} from "@angular/common";
+import {isPlatformBrowser, NgClass} from "@angular/common";
 import {SidebarComponent} from "@layout/components/sidebar/sidebar.component";
 import {TopbarComponent} from "@layout/components/topbar/topbar.component";
 import {BreadcrumbComponent} from "@layout/components/breadcrumb/breadcrumb.component";
@@ -39,7 +39,8 @@ export class LayoutComponent implements OnDestroy {
     private menuService: MenuService,
     public layoutService: LayoutService,
     public renderer: Renderer2,
-    public router: Router
+    public router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.overlayMenuOpenSubscription =
       this.layoutService.overlayOpen$.subscribe(() => {
@@ -78,7 +79,7 @@ export class LayoutComponent implements OnDestroy {
           this.menuScrollListener = this.renderer.listen(
             this.appSidebar.menuContainer.nativeElement,
             'scroll',
-            (event) => {
+            () => {
               if (this.layoutService.isDesktop()) {
                 this.hideMenu();
               }
@@ -99,26 +100,14 @@ export class LayoutComponent implements OnDestroy {
   }
 
   blockBodyScroll(): void {
-    if (document.body.classList) {
-      document.body.classList.add('blocked-scroll');
-    } else {
-      document.body.className += ' blocked-scroll';
+    if (isPlatformBrowser(this.platformId)) {
+      this.renderer.addClass(document.body, 'blocked-scroll');
     }
   }
 
   unblockBodyScroll(): void {
-    if (document.body.classList) {
-      document.body.classList.remove('blocked-scroll');
-    } else {
-      document.body.className = document.body.className.replace(
-        new RegExp(
-          '(^|\\b)' +
-          'blocked-scroll'.split(' ').join('|') +
-          '(\\b|$)',
-          'gi'
-        ),
-        ' '
-      );
+    if (isPlatformBrowser(this.platformId)) {
+      this.renderer.removeClass(document.body, 'blocked-scroll');
     }
   }
 

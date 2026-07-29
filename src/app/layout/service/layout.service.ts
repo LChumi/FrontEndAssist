@@ -1,7 +1,8 @@
-import {effect, Injectable, signal} from '@angular/core';
+import {effect, inject, Injectable, PLATFORM_ID, signal} from '@angular/core';
 import {Subject} from "rxjs";
 import {AppConfig} from "@layout/service/interfaces/app-config";
 import {LayoutState} from "@layout/service/interfaces/layout-state";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,8 @@ export class LayoutService {
   configUpdate$ = this.configUpdate.asObservable();
 
   overlayOpen$ = this.overlayOpen.asObservable();
+
+  private platformId = inject(PLATFORM_ID);
 
   constructor() {
     effect(() => {
@@ -96,7 +99,7 @@ export class LayoutService {
   }
 
   isDesktop() {
-    return window.innerWidth > 991;
+    return isPlatformBrowser(this.platformId) && window.innerWidth > 991;
   }
 
   isSlim() {
@@ -121,26 +124,31 @@ export class LayoutService {
   }
 
   changeTheme() {
-    const config = this.config();
-    const themeLink = <HTMLLinkElement>(
-      document.getElementById('theme-link')
-    );
-    const themeLinkHref = themeLink.getAttribute('href')!;
-    const newHref = themeLinkHref
-      .split('/')
-      .map((el) =>
-        el == this._config.theme
-          ? (el = config.theme)
-          : el == `theme-${this._config.colorScheme}`
-            ? (el = `theme-${config.colorScheme}`)
-            : el
-      )
-      .join('/');
+    if (isPlatformBrowser(this.platformId)) {
+      const config = this.config();
+      const themeLink = document.getElementById('theme-link') as HTMLLinkElement;
+      if (!themeLink) return;
 
-    this.replaceThemeLink(newHref);
+      const themeLinkHref = themeLink.getAttribute('href')!;
+      const newHref = themeLinkHref
+        .split('/')
+        .map((el) =>
+          el == this._config.theme
+            ? config.theme
+            : el == `theme-${this._config.colorScheme}`
+              ? `theme-${config.colorScheme}`
+              : el
+        )
+        .join('/');
+
+      this.replaceThemeLink(newHref);
+    }
   }
 
   replaceThemeLink(href: string) {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     const id = 'theme-link';
     let themeLink = <HTMLLinkElement>document.getElementById(id);
     const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
@@ -159,6 +167,10 @@ export class LayoutService {
   }
 
   changeScale(value: number) {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     document.documentElement.style.fontSize = `${value}px`;
   }
 }
