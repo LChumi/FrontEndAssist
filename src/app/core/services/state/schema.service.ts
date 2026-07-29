@@ -72,8 +72,8 @@ export class SchemaService {
           "name": "",
           "description": "Assist web Gestion de procesos Importadora Cumpleaños",
           "inLanguage": "es-EC",
-          "isPartOf": { "@id": `${this.domain}/#website` },
-          "breadcrumb": { "@id": `${this.domain}/#breadcrumblist` },
+          "isPartOf": {"@id": `${this.domain}/#website`},
+          "breadcrumb": {"@id": `${this.domain}/#breadcrumblist`},
           "datePublished": "2021-08-26T12:13:00-05:00",
           "dateModified": new Date().toISOString()
         },
@@ -117,8 +117,8 @@ export class SchemaService {
           "name": `${pageName} | Assist web Cumpleanos`,
           "description": description,
           "inLanguage": "es-EC",
-          "isPartOf": { "@id": `${this.domain}/#website` },
-          "breadcrumb": { "@id": `${currentUrl}#breadcrumblist` },
+          "isPartOf": {"@id": `${this.domain}/#website`},
+          "breadcrumb": {"@id": `${currentUrl}#breadcrumblist`},
           "datePublished": new Date().toISOString(),
           "dateModified": new Date().toISOString()
         },
@@ -143,7 +143,7 @@ export class SchemaService {
         "width": 1200,
         "height": 900
       },
-      "image": { "@id": `${this.domain}/#organizationLogo` },
+      "image": {"@id": `${this.domain}/#organizationLogo`},
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Panamericana Sur km 3 1/2",
@@ -188,7 +188,7 @@ export class SchemaService {
       "alternateName": "Assist web Cumpleanos",
       "description": "Assist web Gestion de procesos Importadora Cumpleaños",
       "inLanguage": "es-EC",
-      "publisher": { "@id": `${this.domain}/#organization` },
+      "publisher": {"@id": `${this.domain}/#organization`},
       "potentialAction": {
         "@type": "SearchAction",
         "target": `${this.domain}/products?q={search_term_string}`,

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "@environments/environment";
 import {SeoService} from "@services/state/seo.service";
 import {SchemaService} from "@services/state/schema.service";
@@ -10,13 +10,11 @@ import {Router} from "@angular/router";
 export class SeoHelperService {
 
   private domain = environment.domain;
+  private seoService= inject(SeoService);
+  private schemaService= inject (SchemaService);
+  private router= inject(Router);
 
-  constructor(
-    private seoService: SeoService,
-    private schemaService: SchemaService,
-    private router: Router
-  ) {
-  }
+  constructor() {}
 
   setupPageSeo(options: {
     title: string;
