@@ -22,7 +22,6 @@ import {Tipodoc} from "@models/entities/tipodoc";
 import {ListCcomprobaV} from "@models/view/list-ccomproba-v";
 import {getSessionItem} from "@utils/storage-utils";
 import {getCurrentDate, getMonthFormattedDate, getYearFormattedDate} from "@utils/date-utils";
-import {Router} from "@angular/router";
 import {SeoHelperService} from "@services/state/seo-helper.service";
 
 @Component({
@@ -51,7 +50,6 @@ export default class MonitoreoComponent implements OnInit {
   private almacenService = inject(AlmacenService);
   private tipodocService = inject(TipodocService);
   private listCcomprobaService = inject(ListCcomprobaVService)
-  private router = inject(Router)
   private seoHelper = inject(SeoHelperService);
 
   private empresa: any;
@@ -182,7 +180,7 @@ export default class MonitoreoComponent implements OnInit {
       next: (result) => {
         this.listaComprobantes = result;
         this.loading = false;
-      }, error: err => {
+      }, error: () => {
         this.loading = false;
         this.listaComprobantes = []
       }

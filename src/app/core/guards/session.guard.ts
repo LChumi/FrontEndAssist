@@ -13,10 +13,12 @@ export const sessionGuard: CanActivateFn = (_route, _state) => {
   if (usrLogged && empresa && username && nombre) {
     return true;
   } else if (usrLogged && !empresa) {
-    router.navigate(['/auth', 'empresas']).then(() => {});
+    router.navigate(['/auth', 'empresas']).then(() => {
+    });
     return false;
   } else {
-    router.navigate(['/auth', 'login']).then(() => {});
+    router.navigate(['/auth', 'login']).then(() => {
+    });
     return false;
   }
 };
