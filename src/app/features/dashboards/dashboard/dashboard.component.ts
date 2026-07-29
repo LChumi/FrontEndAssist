@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FavoritesService} from "@services/state/favorites.service";
 import {UsuarioFavoritos} from "@models/entities/usuario-favoritos";
 import {DataViewModule} from "primeng/dataview";
-import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 import {getCurrentDateNow, getCurrentTime, getSessionItem, setSessionItem} from "@utils/index";
 import {AccesoService} from "@services/api/models/acceso.service";
 import {SeoHelperService} from "@services/state/seo-helper.service";
@@ -29,7 +29,9 @@ export default class DashboardComponent implements OnInit {
   private accesoService = inject(AccesoService)
   private seoHelper = inject(SeoHelperService);
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
     this.seoHelper.setupPageSeo({
       title: 'Dashboard | Assist Web',
       description: 'Dashboard principal del sistema Assist Web',
@@ -38,9 +40,6 @@ export default class DashboardComponent implements OnInit {
 
     this.getNameLastName()
     this.getDate()
-  }
-
-  ngOnInit(): void {
     const usrId = getSessionItem("usrId");
     const empresaId = getSessionItem("empresa");
     this.getFavoritos(usrId, empresaId)

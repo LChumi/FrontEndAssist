@@ -1,9 +1,6 @@
 /
-/auth
-/inicio/dashboard
-/inicio/system-administrator
-/inicio/importaciones
-/inicio/contabilidad
-/inicio/inventarios
+/auth/login
+/auth/forgotpassword
+/auth/empresas
 /notFound
 /cumpleanos/politica-privacidad
