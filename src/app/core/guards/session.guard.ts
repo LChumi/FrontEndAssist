@@ -1,24 +1,22 @@
 import {CanActivateFn, Router} from '@angular/router';
 import {getSessionItem} from "@utils/storage-utils";
 import {inject} from "@angular/core";
-import {ClarityService} from "@services/state/clarity.service";
 
-export const sessionGuard: CanActivateFn = (route, state) => {
+export const sessionGuard: CanActivateFn = (_route, _state) => {
 
   const usrLogged = getSessionItem("usrId");
   const empresa = getSessionItem("empresa");
   const nombre = getSessionItem("nombre");
   const username = getSessionItem("username");
   const router = inject(Router)
-  const clarity = inject(ClarityService);
 
   if (usrLogged && empresa && username && nombre) {
     return true;
   } else if (usrLogged && !empresa) {
-    router.navigate(['/auth', 'empresas']).then(r => {});
+    router.navigate(['/auth', 'empresas']).then(() => {});
     return false;
   } else {
-    router.navigate(['/auth', 'login']).then(r => {});
+    router.navigate(['/auth', 'login']).then(() => {});
     return false;
   }
 };
