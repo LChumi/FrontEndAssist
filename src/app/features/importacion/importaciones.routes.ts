@@ -9,6 +9,7 @@ export const importacionesRoutes: Routes = [
       {
         path: 'carga-solicitud',
         loadComponent: () => import('./procesos/carga-solicitud/carga-solicitud.component'),
+        title:'Solicitud Importacion | Assist Web',
         data: {breadcrumb: 'Carga solicitud '},
         canDeactivate: [returnGuard],
       },
@@ -16,11 +17,13 @@ export const importacionesRoutes: Routes = [
         path: 'carga-orden-compra',
         loadComponent: () => import('./procesos/carga-orden-compra/carga-orden-compra.component'),
         data: { breadcrumb: 'Carga Orden de compra'},
+        title: 'Orden de compra | Assist Web',
         canDeactivate: [returnGuard]
       },
       {
         path: 'carga-importacion',
         loadComponent: () => import('./procesos/carga-importacion/carga-importacion.component'),
+        title: 'Orden de Importacion | Assist Web',
         data: { breadcrumb: 'Carga Importacion'},
       }
     ]
@@ -32,6 +35,7 @@ export const importacionesRoutes: Routes = [
       {
         path: 'documentos',
         loadComponent: () => import('./consultas/consultas-importacion/consultas-importacion.component'),
+        title: 'Consultas Importacion | Assist Web',
         data: {breadcrumb: 'Documentos'},
       }
     ]

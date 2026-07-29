@@ -8,6 +8,7 @@ export const contabilidadRoutes: Routes = [
       {
         path: 'carga-documentos',
         loadComponent: () => import('@features/contabilidad/procesos/carga-documentos/carga-documentos.component'),
+        title: 'Carga de documentos Sri | Assist Web',
         data: {breadcrumb: 'Carga Documentos '},
       }
     ]
@@ -19,6 +20,7 @@ export const contabilidadRoutes: Routes = [
       {
         path: 'monitoreo',
         loadComponent: () => import('@features/contabilidad/consultas/monitoreo/monitoreo.component'),
+        title: 'Pagina de consultas monitoreo | Assist web',
         data: {breadcrumb: 'Monitoreo'}
       }
     ]

@@ -24,6 +24,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         data: {breadcrumb: 'Inicio Dashboard'},
+        title: 'Dashboard Inicio | Assist Web',
         loadComponent: () => import('@features/dashboards/dashboard/dashboard.component')
       },
       {
@@ -50,10 +51,10 @@ export const routes: Routes = [
       {path: '**', redirectTo: 'dashboard', pathMatch: "full"}
     ]
   },
-  {path: 'notFound', component: NotFoundComponent},
-  {path: 'deuna/:id/:empresa', component: DeunaComponent},
-  {path: 'jep-faster/:id/:empresa', component: JepFasterComponent},
-  {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent},
+  {path: 'notFound', component: NotFoundComponent, title: 'Pagina no Encontrada | Assist Web'},
+  {path: 'deuna/:id/:empresa', component: DeunaComponent, title: 'Pagos DeUna! | Assist Web' },
+  {path: 'jep-faster/:id/:empresa', component: JepFasterComponent, title: 'JEPFaster | Assist Web'},
+  {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent, title: 'Politica de privacidad | Assist Web'},
   {path: '', redirectTo: '/auth', pathMatch: "full"},
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];
