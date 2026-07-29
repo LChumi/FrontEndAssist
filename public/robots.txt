@@ -1,13 +1,9 @@
 User-agent: *
-Disallow: /notFound
 Disallow: /deuna/
 Disallow: /jep-faster/
 Allow: /auth/
-Allow: /inicio/
-Allow: /inicio/dashboard/
-Allow: /inicio/importaciones/
-Allow: /inicio/contabilidad/
 Allow: /cumpleanos/politica-privacidad
+Allow: /notFound
 
 Sitemap: https://assist.cumpleanos.com.ec/sitemap.xml
 

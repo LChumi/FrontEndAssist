@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://assist.cumpleanos.com.ec/inicio/</loc>
-    <priority>1.0</priority>
-    <changefreq>daily</changefreq>
-  </url>
-
-  <url>
-    <loc>https://assist.cumpleanos.com.ec/inicio/dashboard/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://assist.cumpleanos.com.ec/inicio/importaciones/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://assist.cumpleanos.com.ec/inicio/contabilidad/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <url>
     <loc>https://assist.cumpleanos.com.ec/cumpleanos/politica-privacidad</loc>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://assist.cumpleanos.com.ec/auth/</loc>
+    <loc>https://assist.cumpleanos.com.ec/auth/login</loc>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://assist.cumpleanos.com.ec/auth/empresas</loc>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://assist.cumpleanos.com.ec/auth/forgotpassword</loc>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://assist.cumpleanos.com.ec/notFound</loc>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
