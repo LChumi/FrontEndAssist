@@ -3,7 +3,6 @@ Disallow: /deuna/
 Disallow: /jep-faster/
 Allow: /auth/
 Allow: /cumpleanos/politica-privacidad
-Allow: /notFound
 
 Sitemap: https://assist.cumpleanos.com.ec/sitemap.xml
 
