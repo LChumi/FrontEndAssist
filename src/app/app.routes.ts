@@ -10,8 +10,13 @@ import {sessionGuard} from "@guards/session.guard";
 import {JepFasterComponent} from "@features/payments/jep-faster/jep-faster.component";
 import {inventariosRoutes} from "@features/inventarios/inventarios.routes";
 import {systemAdministratorRoutes} from "@features/system-administrator/system-administrator.routes";
+import {HomeComponent} from "@features/home/home.component";
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    title: 'Pagina Inicio | Assist Web'},
   {
     path: 'auth',
     children: authRoutes
@@ -52,9 +57,12 @@ export const routes: Routes = [
     ]
   },
   {path: 'notFound', component: NotFoundComponent, title: 'Pagina no Encontrada | Assist Web'},
-  {path: 'deuna/:id/:empresa', component: DeunaComponent, title: 'Pagos DeUna! | Assist Web' },
+  {path: 'deuna/:id/:empresa', component: DeunaComponent, title: 'Pagos DeUna! | Assist Web'},
   {path: 'jep-faster/:id/:empresa', component: JepFasterComponent, title: 'JEPFaster | Assist Web'},
-  {path: 'cumpleanos/politica-privacidad', component: PrivacyPolicyComponent, title: 'Politica de privacidad | Assist Web'},
-  {path: '', redirectTo: '/auth', pathMatch: "full"},
+  {
+    path: 'cumpleanos/politica-privacidad',
+    component: PrivacyPolicyComponent,
+    title: 'Politica de privacidad | Assist Web'
+  },
   {path: '**', redirectTo: 'notFound', pathMatch: 'full'}
 ];

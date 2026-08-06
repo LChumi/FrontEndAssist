@@ -1,0 +1,34 @@
+<section class="welcome">
+  <div class="welcome__blob welcome__blob--one" aria-hidden="true"></div>
+  <div class="welcome__blob welcome__blob--two" aria-hidden="true"></div>
+  <div class="welcome__blob welcome__blob--three" aria-hidden="true"></div>
+  <h1 class="sr-only">Pagina de Inicio | Assist Web</h1>
+  <div class="welcome__content">
+    <div class="welcome__tag">
+      <span class="welcome__tag-hole" aria-hidden="true"></span>
+      <img ngSrc="/images/logos/logo-cumple.webp" alt="Importadora Cumpleaños" class="welcome__logo" height="129"
+           width="130"/>
+    </div>
+
+    <p class="welcome__eyebrow">Importadora Cumpleaños</p>
+    <h1 class="welcome__title">Assist</h1>
+    <p class="welcome__subtitle">
+      Plataforma integral de gestión empresarial
+    </p>
+
+    <button
+      pButton
+      type="button"
+      label="Ingresar al sistema"
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      class="welcome__cta"
+      routerLink="/auth/login">
+    </button>
+  </div>
+  <small class="sr-only">
+    Página de inicio de Importadora Cumpleaños — Copyright © 2026
+    Diseñado por Luis Chumi, Desarrollador de Software —
+    Contacto: <a href="mailto:{{email}}">{{email}}</a>
+  </small>
+</section>

@@ -1,0 +1,9 @@
+/* TEAM */
+Desarrollador: Luis Chumi
+Contacto: luischumi.9@gmail.com
+Desde: 2026
+
+/* SITE */
+Última actualización: 2026/08/06
+Estándares: HTML5, CSS3, Angular, Tailwind, PrimenNg
+Componentes: Assist Web cumpleanos.com

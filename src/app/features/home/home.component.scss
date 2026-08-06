@@ -1,0 +1,166 @@
+// ---- tokens (colores de marca) ----
+$blue-deep: #00aced;   // logo 1 — acento principal
+$blue-sky: #3abde8;    // logo 2 — acento secundario
+$blue-pale: #c6e5fb;   // logo 1 — tinte suave
+$grey: #4d4c4f;        // logo 1 — base oscura
+$grey-soft: #b7bfc8;   // logo 2 — texto secundario
+$paper: #ffffff;
+
+// fondo: dos tonos derivados del gris de marca, no un navy inventado
+$ink: $grey;
+$ink-soft: mix($grey, $blue-deep, 85%); // un toque de azul metido en el gris
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+.welcome {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at top right, $ink-soft 0%, $ink 70%);
+  padding: 0 1.5rem;
+
+  &__blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.45;
+    animation: drift 12s ease-in-out infinite;
+
+    @include reduced-motion {
+      animation: none;
+    }
+
+    &--one {
+      width: 340px;
+      height: 340px;
+      background: $blue-deep;
+      top: -8%;
+      left: -6%;
+      animation-duration: 14s;
+    }
+
+    &--two {
+      width: 260px;
+      height: 260px;
+      background: $blue-sky;
+      bottom: -10%;
+      right: -4%;
+      animation-duration: 10s;
+      animation-delay: -3s;
+    }
+
+    &--three {
+      width: 180px;
+      height: 180px;
+      background: $blue-pale;
+      bottom: 15%;
+      left: 8%;
+      opacity: 0.3;
+      animation-duration: 16s;
+      animation-delay: -6s;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    text-align: center;
+    color: $paper;
+  }
+
+  // "etiqueta de importación" — el elemento firma
+  &__tag {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 1.75rem;
+    border: 1.5px dashed rgba($paper, 0.4);
+    border-radius: 16px;
+    background: rgba($paper, 0.06);
+  }
+
+  &__tag-hole {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $ink;
+    border: 1.5px dashed rgba($paper, 0.4);
+  }
+
+  &__logo {
+    max-width: 60%;
+    max-height: 60%;
+  }
+
+  &__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $grey-soft;
+  }
+
+  &__title {
+    margin: 0 0 0.75rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: $paper;
+  }
+
+  &__subtitle {
+    margin: 0 auto 2.25rem;
+    max-width: 34ch;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: $grey-soft;
+  }
+
+  &__cta {
+    &.p-button {
+      background: $blue-deep;
+      border-color: $blue-deep;
+      color: $paper;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+
+      &:hover {
+        background: darken($blue-deep, 8%);
+        border-color: darken($blue-deep, 8%);
+      }
+    }
+  }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(18px, -14px); }
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    padding: 0 1.25rem;
+
+    &__blob {
+      filter: blur(40px);
+    }
+  }
+}
